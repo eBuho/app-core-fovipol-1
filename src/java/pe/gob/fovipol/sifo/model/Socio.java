@@ -5,20 +5,36 @@
  */
 package pe.gob.fovipol.sifo.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author ebuho
  */
+@Entity
 public class Socio {
+    @Id
     private String cip;
     private String dni;
     private String nombres;
     private String apellidos;
     private String estado;
 
+    public Socio() {
+    }
+    
+    public Socio(String cip, String dni, String nombres, String apellidos, String estado) {
+        this.cip = cip;
+        this.dni = dni;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.estado = estado;
+    }
+    
     @Override
     public String toString() {
-        return "Socio{" + "cip=" + cip + ", dni=" + dni + ", nombres=" + nombres + ", apellidos=" + apellidos + '}';
+        return "Socio{" + "cip=" + getCip() + ", dni=" + getDni() + ", nombres=" + getNombres() + ", apellidos=" + getApellidos() + '}';
     }
     
     /**
