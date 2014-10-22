@@ -6,6 +6,7 @@ import pe.gob.fovipol.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.dao.MaeEntidaddetFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -58,6 +59,8 @@ public class MaeEntidaddetController implements Serializable {
     
     public MaeEntidaddet preparaCrear(MaeEntidaddet item) {
         item = new MaeEntidaddet();
+        BigDecimal id = new BigDecimal( ejbFacade.obtenerCorrelativo().intValue() );
+        item.setIdenEntiDet( id);
         initializeEmbeddableKey();
         return item;
     }
