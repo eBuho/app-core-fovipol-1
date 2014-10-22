@@ -6,11 +6,23 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <title><ui:insert name="title">Sistema Integrado de Fovipol</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
-
+    <style>
+        .ui-widget
+        {
+            font-size: 85% !important;
+        }
+        .panelGridCenter {
+            margin: 0 auto;    
+        }
+        .ui-panelgrid td
+        {
+            border-style: none;
+        }
+    </style>
     <h:body>
 
         <p:growl id="growl" life="3000" />
@@ -28,9 +40,6 @@
                 </h:form>
             </p:layoutUnit>
 
-            <p:layoutUnit position="south" size="60">
-                <ui:insert name="footer"/>
-            </p:layoutUnit>
 
             <p:layoutUnit position="center">
                 <ui:insert name="body"/>
