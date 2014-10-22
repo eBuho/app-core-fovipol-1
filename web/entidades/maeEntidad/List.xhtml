@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMaeEntidadTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="MaeEntidadListForm">
+                <p:panel header="#{bundle.ListMaeEntidadTitle}">
+                    <p:dataTable id="datalist" value="#{maeEntidadController.items}" var="item"
+                                 selectionMode="single" 
+                                 selection="#{maeEntidadController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.codiEntiEnt}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron registros"
+                                 >
+
+                        <p:ajax event="rowSelect"   
+                                listener="#{maeEntidadController.onRowSelect}"
+                                update="createButton viewButton editButton deleteButton :MaeEntidadListForm:dataDetalle"/>
+                        <p:ajax event="rowUnselect" 
+                                listener="#{maeEntidadController.onRowUnselect}"
+                                update="createButton viewButton editButton deleteButton :MaeEntidadListForm:dataDetalle"/>
+
+                        <p:column filterBy="#{item.codiEntiEnt}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{item.codiEntiEnt}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidadTitle_codiEntiEnt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codiEntiEnt}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.nombEntiEnt}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{item.nombEntiEnt}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidadTitle_nombEntiEnt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombEntiEnt}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidadTitle_descLargEnt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descLargEnt}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidadTitle_flagEstaEnt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flagEstaEnt}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maeEntidadController.prepareCreate}" update=":MaeEntidadCreateForm" oncomplete="PF('MaeEntidadCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaeEntidadViewForm" oncomplete="PF('MaeEntidadViewDialog').show()" disabled="#{empty maeEntidadController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaeEntidadEditForm" oncomplete="PF('MaeEntidadEditDialog').show()" disabled="#{empty maeEntidadController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maeEntidadController.destroy}" update=":growl,datalist" disabled="#{empty maeEntidadController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                    
+                    <p:dataTable id="dataDetalle" value="#{maeEntidadController.itemsDetalle}" var="itemDetalle"
+                                 selectionMode="single" 
+                                 selection="#{maeEntidadController.detalleSeleccionado}"
+                                 rowKey="#{itemDetalle.idenEntiDet}"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron registros"
+                                 >
+
+                        <p:ajax event="rowSelect"   
+                                update="createButtonDetalle viewButtonDetalle editButtonDetalle deleteButtonDetalle"/>
+                        <p:ajax event="rowUnselect" 
+                                update="createButtonDetalle viewButtonDetalle editButtonDetalle deleteButtonDetalle"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_secuEntiDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.secuEntiDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoNumuDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoNumuDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoNumdDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoNumdDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoNumtDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoNumtDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_usuaCreaDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.usuaCreaDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoDecuDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoDecuDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_fechCreaDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.fechCreaDet}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoDecdDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoDecdDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_usuaModiDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.usuaModiDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoDectDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoDectDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_fechModiDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.fechModiDet}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoFecuDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoFecuDet}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoFecdDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoFecdDet}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_flagEstaDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.flagEstaDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_idenEntiDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.idenEntiDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoFectDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoFectDet}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoCaduDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoCaduDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoCaddDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoCaddDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoCadtDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoCadtDet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_codiEntiEnt}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.codiEntiEnt}"/>
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="createButtonDetalle" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maeEntidaddetController.preparaCrear(itemDetalle)}" update=":MaeEntidaddetCreateForm" oncomplete="PF('MaeEntidaddetCreateDialog').show()"/>
+                            <p:commandButton id="viewButtonDetalle"   icon="ui-icon-search" value="#{bundle.View}" update=":MaeEntidaddetViewForm" oncomplete="PF('MaeEntidaddetViewDialog').show()" disabled="#{empty maeEntidadController.detalleSeleccionado}"/>
+                            <p:commandButton id="editButtonDetalle"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaeEntidaddetEditForm" oncomplete="PF('MaeEntidaddetEditDialog').show()" disabled="#{empty maeEntidadController.detalleSeleccionado}"/>
+                            <p:commandButton id="deleteButtonDetalle" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maeEntidaddetController.destruir(itemDetalle)}" update=":growl,dataDetalle" disabled="#{empty maeEntidadController.detalleSeleccionado}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+                <!--/h:form-->
+
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+
+            <ui:include src="CreateDetalle.xhtml"/>
+            <ui:include src="EditDetalle.xhtml"/>
+            <ui:include src="ViewDetalle.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

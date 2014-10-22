@@ -7,14 +7,13 @@
 
     <h:head>
         <title><ui:insert name="title">Default Title</ui:insert></title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
 
     <h:body>
 
-        <p:growl id="growl" life="2500" />
+        <p:growl id="growl" life="3000" />
 
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
@@ -39,18 +38,6 @@
 
         </p:layout>
 
-        <br />
-        <h:link outcome="/entidades/maeEntidad/List" value="Show All MaeEntidad Items"/>
-        <br />
-        <h:link outcome="/entidades/maeEntidaddet/List" value="Show All MaeEntidaddet Items"/>
-        <br />
-        <h:link outcome="/entidades/maeEntidad/List" value="Show All MaeEntidad Items"/>
-        <br />
-        <h:link outcome="/entidades/maeEntidaddet/List" value="Show All MaeEntidaddet Items"/>
     </h:body>
-
-
-
-
 
 </html>

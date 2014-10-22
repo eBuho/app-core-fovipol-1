@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeEntidaddetViewDlg" widgetVar="MaeEntidaddetViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMaeEntidaddetTitle}">
+            <h:form id="MaeEntidaddetViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maeEntidadController.detalleSeleccionado != null}">
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_idenEntiDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.idenEntiDet}" title="#{bundle.ViewMaeEntidaddetTitle_idenEntiDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_secuEntiDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.secuEntiDet}" title="#{bundle.ViewMaeEntidaddetTitle_secuEntiDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_valoCaduDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.valoCaduDet}" title="#{bundle.ViewMaeEntidaddetTitle_valoCaduDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_valoCaddDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.valoCaddDet}" title="#{bundle.ViewMaeEntidaddetTitle_valoCaddDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_valoCadtDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.valoCadtDet}" title="#{bundle.ViewMaeEntidaddetTitle_valoCadtDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_valoNumuDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.valoNumuDet}" title="#{bundle.ViewMaeEntidaddetTitle_valoNumuDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_valoNumdDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.valoNumdDet}" title="#{bundle.ViewMaeEntidaddetTitle_valoNumdDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_valoNumtDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.valoNumtDet}" title="#{bundle.ViewMaeEntidaddetTitle_valoNumtDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_valoDecuDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.valoDecuDet}" title="#{bundle.ViewMaeEntidaddetTitle_valoDecuDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_valoDecdDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.valoDecdDet}" title="#{bundle.ViewMaeEntidaddetTitle_valoDecdDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_valoDectDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.valoDectDet}" title="#{bundle.ViewMaeEntidaddetTitle_valoDectDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_valoFecuDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.valoFecuDet}" title="#{bundle.ViewMaeEntidaddetTitle_valoFecuDet}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_valoFecdDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.valoFecdDet}" title="#{bundle.ViewMaeEntidaddetTitle_valoFecdDet}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_valoFectDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.valoFectDet}" title="#{bundle.ViewMaeEntidaddetTitle_valoFectDet}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_usuaCreaDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.usuaCreaDet}" title="#{bundle.ViewMaeEntidaddetTitle_usuaCreaDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_fechCreaDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.fechCreaDet}" title="#{bundle.ViewMaeEntidaddetTitle_fechCreaDet}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_usuaModiDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.usuaModiDet}" title="#{bundle.ViewMaeEntidaddetTitle_usuaModiDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_fechModiDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.fechModiDet}" title="#{bundle.ViewMaeEntidaddetTitle_fechModiDet}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_flagEstaDet}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.flagEstaDet}" title="#{bundle.ViewMaeEntidaddetTitle_flagEstaDet}"/>
+                        <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_codiEntiEnt}"/>
+                        <h:outputText value="#{maeEntidadController.detalleSeleccionado.codiEntiEnt}" title="#{bundle.ViewMaeEntidaddetTitle_codiEntiEnt}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MaeEntidaddetViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
