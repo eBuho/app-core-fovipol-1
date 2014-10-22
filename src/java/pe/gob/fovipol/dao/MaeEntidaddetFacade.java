@@ -40,4 +40,11 @@ public class MaeEntidaddetFacade extends AbstractFacade<MaeEntidaddet> {
         lista = q.getResultList();
         return lista;
     }
+    public Integer obtenerCorrelativo() {
+        Integer id = new Integer(0);
+
+        Query q = em.createQuery("SELECT MAX(a.idenEntiDet) FROM MaeEntidaddet a", Integer.class);
+        id = (Integer) q.getSingleResult();
+        return ++id;
+    }
 }
