@@ -24,6 +24,7 @@ public class SocioController {
 
     private Socio socioSeleccionado;
     private List<Socio> listaSocios;
+    private List<Socio> listaSociosSeleccionados;
     
     /**
      * Creates a new instance of SocioController
@@ -34,19 +35,23 @@ public class SocioController {
     
     @PostConstruct
     public void init() {
-        socioSeleccionado = new Socio();
-        socioSeleccionado.setCip("123456789");
-        socioSeleccionado.setNombres("Juan Jose");
-        socioSeleccionado.setApellidos("Perez rios");
-        socioSeleccionado.setDni("09876543");
-        socioSeleccionado.setEstado("Activo");
+        setSocioSeleccionado(new Socio());
+        getSocioSeleccionado().setCip("123456789");
+        getSocioSeleccionado().setNombres("Juan Jose");
+        getSocioSeleccionado().setApellidos("Perez rios");
+        getSocioSeleccionado().setDni("09876543");
+        getSocioSeleccionado().setEstado("Activo");
         
-        listaSocios = new ArrayList<>();
-        listaSocios.add(socioSeleccionado);
-        listaSocios.add( new Socio("987654321", "12345678", "Ana Maria", "Linares Rojas", "Activo" ));
-        listaSocios.add( new Socio("421010431", "09474511", "Miguel Angel", "Flores Reyes", "Activo" ));
-        listaSocios.add( new Socio("121212123", "09786541", "John", "Sanchez Marin", "Activo" ));
-        listaSocios.add( new Socio("432112347", "11111111", "Jean", "De los Santos", "Activo" ));
+        setListaSocios(new ArrayList<>());
+        getListaSocios().add(getSocioSeleccionado());
+        getListaSocios().add( new Socio("987654321", "12345678", "Ana Maria", "Linares Rojas", "Activo" ));
+        getListaSocios().add( new Socio("421010431", "09474511", "Miguel Angel", "Flores Reyes", "Activo" ));
+        getListaSocios().add( new Socio("121212123", "09786541", "John", "Sanchez Marin", "Activo" ));
+        getListaSocios().add( new Socio("432112347", "11111111", "Jean", "De los Santos", "Activo" ));
+    }
+    
+    public void verDetalle(){
+        
     }
     
     /**
@@ -75,6 +80,20 @@ public class SocioController {
      */
     public void setListaSocios(List<Socio> listaSocios) {
         this.listaSocios = listaSocios;
+    }
+
+    /**
+     * @return the listaSociosSeleccionados
+     */
+    public List<Socio> getListaSociosSeleccionados() {
+        return listaSociosSeleccionados;
+    }
+
+    /**
+     * @param listaSociosSeleccionados the listaSociosSeleccionados to set
+     */
+    public void setListaSociosSeleccionados(List<Socio> listaSociosSeleccionados) {
+        this.listaSociosSeleccionados = listaSociosSeleccionados;
     }
     
 }
