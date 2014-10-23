@@ -92,7 +92,7 @@ public class MaePersona implements Serializable {
     @Column(name = "NOMB_COMP_PER")
     private String nombCompPer;
     @Column(name = "TIPO_IDEN_PER")
-    private Integer tipoIdenPer;
+    private BigDecimal tipoIdenPer;
     @Size(max = 15)
     @Column(name = "NUME_IDEN_PER")
     private String numeIdenPer;
@@ -229,11 +229,11 @@ public class MaePersona implements Serializable {
         this.nombCompPer = nombCompPer;
     }
 
-    public Integer getTipoIdenPer() {
+    public BigDecimal getTipoIdenPer() {
         return tipoIdenPer;
     }
 
-    public void setTipoIdenPer(Integer tipoIdenPer) {
+    public void setTipoIdenPer(BigDecimal tipoIdenPer) {
         this.tipoIdenPer = tipoIdenPer;
     }
 

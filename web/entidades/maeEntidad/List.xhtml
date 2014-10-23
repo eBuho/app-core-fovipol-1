@@ -18,6 +18,7 @@
                                  selection="#{maeEntidadController.selected}"
                                  paginator="true"
                                  rowKey="#{item.codiEntiEnt}"
+                                 filteredValue="#{maeEntidadController.itemsFiltro}"
                                  rows="5"
                                  paginatorPosition="top"
                                  rowsPerPageTemplate="5,10,20,30,40,50"
@@ -41,7 +42,7 @@
                             </p:commandButton>
                         </f:facet>
                         <p:column filterBy="#{item.codiEntiEnt}"
-                                  filterMatchMode="contains"
+                                  filterMatchMode="contains" 
                                   sortBy="#{item.codiEntiEnt}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidadTitle_codiEntiEnt}"/>
@@ -140,7 +141,7 @@
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_fechCreaDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.fechCreaDet}">
-                                <f:convertDateTime pattern="MM/dd/yyyy " />
+                                <f:convertDateTime locale="es" dateStyle="short"/>
                             </h:outputText>
                         </p:column>
                         <p:column>
@@ -166,7 +167,7 @@
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_fechModiDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.fechModiDet}">
-                                <f:convertDateTime pattern="MM/dd/yyyy " />
+                                <f:convertDateTime locale="es" dateStyle="short"/>
                             </h:outputText>
                         </p:column>
                         <p:column>
@@ -174,7 +175,7 @@
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoFecuDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.valoFecuDet}">
-                                <f:convertDateTime pattern="MM/dd/yyyy " />
+                                <f:convertDateTime locale="es" dateStyle="short"/>
                             </h:outputText>
                         </p:column>
                         <p:column>
@@ -182,7 +183,7 @@
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoFecdDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.valoFecdDet}">
-                                <f:convertDateTime pattern="MM/dd/yyyy " />
+                                <f:convertDateTime locale="es" dateStyle="short"/>
                             </h:outputText>
                         </p:column>
                         <p:column>
@@ -197,7 +198,7 @@
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoFectDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.valoFectDet}">
-                                <f:convertDateTime pattern="MM/dd/yyyy " />
+                                <f:convertDateTime locale="es" dateStyle="short"/>
                             </h:outputText>
                         </p:column>
                         <p:column>

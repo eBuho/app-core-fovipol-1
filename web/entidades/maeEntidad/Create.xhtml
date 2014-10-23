@@ -26,8 +26,8 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{maeEntidadController.create}" value="#{bundle.Save}" update="display,:MaeEntidadListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeEntidadCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" >
-                        <p:ajax resetValues="true" update="display" />
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MaeEntidadCreateDialog').hide()">
+                        <p:ajax resetValues="true" update="display"/>
                     </p:commandButton>
                 </h:panelGroup>
             </h:form>

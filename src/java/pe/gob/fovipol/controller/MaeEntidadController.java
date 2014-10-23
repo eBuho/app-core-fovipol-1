@@ -36,6 +36,7 @@ public class MaeEntidadController implements Serializable {
     private pe.gob.fovipol.dao.MaeEntidaddetFacade ejbFacadeDetalle;
     // Propiedades
     private List<MaeEntidad> items = null;
+    private List<MaeEntidad> itemsFiltro;
     private MaeEntidad selected;
     private List<MaeEntidaddet> itemsDetalle;
     private MaeEntidaddet detalleSeleccionado;
@@ -201,6 +202,20 @@ public class MaeEntidadController implements Serializable {
      */
     public void setDetalleNuevo(MaeEntidaddet detalleNuevo) {
         this.detalleNuevo = detalleNuevo;
+    }
+
+    /**
+     * @return the itemsFiltro
+     */
+    public List<MaeEntidad> getItemsFiltro() {
+        return itemsFiltro;
+    }
+
+    /**
+     * @param itemsFiltro the itemsFiltro to set
+     */
+    public void setItemsFiltro(List<MaeEntidad> itemsFiltro) {
+        this.itemsFiltro = itemsFiltro;
     }
 
     @FacesConverter(forClass = MaeEntidad.class)

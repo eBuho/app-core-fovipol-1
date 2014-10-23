@@ -57,7 +57,7 @@
                                            itemValue="#{codiEntiEntItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{maeEntidaddetController.create}" value="#{bundle.Save}" update="display,:MaeEntidadListForm:dataDetalle,:growl" oncomplete="handleSubmit(args,'MaeEntidaddetCreateDialog');"/>
+                    <p:commandButton actionListener="#{maeEntidaddetController.create}" value="#{bundle.Save}" update="display,:MaeEntidaddetListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeEntidaddetCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaeEntidaddetCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

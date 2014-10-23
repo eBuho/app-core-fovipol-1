@@ -11,9 +11,8 @@
         <p:dialog id="MaeEmpresaEditDlg" widgetVar="MaeEmpresaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMaeEmpresaTitle}">
             <h:form id="MaeEmpresaEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{maeEmpresaController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_codiEmprEmp}" for="codiEmprEmp" />
-                        <p:inputText id="codiEmprEmp" value="#{maeEmpresaController.selected.codiEmprEmp}" title="#{bundle.EditMaeEmpresaTitle_codiEmprEmp}" required="true" requiredMessage="#{bundle.EditMaeEmpresaRequiredMessage_codiEmprEmp}"/>
+                    <p:panelGrid columns="6" rendered="#{maeEmpresaController.selected != null}">
+                        
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_razoSociEmp}" for="razoSociEmp" />
                         <p:inputText id="razoSociEmp" value="#{maeEmpresaController.selected.razoSociEmp}" title="#{bundle.EditMaeEmpresaTitle_razoSociEmp}" />
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_descDireEmp}" for="descDireEmp" />
@@ -38,18 +37,20 @@
                         <p:inputText id="flagReteEmp" value="#{maeEmpresaController.selected.flagReteEmp}" title="#{bundle.EditMaeEmpresaTitle_flagReteEmp}" />
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_usuaCreaAud}" for="usuaCreaAud" />
                         <p:inputText id="usuaCreaAud" value="#{maeEmpresaController.selected.usuaCreaAud}" title="#{bundle.EditMaeEmpresaTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeEmpresaController.selected.fechCreaAud}" title="#{bundle.EditMaeEmpresaTitle_fechCreaAud}"  showOn="button"/>
+                        
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_usuaModiAud}" for="usuaModiAud" />
                         <p:inputText id="usuaModiAud" value="#{maeEmpresaController.selected.usuaModiAud}" title="#{bundle.EditMaeEmpresaTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeEmpresaController.selected.fechModiAud}" title="#{bundle.EditMaeEmpresaTitle_fechModiAud}"  showOn="button"/>
+                        
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_nombEquiAud}" for="nombEquiAud" />
                         <p:inputText id="nombEquiAud" value="#{maeEmpresaController.selected.nombEquiAud}" title="#{bundle.EditMaeEmpresaTitle_nombEquiAud}" />
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_nombSopeAud}" for="nombSopeAud" />
                         <p:inputText id="nombSopeAud" value="#{maeEmpresaController.selected.nombSopeAud}" title="#{bundle.EditMaeEmpresaTitle_nombSopeAud}" />
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_flagEstaEmp}" for="flagEstaEmp" />
-                        <p:inputText id="flagEstaEmp" value="#{maeEmpresaController.selected.flagEstaEmp}" title="#{bundle.EditMaeEmpresaTitle_flagEstaEmp}" />
+                        
+                        <p:selectOneMenu id="flagEstaEmp" value="#{maeEmpresaController.selected.flagEstaEmp}">
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{maeEmpresaController.update}" value="#{bundle.Save}" update="display,:MaeEmpresaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaeEmpresaEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaeEmpresaEditDialog.hide()"/>
