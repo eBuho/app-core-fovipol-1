@@ -4,113 +4,18 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
 
     <ui:composition>
 
         <p:dialog id="MaePersonaCreateDlg" widgetVar="MaePersonaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMaePersonaTitle}">
             <h:form id="MaePersonaCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="6" rendered="#{maePersonaController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_codiPersPer}" for="codiPersPer" />
-                        <p:inputText id="codiPersPer" value="#{maePersonaController.selected.codiPersPer}" title="#{bundle.CreateMaePersonaTitle_codiPersPer}" 
-                            disabled="true" required="true" requiredMessage="#{bundle.CreateMaePersonaRequiredMessage_codiPersPer}"/>
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_apelPatePer}" for="apelPatePer" />
-                        <p:inputText id="apelPatePer" value="#{maePersonaController.selected.apelPatePer}" title="#{bundle.CreateMaePersonaTitle_apelPatePer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_apelMatePer}" for="apelMatePer" />
-                        <p:inputText id="apelMatePer" value="#{maePersonaController.selected.apelMatePer}" title="#{bundle.CreateMaePersonaTitle_apelMatePer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_nombPersPer}" for="nombPersPer" />
-                        <p:inputText id="nombPersPer" value="#{maePersonaController.selected.nombPersPer}" title="#{bundle.CreateMaePersonaTitle_nombPersPer}" />
+                    
+                        <comp:mantPersona value="#{maePersonaController}" crear="true"/>
                         
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_tipoIdenPer}" for="tipoIdenPer" />                        
-                        <p:selectOneMenu value="#{maePersonaController.selected.tipoIdenPer}" id="tipoIdenPer">
-                            <f:selectItems value="#{maePersonaController.documentos}" var="doc" 
-                                           itemValue="#{doc.idenEntiDet}" itemLabel="#{doc.valoCaduDet}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeIdenPer}" for="numeIdenPer" />
-                        <p:inputText id="numeIdenPer" value="#{maePersonaController.selected.numeIdenPer}" title="#{bundle.CreateMaePersonaTitle_numeIdenPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_direPersPer}" for="direPersPer" />
-                        <p:inputText id="direPersPer" value="#{maePersonaController.selected.direPersPer}" title="#{bundle.CreateMaePersonaTitle_direPersPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_estaCiviPer}" for="estaCiviPer" />                        
-                        <p:selectOneMenu value="#{maePersonaController.selected.estaCiviPer}" id="estaCiviPer">
-                            <f:selectItems value="#{maePersonaController.estadosCiviles}" var="doc" 
-                                           itemValue="#{doc.idenEntiDet}" itemLabel="#{doc.valoCaduDet}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_sexoPersPer}" for="sexoPersPer" />
-                        <p:inputText id="sexoPersPer" value="#{maePersonaController.selected.sexoPersPer}" title="#{bundle.CreateMaePersonaTitle_sexoPersPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_fechNaciPer}" for="fechNaciPer" />
-                        <p:calendar id="fechNaciPer" pattern="dd/MM/yyyy" value="#{maePersonaController.selected.fechNaciPer}" title="#{bundle.EditMaePersonaTitle_fechNaciPer}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeTelcPer}" for="numeTelcPer" />
-                        <p:inputText id="numeTelcPer" value="#{maePersonaController.selected.numeTelcPer}" title="#{bundle.CreateMaePersonaTitle_numeTelcPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeTeltPer}" for="numeTeltPer" />
-                        <p:inputText id="numeTeltPer" value="#{maePersonaController.selected.numeTeltPer}" title="#{bundle.CreateMaePersonaTitle_numeTeltPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_corrElecPer}" for="corrElecPer" />
-                        <p:inputText id="corrElecPer" value="#{maePersonaController.selected.corrElecPer}" title="#{bundle.CreateMaePersonaTitle_corrElecPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeCeluPer}" for="numeCeluPer" />
-                        <p:inputText id="numeCeluPer" value="#{maePersonaController.selected.numeCeluPer}" title="#{bundle.CreateMaePersonaTitle_numeCeluPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeCel2Per}" for="numeCel2Per" />
-                        <p:inputText id="numeCel2Per" value="#{maePersonaController.selected.numeCel2Per}" title="#{bundle.CreateMaePersonaTitle_numeCel2Per}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_fechFallPer}" for="fechFallPer" />
-                        <p:calendar id="fechFallPer" pattern="dd/MM/yyyy" value="#{maePersonaController.selected.fechFallPer}" title="#{bundle.EditMaePersonaTitle_fechFallPer}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_tipoProfPer}" for="tipoProfPer" />
-                        <p:inputText id="tipoProfPer" value="#{maePersonaController.selected.tipoProfPer}" title="#{bundle.CreateMaePersonaTitle_tipoProfPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_refeUbigPer}" for="refeUbigPer" />
-                        <p:inputText id="refeUbigPer" value="#{maePersonaController.selected.refeUbigPer}" title="#{bundle.CreateMaePersonaTitle_refeUbigPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_mediTallPer}" for="mediTallPer" />
-                        <p:inputText id="mediTallPer" value="#{maePersonaController.selected.mediTallPer}" title="#{bundle.CreateMaePersonaTitle_mediTallPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_rutaFotoPer}" for="rutaFotoPer" />
-                        <p:inputText id="rutaFotoPer" value="#{maePersonaController.selected.rutaFotoPer}" title="#{bundle.CreateMaePersonaTitle_rutaFotoPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_flagBloqPer}" for="flagBloqPer" />
-                        <p:inputText id="flagBloqPer" value="#{maePersonaController.selected.flagBloqPer}" title="#{bundle.CreateMaePersonaTitle_flagBloqPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_motiBloqPer}" for="motiBloqPer" />
-                        <p:inputText id="motiBloqPer" value="#{maePersonaController.selected.motiBloqPer}" title="#{bundle.CreateMaePersonaTitle_motiBloqPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_flagHomoPer}" for="flagHomoPer" />
-                        <p:inputText id="flagHomoPer" value="#{maePersonaController.selected.flagHomoPer}" title="#{bundle.CreateMaePersonaTitle_flagHomoPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_docuHomoPer}" for="docuHomoPer" />
-                        <p:inputText id="docuHomoPer" value="#{maePersonaController.selected.docuHomoPer}" title="#{bundle.CreateMaePersonaTitle_docuHomoPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_grpoSangPer}" for="grpoSangPer" />
-                        <p:inputText id="grpoSangPer" value="#{maePersonaController.selected.grpoSangPer}" title="#{bundle.CreateMaePersonaTitle_grpoSangPer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_gradParePer}" for="gradParePer" />
-                        <p:inputText id="gradParePer" value="#{maePersonaController.selected.gradParePer}" title="#{bundle.CreateMaePersonaTitle_gradParePer}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{maePersonaController.selected.nombEquiAud}" title="#{bundle.CreateMaePersonaTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{maePersonaController.selected.nombSopeAud}" title="#{bundle.CreateMaePersonaTitle_nombSopeAud}" />
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_flagEstaPer}" for="flagEstaPer" />
-                        
-                        <p:selectOneMenu id="flagEstaPer" value="#{maePersonaController.selected.flagEstaPer}" disabled="true">
-                            <f:selectItem itemLabel="Activo" itemValue="1"/>
-                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="Departamento"  />
-                        <p:selectOneMenu value="#{maePersonaController.departamentoNacimiento}">
-                            <f:selectItem itemValue="0" itemLabel="Seleccione" />
-                            <f:selectItems var="departamento" value="#{maePersonaController.departamentos}"
-                                           itemValue="#{departamento}" itemLabel="#{departamento.nombUbigUbi}"/>
-                            <p:ajax update="provinciaNacimiento" listener="#{maePersonaController.cargarProvincias()}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="Provincia" for="provinciaNacimiento" />
-                        <p:selectOneMenu value="#{maePersonaController.provinciaNacimiento}" id="provinciaNacimiento">
-                            <f:selectItem itemValue="0" itemLabel="Seleccione" />
-                            <f:selectItems var="provincias" value="#{maePersonaController.provincias}"
-                                           itemValue="#{provincias}" itemLabel="#{provincias.nombUbigUbi}"/>
-                            <p:ajax update="distritoNacimiento" listener="#{maePersonaController.cargarDistritos()}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_ubigNaciPer}" for="distritoNacimiento" />
-                        <p:selectOneMenu id="distritoNacimiento" value="#{maePersonaController.selected.ubigNaciPer}" >
-                            <f:selectItem itemValue="0" itemLabel="Seleccione" />
-                            <f:selectItems value="#{maePersonaController.distritos}"
-                                           var="ubigNaciPerItem" itemLabel="#{ubigNaciPerItem.nombUbigUbi}"
-                                           itemValue="#{ubigNaciPerItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateMaePersonaLabel_ubigResiPer}" for="ubigResiPer" />
-                        <p:selectOneMenu id="ubigResiPer" value="#{maePersonaController.selected.ubigResiPer}" >
-                            <f:selectItems value="#{maeUbigeoController.itemsAvailableSelectOne}"
-                                           var="ubigResiPerItem" itemLabel="#{ubigResiPerItem.nombUbigUbi}"
-                                           itemValue="#{ubigResiPerItem}"/>
-                        </p:selectOneMenu>
-                        
-                    </p:panelGrid>
+                    
                     <p:commandButton actionListener="#{maePersonaController.create}" value="#{bundle.Save}" update="display,:MaePersonaListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaePersonaCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaePersonaCreateDialog.hide()"/>
                 </h:panelGroup>

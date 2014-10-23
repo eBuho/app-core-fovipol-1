@@ -72,7 +72,7 @@
                             </f:facet>
                             <h:outputText value="#{item.numeIdenPer}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_direPersPer}"/>
                             </f:facet>
@@ -98,31 +98,31 @@
                                 <f:convertDateTime locale="es" timeStyle="short" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_numeTelcPer}"/>
                             </f:facet>
                             <h:outputText value="#{item.numeTelcPer}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_numeTeltPer}"/>
                             </f:facet>
                             <h:outputText value="#{item.numeTeltPer}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_corrElecPer}"/>
                             </f:facet>
                             <h:outputText value="#{item.corrElecPer}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_numeCeluPer}"/>
                             </f:facet>
                             <h:outputText value="#{item.numeCeluPer}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_numeCel2Per}"/>
                             </f:facet>
@@ -136,19 +136,19 @@
                                 <f:convertDateTime locale="es" type="date" timeStyle="short" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_tipoProfPer}"/>
                             </f:facet>
                             <h:outputText value="#{item.tipoProfPer}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_refeUbigPer}"/>
                             </f:facet>
                             <h:outputText value="#{item.refeUbigPer}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_mediTallPer}"/>
                             </f:facet>
@@ -172,13 +172,13 @@
                             </f:facet>
                             <h:outputText value="#{item.motiBloqPer}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_flagHomoPer}"/>
                             </f:facet>
                             <h:outputText value="#{item.flagHomoPer}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_docuHomoPer}"/>
                             </f:facet>
@@ -271,7 +271,7 @@
                             <p:spacer width="25"/>
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maePersonaController.prepareCreate}" update=":MaePersonaCreateForm" oncomplete="PF('MaePersonaCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaePersonaViewForm" oncomplete="PF('MaePersonaViewDialog').show()" disabled="#{empty maePersonaController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaePersonaEditForm" oncomplete="PF('MaePersonaEditDialog').show()" disabled="#{empty maePersonaController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{maePersonaController.prepararActualizar}" update=":MaePersonaEditForm" oncomplete="PF('MaePersonaEditDialog').show()" disabled="#{empty maePersonaController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maePersonaController.destroy}" update=":growl,datalist" disabled="#{empty maePersonaController.selected}">
                                 <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
                             </p:commandButton>

@@ -43,7 +43,26 @@ public class MaePersonaController implements Serializable {
     private List<MaeUbigeo> distritos=null;
     private List<MaeEntidaddet> documentos;
     private List<MaeEntidaddet> estadosCiviles;
+    private List<MaeEntidaddet> generos;
+    private List<MaeEntidaddet> profesiones;
+    private List<MaeEntidaddet> bloqueos;
+    private List<MaeEntidaddet> tiposPolicias;
+    private List<MaeEntidaddet> unidades;
+    private List<MaeEntidaddet> entidadesPago;
     public MaePersonaController() {        
+    }
+    
+    public void prepararActualizar(){
+        if(selected!=null && selected.getUbigNaciPer()!=null){
+            provinciaNacimiento=selected.getUbigNaciPer().getIdenUbipUbi();
+            if(provinciaNacimiento!=null){
+                if(provinciaNacimiento.getIdenUbipUbi()!=null){
+                    departamentoNacimiento=provinciaNacimiento.getIdenUbipUbi();
+                    cargarProvincias();
+                    cargarDistritos();
+                }
+            }
+        }
     }
     
     public void cargarProvincias(){
@@ -277,6 +296,108 @@ public class MaePersonaController implements Serializable {
      */
     public void setEstadosCiviles(List<MaeEntidaddet> estadosCiviles) {
         this.estadosCiviles = estadosCiviles;
+    }
+
+    /**
+     * @return the generos
+     */
+    public List<MaeEntidaddet> getGeneros() {
+        if(generos==null){
+            generos=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("SEXOPERSPER"));
+        }
+        return generos;
+    }
+
+    /**
+     * @param generos the generos to set
+     */
+    public void setGeneros(List<MaeEntidaddet> generos) {
+        this.generos = generos;
+    }
+
+    /**
+     * @return the profesiones
+     */
+    public List<MaeEntidaddet> getProfesiones() {
+        if(profesiones==null){
+            profesiones=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("TIPOPROFPER"));
+        }
+        return profesiones;
+    }
+
+    /**
+     * @param profesiones the profesiones to set
+     */
+    public void setProfesiones(List<MaeEntidaddet> profesiones) {
+        this.profesiones = profesiones;
+    }
+
+    /**
+     * @return the bloqueos
+     */
+    public List<MaeEntidaddet> getBloqueos() {
+        if(bloqueos==null){
+            bloqueos=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("MOTIBLOQPER"));
+        }
+        return bloqueos;
+    }
+
+    /**
+     * @param bloqueos the bloqueos to set
+     */
+    public void setBloqueos(List<MaeEntidaddet> bloqueos) {
+        this.bloqueos = bloqueos;
+    }
+
+    /**
+     * @return the tiposPolicias
+     */
+    public List<MaeEntidaddet> getTiposPolicias() {
+        if(tiposPolicias==null){
+            tiposPolicias=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("TIPOPOLISOC"));
+        }
+        return tiposPolicias;
+    }
+
+    /**
+     * @param tiposPolicias the tiposPolicias to set
+     */
+    public void setTiposPolicias(List<MaeEntidaddet> tiposPolicias) {
+        this.tiposPolicias = tiposPolicias;
+    }
+
+    /**
+     * @return the unidades
+     */
+    public List<MaeEntidaddet> getUnidades() {
+        if(unidades==null){
+            unidades=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("UNIDTRABSOC"));
+        }
+        return unidades;
+    }
+
+    /**
+     * @param unidades the unidades to set
+     */
+    public void setUnidades(List<MaeEntidaddet> unidades) {
+        this.unidades = unidades;
+    }
+
+    /**
+     * @return the entidadesPago
+     */
+    public List<MaeEntidaddet> getEntidadesPago() {
+        if(entidadesPago==null){
+            entidadesPago=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("ENTIPAGOSOC"));
+        }
+        return entidadesPago;
+    }
+
+    /**
+     * @param entidadesPago the entidadesPago to set
+     */
+    public void setEntidadesPago(List<MaeEntidaddet> entidadesPago) {
+        this.entidadesPago = entidadesPago;
     }
 
     @FacesConverter(forClass = MaePersona.class)
