@@ -51,6 +51,7 @@ public class MaeSocioController implements Serializable {
 
     public MaeSocio prepareCreate() {
         selected = new MaeSocio();
+        selected.setFlagEstaSoc(new Short("1"));
         initializeEmbeddableKey();
         return selected;
     }

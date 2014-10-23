@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
 
     <ui:composition template="/template.xhtml">
 
@@ -28,13 +29,17 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column  filterBy="#{item.idenUbigUbi}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{item.idenUbigUbi}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeUbigeoTitle_idenUbigUbi}"/>
                             </f:facet>
                             <h:outputText value="#{item.idenUbigUbi}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.nombUbigUbi}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{item.nombUbigUbi}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeUbigeoTitle_nombUbigUbi}"/>
                             </f:facet>
@@ -44,15 +49,15 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeUbigeoTitle_niveUbigUbi}"/>
                             </f:facet>
-                            <h:outputText value="#{item.niveUbigUbi}"/>
+                            <comp:nivelUbigeo value="#{item.niveUbigUbi}" />
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeUbigeoTitle_usuaCreaUbi}"/>
                             </f:facet>
                             <h:outputText value="#{item.usuaCreaUbi}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeUbigeoTitle_fechCreaUbi}"/>
                             </f:facet>
@@ -60,13 +65,13 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeUbigeoTitle_usuaModiUbi}"/>
                             </f:facet>
                             <h:outputText value="#{item.usuaModiUbi}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeUbigeoTitle_fechModiUbi}"/>
                             </f:facet>
@@ -78,7 +83,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeUbigeoTitle_flagEstaUbi}"/>
                             </f:facet>
-                            <h:outputText value="#{item.flagEstaUbi}"/>
+                            <comp:activo value="#{item.flagEstaUbi}" />
                         </p:column>
                         <p:column>
                             <f:facet name="header">

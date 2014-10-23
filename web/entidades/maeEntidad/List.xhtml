@@ -57,7 +57,9 @@
                             </f:facet>
                             <h:outputText value="#{item.nombEntiEnt}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.descLargEnt}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{item.descLargEnt}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidadTitle_descLargEnt}"/>
                             </f:facet>
