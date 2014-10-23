@@ -11,7 +11,7 @@
         <p:dialog id="MaeSocioCreateDlg" widgetVar="MaeSocioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMaeSocioTitle}">
             <h:form id="MaeSocioCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{maeSocioController.selected != null}">
+                    <p:panelGrid columns="6" rendered="#{maeSocioController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateMaeSocioLabel_codiPersPer}" for="codiPersPer" />
                         <p:inputText id="codiPersPer" value="#{maeSocioController.selected.codiPersPer}" title="#{bundle.CreateMaeSocioTitle_codiPersPer}" required="true" requiredMessage="#{bundle.CreateMaeSocioRequiredMessage_codiPersPer}"/>
                         <p:outputLabel value="#{bundle.CreateMaeSocioLabel_codiMigrSoc}" for="codiMigrSoc" />
@@ -63,7 +63,10 @@
                         <p:outputLabel value="#{bundle.CreateMaeSocioLabel_nombSopeAud}" for="nombSopeAud" />
                         <p:inputText id="nombSopeAud" value="#{maeSocioController.selected.nombSopeAud}" title="#{bundle.CreateMaeSocioTitle_nombSopeAud}" />
                         <p:outputLabel value="#{bundle.CreateMaeSocioLabel_flagEstaSoc}" for="flagEstaSoc" />
-                        <p:inputText id="flagEstaSoc" value="#{maeSocioController.selected.flagEstaSoc}" title="#{bundle.CreateMaeSocioTitle_flagEstaSoc}" />
+                        <p:selectOneMenu id="flagEstaSoc" value="#{maeSocioController.selected.flagEstaSoc}" disabled="true">
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateMaeSocioLabel_maePersona}" for="maePersona" />
                         <p:selectOneMenu id="maePersona" value="#{maeSocioController.selected.maePersona}" required="true" requiredMessage="#{bundle.EditMaeSocioRequiredMessage_maePersona}">
                             <f:selectItems value="#{maePersonaController.itemsAvailableSelectOne}"

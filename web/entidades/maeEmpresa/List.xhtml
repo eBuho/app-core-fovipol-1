@@ -4,10 +4,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
 
     <ui:composition template="/template.xhtml">
-
 
         <ui:define name="title">
             <h:outputText value="#{bundle.ListMaeEmpresaTitle}"></h:outputText>
@@ -28,85 +28,93 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column filterBy="#{item.codiEmprEmp}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{item.codiEmprEmp}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_codiEmprEmp}"/>
                             </f:facet>
                             <h:outputText value="#{item.codiEmprEmp}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.razoSociEmp}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{item.razoSociEmp}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_razoSociEmp}"/>
                             </f:facet>
                             <h:outputText value="#{item.razoSociEmp}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_descDireEmp}"/>
                             </f:facet>
                             <h:outputText value="#{item.descDireEmp}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_nombComeEmp}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombComeEmp}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.numeRucEmp}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{item.numeRucEmp}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_numeRucEmp}"/>
                             </f:facet>
                             <h:outputText value="#{item.numeRucEmp}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_reprLegaEmp}"/>
                             </f:facet>
                             <h:outputText value="#{item.reprLegaEmp}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_cuenDetrEmp}"/>
                             </f:facet>
                             <h:outputText value="#{item.cuenDetrEmp}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.numeTeleEmp}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{item.numeTeleEmp}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_numeTeleEmp}"/>
                             </f:facet>
                             <h:outputText value="#{item.numeTeleEmp}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_numeTel2Emp}"/>
                             </f:facet>
                             <h:outputText value="#{item.numeTel2Emp}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_pagiWebEmp}"/>
                             </f:facet>
                             <h:outputText value="#{item.pagiWebEmp}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_corrElecEmp}"/>
                             </f:facet>
                             <h:outputText value="#{item.corrElecEmp}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_flagReteEmp}"/>
                             </f:facet>
                             <h:outputText value="#{item.flagReteEmp}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_usuaCreaAud}"/>
                             </f:facet>
                             <h:outputText value="#{item.usuaCreaAud}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_fechCreaAud}"/>
                             </f:facet>
@@ -114,13 +122,13 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_usuaModiAud}"/>
                             </f:facet>
                             <h:outputText value="#{item.usuaModiAud}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_fechModiAud}"/>
                             </f:facet>
@@ -128,13 +136,13 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_nombEquiAud}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombEquiAud}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEmpresaTitle_nombSopeAud}"/>
                             </f:facet>
