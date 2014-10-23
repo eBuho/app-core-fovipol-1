@@ -11,7 +11,7 @@
         <p:dialog id="MaeEntidaddetViewDlg" widgetVar="MaeEntidaddetViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMaeEntidaddetTitle}">
             <h:form id="MaeEntidaddetViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{maeEntidadController.detalleSeleccionado != null}">
+                    <p:panelGrid columns="6" rendered="#{maeEntidadController.detalleSeleccionado != null}">
                         <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_idenEntiDet}"/>
                         <h:outputText value="#{maeEntidadController.detalleSeleccionado.idenEntiDet}" title="#{bundle.ViewMaeEntidaddetTitle_idenEntiDet}"/>
                         <h:outputText value="#{bundle.ViewMaeEntidaddetLabel_secuEntiDet}"/>

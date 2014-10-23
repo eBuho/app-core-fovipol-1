@@ -8,21 +8,27 @@
 
     <ui:composition>
 
-        <p:dialog id="MaeEntidadCreateDlg" widgetVar="MaeEntidadCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMaeEntidadTitle}">
-            <h:form id="MaeEntidadCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{maeEntidadController.selected != null}">
+        <p:dialog id="MaeEntidadCreateDlg" widgetVar="MaeEntidadCreateDialog"  resizable="false" appendTo="@(body)" header="#{bundle.CreateMaeEntidadTitle}"
+                  dynamic="true">
+            <h:form id="MaeEntidadCreateForm" >
+                <h:panelGroup id="display" >
+                    <p:panelGrid columns="2" rendered="#{maeEntidadController.selected != null}" >
                         <p:outputLabel value="#{bundle.CreateMaeEntidadLabel_codiEntiEnt}" for="codiEntiEnt" />
                         <p:inputText id="codiEntiEnt" value="#{maeEntidadController.selected.codiEntiEnt}" title="#{bundle.CreateMaeEntidadTitle_codiEntiEnt}" required="true" requiredMessage="#{bundle.CreateMaeEntidadRequiredMessage_codiEntiEnt}"/>
                         <p:outputLabel value="#{bundle.CreateMaeEntidadLabel_nombEntiEnt}" for="nombEntiEnt" />
-                        <p:inputText id="nombEntiEnt" value="#{maeEntidadController.selected.nombEntiEnt}" title="#{bundle.CreateMaeEntidadTitle_nombEntiEnt}" />
+                        <p:inputText id="nombEntiEnt" value="#{maeEntidadController.selected.nombEntiEnt}" title="#{bundle.CreateMaeEntidadTitle_nombEntiEnt}" required="true"/>
                         <p:outputLabel value="#{bundle.CreateMaeEntidadLabel_descLargEnt}" for="descLargEnt" />
-                        <p:inputText id="descLargEnt" value="#{maeEntidadController.selected.descLargEnt}" title="#{bundle.CreateMaeEntidadTitle_descLargEnt}" />
+                        <p:inputText id="descLargEnt" value="#{maeEntidadController.selected.descLargEnt}" title="#{bundle.CreateMaeEntidadTitle_descLargEnt}" required="true"/>
                         <p:outputLabel value="#{bundle.CreateMaeEntidadLabel_flagEstaEnt}" for="flagEstaEnt" />
-                        <p:inputText id="flagEstaEnt" value="#{maeEntidadController.selected.flagEstaEnt}" title="#{bundle.CreateMaeEntidadTitle_flagEstaEnt}" />
+                        <p:selectOneMenu id="flagEstaEnt" value="#{maeEntidadController.selected.flagEstaEnt}" disabled="true">
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{maeEntidadController.create}" value="#{bundle.Save}" update="display,:MaeEntidadListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeEntidadCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="MaeEntidadCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" >
+                        <p:ajax resetValues="true" update="display" />
+                    </p:commandButton>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

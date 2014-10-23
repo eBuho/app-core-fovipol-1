@@ -7,6 +7,7 @@ import pe.gob.fovipol.dao.MaeEntidaddetFacade;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -15,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -22,7 +24,7 @@ import javax.faces.convert.FacesConverter;
 import org.primefaces.model.SelectableDataModel;
 
 @ManagedBean(name = "maeEntidaddetController")
-@SessionScoped
+@ViewScoped
 public class MaeEntidaddetController implements Serializable {
 
     @EJB
@@ -74,6 +76,7 @@ public class MaeEntidaddetController implements Serializable {
     
     public void creaDetalle(MaeEntidaddet item) {
         selected = item;
+        selected.setFechCreaDet(new Date());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -86,6 +89,7 @@ public class MaeEntidaddetController implements Serializable {
     
     public void actualiza(MaeEntidaddet item) {
         selected = item;
+        selected.setFechModiDet(new Date());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetUpdated"));
     }
 
@@ -97,13 +101,14 @@ public class MaeEntidaddetController implements Serializable {
         }
     }
     
-    public void destruir(MaeEntidaddet item) {
+    public void destruir(MaeEntidaddet item) {        
         selected = item;
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetDeleted"));        
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        
     }
 
     public List<MaeEntidaddet> getItems() {

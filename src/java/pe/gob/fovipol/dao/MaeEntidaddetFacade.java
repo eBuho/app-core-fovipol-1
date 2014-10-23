@@ -5,6 +5,7 @@
  */
 package pe.gob.fovipol.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -40,11 +41,13 @@ public class MaeEntidaddetFacade extends AbstractFacade<MaeEntidaddet> {
         lista = q.getResultList();
         return lista;
     }
-    public Integer obtenerCorrelativo() {
-        Integer id = new Integer(0);
+    
+    public BigDecimal obtenerCorrelativo() {
+        BigDecimal id = new BigDecimal(0);
 
-        Query q = em.createQuery("SELECT MAX(a.idenEntiDet) FROM MaeEntidaddet a", Integer.class);
-        id = (Integer) q.getSingleResult();
-        return ++id;
+        Query q = em.createQuery("SELECT MAX(a.idenEntiDet) FROM MaeEntidaddet a", BigDecimal.class);
+        id = (BigDecimal) q.getSingleResult();
+        id=id.add(new BigDecimal(1));
+        return id;
     }
 }

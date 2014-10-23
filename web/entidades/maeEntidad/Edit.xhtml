@@ -13,13 +13,16 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{maeEntidadController.selected != null}">
                         <p:outputLabel value="#{bundle.EditMaeEntidadLabel_codiEntiEnt}" for="codiEntiEnt" />
-                        <p:inputText id="codiEntiEnt" value="#{maeEntidadController.selected.codiEntiEnt}" title="#{bundle.EditMaeEntidadTitle_codiEntiEnt}" required="true" requiredMessage="#{bundle.EditMaeEntidadRequiredMessage_codiEntiEnt}"/>
+                        <p:inputText id="codiEntiEnt" value="#{maeEntidadController.selected.codiEntiEnt}" title="#{bundle.EditMaeEntidadTitle_codiEntiEnt}" disabled="true" requiredMessage="#{bundle.EditMaeEntidadRequiredMessage_codiEntiEnt}"/>
                         <p:outputLabel value="#{bundle.EditMaeEntidadLabel_nombEntiEnt}" for="nombEntiEnt" />
-                        <p:inputText id="nombEntiEnt" value="#{maeEntidadController.selected.nombEntiEnt}" title="#{bundle.EditMaeEntidadTitle_nombEntiEnt}" />
+                        <p:inputText id="nombEntiEnt" value="#{maeEntidadController.selected.nombEntiEnt}" title="#{bundle.EditMaeEntidadTitle_nombEntiEnt}" required="true"/>
                         <p:outputLabel value="#{bundle.EditMaeEntidadLabel_descLargEnt}" for="descLargEnt" />
-                        <p:inputText id="descLargEnt" value="#{maeEntidadController.selected.descLargEnt}" title="#{bundle.EditMaeEntidadTitle_descLargEnt}" />
+                        <p:inputText id="descLargEnt" value="#{maeEntidadController.selected.descLargEnt}" title="#{bundle.EditMaeEntidadTitle_descLargEnt}" required="true"/>
                         <p:outputLabel value="#{bundle.EditMaeEntidadLabel_flagEstaEnt}" for="flagEstaEnt" />
-                        <p:inputText id="flagEstaEnt" value="#{maeEntidadController.selected.flagEstaEnt}" title="#{bundle.EditMaeEntidadTitle_flagEstaEnt}" />
+                        <p:selectOneMenu id="flagEstaEnt" value="#{maeEntidadController.selected.flagEstaEnt}">
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{maeEntidadController.update}" value="#{bundle.Save}" update="display,:MaeEntidadListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaeEntidadEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaeEntidadEditDialog.hide()"/>

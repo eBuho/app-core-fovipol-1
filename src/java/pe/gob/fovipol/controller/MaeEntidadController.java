@@ -27,7 +27,7 @@ import org.primefaces.model.SelectableDataModel;
 import pe.gob.fovipol.model.MaeEntidaddet;
 
 @ManagedBean(name = "maeEntidadController")
-@SessionScoped
+@ViewScoped
 public class MaeEntidadController implements Serializable {
 
     @EJB
@@ -39,10 +39,12 @@ public class MaeEntidadController implements Serializable {
     private MaeEntidad selected;
     private List<MaeEntidaddet> itemsDetalle;
     private MaeEntidaddet detalleSeleccionado;
+    private MaeEntidaddet detalleNuevo;
 
     public MaeEntidadController() {
         itemsDetalle = new ArrayList<>();
         detalleSeleccionado = new MaeEntidaddet();
+        detalleNuevo = new MaeEntidaddet();
     }
 
     public MaeEntidad getSelected() {
@@ -73,6 +75,11 @@ public class MaeEntidadController implements Serializable {
         
     }
  
+    public void actualizarDetalle(){
+        List<MaeEntidaddet> lista = ejbFacadeDetalle.findDetalle(selected);
+        setItemsDetalle(lista);
+    }
+    
     public void onRowUnselect(UnselectEvent event) {
         FacesMessage msg = new FacesMessage("Maestro Deseleccionado", 
                 ((MaeEntidad) event.getObject()).getCodiEntiEnt());
@@ -81,8 +88,15 @@ public class MaeEntidadController implements Serializable {
     
     public MaeEntidad prepareCreate() {
         selected = new MaeEntidad();
+        selected.setFlagEstaEnt(new Short("1"));
         initializeEmbeddableKey();
         return selected;
+    }
+    
+    public void preparaCrear() {
+        detalleNuevo = new MaeEntidaddet();        
+        detalleNuevo.setIdenEntiDet(ejbFacadeDetalle.obtenerCorrelativo());
+        detalleNuevo.setCodiEntiEnt(selected);
     }
 
     public void create() {
@@ -173,6 +187,20 @@ public class MaeEntidadController implements Serializable {
      */
     public void setDetalleSeleccionado(MaeEntidaddet detalleSeleccionado) {
         this.detalleSeleccionado = detalleSeleccionado;
+    }
+
+    /**
+     * @return the detalleNuevo
+     */
+    public MaeEntidaddet getDetalleNuevo() {
+        return detalleNuevo;
+    }
+
+    /**
+     * @param detalleNuevo the detalleNuevo to set
+     */
+    public void setDetalleNuevo(MaeEntidaddet detalleNuevo) {
+        this.detalleNuevo = detalleNuevo;
     }
 
     @FacesConverter(forClass = MaeEntidad.class)
