@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeEmpresaEditDlg" widgetVar="MaeEmpresaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMaeEmpresaTitle}">
+            <h:form id="MaeEmpresaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maeEmpresaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_codiEmprEmp}" for="codiEmprEmp" />
+                        <p:inputText id="codiEmprEmp" value="#{maeEmpresaController.selected.codiEmprEmp}" title="#{bundle.EditMaeEmpresaTitle_codiEmprEmp}" required="true" requiredMessage="#{bundle.EditMaeEmpresaRequiredMessage_codiEmprEmp}"/>
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_razoSociEmp}" for="razoSociEmp" />
+                        <p:inputText id="razoSociEmp" value="#{maeEmpresaController.selected.razoSociEmp}" title="#{bundle.EditMaeEmpresaTitle_razoSociEmp}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_descDireEmp}" for="descDireEmp" />
+                        <p:inputText id="descDireEmp" value="#{maeEmpresaController.selected.descDireEmp}" title="#{bundle.EditMaeEmpresaTitle_descDireEmp}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_nombComeEmp}" for="nombComeEmp" />
+                        <p:inputText id="nombComeEmp" value="#{maeEmpresaController.selected.nombComeEmp}" title="#{bundle.EditMaeEmpresaTitle_nombComeEmp}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_numeRucEmp}" for="numeRucEmp" />
+                        <p:inputText id="numeRucEmp" value="#{maeEmpresaController.selected.numeRucEmp}" title="#{bundle.EditMaeEmpresaTitle_numeRucEmp}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_reprLegaEmp}" for="reprLegaEmp" />
+                        <p:inputText id="reprLegaEmp" value="#{maeEmpresaController.selected.reprLegaEmp}" title="#{bundle.EditMaeEmpresaTitle_reprLegaEmp}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_cuenDetrEmp}" for="cuenDetrEmp" />
+                        <p:inputText id="cuenDetrEmp" value="#{maeEmpresaController.selected.cuenDetrEmp}" title="#{bundle.EditMaeEmpresaTitle_cuenDetrEmp}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_numeTeleEmp}" for="numeTeleEmp" />
+                        <p:inputText id="numeTeleEmp" value="#{maeEmpresaController.selected.numeTeleEmp}" title="#{bundle.EditMaeEmpresaTitle_numeTeleEmp}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_numeTel2Emp}" for="numeTel2Emp" />
+                        <p:inputText id="numeTel2Emp" value="#{maeEmpresaController.selected.numeTel2Emp}" title="#{bundle.EditMaeEmpresaTitle_numeTel2Emp}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_pagiWebEmp}" for="pagiWebEmp" />
+                        <p:inputText id="pagiWebEmp" value="#{maeEmpresaController.selected.pagiWebEmp}" title="#{bundle.EditMaeEmpresaTitle_pagiWebEmp}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_corrElecEmp}" for="corrElecEmp" />
+                        <p:inputText id="corrElecEmp" value="#{maeEmpresaController.selected.corrElecEmp}" title="#{bundle.EditMaeEmpresaTitle_corrElecEmp}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_flagReteEmp}" for="flagReteEmp" />
+                        <p:inputText id="flagReteEmp" value="#{maeEmpresaController.selected.flagReteEmp}" title="#{bundle.EditMaeEmpresaTitle_flagReteEmp}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{maeEmpresaController.selected.usuaCreaAud}" title="#{bundle.EditMaeEmpresaTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeEmpresaController.selected.fechCreaAud}" title="#{bundle.EditMaeEmpresaTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{maeEmpresaController.selected.usuaModiAud}" title="#{bundle.EditMaeEmpresaTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeEmpresaController.selected.fechModiAud}" title="#{bundle.EditMaeEmpresaTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{maeEmpresaController.selected.nombEquiAud}" title="#{bundle.EditMaeEmpresaTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{maeEmpresaController.selected.nombSopeAud}" title="#{bundle.EditMaeEmpresaTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_flagEstaEmp}" for="flagEstaEmp" />
+                        <p:inputText id="flagEstaEmp" value="#{maeEmpresaController.selected.flagEstaEmp}" title="#{bundle.EditMaeEmpresaTitle_flagEstaEmp}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maeEmpresaController.update}" value="#{bundle.Save}" update="display,:MaeEmpresaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaeEmpresaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MaeEmpresaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

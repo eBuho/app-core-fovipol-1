@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaePersonaViewDlg" widgetVar="MaePersonaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMaePersonaTitle}">
+            <h:form id="MaePersonaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maePersonaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_codiPersPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.codiPersPer}" title="#{bundle.ViewMaePersonaTitle_codiPersPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_apelPatePer}"/>
+                        <h:outputText value="#{maePersonaController.selected.apelPatePer}" title="#{bundle.ViewMaePersonaTitle_apelPatePer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_apelMatePer}"/>
+                        <h:outputText value="#{maePersonaController.selected.apelMatePer}" title="#{bundle.ViewMaePersonaTitle_apelMatePer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_nombPersPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.nombPersPer}" title="#{bundle.ViewMaePersonaTitle_nombPersPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_nombCompPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.nombCompPer}" title="#{bundle.ViewMaePersonaTitle_nombCompPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_tipoIdenPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.tipoIdenPer}" title="#{bundle.ViewMaePersonaTitle_tipoIdenPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_numeIdenPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.numeIdenPer}" title="#{bundle.ViewMaePersonaTitle_numeIdenPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_direPersPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.direPersPer}" title="#{bundle.ViewMaePersonaTitle_direPersPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_estaCiviPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.estaCiviPer}" title="#{bundle.ViewMaePersonaTitle_estaCiviPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_sexoPersPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.sexoPersPer}" title="#{bundle.ViewMaePersonaTitle_sexoPersPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_fechNaciPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.fechNaciPer}" title="#{bundle.ViewMaePersonaTitle_fechNaciPer}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_numeTelcPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.numeTelcPer}" title="#{bundle.ViewMaePersonaTitle_numeTelcPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_numeTeltPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.numeTeltPer}" title="#{bundle.ViewMaePersonaTitle_numeTeltPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_corrElecPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.corrElecPer}" title="#{bundle.ViewMaePersonaTitle_corrElecPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_numeCeluPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.numeCeluPer}" title="#{bundle.ViewMaePersonaTitle_numeCeluPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_numeCel2Per}"/>
+                        <h:outputText value="#{maePersonaController.selected.numeCel2Per}" title="#{bundle.ViewMaePersonaTitle_numeCel2Per}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_fechFallPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.fechFallPer}" title="#{bundle.ViewMaePersonaTitle_fechFallPer}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_tipoProfPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.tipoProfPer}" title="#{bundle.ViewMaePersonaTitle_tipoProfPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_refeUbigPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.refeUbigPer}" title="#{bundle.ViewMaePersonaTitle_refeUbigPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_mediTallPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.mediTallPer}" title="#{bundle.ViewMaePersonaTitle_mediTallPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_rutaFotoPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.rutaFotoPer}" title="#{bundle.ViewMaePersonaTitle_rutaFotoPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_flagBloqPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.flagBloqPer}" title="#{bundle.ViewMaePersonaTitle_flagBloqPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_motiBloqPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.motiBloqPer}" title="#{bundle.ViewMaePersonaTitle_motiBloqPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_flagHomoPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.flagHomoPer}" title="#{bundle.ViewMaePersonaTitle_flagHomoPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_docuHomoPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.docuHomoPer}" title="#{bundle.ViewMaePersonaTitle_docuHomoPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_grpoSangPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.grpoSangPer}" title="#{bundle.ViewMaePersonaTitle_grpoSangPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_gradParePer}"/>
+                        <h:outputText value="#{maePersonaController.selected.gradParePer}" title="#{bundle.ViewMaePersonaTitle_gradParePer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{maePersonaController.selected.usuaCreaAud}" title="#{bundle.ViewMaePersonaTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_fechCreaAud}"/>
+                        <h:outputText value="#{maePersonaController.selected.fechCreaAud}" title="#{bundle.ViewMaePersonaTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_usuaModiAud}"/>
+                        <h:outputText value="#{maePersonaController.selected.usuaModiAud}" title="#{bundle.ViewMaePersonaTitle_usuaModiAud}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_fechModiAud}"/>
+                        <h:outputText value="#{maePersonaController.selected.fechModiAud}" title="#{bundle.ViewMaePersonaTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_nombEquiAud}"/>
+                        <h:outputText value="#{maePersonaController.selected.nombEquiAud}" title="#{bundle.ViewMaePersonaTitle_nombEquiAud}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_nombSopeAud}"/>
+                        <h:outputText value="#{maePersonaController.selected.nombSopeAud}" title="#{bundle.ViewMaePersonaTitle_nombSopeAud}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_flagEstaPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.flagEstaPer}" title="#{bundle.ViewMaePersonaTitle_flagEstaPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_codiPerpPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.codiPerpPer}" title="#{bundle.ViewMaePersonaTitle_codiPerpPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_ubigNaciPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.ubigNaciPer}" title="#{bundle.ViewMaePersonaTitle_ubigNaciPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_ubigResiPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.ubigResiPer}" title="#{bundle.ViewMaePersonaTitle_ubigResiPer}"/>
+                        <h:outputText value="#{bundle.ViewMaePersonaLabel_maeSocio}"/>
+                        <h:outputText value="#{maePersonaController.selected.maeSocio}" title="#{bundle.ViewMaePersonaTitle_maeSocio}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MaePersonaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

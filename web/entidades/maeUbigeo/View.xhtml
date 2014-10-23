@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeUbigeoViewDlg" widgetVar="MaeUbigeoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMaeUbigeoTitle}">
+            <h:form id="MaeUbigeoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maeUbigeoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMaeUbigeoLabel_idenUbigUbi}"/>
+                        <h:outputText value="#{maeUbigeoController.selected.idenUbigUbi}" title="#{bundle.ViewMaeUbigeoTitle_idenUbigUbi}"/>
+                        <h:outputText value="#{bundle.ViewMaeUbigeoLabel_nombUbigUbi}"/>
+                        <h:outputText value="#{maeUbigeoController.selected.nombUbigUbi}" title="#{bundle.ViewMaeUbigeoTitle_nombUbigUbi}"/>
+                        <h:outputText value="#{bundle.ViewMaeUbigeoLabel_niveUbigUbi}"/>
+                        <h:outputText value="#{maeUbigeoController.selected.niveUbigUbi}" title="#{bundle.ViewMaeUbigeoTitle_niveUbigUbi}"/>
+                        <h:outputText value="#{bundle.ViewMaeUbigeoLabel_usuaCreaUbi}"/>
+                        <h:outputText value="#{maeUbigeoController.selected.usuaCreaUbi}" title="#{bundle.ViewMaeUbigeoTitle_usuaCreaUbi}"/>
+                        <h:outputText value="#{bundle.ViewMaeUbigeoLabel_fechCreaUbi}"/>
+                        <h:outputText value="#{maeUbigeoController.selected.fechCreaUbi}" title="#{bundle.ViewMaeUbigeoTitle_fechCreaUbi}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeUbigeoLabel_usuaModiUbi}"/>
+                        <h:outputText value="#{maeUbigeoController.selected.usuaModiUbi}" title="#{bundle.ViewMaeUbigeoTitle_usuaModiUbi}"/>
+                        <h:outputText value="#{bundle.ViewMaeUbigeoLabel_fechModiUbi}"/>
+                        <h:outputText value="#{maeUbigeoController.selected.fechModiUbi}" title="#{bundle.ViewMaeUbigeoTitle_fechModiUbi}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeUbigeoLabel_flagEstaUbi}"/>
+                        <h:outputText value="#{maeUbigeoController.selected.flagEstaUbi}" title="#{bundle.ViewMaeUbigeoTitle_flagEstaUbi}"/>
+                        <h:outputText value="#{bundle.ViewMaeUbigeoLabel_idenUbipUbi}"/>
+                        <h:outputText value="#{maeUbigeoController.selected.idenUbipUbi}" title="#{bundle.ViewMaeUbigeoTitle_idenUbipUbi}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MaeUbigeoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

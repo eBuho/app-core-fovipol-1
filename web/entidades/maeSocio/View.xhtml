@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeSocioViewDlg" widgetVar="MaeSocioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMaeSocioTitle}">
+            <h:form id="MaeSocioViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maeSocioController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_codiPersPer}"/>
+                        <h:outputText value="#{maeSocioController.selected.codiPersPer}" title="#{bundle.ViewMaeSocioTitle_codiPersPer}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_codiMigrSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.codiMigrSoc}" title="#{bundle.ViewMaeSocioTitle_codiMigrSoc}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_tipoPoliSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.tipoPoliSoc}" title="#{bundle.ViewMaeSocioTitle_tipoPoliSoc}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_codiCcipSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.codiCcipSoc}" title="#{bundle.ViewMaeSocioTitle_codiCcipSoc}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_codiCdfiSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.codiCdfiSoc}" title="#{bundle.ViewMaeSocioTitle_codiCdfiSoc}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_codiCajaSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.codiCajaSoc}" title="#{bundle.ViewMaeSocioTitle_codiCajaSoc}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_codiMpolSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.codiMpolSoc}" title="#{bundle.ViewMaeSocioTitle_codiMpolSoc}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_fechAfilSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.fechAfilSoc}" title="#{bundle.ViewMaeSocioTitle_fechAfilSoc}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_fechDesaSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.fechDesaSoc}" title="#{bundle.ViewMaeSocioTitle_fechDesaSoc}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_codiGradSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.codiGradSoc}" title="#{bundle.ViewMaeSocioTitle_codiGradSoc}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_codiEspeSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.codiEspeSoc}" title="#{bundle.ViewMaeSocioTitle_codiEspeSoc}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_fechIescSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.fechIescSoc}" title="#{bundle.ViewMaeSocioTitle_fechIescSoc}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_fechEescSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.fechEescSoc}" title="#{bundle.ViewMaeSocioTitle_fechEescSoc}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_fechBajaSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.fechBajaSoc}" title="#{bundle.ViewMaeSocioTitle_fechBajaSoc}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_unidTrabSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.unidTrabSoc}" title="#{bundle.ViewMaeSocioTitle_unidTrabSoc}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_entiPagoSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.entiPagoSoc}" title="#{bundle.ViewMaeSocioTitle_entiPagoSoc}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_fechReinSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.fechReinSoc}" title="#{bundle.ViewMaeSocioTitle_fechReinSoc}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_flagRenuSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.flagRenuSoc}" title="#{bundle.ViewMaeSocioTitle_flagRenuSoc}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_fechRenuSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.fechRenuSoc}" title="#{bundle.ViewMaeSocioTitle_fechRenuSoc}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{maeSocioController.selected.usuaCreaAud}" title="#{bundle.ViewMaeSocioTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_fechCreaAud}"/>
+                        <h:outputText value="#{maeSocioController.selected.fechCreaAud}" title="#{bundle.ViewMaeSocioTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_usuaModiAud}"/>
+                        <h:outputText value="#{maeSocioController.selected.usuaModiAud}" title="#{bundle.ViewMaeSocioTitle_usuaModiAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_fechModiAud}"/>
+                        <h:outputText value="#{maeSocioController.selected.fechModiAud}" title="#{bundle.ViewMaeSocioTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_nombEquiAud}"/>
+                        <h:outputText value="#{maeSocioController.selected.nombEquiAud}" title="#{bundle.ViewMaeSocioTitle_nombEquiAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_nombSopeAud}"/>
+                        <h:outputText value="#{maeSocioController.selected.nombSopeAud}" title="#{bundle.ViewMaeSocioTitle_nombSopeAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_flagEstaSoc}"/>
+                        <h:outputText value="#{maeSocioController.selected.flagEstaSoc}" title="#{bundle.ViewMaeSocioTitle_flagEstaSoc}"/>
+                        <h:outputText value="#{bundle.ViewMaeSocioLabel_maePersona}"/>
+                        <h:outputText value="#{maeSocioController.selected.maePersona}" title="#{bundle.ViewMaeSocioTitle_maePersona}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MaeSocioViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

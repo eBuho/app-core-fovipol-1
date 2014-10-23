@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <title><ui:insert name="title">Sistema Integrado Fovipol</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
@@ -21,8 +21,12 @@
                     <p:menubar>
                         <p:menuitem value="#{bundle.Home}" outcome="/index.xhtml" icon="ui-icon-home"/>
                         <p:submenu label="#{bundle.Maintenance}">
-                            <p:menuitem value="MaeEntidad" outcome="/entidades/maeEntidad/List.xhtml" />
-                            <p:menuitem value="MaeEntidaddet" outcome="/entidades/maeEntidaddet/List.xhtml" />
+                            <p:menuitem value="Entidades" outcome="/entidades/maeEntidad/List.xhtml" />
+                            <p:menuitem value="Entidad/Detalle" outcome="/entidades/maeEntidaddet/List.xhtml" />
+                            <p:menuitem value="Empresa" outcome="/entidades/maeEmpresa/List.xhtml" />
+                            <p:menuitem value="Persona" outcome="/entidades/maePersona/List.xhtml" />
+                            <p:menuitem value="Socio" outcome="/entidades/maeSocio/List.xhtml" />
+                            <p:menuitem value="Ubigeo" outcome="/entidades/maeUbigeo/List.xhtml" />
                         </p:submenu>
                     </p:menubar>
                 </h:form>
