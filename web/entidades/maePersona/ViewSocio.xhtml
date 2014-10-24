@@ -12,7 +12,7 @@
         <p:dialog id="MaeSocioViewDlg" widgetVar="MaeSocioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMaeSocioTitle}">
             <h:form id="MaeSocioViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="6" rendered="#{maePersonaController.selectedSocio != null}">
+                    <p:panelGrid columns="6" rendered="#{maePersonaController.selectedSocio != null}" styleClass="tablaNoBorde">
                         <h:outputText value="#{bundle.ViewMaeSocioLabel_codiPersPer}"/>
                         <h:outputText value="#{maePersonaController.selectedSocio.codiPersPer}" title="#{bundle.ViewMaeSocioTitle_codiPersPer}"/>
                         <h:outputText value="#{bundle.ViewMaeSocioLabel_codiMigrSoc}"/>

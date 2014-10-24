@@ -16,6 +16,6 @@
     margin-top: 10px !important;
 }
 
-.tablaTelefono tr, .tablaTelefono td {
+.tablaNoBorde tr, .tablaNoBorde td {
     border: none !important;
 }
