@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeAreaViewDlg" widgetVar="MaeAreaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMaeAreaTitle}">
+            <h:form id="MaeAreaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maeAreaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_codiAreaAre}"/>
+                        <h:outputText value="#{maeAreaController.selected.codiAreaAre}" title="#{bundle.ViewMaeAreaTitle_codiAreaAre}"/>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_descAreaAre}"/>
+                        <h:outputText value="#{maeAreaController.selected.descAreaAre}" title="#{bundle.ViewMaeAreaTitle_descAreaAre}"/>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_tipoAreaAre}"/>
+                        <h:outputText value="#{maeAreaController.selected.tipoAreaAre}" title="#{bundle.ViewMaeAreaTitle_tipoAreaAre}"/>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_numeTeleAre}"/>
+                        <h:outputText value="#{maeAreaController.selected.numeTeleAre}" title="#{bundle.ViewMaeAreaTitle_numeTeleAre}"/>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_numeAnexAre}"/>
+                        <h:outputText value="#{maeAreaController.selected.numeAnexAre}" title="#{bundle.ViewMaeAreaTitle_numeAnexAre}"/>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{maeAreaController.selected.usuaCreaAud}" title="#{bundle.ViewMaeAreaTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_fechCreaAud}"/>
+                        <h:outputText value="#{maeAreaController.selected.fechCreaAud}" title="#{bundle.ViewMaeAreaTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_usuaModiAud}"/>
+                        <h:outputText value="#{maeAreaController.selected.usuaModiAud}" title="#{bundle.ViewMaeAreaTitle_usuaModiAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_fechModiAud}"/>
+                        <h:outputText value="#{maeAreaController.selected.fechModiAud}" title="#{bundle.ViewMaeAreaTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_nombEquiAud}"/>
+                        <h:outputText value="#{maeAreaController.selected.nombEquiAud}" title="#{bundle.ViewMaeAreaTitle_nombEquiAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_nombSopeAud}"/>
+                        <h:outputText value="#{maeAreaController.selected.nombSopeAud}" title="#{bundle.ViewMaeAreaTitle_nombSopeAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_flagEstaAre}"/>
+                        <h:outputText value="#{maeAreaController.selected.flagEstaAre}" title="#{bundle.ViewMaeAreaTitle_flagEstaAre}"/>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_codiArepAre}"/>
+                        <h:outputText value="#{maeAreaController.selected.codiArepAre}" title="#{bundle.ViewMaeAreaTitle_codiArepAre}"/>
+                        <h:outputText value="#{bundle.ViewMaeAreaLabel_codiMaeSede}"/>
+                        <h:outputText value="#{maeAreaController.selected.codiMaeSede}" title="#{bundle.ViewMaeAreaTitle_codiMaeSede}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MaeAreaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
