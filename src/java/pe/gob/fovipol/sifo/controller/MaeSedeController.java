@@ -1,9 +1,9 @@
 package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.sifo.model.MaeEmpresa;
+import pe.gob.fovipol.sifo.model.MaeSede;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
-import pe.gob.fovipol.sifo.dao.MaeEmpresaFacade;
+import pe.gob.fovipol.sifo.dao.MaeSedeFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "maeEmpresaController")
+@ManagedBean(name = "maeSedeController")
 @SessionScoped
-public class MaeEmpresaController implements Serializable {
+public class MaeSedeController implements Serializable {
 
     @EJB
-    private pe.gob.fovipol.sifo.dao.MaeEmpresaFacade ejbFacade;
-    private List<MaeEmpresa> items = null;
-    private MaeEmpresa selected;
+    private pe.gob.fovipol.sifo.dao.MaeSedeFacade ejbFacade;
+    private List<MaeSede> items = null;
+    private MaeSede selected;
 
-    public MaeEmpresaController() {
+    public MaeSedeController() {
     }
 
-    public MaeEmpresa getSelected() {
+    public MaeSede getSelected() {
         return selected;
     }
 
-    public void setSelected(MaeEmpresa selected) {
+    public void setSelected(MaeSede selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class MaeEmpresaController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private MaeEmpresaFacade getFacade() {
+    private MaeSedeFacade getFacade() {
         return ejbFacade;
     }
 
-    public MaeEmpresa prepareCreate() {
-        selected = new MaeEmpresa();
+    public MaeSede prepareCreate() {
+        selected = new MaeSede();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeSedeCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeSedeUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeSedeDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<MaeEmpresa> getItems() {
+    public List<MaeSede> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,24 +109,24 @@ public class MaeEmpresaController implements Serializable {
         }
     }
 
-    public List<MaeEmpresa> getItemsAvailableSelectMany() {
+    public List<MaeSede> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<MaeEmpresa> getItemsAvailableSelectOne() {
+    public List<MaeSede> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = MaeEmpresa.class)
-    public static class MaeEmpresaControllerConverter implements Converter {
+    @FacesConverter(forClass = MaeSede.class)
+    public static class MaeSedeControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MaeEmpresaController controller = (MaeEmpresaController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "maeEmpresaController");
+            MaeSedeController controller = (MaeSedeController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "maeSedeController");
             return controller.getFacade().find(getKey(value));
         }
 
@@ -147,11 +147,11 @@ public class MaeEmpresaController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof MaeEmpresa) {
-                MaeEmpresa o = (MaeEmpresa) object;
-                return getStringKey(o.getCodiEmprEmp());
+            if (object instanceof MaeSede) {
+                MaeSede o = (MaeSede) object;
+                return getStringKey(o.getCodiMaeSede());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeEmpresa.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeSede.class.getName()});
                 return null;
             }
         }

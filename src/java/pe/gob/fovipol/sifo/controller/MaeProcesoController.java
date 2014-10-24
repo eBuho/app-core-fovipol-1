@@ -1,9 +1,9 @@
 package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.sifo.model.MaeEmpresa;
+import pe.gob.fovipol.sifo.model.MaeProceso;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
-import pe.gob.fovipol.sifo.dao.MaeEmpresaFacade;
+import pe.gob.fovipol.sifo.dao.MaeProcesoFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "maeEmpresaController")
+@ManagedBean(name = "maeProcesoController")
 @SessionScoped
-public class MaeEmpresaController implements Serializable {
+public class MaeProcesoController implements Serializable {
 
     @EJB
-    private pe.gob.fovipol.sifo.dao.MaeEmpresaFacade ejbFacade;
-    private List<MaeEmpresa> items = null;
-    private MaeEmpresa selected;
+    private pe.gob.fovipol.sifo.dao.MaeProcesoFacade ejbFacade;
+    private List<MaeProceso> items = null;
+    private MaeProceso selected;
 
-    public MaeEmpresaController() {
+    public MaeProcesoController() {
     }
 
-    public MaeEmpresa getSelected() {
+    public MaeProceso getSelected() {
         return selected;
     }
 
-    public void setSelected(MaeEmpresa selected) {
+    public void setSelected(MaeProceso selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class MaeEmpresaController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private MaeEmpresaFacade getFacade() {
+    private MaeProcesoFacade getFacade() {
         return ejbFacade;
     }
 
-    public MaeEmpresa prepareCreate() {
-        selected = new MaeEmpresa();
+    public MaeProceso prepareCreate() {
+        selected = new MaeProceso();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<MaeEmpresa> getItems() {
+    public List<MaeProceso> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,24 +109,24 @@ public class MaeEmpresaController implements Serializable {
         }
     }
 
-    public List<MaeEmpresa> getItemsAvailableSelectMany() {
+    public List<MaeProceso> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<MaeEmpresa> getItemsAvailableSelectOne() {
+    public List<MaeProceso> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = MaeEmpresa.class)
-    public static class MaeEmpresaControllerConverter implements Converter {
+    @FacesConverter(forClass = MaeProceso.class)
+    public static class MaeProcesoControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MaeEmpresaController controller = (MaeEmpresaController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "maeEmpresaController");
+            MaeProcesoController controller = (MaeProcesoController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "maeProcesoController");
             return controller.getFacade().find(getKey(value));
         }
 
@@ -147,11 +147,11 @@ public class MaeEmpresaController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof MaeEmpresa) {
-                MaeEmpresa o = (MaeEmpresa) object;
-                return getStringKey(o.getCodiEmprEmp());
+            if (object instanceof MaeProceso) {
+                MaeProceso o = (MaeProceso) object;
+                return getStringKey(o.getCodiProcPrc());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeEmpresa.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeProceso.class.getName()});
                 return null;
             }
         }

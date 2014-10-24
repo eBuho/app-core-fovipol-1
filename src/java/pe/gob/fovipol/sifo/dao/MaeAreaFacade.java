@@ -8,14 +8,14 @@ package pe.gob.fovipol.sifo.dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pe.gob.fovipol.sifo.model.MaeEmpresa;
+import pe.gob.fovipol.sifo.model.MaeArea;
 
 /**
  *
  * @author ebuho
  */
 @Stateless
-public class MaeEmpresaFacade extends AbstractFacade<MaeEmpresa> {
+public class MaeAreaFacade extends AbstractFacade<MaeArea> {
     @PersistenceContext(unitName = "SIFOPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class MaeEmpresaFacade extends AbstractFacade<MaeEmpresa> {
         return em;
     }
 
-    public MaeEmpresaFacade() {
-        super(MaeEmpresa.class);
+    public MaeAreaFacade() {
+        super(MaeArea.class);
     }
     
 }
