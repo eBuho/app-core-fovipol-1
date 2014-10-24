@@ -7,8 +7,6 @@ package pe.gob.fovipol.controller.util;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
 import javax.ejb.EJB;
 
 import javax.faces.component.FacesComponent;
@@ -17,7 +15,6 @@ import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
-import pe.gob.fovipol.model.MaeEntidad;
 import pe.gob.fovipol.model.MaeEntidaddet;
 
 @FacesComponent("inputEntidadDetalle")
@@ -49,8 +46,14 @@ public class InputEntidadDetalle extends UIInput implements NamingContainer {
             key=getAttributeValue("value", null);
         }
         catch(ClassCastException cce){
-            int ente=getAttributeValue("value", 0);
-            key=new BigDecimal(ente);
+            try{
+                int ente=getAttributeValue("value", 0);
+                key=new BigDecimal(ente);
+            }
+            catch(ClassCastException cde){
+                String entidad=getAttributeValue("value", "0");
+                key=new BigDecimal(entidad);
+            }            
         }
         //BigDecimal key=new BigDecimal(ingreso);
         MaeEntidaddet aux=ejbEntidadDetalleFacade.findIdenEntiDet(key);

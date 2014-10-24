@@ -5,9 +5,12 @@
  */
 package pe.gob.fovipol.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import pe.gob.fovipol.model.MaePersona;
 import pe.gob.fovipol.model.MaeSocio;
 
 /**
@@ -27,5 +30,12 @@ public class MaeSocioFacade extends AbstractFacade<MaeSocio> {
     public MaeSocioFacade() {
         super(MaeSocio.class);
     }
-    
+    public List<MaeSocio> findHijos(MaePersona padre) {
+        List<MaeSocio> lista = null;
+        String sql = "FROM MaeSocio a WHERE a.maePersona=:padre";        
+        Query q = em.createQuery(sql);
+        q.setParameter("padre", padre);
+        lista = q.getResultList();
+        return lista;
+    }
 }

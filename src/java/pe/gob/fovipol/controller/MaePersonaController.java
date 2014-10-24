@@ -22,6 +22,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import pe.gob.fovipol.model.MaeEntidad;
 import pe.gob.fovipol.model.MaeEntidaddet;
+import pe.gob.fovipol.model.MaeSocio;
 import pe.gob.fovipol.model.MaeUbigeo;
 
 @ManagedBean(name = "maePersonaController")
@@ -33,10 +34,14 @@ public class MaePersonaController implements Serializable {
     @EJB
     private pe.gob.fovipol.dao.MaeUbigeoFacade ejbUbigeoFacade;
     @EJB
+    private pe.gob.fovipol.dao.MaeSocioFacade ejbSocioFacade;
+    @EJB
     private pe.gob.fovipol.dao.MaeEntidaddetFacade ejbEntidadDetalleFacade;
     private List<MaePersona> items = null;
     private List<MaePersona> itemsFiltro;
+    private List<MaeSocio> socios;
     private MaePersona selected;
+    private MaeSocio selectedSocio;
     private MaeUbigeo departamentoNacimiento;
     private MaeUbigeo provinciaNacimiento;
     private List<MaeUbigeo> departamentos=null;
@@ -46,14 +51,17 @@ public class MaePersonaController implements Serializable {
     private List<MaeEntidaddet> estadosCiviles;
     private List<MaeEntidaddet> generos;
     private List<MaeEntidaddet> profesiones;
-    private List<MaeEntidaddet> bloqueos;
-    private List<MaeEntidaddet> tiposPolicias;
-    private List<MaeEntidaddet> unidades;
+    private List<MaeEntidaddet> bloqueos;    
     private List<MaeEntidaddet> entidadesPago;
-    public MaePersonaController() {        
+    private List<MaeEntidaddet> tiposPolicia;
+    private List<MaeEntidaddet> unidadesTrabajo;
+    public MaePersonaController() {  
+        
     }
-    
-    
+    @PostConstruct
+    public void init(){
+        
+    }
     public void prepararActualizar(){
         if(selected!=null && selected.getUbigNaciPer()!=null){
             provinciaNacimiento=selected.getUbigNaciPer().getIdenUbipUbi();
@@ -67,6 +75,10 @@ public class MaePersonaController implements Serializable {
         }
     }
     
+    public void cargarSocio(){
+        socios=ejbSocioFacade.findHijos(selected);
+        selectedSocio=null;
+    }
     public void cargarProvincias(){
         provincias=ejbUbigeoFacade.findHijos(departamentoNacimiento);
     }
@@ -101,7 +113,19 @@ public class MaePersonaController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+    public MaeSocio prepareCreateSocio() {
+        selectedSocio = new MaeSocio();
+        selectedSocio.setFlagEstaSoc(new Short("1"));
+        selectedSocio.setCodiPersPer(selected.getCodiPersPer());        
+        return selectedSocio;
+    }
+    public void createSocio(){
+        selectedSocio.setFechCreaAud(new Date());
+        persistSocio(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeSocioCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            cargarSocio();    // Invalidate list of items to trigger re-query.
+        }
+    }
     public void create() {
         selected.setFechCreaAud(new Date());
         selected.setFlagEstaPer(new Short("1"));
@@ -127,12 +151,23 @@ public class MaePersonaController implements Serializable {
         selected.setNombCompPer(nombreCompleto());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaUpdated"));
     }
+    public void updateSocio() {
+        selectedSocio.setFechModiAud(new Date());
+        persistSocio(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeSocioUpdated"));
+    }
 
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    public void destroySocio() {
+        persistSocio(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeSocioDeleted"));
+        if (!JsfUtil.isValidationFailed()) {
+            cargarSocio();
+            selectedSocio = null; 
         }
     }
 
@@ -171,6 +206,33 @@ public class MaePersonaController implements Serializable {
         }
     }
 
+    private void persistSocio(PersistAction persistAction, String successMessage) {
+        if (selectedSocio != null) {
+            setEmbeddableKeys();
+            try {
+                if (persistAction != PersistAction.DELETE) {
+                    ejbSocioFacade.edit(selectedSocio);
+                } else {
+                    ejbSocioFacade.remove(selectedSocio);
+                }
+                JsfUtil.addSuccessMessage(successMessage);
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
     public List<MaePersona> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -351,39 +413,6 @@ public class MaePersonaController implements Serializable {
         this.bloqueos = bloqueos;
     }
 
-    /**
-     * @return the tiposPolicias
-     */
-    public List<MaeEntidaddet> getTiposPolicias() {
-        if(tiposPolicias==null){
-            tiposPolicias=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("TIPOPOLISOC"));
-        }
-        return tiposPolicias;
-    }
-
-    /**
-     * @param tiposPolicias the tiposPolicias to set
-     */
-    public void setTiposPolicias(List<MaeEntidaddet> tiposPolicias) {
-        this.tiposPolicias = tiposPolicias;
-    }
-
-    /**
-     * @return the unidades
-     */
-    public List<MaeEntidaddet> getUnidades() {
-        if(unidades==null){
-            unidades=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("UNIDTRABSOC"));
-        }
-        return unidades;
-    }
-
-    /**
-     * @param unidades the unidades to set
-     */
-    public void setUnidades(List<MaeEntidaddet> unidades) {
-        this.unidades = unidades;
-    }
 
     /**
      * @return the entidadesPago
@@ -400,6 +429,68 @@ public class MaePersonaController implements Serializable {
      */
     public void setEntidadesPago(List<MaeEntidaddet> entidadesPago) {
         this.entidadesPago = entidadesPago;
+    }
+
+    /**
+     * @return the socios
+     */
+    public List<MaeSocio> getSocios() {
+        return socios;
+    }
+
+    /**
+     * @param socios the socios to set
+     */
+    public void setSocios(List<MaeSocio> socios) {
+        this.socios = socios;
+    }
+
+    /**
+     * @return the selectedSocio
+     */
+    public MaeSocio getSelectedSocio() {
+        return selectedSocio;
+    }
+
+    /**
+     * @param selectedSocio the selectedSocio to set
+     */
+    public void setSelectedSocio(MaeSocio selectedSocio) {
+        this.selectedSocio = selectedSocio;
+    }
+
+    /**
+     * @return the tiposPolicia
+     */
+    public List<MaeEntidaddet> getTiposPolicia() {
+        if(tiposPolicia==null){
+            tiposPolicia=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("TIPOPOLISOC"));
+        }
+        return tiposPolicia;
+    }
+
+    /**
+     * @param tiposPolicia the tiposPolicia to set
+     */
+    public void setTiposPolicia(List<MaeEntidaddet> tiposPolicia) {
+        this.tiposPolicia = tiposPolicia;
+    }
+
+    /**
+     * @return the unidadesTrabajo
+     */
+    public List<MaeEntidaddet> getUnidadesTrabajo() {
+        if(unidadesTrabajo==null){
+            unidadesTrabajo=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("UNIDTRABSOC"));
+        }
+        return unidadesTrabajo;
+    }
+
+    /**
+     * @param unidadesTrabajo the unidadesTrabajo to set
+     */
+    public void setUnidadesTrabajo(List<MaeEntidaddet> unidadesTrabajo) {
+        this.unidadesTrabajo = unidadesTrabajo;
     }
 
     

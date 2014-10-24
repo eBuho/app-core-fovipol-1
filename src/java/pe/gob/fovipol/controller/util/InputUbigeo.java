@@ -6,9 +6,7 @@
 package pe.gob.fovipol.controller.util;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -18,7 +16,6 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import pe.gob.fovipol.model.MaeUbigeo;
 
 @FacesComponent("inputUbigeo")
@@ -52,8 +49,8 @@ public class InputUbigeo extends UIInput implements NamingContainer {
         if(value!=null && value.getIdenUbipUbi()!=null && value.getIdenUbipUbi().getIdenUbipUbi()!=null){
             provincia.setValue(value.getIdenUbipUbi().getIdenUbigUbi());
             departamento.setValue(value.getIdenUbipUbi().getIdenUbipUbi().getIdenUbigUbi());
-            distrito.setValue(value.getIdenUbigUbi());
             cargarProvincias();
+            distrito.setValue(value.getIdenUbigUbi());            
             cargarDistritos();
         }
         super.encodeBegin(context);
@@ -83,9 +80,10 @@ public class InputUbigeo extends UIInput implements NamingContainer {
     public void cargarProvincias() {
         
         setProvincias(ejbUbigeoFacade.findHijos(new MaeUbigeo(getDepartamento().getValue().toString())));
+        setDistritos(new ArrayList<MaeUbigeo>());
         FacesContext context = FacesContext.getCurrentInstance(); 
         context.getPartialViewContext().getRenderIds().add(getProvincia().getClientId(context));
-        
+        context.getPartialViewContext().getRenderIds().add(getDistrito().getClientId(context));
     }
     public void cargarDistritos() {
         
