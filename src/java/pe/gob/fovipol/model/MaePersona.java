@@ -24,6 +24,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -95,6 +96,7 @@ public class MaePersona implements Serializable {
     private BigDecimal tipoIdenPer;
     @Size(max = 15)
     @Column(name = "NUME_IDEN_PER")
+    @Pattern(regexp = "[0-9]*")
     private String numeIdenPer;
     @Size(max = 120)
     @Column(name = "DIRE_PERS_PER")
@@ -108,12 +110,15 @@ public class MaePersona implements Serializable {
     private Date fechNaciPer;
     @Size(max = 20)
     @Column(name = "NUME_TELC_PER")
+    @Pattern(regexp="[0-9\\- ]*")
     private String numeTelcPer;
     @Size(max = 20)
     @Column(name = "NUME_TELT_PER")
+    @Pattern(regexp="[0-9\\- ]*")
     private String numeTeltPer;
     @Size(max = 50)
     @Column(name = "CORR_ELEC_PER")
+    @Pattern(regexp="^$|[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Correo Invalido")
     private String corrElecPer;
     @Size(max = 20)
     @Column(name = "NUME_CELU_PER")

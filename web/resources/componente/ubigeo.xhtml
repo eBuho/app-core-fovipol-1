@@ -2,16 +2,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <!-- INTERFACE -->
-    <cc:interface>
-        <cc:attribute name="value"/>
+    <cc:interface componentType="inputUbigeo">
+        <cc:attribute name="value" /> 
     </cc:interface>
-
-    <!-- IMPLEMENTATION -->
-    <cc:implementation> 
-        <h:outputText value="Activo" rendered="#{cc.attrs.value==1}"/>
-        <h:outputText value="Inactivo" rendered="#{cc.attrs.value==0}"/>        
+    <cc:implementation>
+        
+            <p:selectOneMenu id="day" binding="#{cc.departamento}">
+                <f:selectItem itemValue="0" itemLabel="Seleccione" />
+                <f:selectItems value="#{cc.departamentos}" var="departamento"
+                               itemValue="#{departamento.idenUbigUbi}" itemLabel="#{departamento.nombUbigUbi}"/>
+                <p:ajax update="provincias" listener="#{cc.cargarProvincias}"/>
+            </p:selectOneMenu>
+            <p:selectOneMenu id="provincias" binding="#{cc.provincia}">
+                <f:selectItem itemValue="0" itemLabel="Seleccione" />
+                <f:selectItems value="#{cc.provincias}" var="provincia"
+                               itemValue="#{provincia.idenUbigUbi}" itemLabel="#{provincia.nombUbigUbi}"/>
+                <p:ajax update="distritos" listener="#{cc.cargarDistritos}"/>
+            </p:selectOneMenu>
+            <p:selectOneMenu id="distritos" binding="#{cc.distrito}">
+                <f:selectItem itemValue="0" itemLabel="Seleccione" />
+                <f:selectItems value="#{cc.distritos}" var="distrito"
+                               itemValue="#{distrito.idenUbigUbi}" itemLabel="#{distrito.nombUbigUbi}"/>
+            </p:selectOneMenu> 
+        
     </cc:implementation>
 </html>

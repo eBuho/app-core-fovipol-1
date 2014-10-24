@@ -50,4 +50,13 @@ public class MaeEntidaddetFacade extends AbstractFacade<MaeEntidaddet> {
         id=id.add(new BigDecimal(1));
         return id;
     }
+    public MaeEntidaddet findIdenEntiDet(BigDecimal idb) {
+        List<MaeEntidaddet> id;
+        Query q = em.createQuery("SELECT a FROM MaeEntidaddet a WHERE a.idenEntiDet=:id");
+        q.setParameter("id", idb);
+        id = q.getResultList();
+        if(id==null || id.size()==0)
+            return null;
+        return id.get(0);
+    }
 }

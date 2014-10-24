@@ -48,4 +48,14 @@ public class MaeUbigeoFacade extends AbstractFacade<MaeUbigeo> {
         lista = q.getResultList();
         return lista;
     }
+    
+    public MaeUbigeo findIdenUbigUbi(String idb) {
+        List<MaeUbigeo> id;
+        Query q = em.createQuery("SELECT a FROM MaeUbigeo a WHERE a.idenUbigUbi=:id");
+        q.setParameter("id", idb);
+        id = q.getResultList();
+        if(id==null || id.isEmpty())
+            return null;
+        return id.get(0);
+    }
 }

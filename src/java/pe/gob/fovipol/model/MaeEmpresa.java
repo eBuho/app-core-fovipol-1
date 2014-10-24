@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -66,8 +67,9 @@ public class MaeEmpresa implements Serializable {
     @Size(max = 120)
     @Column(name = "NOMB_COME_EMP")
     private String nombComeEmp;
-    @Size(max = 11)
+    @Size(max = 11,min = 11)
     @Column(name = "NUME_RUC_EMP")
+    @Pattern(regexp = "[0-9]*")
     private String numeRucEmp;
     @Size(max = 120)
     @Column(name = "REPR_LEGA_EMP")
@@ -75,17 +77,20 @@ public class MaeEmpresa implements Serializable {
     @Size(max = 50)
     @Column(name = "CUEN_DETR_EMP")
     private String cuenDetrEmp;
-    @Size(max = 20)
+    @Size(max = 20)    
     @Column(name = "NUME_TELE_EMP")
+    @Pattern(regexp="[0-9\\- ]*")
     private String numeTeleEmp;
     @Size(max = 20)
     @Column(name = "NUME_TEL2_EMP")
+    @Pattern(regexp="[0-9\\- ]*")
     private String numeTel2Emp;
     @Size(max = 120)
     @Column(name = "PAGI_WEB_EMP")
     private String pagiWebEmp;
     @Size(max = 50)
     @Column(name = "CORR_ELEC_EMP")
+    @Pattern(regexp="^$|[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Correo Invalido")
     private String corrElecEmp;
     @Column(name = "FLAG_RETE_EMP")
     private Short flagReteEmp;

@@ -64,7 +64,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_tipoIdenPer}"/>
                             </f:facet>
-                            <h:outputText value="#{item.tipoIdenPer}"/>
+                            <comp:entidadDetalle value="#{item.tipoIdenPer}" />
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -82,20 +82,20 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_estaCiviPer}"/>
                             </f:facet>
-                            <h:outputText value="#{item.estaCiviPer}"/>
+                            <comp:entidadDetalle value="#{item.estaCiviPer}" />
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_sexoPersPer}"/>
                             </f:facet>
-                            <h:outputText value="#{item.sexoPersPer}"/>
+                             <comp:entidadDetalle value="#{item.sexoPersPer}" />
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_fechNaciPer}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechNaciPer}">
-                                <f:convertDateTime locale="es" timeStyle="short" />
+                                <f:convertDateTime locale="es" pattern="dd/MM/YYYY" />
                             </h:outputText>
                         </p:column>
                         <p:column rendered="false">
@@ -133,7 +133,7 @@
                                 <h:outputText value="#{bundle.ListMaePersonaTitle_fechFallPer}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechFallPer}">
-                                <f:convertDateTime locale="es" type="date" timeStyle="short" />
+                                <f:convertDateTime locale="es" type="date" pattern="dd/MM/YYYY" />
                             </h:outputText>
                         </p:column>
                         <p:column rendered="false">

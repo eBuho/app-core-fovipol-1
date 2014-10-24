@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -51,6 +52,7 @@ public class MaePersonaController implements Serializable {
     private List<MaeEntidaddet> entidadesPago;
     public MaePersonaController() {        
     }
+    
     
     public void prepararActualizar(){
         if(selected!=null && selected.getUbigNaciPer()!=null){
@@ -399,6 +401,8 @@ public class MaePersonaController implements Serializable {
     public void setEntidadesPago(List<MaeEntidaddet> entidadesPago) {
         this.entidadesPago = entidadesPago;
     }
+
+    
 
     @FacesConverter(forClass = MaePersona.class)
     public static class MaePersonaControllerConverter implements Converter {

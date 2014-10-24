@@ -4,7 +4,8 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
 
     <!-- INTERFACE -->
     <cc:interface>
@@ -46,10 +47,10 @@
             </p:selectOneMenu>                        
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_fechNaciPer}" for="fechNaciPer" />
             <p:calendar id="fechNaciPer" pattern="dd/MM/yyyy" value="#{cc.attrs.value.selected.fechNaciPer}" title="#{bundle.EditMaePersonaTitle_fechNaciPer}"  showOn="button"/>
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeTelcPer}" for="numeTelcPer" />
-            <p:inputText id="numeTelcPer" value="#{cc.attrs.value.selected.numeTelcPer}" title="#{bundle.CreateMaePersonaTitle_numeTelcPer}" />
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeTeltPer}" for="numeTeltPer" />
-            <p:inputText id="numeTeltPer" value="#{cc.attrs.value.selected.numeTeltPer}" title="#{bundle.CreateMaePersonaTitle_numeTeltPer}" />
+            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeTelcPer}"/>
+            <comp:telefono value="#{cc.attrs.value.selected.numeTelcPer}"/>            
+            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeTeltPer}" />
+            <comp:telefono value="#{cc.attrs.value.selected.numeTeltPer}"/>             
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_corrElecPer}" for="corrElecPer" />
             <p:inputText id="corrElecPer" value="#{cc.attrs.value.selected.corrElecPer}" title="#{bundle.CreateMaePersonaTitle_corrElecPer}" />
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeCeluPer}" for="numeCeluPer" />
@@ -93,34 +94,12 @@
             <p:selectOneMenu id="flagEstaPer" value="#{cc.attrs.value.selected.flagEstaPer}" disabled="#{cc.attrs.crear}">
                 <f:selectItem itemLabel="Activo" itemValue="1"/>
                 <f:selectItem itemLabel="Inactivo" itemValue="0"/>
-            </p:selectOneMenu>
-            <p:outputLabel value="Departamento"  />
-            <p:selectOneMenu value="#{cc.attrs.value.departamentoNacimiento}">
-                <f:selectItem itemValue="0" itemLabel="Seleccione" />
-                <f:selectItems var="departamento" value="#{cc.attrs.value.departamentos}"
-                               itemValue="#{departamento}" itemLabel="#{departamento.nombUbigUbi}"/>
-                <p:ajax update="provinciaNacimiento" listener="#{cc.attrs.value.cargarProvincias()}"/>
-            </p:selectOneMenu>
-            <p:outputLabel value="Provincia" for="provinciaNacimiento" />
-            <p:selectOneMenu value="#{cc.attrs.value.provinciaNacimiento}" id="provinciaNacimiento">
-                <f:selectItem itemValue="0" itemLabel="Seleccione" />
-                <f:selectItems var="provincias" value="#{cc.attrs.value.provincias}"
-                               itemValue="#{provincias}" itemLabel="#{provincias.nombUbigUbi}"/>
-                <p:ajax update="distritoNacimiento" listener="#{cc.attrs.value.cargarDistritos()}"/>
-            </p:selectOneMenu>
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_ubigNaciPer}" for="distritoNacimiento" />
-            <p:selectOneMenu id="distritoNacimiento" value="#{cc.attrs.value.selected.ubigNaciPer}" >
-                <f:selectItem itemValue="0" itemLabel="Seleccione" />
-                <f:selectItems value="#{cc.attrs.value.distritos}"
-                               var="ubigNaciPerItem" itemLabel="#{ubigNaciPerItem.nombUbigUbi}"
-                               itemValue="#{ubigNaciPerItem}"/>
-            </p:selectOneMenu>
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_ubigResiPer}" for="ubigResiPer" />
-            <p:selectOneMenu id="ubigResiPer" value="#{cc.attrs.value.selected.ubigResiPer}" >
-                <f:selectItems value="#{maeUbigeoController.itemsAvailableSelectOne}"
-                               var="ubigResiPerItem" itemLabel="#{ubigResiPerItem.nombUbigUbi}"
-                               itemValue="#{ubigResiPerItem}"/>
-            </p:selectOneMenu>      
+            </p:selectOneMenu>            
+            <p:outputLabel value="Ubigeo de Nacimiento"  />
+            <comp:ubigeo value="#{cc.attrs.value.selected.ubigNaciPer}" />
+            <p:outputLabel value="Ubigeo de Residencia"  />
+            <comp:ubigeo value="#{cc.attrs.value.selected.ubigResiPer}" />
         </p:panelGrid>
+        
     </cc:implementation>
 </html>
