@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.gob.fovipol.controller.util;
+package pe.gob.fovipol.sifo.controller.util;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
-import pe.gob.fovipol.model.MaeEntidaddet;
+import pe.gob.fovipol.sifo.model.MaeEntidaddet;
 
 @FacesComponent("inputEntidadDetalle")
 public class InputEntidadDetalle extends UIInput implements NamingContainer {
@@ -24,7 +24,7 @@ public class InputEntidadDetalle extends UIInput implements NamingContainer {
 
     private HtmlOutputText resultado;
     @EJB
-    private pe.gob.fovipol.dao.MaeEntidaddetFacade ejbEntidadDetalleFacade;
+    private pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade ejbEntidadDetalleFacade;
     // Actions ------------------------------------------------------------------------------------
 
     /**

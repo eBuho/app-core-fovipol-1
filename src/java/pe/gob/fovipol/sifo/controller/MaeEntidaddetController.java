@@ -1,11 +1,12 @@
-package pe.gob.fovipol.controller;
+package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.model.MaeEmpresa;
-import pe.gob.fovipol.controller.util.JsfUtil;
-import pe.gob.fovipol.controller.util.JsfUtil.PersistAction;
-import pe.gob.fovipol.dao.MaeEmpresaFacade;
+import pe.gob.fovipol.sifo.model.MaeEntidaddet;
+import pe.gob.fovipol.sifo.controller.util.JsfUtil;
+import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
+import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -14,29 +15,31 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.SelectableDataModel;
 
-@ManagedBean(name = "maeEmpresaController")
+@ManagedBean(name = "maeEntidaddetController")
 @ViewScoped
-public class MaeEmpresaController implements Serializable {
+public class MaeEntidaddetController implements Serializable {
 
     @EJB
-    private pe.gob.fovipol.dao.MaeEmpresaFacade ejbFacade;
-    private List<MaeEmpresa> items = null;
-    private MaeEmpresa selected;
+    private pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade ejbFacade;
+    private List<MaeEntidaddet> items = null;
+    private MaeEntidaddet selected;
 
-    public MaeEmpresaController() {
+    public MaeEntidaddetController() {
     }
 
-    public MaeEmpresa getSelected() {
+    public MaeEntidaddet getSelected() {
         return selected;
     }
 
-    public void setSelected(MaeEmpresa selected) {
+    public void setSelected(MaeEntidaddet selected) {
         this.selected = selected;
     }
 
@@ -46,40 +49,69 @@ public class MaeEmpresaController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private MaeEmpresaFacade getFacade() {
+    private MaeEntidaddetFacade getFacade() {
         return ejbFacade;
     }
 
-    public MaeEmpresa prepareCreate() {
-        selected = new MaeEmpresa();        
-        selected.setCodiEmprEmp(ejbFacade.obtenerCorrelativo());
-        selected.setFlagEstaEmp(new Short("1"));
+    public MaeEntidaddet prepareCreate() {
+        selected = new MaeEntidaddet();
         initializeEmbeddableKey();
         return selected;
     }
+    
+    public MaeEntidaddet preparaCrear(MaeEntidaddet item) {
+        item = new MaeEntidaddet();
+        BigDecimal id = new BigDecimal( ejbFacade.obtenerCorrelativo().intValue() );
+        item.setIdenEntiDet( id);
+        initializeEmbeddableKey();
+        return item;
+    }
 
     public void create() {
-        selected.setFechCreaAud(new Date());
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
+    public void creaDetalle(MaeEntidaddet item) {
+        selected = item;
+        selected.setFechCreaDet(new Date());
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        selected.setFechModiAud(new Date());
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetUpdated"));
+    }
+    
+    public void actualiza(MaeEntidaddet item) {
+        selected = item;
+        selected.setFechModiDet(new Date());
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+    
+    public void destruir(MaeEntidaddet item) {        
+        selected = item;
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetDeleted"));        
+        if (!JsfUtil.isValidationFailed()) {
+            selected = null; // Remove selection
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+        
+    }
 
-    public List<MaeEmpresa> getItems() {
+    public List<MaeEntidaddet> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -114,24 +146,24 @@ public class MaeEmpresaController implements Serializable {
         }
     }
 
-    public List<MaeEmpresa> getItemsAvailableSelectMany() {
+    public List<MaeEntidaddet> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<MaeEmpresa> getItemsAvailableSelectOne() {
+    public List<MaeEntidaddet> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = MaeEmpresa.class)
-    public static class MaeEmpresaControllerConverter implements Converter {
+    @FacesConverter(forClass = MaeEntidaddet.class)
+    public static class MaeEntidaddetControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MaeEmpresaController controller = (MaeEmpresaController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "maeEmpresaController");
+            MaeEntidaddetController controller = (MaeEntidaddetController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "maeEntidaddetController");
             return controller.getFacade().find(getKey(value));
         }
 
@@ -152,11 +184,11 @@ public class MaeEmpresaController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof MaeEmpresa) {
-                MaeEmpresa o = (MaeEmpresa) object;
-                return getStringKey(o.getCodiEmprEmp());
+            if (object instanceof MaeEntidaddet) {
+                MaeEntidaddet o = (MaeEntidaddet) object;
+                return getStringKey(o.getIdenEntiDet());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeEmpresa.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeEntidaddet.class.getName()});
                 return null;
             }
         }
