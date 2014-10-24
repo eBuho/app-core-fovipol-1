@@ -4,16 +4,18 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
 
     <ui:composition>
 
         <p:dialog id="MaeEmpresaCreateDlg" widgetVar="MaeEmpresaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMaeEmpresaTitle}">
             <h:form id="MaeEmpresaCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{maeEmpresaController.selected != null}">
+                    <p:panelGrid columns="6" rendered="#{maeEmpresaController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_codiEmprEmp}" for="codiEmprEmp" />
-                        <p:inputText id="codiEmprEmp" value="#{maeEmpresaController.selected.codiEmprEmp}" title="#{bundle.CreateMaeEmpresaTitle_codiEmprEmp}" required="true" requiredMessage="#{bundle.CreateMaeEmpresaRequiredMessage_codiEmprEmp}"/>
+                        <p:inputText id="codiEmprEmp" value="#{maeEmpresaController.selected.codiEmprEmp}" title="#{bundle.CreateMaeEmpresaTitle_codiEmprEmp}" 
+                            disabled="true" required="true" requiredMessage="#{bundle.CreateMaeEmpresaRequiredMessage_codiEmprEmp}"/>
                         <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_razoSociEmp}" for="razoSociEmp" />
                         <p:inputText id="razoSociEmp" value="#{maeEmpresaController.selected.razoSociEmp}" title="#{bundle.CreateMaeEmpresaTitle_razoSociEmp}" />
                         <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_descDireEmp}" for="descDireEmp" />
@@ -26,10 +28,10 @@
                         <p:inputText id="reprLegaEmp" value="#{maeEmpresaController.selected.reprLegaEmp}" title="#{bundle.CreateMaeEmpresaTitle_reprLegaEmp}" />
                         <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_cuenDetrEmp}" for="cuenDetrEmp" />
                         <p:inputText id="cuenDetrEmp" value="#{maeEmpresaController.selected.cuenDetrEmp}" title="#{bundle.CreateMaeEmpresaTitle_cuenDetrEmp}" />
-                        <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_numeTeleEmp}" for="numeTeleEmp" />
-                        <p:inputText id="numeTeleEmp" value="#{maeEmpresaController.selected.numeTeleEmp}" title="#{bundle.CreateMaeEmpresaTitle_numeTeleEmp}" />
-                        <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_numeTel2Emp}" for="numeTel2Emp" />
-                        <p:inputText id="numeTel2Emp" value="#{maeEmpresaController.selected.numeTel2Emp}" title="#{bundle.CreateMaeEmpresaTitle_numeTel2Emp}" />
+                        <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_numeTeleEmp}" />
+                        <comp:telefono value="#{maeEmpresaController.selected.numeTeleEmp}"/>                        
+                        <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_numeTel2Emp}"/>
+                        <comp:telefono value="#{maeEmpresaController.selected.numeTel2Emp}"/>                        
                         <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_pagiWebEmp}" for="pagiWebEmp" />
                         <p:inputText id="pagiWebEmp" value="#{maeEmpresaController.selected.pagiWebEmp}" title="#{bundle.CreateMaeEmpresaTitle_pagiWebEmp}" />
                         <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_corrElecEmp}" for="corrElecEmp" />
@@ -38,18 +40,20 @@
                         <p:inputText id="flagReteEmp" value="#{maeEmpresaController.selected.flagReteEmp}" title="#{bundle.CreateMaeEmpresaTitle_flagReteEmp}" />
                         <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_usuaCreaAud}" for="usuaCreaAud" />
                         <p:inputText id="usuaCreaAud" value="#{maeEmpresaController.selected.usuaCreaAud}" title="#{bundle.CreateMaeEmpresaTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeEmpresaController.selected.fechCreaAud}" title="#{bundle.EditMaeEmpresaTitle_fechCreaAud}"  showOn="button"/>
+                        
                         <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_usuaModiAud}" for="usuaModiAud" />
                         <p:inputText id="usuaModiAud" value="#{maeEmpresaController.selected.usuaModiAud}" title="#{bundle.CreateMaeEmpresaTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeEmpresaController.selected.fechModiAud}" title="#{bundle.EditMaeEmpresaTitle_fechModiAud}"  showOn="button"/>
+                        
                         <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_nombEquiAud}" for="nombEquiAud" />
                         <p:inputText id="nombEquiAud" value="#{maeEmpresaController.selected.nombEquiAud}" title="#{bundle.CreateMaeEmpresaTitle_nombEquiAud}" />
                         <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_nombSopeAud}" for="nombSopeAud" />
                         <p:inputText id="nombSopeAud" value="#{maeEmpresaController.selected.nombSopeAud}" title="#{bundle.CreateMaeEmpresaTitle_nombSopeAud}" />
                         <p:outputLabel value="#{bundle.CreateMaeEmpresaLabel_flagEstaEmp}" for="flagEstaEmp" />
-                        <p:inputText id="flagEstaEmp" value="#{maeEmpresaController.selected.flagEstaEmp}" title="#{bundle.CreateMaeEmpresaTitle_flagEstaEmp}" />
+                        
+                        <p:selectOneMenu id="flagEstaEmp" value="#{maeEmpresaController.selected.flagEstaEmp}" disabled="true">
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{maeEmpresaController.create}" value="#{bundle.Save}" update="display,:MaeEmpresaListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeEmpresaCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaeEmpresaCreateDialog.hide()"/>

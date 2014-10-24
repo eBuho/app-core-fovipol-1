@@ -6,6 +6,7 @@ import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.MaeEmpresaFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -13,14 +14,14 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 @ManagedBean(name = "maeEmpresaController")
-@SessionScoped
+@ViewScoped
 public class MaeEmpresaController implements Serializable {
 
     @EJB
@@ -50,12 +51,15 @@ public class MaeEmpresaController implements Serializable {
     }
 
     public MaeEmpresa prepareCreate() {
-        selected = new MaeEmpresa();
+        selected = new MaeEmpresa();        
+        selected.setCodiEmprEmp(ejbFacade.obtenerCorrelativo());
+        selected.setFlagEstaEmp(new Short("1"));
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        selected.setFechCreaAud(new Date());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -63,6 +67,7 @@ public class MaeEmpresaController implements Serializable {
     }
 
     public void update() {
+        selected.setFechModiAud(new Date());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaUpdated"));
     }
 

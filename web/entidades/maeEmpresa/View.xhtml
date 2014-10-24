@@ -4,14 +4,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
 
     <ui:composition>
 
         <p:dialog id="MaeEmpresaViewDlg" widgetVar="MaeEmpresaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMaeEmpresaTitle}">
             <h:form id="MaeEmpresaViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{maeEmpresaController.selected != null}">
+                    <p:panelGrid columns="6" rendered="#{maeEmpresaController.selected != null}">
                         <h:outputText value="#{bundle.ViewMaeEmpresaLabel_codiEmprEmp}"/>
                         <h:outputText value="#{maeEmpresaController.selected.codiEmprEmp}" title="#{bundle.ViewMaeEmpresaTitle_codiEmprEmp}"/>
                         <h:outputText value="#{bundle.ViewMaeEmpresaLabel_razoSociEmp}"/>
@@ -40,20 +41,20 @@
                         <h:outputText value="#{maeEmpresaController.selected.usuaCreaAud}" title="#{bundle.ViewMaeEmpresaTitle_usuaCreaAud}"/>
                         <h:outputText value="#{bundle.ViewMaeEmpresaLabel_fechCreaAud}"/>
                         <h:outputText value="#{maeEmpresaController.selected.fechCreaAud}" title="#{bundle.ViewMaeEmpresaTitle_fechCreaAud}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime locale="es" dateStyle="short" type="both"/>
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewMaeEmpresaLabel_usuaModiAud}"/>
                         <h:outputText value="#{maeEmpresaController.selected.usuaModiAud}" title="#{bundle.ViewMaeEmpresaTitle_usuaModiAud}"/>
                         <h:outputText value="#{bundle.ViewMaeEmpresaLabel_fechModiAud}"/>
                         <h:outputText value="#{maeEmpresaController.selected.fechModiAud}" title="#{bundle.ViewMaeEmpresaTitle_fechModiAud}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime locale="es" dateStyle="short" type="both" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewMaeEmpresaLabel_nombEquiAud}"/>
                         <h:outputText value="#{maeEmpresaController.selected.nombEquiAud}" title="#{bundle.ViewMaeEmpresaTitle_nombEquiAud}"/>
                         <h:outputText value="#{bundle.ViewMaeEmpresaLabel_nombSopeAud}"/>
                         <h:outputText value="#{maeEmpresaController.selected.nombSopeAud}" title="#{bundle.ViewMaeEmpresaTitle_nombSopeAud}"/>
                         <h:outputText value="#{bundle.ViewMaeEmpresaLabel_flagEstaEmp}"/>
-                        <h:outputText value="#{maeEmpresaController.selected.flagEstaEmp}" title="#{bundle.ViewMaeEmpresaTitle_flagEstaEmp}"/>
+                        <comp:activo value="#{maeEmpresaController.selected.flagEstaEmp}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="MaeEmpresaViewDialog.hide()"/>
                 </h:panelGroup>
