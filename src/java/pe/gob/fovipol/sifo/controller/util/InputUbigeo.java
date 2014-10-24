@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.gob.fovipol.controller.util;
+package pe.gob.fovipol.sifo.controller.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import pe.gob.fovipol.model.MaeUbigeo;
+import pe.gob.fovipol.sifo.model.MaeUbigeo;
 
 @FacesComponent("inputUbigeo")
 public class InputUbigeo extends UIInput implements NamingContainer {
@@ -27,7 +27,7 @@ public class InputUbigeo extends UIInput implements NamingContainer {
     private UIInput provincia;
     private UIInput distrito;
     @EJB
-    private pe.gob.fovipol.dao.MaeUbigeoFacade ejbUbigeoFacade;
+    private pe.gob.fovipol.sifo.dao.MaeUbigeoFacade ejbUbigeoFacade;
     // Actions ------------------------------------------------------------------------------------
 
     /**

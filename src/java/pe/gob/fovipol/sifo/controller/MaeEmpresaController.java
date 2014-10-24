@@ -1,11 +1,12 @@
-package pe.gob.fovipol.controller;
+package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.model.MaeUbigeo;
-import pe.gob.fovipol.controller.util.JsfUtil;
-import pe.gob.fovipol.controller.util.JsfUtil.PersistAction;
-import pe.gob.fovipol.dao.MaeUbigeoFacade;
+import pe.gob.fovipol.sifo.model.MaeEmpresa;
+import pe.gob.fovipol.sifo.controller.util.JsfUtil;
+import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
+import pe.gob.fovipol.sifo.dao.MaeEmpresaFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -13,29 +14,29 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "maeUbigeoController")
-@SessionScoped
-public class MaeUbigeoController implements Serializable {
+@ManagedBean(name = "maeEmpresaController")
+@ViewScoped
+public class MaeEmpresaController implements Serializable {
 
     @EJB
-    private pe.gob.fovipol.dao.MaeUbigeoFacade ejbFacade;
-    private List<MaeUbigeo> items = null;
-    private MaeUbigeo selected;
+    private pe.gob.fovipol.sifo.dao.MaeEmpresaFacade ejbFacade;
+    private List<MaeEmpresa> items = null;
+    private MaeEmpresa selected;
 
-    public MaeUbigeoController() {
+    public MaeEmpresaController() {
     }
 
-    public MaeUbigeo getSelected() {
+    public MaeEmpresa getSelected() {
         return selected;
     }
 
-    public void setSelected(MaeUbigeo selected) {
+    public void setSelected(MaeEmpresa selected) {
         this.selected = selected;
     }
 
@@ -45,36 +46,40 @@ public class MaeUbigeoController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private MaeUbigeoFacade getFacade() {
+    private MaeEmpresaFacade getFacade() {
         return ejbFacade;
     }
 
-    public MaeUbigeo prepareCreate() {
-        selected = new MaeUbigeo();
+    public MaeEmpresa prepareCreate() {
+        selected = new MaeEmpresa();        
+        selected.setCodiEmprEmp(ejbFacade.obtenerCorrelativo());
+        selected.setFlagEstaEmp(new Short("1"));
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeUbigeoCreated"));
+        selected.setFechCreaAud(new Date());
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeUbigeoUpdated"));
+        selected.setFechModiAud(new Date());
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeUbigeoDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<MaeUbigeo> getItems() {
+    public List<MaeEmpresa> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,34 +114,34 @@ public class MaeUbigeoController implements Serializable {
         }
     }
 
-    public List<MaeUbigeo> getItemsAvailableSelectMany() {
+    public List<MaeEmpresa> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<MaeUbigeo> getItemsAvailableSelectOne() {
+    public List<MaeEmpresa> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = MaeUbigeo.class)
-    public static class MaeUbigeoControllerConverter implements Converter {
+    @FacesConverter(forClass = MaeEmpresa.class)
+    public static class MaeEmpresaControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MaeUbigeoController controller = (MaeUbigeoController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "maeUbigeoController");
+            MaeEmpresaController controller = (MaeEmpresaController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "maeEmpresaController");
             return controller.getFacade().find(getKey(value));
         }
 
-        java.lang.String getKey(String value) {
-            java.lang.String key;
-            key = value;
+        java.math.BigDecimal getKey(String value) {
+            java.math.BigDecimal key;
+            key = new java.math.BigDecimal(value);
             return key;
         }
 
-        String getStringKey(java.lang.String value) {
+        String getStringKey(java.math.BigDecimal value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -147,11 +152,11 @@ public class MaeUbigeoController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof MaeUbigeo) {
-                MaeUbigeo o = (MaeUbigeo) object;
-                return getStringKey(o.getIdenUbigUbi());
+            if (object instanceof MaeEmpresa) {
+                MaeEmpresa o = (MaeEmpresa) object;
+                return getStringKey(o.getCodiEmprEmp());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeUbigeo.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeEmpresa.class.getName()});
                 return null;
             }
         }

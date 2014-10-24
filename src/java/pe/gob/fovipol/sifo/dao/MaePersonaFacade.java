@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.gob.fovipol.dao;
+package pe.gob.fovipol.sifo.dao;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -11,14 +11,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import pe.gob.fovipol.model.MaeEmpresa;
+import pe.gob.fovipol.sifo.model.MaePersona;
 
 /**
  *
  * @author ebuho
  */
 @Stateless
-public class MaeEmpresaFacade extends AbstractFacade<MaeEmpresa> {
+public class MaePersonaFacade extends AbstractFacade<MaePersona> {
     @PersistenceContext(unitName = "SIFOPU")
     private EntityManager em;
 
@@ -27,14 +27,13 @@ public class MaeEmpresaFacade extends AbstractFacade<MaeEmpresa> {
         return em;
     }
 
-    public MaeEmpresaFacade() {
-        super(MaeEmpresa.class);
+    public MaePersonaFacade() {
+        super(MaePersona.class);
     }
-    
     public BigDecimal obtenerCorrelativo() {
         BigDecimal id = new BigDecimal(0);
 
-        Query q = em.createQuery("SELECT MAX(a.codiEmprEmp) FROM MaeEmpresa a", BigDecimal.class);
+        Query q = em.createQuery("SELECT MAX(a.codiPersPer) FROM MaePersona a", BigDecimal.class);
         id = (BigDecimal) q.getSingleResult();
         if(id==null)
             id=new BigDecimal(BigInteger.ONE);

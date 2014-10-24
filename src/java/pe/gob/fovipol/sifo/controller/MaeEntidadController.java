@@ -1,9 +1,9 @@
-package pe.gob.fovipol.controller;
+package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.model.MaeEntidad;
-import pe.gob.fovipol.controller.util.JsfUtil;
-import pe.gob.fovipol.controller.util.JsfUtil.PersistAction;
-import pe.gob.fovipol.dao.MaeEntidadFacade;
+import pe.gob.fovipol.sifo.model.MaeEntidad;
+import pe.gob.fovipol.sifo.controller.util.JsfUtil;
+import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
+import pe.gob.fovipol.sifo.dao.MaeEntidadFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,16 +24,16 @@ import javax.faces.convert.FacesConverter;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.SelectableDataModel;
-import pe.gob.fovipol.model.MaeEntidaddet;
+import pe.gob.fovipol.sifo.model.MaeEntidaddet;
 
 @ManagedBean(name = "maeEntidadController")
 @ViewScoped
 public class MaeEntidadController implements Serializable {
 
     @EJB
-    private pe.gob.fovipol.dao.MaeEntidadFacade ejbFacade;
+    private pe.gob.fovipol.sifo.dao.MaeEntidadFacade ejbFacade;
     @EJB
-    private pe.gob.fovipol.dao.MaeEntidaddetFacade ejbFacadeDetalle;
+    private pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade ejbFacadeDetalle;
     // Propiedades
     private List<MaeEntidad> items = null;
     private List<MaeEntidad> itemsFiltro;

@@ -1,9 +1,9 @@
-package pe.gob.fovipol.controller;
+package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.model.MaePersona;
-import pe.gob.fovipol.controller.util.JsfUtil;
-import pe.gob.fovipol.controller.util.JsfUtil.PersistAction;
-import pe.gob.fovipol.dao.MaePersonaFacade;
+import pe.gob.fovipol.sifo.model.MaePersona;
+import pe.gob.fovipol.sifo.controller.util.JsfUtil;
+import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
+import pe.gob.fovipol.sifo.dao.MaePersonaFacade;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,23 +20,23 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import pe.gob.fovipol.model.MaeEntidad;
-import pe.gob.fovipol.model.MaeEntidaddet;
-import pe.gob.fovipol.model.MaeSocio;
-import pe.gob.fovipol.model.MaeUbigeo;
+import pe.gob.fovipol.sifo.model.MaeEntidad;
+import pe.gob.fovipol.sifo.model.MaeEntidaddet;
+import pe.gob.fovipol.sifo.model.MaeSocio;
+import pe.gob.fovipol.sifo.model.MaeUbigeo;
 
 @ManagedBean(name = "maePersonaController")
 @ViewScoped
 public class MaePersonaController implements Serializable {
 
     @EJB
-    private pe.gob.fovipol.dao.MaePersonaFacade ejbFacade;
+    private pe.gob.fovipol.sifo.dao.MaePersonaFacade ejbFacade;
     @EJB
-    private pe.gob.fovipol.dao.MaeUbigeoFacade ejbUbigeoFacade;
+    private pe.gob.fovipol.sifo.dao.MaeUbigeoFacade ejbUbigeoFacade;
     @EJB
-    private pe.gob.fovipol.dao.MaeSocioFacade ejbSocioFacade;
+    private pe.gob.fovipol.sifo.dao.MaeSocioFacade ejbSocioFacade;
     @EJB
-    private pe.gob.fovipol.dao.MaeEntidaddetFacade ejbEntidadDetalleFacade;
+    private pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade ejbEntidadDetalleFacade;
     private List<MaePersona> items = null;
     private List<MaePersona> itemsFiltro;
     private List<MaeSocio> socios;

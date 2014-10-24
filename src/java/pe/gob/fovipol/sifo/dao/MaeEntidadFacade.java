@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.gob.fovipol.dao;
+package pe.gob.fovipol.sifo.dao;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pe.gob.fovipol.model.MaeEntidad;
+import pe.gob.fovipol.sifo.model.MaeEntidad;
 
 /**
  *

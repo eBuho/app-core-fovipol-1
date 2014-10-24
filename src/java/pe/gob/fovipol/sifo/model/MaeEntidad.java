@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.gob.fovipol.model;
+package pe.gob.fovipol.sifo.model;
 
 import java.io.Serializable;
 import java.util.List;

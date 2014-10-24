@@ -1,9 +1,9 @@
-package pe.gob.fovipol.controller;
+package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.model.MaeSocio;
-import pe.gob.fovipol.controller.util.JsfUtil;
-import pe.gob.fovipol.controller.util.JsfUtil.PersistAction;
-import pe.gob.fovipol.dao.MaeSocioFacade;
+import pe.gob.fovipol.sifo.model.MaeUbigeo;
+import pe.gob.fovipol.sifo.controller.util.JsfUtil;
+import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
+import pe.gob.fovipol.sifo.dao.MaeUbigeoFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "maeSocioController")
+@ManagedBean(name = "maeUbigeoController")
 @SessionScoped
-public class MaeSocioController implements Serializable {
+public class MaeUbigeoController implements Serializable {
 
     @EJB
-    private pe.gob.fovipol.dao.MaeSocioFacade ejbFacade;
-    private List<MaeSocio> items = null;
-    private MaeSocio selected;
+    private pe.gob.fovipol.sifo.dao.MaeUbigeoFacade ejbFacade;
+    private List<MaeUbigeo> items = null;
+    private MaeUbigeo selected;
 
-    public MaeSocioController() {
+    public MaeUbigeoController() {
     }
 
-    public MaeSocio getSelected() {
+    public MaeUbigeo getSelected() {
         return selected;
     }
 
-    public void setSelected(MaeSocio selected) {
+    public void setSelected(MaeUbigeo selected) {
         this.selected = selected;
     }
 
@@ -45,37 +45,36 @@ public class MaeSocioController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private MaeSocioFacade getFacade() {
+    private MaeUbigeoFacade getFacade() {
         return ejbFacade;
     }
 
-    public MaeSocio prepareCreate() {
-        selected = new MaeSocio();
-        selected.setFlagEstaSoc(new Short("1"));
+    public MaeUbigeo prepareCreate() {
+        selected = new MaeUbigeo();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeSocioCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeUbigeoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeSocioUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeUbigeoUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeSocioDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeUbigeoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<MaeSocio> getItems() {
+    public List<MaeUbigeo> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -110,34 +109,34 @@ public class MaeSocioController implements Serializable {
         }
     }
 
-    public List<MaeSocio> getItemsAvailableSelectMany() {
+    public List<MaeUbigeo> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<MaeSocio> getItemsAvailableSelectOne() {
+    public List<MaeUbigeo> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = MaeSocio.class)
-    public static class MaeSocioControllerConverter implements Converter {
+    @FacesConverter(forClass = MaeUbigeo.class)
+    public static class MaeUbigeoControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MaeSocioController controller = (MaeSocioController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "maeSocioController");
+            MaeUbigeoController controller = (MaeUbigeoController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "maeUbigeoController");
             return controller.getFacade().find(getKey(value));
         }
 
-        java.math.BigDecimal getKey(String value) {
-            java.math.BigDecimal key;
-            key = new java.math.BigDecimal(value);
+        java.lang.String getKey(String value) {
+            java.lang.String key;
+            key = value;
             return key;
         }
 
-        String getStringKey(java.math.BigDecimal value) {
+        String getStringKey(java.lang.String value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -148,11 +147,11 @@ public class MaeSocioController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof MaeSocio) {
-                MaeSocio o = (MaeSocio) object;
-                return getStringKey(o.getCodiPersPer());
+            if (object instanceof MaeUbigeo) {
+                MaeUbigeo o = (MaeUbigeo) object;
+                return getStringKey(o.getIdenUbigUbi());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeSocio.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeUbigeo.class.getName()});
                 return null;
             }
         }

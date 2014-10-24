@@ -1,4 +1,4 @@
-package pe.gob.fovipol.controller.util;
+package pe.gob.fovipol.sifo.controller.util;
 
 import java.util.List;
 import javax.faces.application.FacesMessage;
