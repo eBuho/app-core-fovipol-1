@@ -1,11 +1,14 @@
 package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.sifo.model.MaeProceso;
+import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.MaeProcesoFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -13,19 +16,20 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 @ManagedBean(name = "maeProcesoController")
-@SessionScoped
+@ViewScoped
 public class MaeProcesoController implements Serializable {
 
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeProcesoFacade ejbFacade;
     private List<MaeProceso> items = null;
+    private List<MaeProceso> itemsFiltro = null;
     private MaeProceso selected;
 
     public MaeProcesoController() {
@@ -51,11 +55,23 @@ public class MaeProcesoController implements Serializable {
 
     public MaeProceso prepareCreate() {
         selected = new MaeProceso();
+        selected.setCodiProcPrc(new BigDecimal(ejbFacade.count()+1));
+        selected.setFlagEstaPrc(new Short("1"));
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        selected.setFechCreaAud(new Date());
+        if(selected.getCodiPropPrc()==null)
+            selected.setNiveProcPrc(new Short("1"));
+        else{
+            Short aux=new Short("1");
+            if(selected.getCodiPropPrc().getNiveProcPrc().compareTo(aux)==0)
+                selected.setNiveProcPrc(new Short("2"));
+            else
+                selected.setNiveProcPrc(new Short("3"));
+        }
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -63,6 +79,7 @@ public class MaeProcesoController implements Serializable {
     }
 
     public void update() {
+        selected.setFechModiAud(new Date());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoUpdated"));
     }
 
@@ -91,7 +108,8 @@ public class MaeProcesoController implements Serializable {
                     getFacade().remove(selected);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
-            } catch (EJBException ex) {
+            }            
+            catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
                 if (cause != null) {
@@ -114,7 +132,21 @@ public class MaeProcesoController implements Serializable {
     }
 
     public List<MaeProceso> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getFacade().findProcesosActivos();
+    }
+
+    /**
+     * @return the itemsFiltro
+     */
+    public List<MaeProceso> getItemsFiltro() {
+        return itemsFiltro;
+    }
+
+    /**
+     * @param itemsFiltro the itemsFiltro to set
+     */
+    public void setItemsFiltro(List<MaeProceso> itemsFiltro) {
+        this.itemsFiltro = itemsFiltro;
     }
 
     @FacesConverter(forClass = MaeProceso.class)

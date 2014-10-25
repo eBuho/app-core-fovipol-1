@@ -16,7 +16,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import pe.gob.fovipol.sifo.model.MaeUbigeo;
+import pe.gob.fovipol.sifo.model.maestros.MaeUbigeo;
 
 @FacesComponent("inputUbigeo")
 public class InputUbigeo extends UIInput implements NamingContainer {

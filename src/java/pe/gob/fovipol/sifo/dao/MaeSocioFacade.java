@@ -10,8 +10,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import pe.gob.fovipol.sifo.model.MaePersona;
-import pe.gob.fovipol.sifo.model.MaeSocio;
+import pe.gob.fovipol.sifo.model.maestros.MaePersona;
+import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
 
 /**
  *

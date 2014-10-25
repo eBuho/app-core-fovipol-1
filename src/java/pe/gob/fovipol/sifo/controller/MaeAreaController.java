@@ -1,11 +1,13 @@
 package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.sifo.model.MaeArea;
+import pe.gob.fovipol.sifo.model.maestros.MaeArea;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.MaeAreaFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +20,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 
 @ManagedBean(name = "maeAreaController")
 @SessionScoped
@@ -25,7 +29,11 @@ public class MaeAreaController implements Serializable {
 
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeAreaFacade ejbFacade;
+    @EJB
+    private pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade ejbEntidadDetalleFacade;
     private List<MaeArea> items = null;
+    private List<MaeArea> itemsFiltro = null;
+    private List<MaeEntidaddet> tiposArea;
     private MaeArea selected;
 
     public MaeAreaController() {
@@ -51,11 +59,14 @@ public class MaeAreaController implements Serializable {
 
     public MaeArea prepareCreate() {
         selected = new MaeArea();
+        selected.setCodiAreaAre(new BigDecimal(ejbFacade.count()+1));
+        selected.setFlagEstaAre(new Short("1"));
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        selected.setFechCreaAud(new Date());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeAreaCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -63,6 +74,7 @@ public class MaeAreaController implements Serializable {
     }
 
     public void update() {
+        selected.setFechModiAud(new Date());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeAreaUpdated"));
     }
 
@@ -115,6 +127,36 @@ public class MaeAreaController implements Serializable {
 
     public List<MaeArea> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    /**
+     * @return the itemsFiltro
+     */
+    public List<MaeArea> getItemsFiltro() {
+        return itemsFiltro;
+    }
+
+    /**
+     * @param itemsFiltro the itemsFiltro to set
+     */
+    public void setItemsFiltro(List<MaeArea> itemsFiltro) {
+        this.itemsFiltro = itemsFiltro;
+    }
+
+    /**
+     * @return the tiposArea
+     */
+    public List<MaeEntidaddet> getTiposArea() {
+        if(tiposArea==null)
+            tiposArea=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("TipoAreaAre"));
+        return tiposArea;
+    }
+
+    /**
+     * @param tiposArea the tiposArea to set
+     */
+    public void setTiposArea(List<MaeEntidaddet> tiposArea) {
+        this.tiposArea = tiposArea;
     }
 
     @FacesConverter(forClass = MaeArea.class)

@@ -1,6 +1,6 @@
 package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.sifo.model.MaePersona;
+import pe.gob.fovipol.sifo.model.maestros.MaePersona;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.MaePersonaFacade;
@@ -20,10 +20,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import pe.gob.fovipol.sifo.model.MaeEntidad;
-import pe.gob.fovipol.sifo.model.MaeEntidaddet;
-import pe.gob.fovipol.sifo.model.MaeSocio;
-import pe.gob.fovipol.sifo.model.MaeUbigeo;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
+import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
+import pe.gob.fovipol.sifo.model.maestros.MaeUbigeo;
 
 @ManagedBean(name = "maePersonaController")
 @ViewScoped

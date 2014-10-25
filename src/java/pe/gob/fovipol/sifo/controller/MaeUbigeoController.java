@@ -1,6 +1,6 @@
 package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.sifo.model.MaeUbigeo;
+import pe.gob.fovipol.sifo.model.maestros.MaeUbigeo;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.MaeUbigeoFacade;
@@ -13,19 +13,20 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 @ManagedBean(name = "maeUbigeoController")
-@SessionScoped
+@ViewScoped
 public class MaeUbigeoController implements Serializable {
 
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeUbigeoFacade ejbFacade;
     private List<MaeUbigeo> items = null;
+    private List<MaeUbigeo> itemsFiltro = null;
     private MaeUbigeo selected;
 
     public MaeUbigeoController() {
@@ -115,6 +116,20 @@ public class MaeUbigeoController implements Serializable {
 
     public List<MaeUbigeo> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    /**
+     * @return the itemsFiltro
+     */
+    public List<MaeUbigeo> getItemsFiltro() {
+        return itemsFiltro;
+    }
+
+    /**
+     * @param itemsFiltro the itemsFiltro to set
+     */
+    public void setItemsFiltro(List<MaeUbigeo> itemsFiltro) {
+        this.itemsFiltro = itemsFiltro;
     }
 
     @FacesConverter(forClass = MaeUbigeo.class)

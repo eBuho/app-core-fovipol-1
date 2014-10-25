@@ -15,7 +15,7 @@ import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
-import pe.gob.fovipol.sifo.model.MaeEntidaddet;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 
 @FacesComponent("inputEntidadDetalle")
 public class InputEntidadDetalle extends UIInput implements NamingContainer {

@@ -8,7 +8,7 @@ package pe.gob.fovipol.sifo.dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pe.gob.fovipol.sifo.model.MaeEntidad;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 
 /**
  *

@@ -1,11 +1,13 @@
 package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.sifo.model.MaeRequisito;
+import pe.gob.fovipol.sifo.model.maestros.MaeRequisito;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.MaeRequisitoFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +20,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 
 @ManagedBean(name = "maeRequisitoController")
 @SessionScoped
@@ -25,7 +29,11 @@ public class MaeRequisitoController implements Serializable {
 
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeRequisitoFacade ejbFacade;
+    @EJB
+    private pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade ejbEntidadDetalleFacade;
     private List<MaeRequisito> items = null;
+    private List<MaeRequisito> itemsFiltro = null;
+    private List<MaeEntidaddet> tiposRequisito;
     private MaeRequisito selected;
 
     public MaeRequisitoController() {
@@ -51,11 +59,14 @@ public class MaeRequisitoController implements Serializable {
 
     public MaeRequisito prepareCreate() {
         selected = new MaeRequisito();
+        selected.setIdenMaeRequisito(new BigDecimal(ejbFacade.count()+1));
+        selected.setFlagEstaReq(new Short("1"));
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        selected.setFechCreaAud(new Date());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeRequisitoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -63,6 +74,7 @@ public class MaeRequisitoController implements Serializable {
     }
 
     public void update() {
+        selected.setFechModiAud(new Date());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeRequisitoUpdated"));
     }
 
@@ -115,6 +127,36 @@ public class MaeRequisitoController implements Serializable {
 
     public List<MaeRequisito> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    /**
+     * @return the itemsFiltro
+     */
+    public List<MaeRequisito> getItemsFiltro() {
+        return itemsFiltro;
+    }
+
+    /**
+     * @param itemsFiltro the itemsFiltro to set
+     */
+    public void setItemsFiltro(List<MaeRequisito> itemsFiltro) {
+        this.itemsFiltro = itemsFiltro;
+    }
+
+    /**
+     * @return the tiposRequisito
+     */
+    public List<MaeEntidaddet> getTiposRequisito() {
+        if(tiposRequisito==null)
+            tiposRequisito=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("CODITIPOREQ"));
+        return tiposRequisito;
+    }
+
+    /**
+     * @param tiposRequisito the tiposRequisito to set
+     */
+    public void setTiposRequisito(List<MaeEntidaddet> tiposRequisito) {
+        this.tiposRequisito = tiposRequisito;
     }
 
     @FacesConverter(forClass = MaeRequisito.class)

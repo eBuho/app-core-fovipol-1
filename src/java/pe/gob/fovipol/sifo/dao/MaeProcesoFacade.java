@@ -5,10 +5,12 @@
  */
 package pe.gob.fovipol.sifo.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pe.gob.fovipol.sifo.model.MaeProceso;
+import javax.persistence.Query;
+import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
 
 /**
  *
@@ -28,4 +30,11 @@ public class MaeProcesoFacade extends AbstractFacade<MaeProceso> {
         super(MaeProceso.class);
     }
     
+    public List<MaeProceso> findProcesosActivos() {
+        List<MaeProceso> lista = null;
+        Query q = em.createNamedQuery("MaeProceso.findByFlagEstaPrc");
+        q.setParameter("flagEstaPrc", new Short("1"));
+        lista = q.getResultList();
+        return lista;
+    }
 }

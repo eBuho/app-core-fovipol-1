@@ -15,8 +15,8 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import pe.gob.fovipol.sifo.model.MaeEntidad;
-import pe.gob.fovipol.sifo.model.MaeEntidaddet;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 
 @FacesComponent("inputTelefono")
 public class InputTelefono extends UIInput implements NamingContainer {

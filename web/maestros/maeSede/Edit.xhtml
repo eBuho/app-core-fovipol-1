@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeSedeEditDlg" widgetVar="MaeSedeEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMaeSedeTitle}">
+            <h:form id="MaeSedeEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{maeSedeController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMaeSedeLabel_codiMaeSede}" for="codiMaeSede" />
+                        <p:inputText disabled="true" id="codiMaeSede" value="#{maeSedeController.selected.codiMaeSede}" title="#{bundle.EditMaeSedeTitle_codiMaeSede}" required="true" requiredMessage="#{bundle.EditMaeSedeRequiredMessage_codiMaeSede}"/>
+                        <p:outputLabel value="#{bundle.EditMaeSedeLabel_descSedeSed}" for="descSedeSed" />
+                        <p:inputText id="descSedeSed" value="#{maeSedeController.selected.descSedeSed}" title="#{bundle.EditMaeSedeTitle_descSedeSed}" />
+                        <p:outputLabel value="#{bundle.EditMaeSedeLabel_descDireSede}" for="descDireSede" />
+                        <p:inputTextarea autoResize="false" id="descDireSede" value="#{maeSedeController.selected.descDireSede}" title="#{bundle.EditMaeSedeTitle_descDireSede}" />
+                        <p:outputLabel value="#{bundle.EditMaeSedeLabel_persContSed}" for="persContSed" />
+                        <p:inputText id="persContSed" value="#{maeSedeController.selected.persContSed}" title="#{bundle.EditMaeSedeTitle_persContSed}" />
+                        <p:outputLabel value="#{bundle.EditMaeSedeLabel_numeTeleSed}"/>
+                        <comp:telefono value="#{maeSedeController.selected.numeTeleSed}"/>                        
+                        <p:outputLabel value="#{bundle.EditMaeSedeLabel_flagSedeSed}" for="flagSedeSed" />                        
+                        <p:selectOneMenu id="flagSedeSed" value="#{maeSedeController.selected.flagSedeSed}">
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                        </p:selectOneMenu>  
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maeSedeController.update}" value="#{bundle.Save}" update="display,:MaeSedeListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaeSedeEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MaeSedeEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

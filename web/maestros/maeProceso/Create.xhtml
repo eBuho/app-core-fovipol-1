@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeProcesoCreateDlg" dynamic="true" widgetVar="MaeProcesoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMaeProcesoTitle}">
+            <h:form id="MaeProcesoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{maeProcesoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMaeProcesoLabel_codiProcPrc}" for="codiProcPrc" />
+                        <p:inputText disabled="true" id="codiProcPrc" value="#{maeProcesoController.selected.codiProcPrc}" title="#{bundle.CreateMaeProcesoTitle_codiProcPrc}" required="true" requiredMessage="#{bundle.CreateMaeProcesoRequiredMessage_codiProcPrc}"/>
+                        <p:outputLabel value="#{bundle.CreateMaeProcesoLabel_nombProcPrc}" for="nombProcPrc" />
+                        <p:inputText required="true" id="nombProcPrc" value="#{maeProcesoController.selected.nombProcPrc}" title="#{bundle.CreateMaeProcesoTitle_nombProcPrc}" />
+                        <p:outputLabel value="#{bundle.CreateMaeProcesoLabel_tiemDemoPrc}" for="tiemDemoPrc" />
+                        <p:inputText id="tiemDemoPrc" value="#{maeProcesoController.selected.tiemDemoPrc}" title="#{bundle.CreateMaeProcesoTitle_tiemDemoPrc}" >
+                            <f:validateDoubleRange minimum="0"/>
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateMaeProcesoLabel_ordeSecuPrc}" for="ordeSecuPrc" />
+                        <p:inputText id="ordeSecuPrc" value="#{maeProcesoController.selected.ordeSecuPrc}" title="#{bundle.CreateMaeProcesoTitle_ordeSecuPrc}" >
+                            <f:validateDoubleRange minimum="0"/>
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateMaeProcesoLabel_codiAreaAre}" for="codiAreaAre" />
+                        <p:selectOneMenu id="codiAreaAre" value="#{maeProcesoController.selected.codiAreaAre}" >
+                            <f:selectItems value="#{maeAreaController.itemsAvailableSelectOne}"
+                                           var="codiAreaAreItem" itemLabel="#{codiAreaAreItem.descAreaAre}"
+                                           itemValue="#{codiAreaAreItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateMaeProcesoLabel_codiPropPrc}" for="codiPropPrc" />
+                        <p:selectOneMenu id="codiPropPrc" value="#{maeProcesoController.selected.codiPropPrc}" >
+                            <f:selectItem itemValue="" itemLabel="Seleccione"/> 
+                            <f:selectItems value="#{maeProcesoController.itemsAvailableSelectOne}"
+                                           var="codiPropPrcItem" itemLabel="#{codiPropPrcItem.nombProcPrc}"
+                                           itemValue="#{codiPropPrcItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maeProcesoController.create}" value="#{bundle.Save}" update="display,:MaeProcesoListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeProcesoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MaeProcesoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

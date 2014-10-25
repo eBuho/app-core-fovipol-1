@@ -1,6 +1,6 @@
 package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.sifo.model.MaeEntidad;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.MaeEntidadFacade;
@@ -24,7 +24,7 @@ import javax.faces.convert.FacesConverter;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.SelectableDataModel;
-import pe.gob.fovipol.sifo.model.MaeEntidaddet;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 
 @ManagedBean(name = "maeEntidadController")
 @ViewScoped

@@ -1,11 +1,13 @@
 package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.sifo.model.MaeSede;
+import pe.gob.fovipol.sifo.model.maestros.MaeSede;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.MaeSedeFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -13,19 +15,20 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 @ManagedBean(name = "maeSedeController")
-@SessionScoped
+@ViewScoped
 public class MaeSedeController implements Serializable {
 
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeSedeFacade ejbFacade;
     private List<MaeSede> items = null;
+    private List<MaeSede> itemsFiltro = null;
     private MaeSede selected;
 
     public MaeSedeController() {
@@ -51,11 +54,14 @@ public class MaeSedeController implements Serializable {
 
     public MaeSede prepareCreate() {
         selected = new MaeSede();
+        selected.setCodiMaeSede(new BigDecimal(ejbFacade.count()+1));
+        selected.setFlagSedeSed(new Short("1"));
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        selected.setFechCreaAud(new Date());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeSedeCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -63,6 +69,7 @@ public class MaeSedeController implements Serializable {
     }
 
     public void update() {
+        selected.setFechModiAud(new Date());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeSedeUpdated"));
     }
 
@@ -115,6 +122,20 @@ public class MaeSedeController implements Serializable {
 
     public List<MaeSede> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    /**
+     * @return the itemsFiltro
+     */
+    public List<MaeSede> getItemsFiltro() {
+        return itemsFiltro;
+    }
+
+    /**
+     * @param itemsFiltro the itemsFiltro to set
+     */
+    public void setItemsFiltro(List<MaeSede> itemsFiltro) {
+        this.itemsFiltro = itemsFiltro;
     }
 
     @FacesConverter(forClass = MaeSede.class)

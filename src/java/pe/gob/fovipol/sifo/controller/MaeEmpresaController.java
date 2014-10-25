@@ -1,6 +1,6 @@
 package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.sifo.model.MaeEmpresa;
+import pe.gob.fovipol.sifo.model.maestros.MaeEmpresa;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.MaeEmpresaFacade;
@@ -27,6 +27,7 @@ public class MaeEmpresaController implements Serializable {
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeEmpresaFacade ejbFacade;
     private List<MaeEmpresa> items = null;
+    private List<MaeEmpresa> itemsFiltro = null;
     private MaeEmpresa selected;
 
     public MaeEmpresaController() {
@@ -120,6 +121,20 @@ public class MaeEmpresaController implements Serializable {
 
     public List<MaeEmpresa> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    /**
+     * @return the itemsFiltro
+     */
+    public List<MaeEmpresa> getItemsFiltro() {
+        return itemsFiltro;
+    }
+
+    /**
+     * @param itemsFiltro the itemsFiltro to set
+     */
+    public void setItemsFiltro(List<MaeEmpresa> itemsFiltro) {
+        this.itemsFiltro = itemsFiltro;
     }
 
     @FacesConverter(forClass = MaeEmpresa.class)
