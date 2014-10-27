@@ -7,6 +7,7 @@ package pe.gob.fovipol.sifo.model.maestros;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,6 +24,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import pe.gob.fovipol.sifo.model.simulacion.CrdSimulacion;
 
 /**
  *
@@ -59,6 +63,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MaeSocio.findByNombSopeAud", query = "SELECT m FROM MaeSocio m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeSocio.findByFlagEstaSoc", query = "SELECT m FROM MaeSocio m WHERE m.flagEstaSoc = :flagEstaSoc")})
 public class MaeSocio implements Serializable {
+    @OneToMany(mappedBy = "idenPersPer")
+    private Collection<CrdSimulacion> crdSimulacionCollection;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -392,6 +398,15 @@ public class MaeSocio implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.model.MaeSocio[ codiPersPer=" + codiPersPer + " ]";
+    }
+
+    @XmlTransient
+    public Collection<CrdSimulacion> getCrdSimulacionCollection() {
+        return crdSimulacionCollection;
+    }
+
+    public void setCrdSimulacionCollection(Collection<CrdSimulacion> crdSimulacionCollection) {
+        this.crdSimulacionCollection = crdSimulacionCollection;
     }
     
 }

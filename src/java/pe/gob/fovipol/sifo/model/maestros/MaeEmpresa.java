@@ -7,6 +7,7 @@ package pe.gob.fovipol.sifo.model.maestros;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -51,6 +54,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MaeEmpresa.findByNombSopeAud", query = "SELECT m FROM MaeEmpresa m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeEmpresa.findByFlagEstaEmp", query = "SELECT m FROM MaeEmpresa m WHERE m.flagEstaEmp = :flagEstaEmp")})
 public class MaeEmpresa implements Serializable {
+    @Column(name = "GIRO_NEGO_EMP")
+    private Integer giroNegoEmp;
+    @OneToMany(mappedBy = "idenEmprEmp")
+    private Collection<MaeSede> maeSedeCollection;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -297,6 +304,23 @@ public class MaeEmpresa implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.model.MaeEmpresa[ codiEmprEmp=" + codiEmprEmp + " ]";
+    }
+
+    public Integer getGiroNegoEmp() {
+        return giroNegoEmp;
+    }
+
+    public void setGiroNegoEmp(Integer giroNegoEmp) {
+        this.giroNegoEmp = giroNegoEmp;
+    }
+
+    @XmlTransient
+    public Collection<MaeSede> getMaeSedeCollection() {
+        return maeSedeCollection;
+    }
+
+    public void setMaeSedeCollection(Collection<MaeSede> maeSedeCollection) {
+        this.maeSedeCollection = maeSedeCollection;
     }
     
 }

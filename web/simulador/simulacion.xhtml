@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Simulador"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form id="formSimulacion">    
+                <comp:consultaIntegralSocio socio="#{simulacionController.socio}" actualizar=":formSimulacion:socio"/>
+                <div style="height: 20px;"></div>
+                <p:panel id="socio">
+                    <h:outputText value="#{simulacionController.socio.maePersona.nombCompPer}"/> <br/>
+                    <h:outputText value="#{simulacionController.socio.maePersona.numeIdenPer}"/> <br/>
+                    <h:outputText value="#{simulacionController.socio.codiCcipSoc}"/> <br/>
+                    
+                    <h:outputText value="Simulador de créditos"/> <br/>
+                    <h:outputText value="Productos: "/>
+                    <p:selectOneMenu value="#{simulacionController.producto}">
+                        <f:selectItems value="#{simulacionController.productos}" var="producto"
+                                       itemLabel="#{producto.nombProdPrd}" itemValue="#{producto}"/>
+                    </p:selectOneMenu>
+                    
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+   
+</html>

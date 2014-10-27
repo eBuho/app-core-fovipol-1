@@ -7,6 +7,7 @@ package pe.gob.fovipol.sifo.model.maestros;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -48,6 +49,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MaeProceso.findByNombSopeAud", query = "SELECT m FROM MaeProceso m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeProceso.findByFlagEstaPrc", query = "SELECT m FROM MaeProceso m WHERE m.flagEstaPrc = :flagEstaPrc")})
 public class MaeProceso implements Serializable {
+    @Column(name = "TIPO_PROC_PRC")
+    private Character tipoProcPrc;
+    @Column(name = "NIVE_PROC_PRC")
+    private Short niveProcPrc;
+    @Column(name = "ORDE_SECU_PRC")
+    private int ordeSecuPrc;
+    @OneToMany(mappedBy = "idenProcPrc")
+    private Collection<MaeProducto> maeProductoCollection;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -60,10 +69,6 @@ public class MaeProceso implements Serializable {
     private String nombProcPrc;
     @Column(name = "TIEM_DEMO_PRC")
     private BigDecimal tiemDemoPrc;
-    @Column(name = "NIVE_PROC_PRC")
-    private Short niveProcPrc;
-    @Column(name = "ORDE_SECU_PRC")
-    private Integer ordeSecuPrc;
     @Size(max = 15)
     @Column(name = "USUA_CREA_AUD")
     private String usuaCreaAud;
@@ -244,6 +249,23 @@ public class MaeProceso implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.MaeProceso[ codiProcPrc=" + codiProcPrc + " ]";
+    }
+
+    public Character getTipoProcPrc() {
+        return tipoProcPrc;
+    }
+
+    public void setTipoProcPrc(Character tipoProcPrc) {
+        this.tipoProcPrc = tipoProcPrc;
+    }
+
+    @XmlTransient
+    public Collection<MaeProducto> getMaeProductoCollection() {
+        return maeProductoCollection;
+    }
+
+    public void setMaeProductoCollection(Collection<MaeProducto> maeProductoCollection) {
+        this.maeProductoCollection = maeProductoCollection;
     }
     
 }

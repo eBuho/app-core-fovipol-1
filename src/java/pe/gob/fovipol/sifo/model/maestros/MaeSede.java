@@ -13,6 +13,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -45,6 +47,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MaeSede.findByFechModiAud", query = "SELECT m FROM MaeSede m WHERE m.fechModiAud = :fechModiAud"),
     @NamedQuery(name = "MaeSede.findByFlagSedeSed", query = "SELECT m FROM MaeSede m WHERE m.flagSedeSed = :flagSedeSed")})
 public class MaeSede implements Serializable {
+    @JoinColumn(name = "IDEN_EMPR_EMP", referencedColumnName = "IDEN_EMPR_EMP")
+    @ManyToOne
+    private MaeEmpresa idenEmprEmp;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -201,6 +206,14 @@ public class MaeSede implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.MaeSede[ codiMaeSede=" + codiMaeSede + " ]";
+    }
+
+    public MaeEmpresa getIdenEmprEmp() {
+        return idenEmprEmp;
+    }
+
+    public void setIdenEmprEmp(MaeEmpresa idenEmprEmp) {
+        this.idenEmprEmp = idenEmprEmp;
     }
     
 }

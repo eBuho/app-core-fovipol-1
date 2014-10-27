@@ -93,7 +93,7 @@ public class MaeArea implements Serializable {
     private List<MaeProceso> maeProcesoList;
     @OneToMany(mappedBy = "codiArepAre")
     private List<MaeArea> maeAreaList;
-    @JoinColumn(name = "CODI_AREP_ARE", referencedColumnName = "CODI_AREA_ARE")
+    @JoinColumn(name = "CODI_AREP_ARE", referencedColumnName = "IDEN_AREA_ARE")
     @ManyToOne
     private MaeArea codiArepAre;
     @JoinColumn(name = "CODI_MAE_SEDE", referencedColumnName = "CODI_MAE_SEDE")

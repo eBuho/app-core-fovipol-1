@@ -73,6 +73,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MaePersona.findByNombSopeAud", query = "SELECT m FROM MaePersona m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaePersona.findByFlagEstaPer", query = "SELECT m FROM MaePersona m WHERE m.flagEstaPer = :flagEstaPer")})
 public class MaePersona implements Serializable {
+    @Column(name = "TIPO_IDEN_PER")
+    private BigDecimal tipoIdenPer;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -92,8 +94,6 @@ public class MaePersona implements Serializable {
     @Size(max = 120)
     @Column(name = "NOMB_COMP_PER")
     private String nombCompPer;
-    @Column(name = "TIPO_IDEN_PER")
-    private BigDecimal tipoIdenPer;
     @Size(max = 15)
     @Column(name = "NUME_IDEN_PER")
     @Pattern(regexp = "[0-9]*")
@@ -531,5 +531,5 @@ public class MaePersona implements Serializable {
     public String toString() {
         return "pe.gob.fovipol.model.MaePersona[ codiPersPer=" + codiPersPer + " ]";
     }
-    
+
 }
