@@ -108,9 +108,12 @@ public class MaeProcesoController implements Serializable {
         selected.setFechCreaAud(new Date());        
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            items = null;
-            cargarSubProcesos();
-            cargarActividad();
+            if(selected.getNiveProcPrc()==1)
+                items = ejbFacade.findProcesos();
+            if(selected.getNiveProcPrc()==2)
+                cargarSubProcesos();
+            if(selected.getNiveProcPrc()==3)
+                cargarActividad();
             // Invalidate list of items to trigger re-query.
         }
     }

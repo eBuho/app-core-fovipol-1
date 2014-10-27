@@ -21,6 +21,7 @@
                                  selectionMode="single" selection="#{maeProcesoController.selectedProceso}"
                                  paginator="true"
                                  rowKey="#{item.codiProcPrc}"
+                                 paginatorPosition="top"
                                  filteredValue="#{maeProcesoController.itemsFiltro}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
@@ -139,6 +140,7 @@
                                  rowKey="#{item.codiProcPrc}"
                                  filteredValue="#{maeProcesoController.itemsFiltroSubProceso}"
                                  rows="10"
+                                 paginatorPosition="top"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No se encontraron registros"
                                  >
@@ -256,6 +258,7 @@
                                  rowKey="#{item.codiProcPrc}"
                                  filteredValue="#{maeProcesoController.itemsFiltroActividad}"
                                  rows="10"
+                                 paginatorPosition="top"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No se encontraron registros"
                                  >
