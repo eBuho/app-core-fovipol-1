@@ -78,7 +78,7 @@ public class MaePersona implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "CODI_PERS_PER")
+    @Column(name = "IDEN_PERS_PER")
     private BigDecimal codiPersPer;
     @Size(max = 40)
     @Column(name = "APEL_PATE_PER")

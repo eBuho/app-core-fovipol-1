@@ -36,15 +36,8 @@
                                            var="codiAreaAreItem" itemLabel="#{codiAreaAreItem.descAreaAre}"
                                            itemValue="#{codiAreaAreItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditMaeProcesoLabel_codiPropPrc}" for="codiPropPrc" />
-                        <p:selectOneMenu id="codiPropPrc" value="#{maeProcesoController.selected.codiPropPrc}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{maeProcesoController.itemsAvailableSelectOne}"
-                                           var="codiPropPrcItem" itemLabel="#{codiPropPrcItem.nombProcPrc}"
-                                           itemValue="#{codiPropPrcItem}"/>
-                        </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{maeProcesoController.update}" value="#{bundle.Save}" update="display,:MaeProcesoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaeProcesoEditDialog');"/>
+                    <p:commandButton actionListener="#{maeProcesoController.update}" value="#{bundle.Save}" update="display,:MaeProcesoListForm:datalist,:MaeProcesoListForm:datalistSubProceso,:MaeProcesoListForm:datalistActividad,:growl" oncomplete="handleSubmit(args, 'MaeProcesoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaeProcesoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

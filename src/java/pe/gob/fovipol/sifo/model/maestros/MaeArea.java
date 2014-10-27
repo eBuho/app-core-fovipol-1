@@ -54,7 +54,7 @@ public class MaeArea implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "CODI_AREA_ARE")
+    @Column(name = "IDEN_AREA_ARE")
     private BigDecimal codiAreaAre;
     @Size(max = 120)
     @Column(name = "DESC_AREA_ARE")

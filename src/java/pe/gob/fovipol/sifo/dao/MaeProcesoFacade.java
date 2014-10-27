@@ -37,4 +37,19 @@ public class MaeProcesoFacade extends AbstractFacade<MaeProceso> {
         lista = q.getResultList();
         return lista;
     }
+    public List<MaeProceso> findProcesos() {
+        List<MaeProceso> lista = null;
+        String sql = "select d from MaeProceso d where d.niveProcPrc = 1";
+        Query q = em.createQuery(sql);
+        lista = q.getResultList();
+        return lista;
+    }
+    public List<MaeProceso> findProcesosHijos(MaeProceso padre) {
+        List<MaeProceso> lista = null;
+        String sql = "select d from MaeProceso d where d.codiPropPrc=:padre";
+        Query q = em.createQuery(sql);
+        q.setParameter("padre", padre);
+        lista = q.getResultList();
+        return lista;
+    }
 }

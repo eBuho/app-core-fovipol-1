@@ -7,7 +7,6 @@ import pe.gob.fovipol.sifo.dao.MaeProcesoFacade;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -30,11 +29,28 @@ public class MaeProcesoController implements Serializable {
     private pe.gob.fovipol.sifo.dao.MaeProcesoFacade ejbFacade;
     private List<MaeProceso> items = null;
     private List<MaeProceso> itemsFiltro = null;
+    private List<MaeProceso> itemsFiltroSubProceso = null;
+    private List<MaeProceso> itemsFiltroActividad = null;
+    private List<MaeProceso> itemsSubProceso = null;
+    private List<MaeProceso> itemsActividad = null;
+    private MaeProceso selectedProceso;
+    private MaeProceso selectedSubProceso;
+    private MaeProceso selectedActividad;
     private MaeProceso selected;
 
     public MaeProcesoController() {
     }
-
+    
+    public void cargarSubProcesos(){
+        itemsSubProceso=ejbFacade.findProcesosHijos(selectedProceso);
+        itemsActividad=null;
+        selectedSubProceso=null;
+        selectedActividad=null;
+    }
+    public void cargarActividad(){
+        itemsActividad=ejbFacade.findProcesosHijos(selectedSubProceso);
+        selectedActividad=null;
+    }
     public MaeProceso getSelected() {
         return selected;
     }
@@ -56,25 +72,46 @@ public class MaeProcesoController implements Serializable {
     public MaeProceso prepareCreate() {
         selected = new MaeProceso();
         selected.setCodiProcPrc(new BigDecimal(ejbFacade.count()+1));
+        selected.setNiveProcPrc(new Short("1"));
         selected.setFlagEstaPrc(new Short("1"));
         initializeEmbeddableKey();
         return selected;
     }
-
+    public MaeProceso prepareCreateSubProceso() {
+        selected = new MaeProceso();
+        selected.setCodiProcPrc(new BigDecimal(ejbFacade.count()+1));
+        selected.setNiveProcPrc(new Short("2"));
+        selected.setFlagEstaPrc(new Short("1"));
+        selected.setCodiPropPrc(selectedProceso);
+        initializeEmbeddableKey();
+        return selected;
+    }
+    public MaeProceso prepareCreateActividad() {
+        selected = new MaeProceso();
+        selected.setCodiProcPrc(new BigDecimal(ejbFacade.count()+1));
+        selected.setNiveProcPrc(new Short("3"));
+        selected.setFlagEstaPrc(new Short("1"));
+        selected.setCodiPropPrc(selectedSubProceso);
+        initializeEmbeddableKey();
+        return selected;
+    }
+    public void modificarProceso(){
+        selected=selectedProceso;
+    }
+    public void modificarSubProceso(){
+        selected=selectedSubProceso;
+    }
+    public void modificarActividad(){
+        selected=selectedActividad;
+    }
     public void create() {
-        selected.setFechCreaAud(new Date());
-        if(selected.getCodiPropPrc()==null)
-            selected.setNiveProcPrc(new Short("1"));
-        else{
-            Short aux=new Short("1");
-            if(selected.getCodiPropPrc().getNiveProcPrc().compareTo(aux)==0)
-                selected.setNiveProcPrc(new Short("2"));
-            else
-                selected.setNiveProcPrc(new Short("3"));
-        }
+        selected.setFechCreaAud(new Date());        
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+            items = null;
+            cargarSubProcesos();
+            cargarActividad();
+            // Invalidate list of items to trigger re-query.
         }
     }
 
@@ -84,16 +121,33 @@ public class MaeProcesoController implements Serializable {
     }
 
     public void destroy() {
+        selected=selectedProceso;
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+    public void destroySubProceso() {
+        selected=selectedSubProceso;
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoDeleted"));
+        if (!JsfUtil.isValidationFailed()) {
+            selected = null; // Remove selection
+            cargarSubProcesos();   // Invalidate list of items to trigger re-query.
+        }
+    }
+    public void destroyActividad() {
+        selected=selectedActividad;
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoDeleted"));
+        if (!JsfUtil.isValidationFailed()) {
+            selected = null; // Remove selection
+            cargarActividad();    // Invalidate list of items to trigger re-query.
+        }
+    }
 
     public List<MaeProceso> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().findProcesos();
         }
         return items;
     }
@@ -147,6 +201,104 @@ public class MaeProcesoController implements Serializable {
      */
     public void setItemsFiltro(List<MaeProceso> itemsFiltro) {
         this.itemsFiltro = itemsFiltro;
+    }
+
+    /**
+     * @return the itemsSubProceso
+     */
+    public List<MaeProceso> getItemsSubProceso() {
+        return itemsSubProceso;
+    }
+
+    /**
+     * @param itemsSubProceso the itemsSubProceso to set
+     */
+    public void setItemsSubProceso(List<MaeProceso> itemsSubProceso) {
+        this.itemsSubProceso = itemsSubProceso;
+    }
+
+    /**
+     * @return the itemsActividad
+     */
+    public List<MaeProceso> getItemsActividad() {
+        return itemsActividad;
+    }
+
+    /**
+     * @param itemsActividad the itemsActividad to set
+     */
+    public void setItemsActividad(List<MaeProceso> itemsActividad) {
+        this.itemsActividad = itemsActividad;
+    }
+
+    /**
+     * @return the selectedProceso
+     */
+    public MaeProceso getSelectedProceso() {
+        return selectedProceso;
+    }
+
+    /**
+     * @param selectedProceso the selectedProceso to set
+     */
+    public void setSelectedProceso(MaeProceso selectedProceso) {
+        this.selectedProceso = selectedProceso;
+    }
+
+    /**
+     * @return the selectedSubProceso
+     */
+    public MaeProceso getSelectedSubProceso() {
+        return selectedSubProceso;
+    }
+
+    /**
+     * @param selectedSubProceso the selectedSubProceso to set
+     */
+    public void setSelectedSubProceso(MaeProceso selectedSubProceso) {
+        this.selectedSubProceso = selectedSubProceso;
+    }
+
+    /**
+     * @return the selectedActividad
+     */
+    public MaeProceso getSelectedActividad() {
+        return selectedActividad;
+    }
+
+    /**
+     * @param selectedActividad the selectedActividad to set
+     */
+    public void setSelectedActividad(MaeProceso selectedActividad) {
+        this.selectedActividad = selectedActividad;
+    }
+
+    /**
+     * @return the itemsFiltroSubProceso
+     */
+    public List<MaeProceso> getItemsFiltroSubProceso() {
+        return itemsFiltroSubProceso;
+    }
+
+    /**
+     * @param itemsFiltroSubProceso the itemsFiltroSubProceso to set
+     */
+    public void setItemsFiltroSubProceso(List<MaeProceso> itemsFiltroSubProceso) {
+        this.itemsFiltroSubProceso = itemsFiltroSubProceso;
+    }
+
+    /**
+     * @return the itemsFiltroActividad
+     */
+    public List<MaeProceso> getItemsFiltroActividad() {
+        return itemsFiltroActividad;
+    }
+
+    /**
+     * @param itemsFiltroActividad the itemsFiltroActividad to set
+     */
+    public void setItemsFiltroActividad(List<MaeProceso> itemsFiltroActividad) {
+        this.itemsFiltroActividad = itemsFiltroActividad;
     }
 
     @FacesConverter(forClass = MaeProceso.class)

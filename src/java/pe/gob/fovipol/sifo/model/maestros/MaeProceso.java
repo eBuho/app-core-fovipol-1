@@ -53,7 +53,7 @@ public class MaeProceso implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "CODI_PROC_PRC")
+    @Column(name = "IDEN_PROC_PRC")
     private BigDecimal codiProcPrc;
     @Size(max = 120)
     @Column(name = "NOMB_PROC_PRC")
@@ -84,14 +84,14 @@ public class MaeProceso implements Serializable {
     private String nombSopeAud;
     @Column(name = "FLAG_ESTA_PRC")
     private Short flagEstaPrc;
-    @OneToMany(mappedBy = "codiProcPrc")
-    private List<MaeRequisito> maeRequisitoList;
-    @JoinColumn(name = "CODI_AREA_ARE", referencedColumnName = "CODI_AREA_ARE")
+    /*@OneToMany(mappedBy = "codiProcPrc")
+    private List<MaeRequisito> maeRequisitoList;*/
+    @JoinColumn(name = "IDEN_AREA_ARE", referencedColumnName = "IDEN_AREA_ARE")
     @ManyToOne
     private MaeArea codiAreaAre;
     @OneToMany(mappedBy = "codiPropPrc")
     private List<MaeProceso> maeProcesoList;
-    @JoinColumn(name = "CODI_PROP_PRC", referencedColumnName = "CODI_PROC_PRC")
+    @JoinColumn(name = "CODI_PROP_PRC", referencedColumnName = "IDEN_PROC_PRC")
     @ManyToOne
     private MaeProceso codiPropPrc;
 
@@ -198,14 +198,14 @@ public class MaeProceso implements Serializable {
         this.flagEstaPrc = flagEstaPrc;
     }
 
-    @XmlTransient
+    /*@XmlTransient
     public List<MaeRequisito> getMaeRequisitoList() {
         return maeRequisitoList;
     }
 
     public void setMaeRequisitoList(List<MaeRequisito> maeRequisitoList) {
         this.maeRequisitoList = maeRequisitoList;
-    }
+    }*/
 
     public MaeArea getCodiAreaAre() {
         return codiAreaAre;

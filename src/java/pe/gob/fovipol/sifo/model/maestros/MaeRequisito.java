@@ -84,7 +84,7 @@ public class MaeRequisito implements Serializable {
     private String nombSopeAud;
     @Column(name = "FLAG_ESTA_REQ")
     private Short flagEstaReq;
-    @JoinColumn(name = "CODI_PROC_PRC", referencedColumnName = "CODI_PROC_PRC")
+    @JoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC")
     @ManyToOne
     private MaeProceso codiProcPrc;
 

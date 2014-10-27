@@ -56,7 +56,7 @@ public class MaeEmpresa implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "CODI_EMPR_EMP")
+    @Column(name = "IDEN_EMPR_EMP")
     private BigDecimal codiEmprEmp;
     @Size(max = 120)
     @Column(name = "RAZO_SOCI_EMP")

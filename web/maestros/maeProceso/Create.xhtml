@@ -29,16 +29,9 @@
                             <f:selectItems value="#{maeAreaController.itemsAvailableSelectOne}"
                                            var="codiAreaAreItem" itemLabel="#{codiAreaAreItem.descAreaAre}"
                                            itemValue="#{codiAreaAreItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateMaeProcesoLabel_codiPropPrc}" for="codiPropPrc" />
-                        <p:selectOneMenu id="codiPropPrc" value="#{maeProcesoController.selected.codiPropPrc}" >
-                            <f:selectItem itemValue="" itemLabel="Seleccione"/> 
-                            <f:selectItems value="#{maeProcesoController.itemsAvailableSelectOne}"
-                                           var="codiPropPrcItem" itemLabel="#{codiPropPrcItem.nombProcPrc}"
-                                           itemValue="#{codiPropPrcItem}"/>
-                        </p:selectOneMenu>
+                        </p:selectOneMenu>                        
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{maeProcesoController.create}" value="#{bundle.Save}" update="display,:MaeProcesoListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeProcesoCreateDialog');"/>
+                    <p:commandButton actionListener="#{maeProcesoController.create}" value="#{bundle.Save}" update="display,:MaeProcesoListForm:datalist,:MaeProcesoListForm:datalistActividad,:MaeProcesoListForm:datalistSubProceso,:growl" oncomplete="handleSubmit(args,'MaeProcesoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaeProcesoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
