@@ -83,9 +83,7 @@ public class MaeProceso implements Serializable {
     @Column(name = "NOMB_SOPE_AUD")
     private String nombSopeAud;
     @Column(name = "FLAG_ESTA_PRC")
-    private Short flagEstaPrc;
-    /*@OneToMany(mappedBy = "codiProcPrc")
-    private List<MaeRequisito> maeRequisitoList;*/
+    private Short flagEstaPrc;    
     @JoinColumn(name = "IDEN_AREA_ARE", referencedColumnName = "IDEN_AREA_ARE")
     @ManyToOne
     private MaeArea codiAreaAre;
@@ -197,15 +195,6 @@ public class MaeProceso implements Serializable {
     public void setFlagEstaPrc(Short flagEstaPrc) {
         this.flagEstaPrc = flagEstaPrc;
     }
-
-    /*@XmlTransient
-    public List<MaeRequisito> getMaeRequisitoList() {
-        return maeRequisitoList;
-    }
-
-    public void setMaeRequisitoList(List<MaeRequisito> maeRequisitoList) {
-        this.maeRequisitoList = maeRequisitoList;
-    }*/
 
     public MaeArea getCodiAreaAre() {
         return codiAreaAre;

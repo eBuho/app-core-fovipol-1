@@ -9,7 +9,9 @@
 
     <ui:composition template="/template.xhtml">
 
-
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMaeEntidadTitle}"></h:outputText>
+        </ui:define>
         <ui:define name="body">
             <h:form id="MaeEntidadListForm">
                 <p:panel >
@@ -77,6 +79,7 @@
                         <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                     </p:confirmDialog>
+                    <div style="height: 20px;"></div>
                     <p:dataTable id="dataDetalle" value="#{maeEntidadController.itemsDetalle}" var="itemDetalle"
                                  selectionMode="single" 
                                  selection="#{maeEntidadController.detalleSeleccionado}"
