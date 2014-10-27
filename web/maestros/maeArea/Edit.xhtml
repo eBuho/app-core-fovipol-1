@@ -16,7 +16,7 @@
                         <p:outputLabel value="#{bundle.EditMaeAreaLabel_codiAreaAre}" for="codiAreaAre" />
                         <p:inputText disabled="true"  id="codiAreaAre" value="#{maeAreaController.selected.codiAreaAre}" title="#{bundle.EditMaeAreaTitle_codiAreaAre}" required="true" requiredMessage="#{bundle.EditMaeAreaRequiredMessage_codiAreaAre}"/>
                         <p:outputLabel value="#{bundle.EditMaeAreaLabel_descAreaAre}" for="descAreaAre" />
-                        <p:inputText id="descAreaAre" value="#{maeAreaController.selected.descAreaAre}" title="#{bundle.EditMaeAreaTitle_descAreaAre}" />
+                        <p:inputText required="true" id="descAreaAre" value="#{maeAreaController.selected.descAreaAre}" title="#{bundle.EditMaeAreaTitle_descAreaAre}" />
                         <p:outputLabel value="#{bundle.EditMaeAreaLabel_tipoAreaAre}" for="tipoAreaAre" />
                         <p:selectOneMenu value="#{maeAreaController.selected.tipoAreaAre}" id="tipoAreaAre">
                             <f:selectItems value="#{maeAreaController.tiposArea}" var="tipo" 

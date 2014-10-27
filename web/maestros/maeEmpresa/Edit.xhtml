@@ -13,9 +13,8 @@
             <h:form id="MaeEmpresaEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="6" rendered="#{maeEmpresaController.selected != null}">
-                        
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_razoSociEmp}" for="razoSociEmp" />
-                        <p:inputText id="razoSociEmp" value="#{maeEmpresaController.selected.razoSociEmp}" title="#{bundle.EditMaeEmpresaTitle_razoSociEmp}" />
+                        <p:inputText id="razoSociEmp" value="#{maeEmpresaController.selected.razoSociEmp}" title="#{bundle.EditMaeEmpresaTitle_razoSociEmp}" required="true"/>
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_descDireEmp}" for="descDireEmp" />
                         <p:inputText id="descDireEmp" value="#{maeEmpresaController.selected.descDireEmp}" title="#{bundle.EditMaeEmpresaTitle_descDireEmp}" />
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_nombComeEmp}" for="nombComeEmp" />
@@ -36,18 +35,7 @@
                         <p:inputText id="corrElecEmp" value="#{maeEmpresaController.selected.corrElecEmp}" title="#{bundle.EditMaeEmpresaTitle_corrElecEmp}" />
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_flagReteEmp}" for="flagReteEmp" />
                         <p:inputText id="flagReteEmp" value="#{maeEmpresaController.selected.flagReteEmp}" title="#{bundle.EditMaeEmpresaTitle_flagReteEmp}" />
-                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_usuaCreaAud}" for="usuaCreaAud" />
-                        <p:inputText id="usuaCreaAud" value="#{maeEmpresaController.selected.usuaCreaAud}" title="#{bundle.EditMaeEmpresaTitle_usuaCreaAud}" />
-                        
-                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_usuaModiAud}" for="usuaModiAud" />
-                        <p:inputText id="usuaModiAud" value="#{maeEmpresaController.selected.usuaModiAud}" title="#{bundle.EditMaeEmpresaTitle_usuaModiAud}" />
-                        
-                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{maeEmpresaController.selected.nombEquiAud}" title="#{bundle.EditMaeEmpresaTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{maeEmpresaController.selected.nombSopeAud}" title="#{bundle.EditMaeEmpresaTitle_nombSopeAud}" />
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_flagEstaEmp}" for="flagEstaEmp" />
-                        
                         <p:selectOneMenu id="flagEstaEmp" value="#{maeEmpresaController.selected.flagEstaEmp}">
                             <f:selectItem itemLabel="Activo" itemValue="1"/>
                             <f:selectItem itemLabel="Inactivo" itemValue="0"/>

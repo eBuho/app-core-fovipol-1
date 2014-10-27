@@ -64,7 +64,7 @@ public class MaeSocio implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "CODI_PERS_PER")
+    @Column(name = "IDEN_PERS_PER")
     private BigDecimal codiPersPer;
     @Size(max = 20)
     @Column(name = "CODI_MIGR_SOC")
@@ -137,7 +137,7 @@ public class MaeSocio implements Serializable {
     private String nombSopeAud;
     @Column(name = "FLAG_ESTA_SOC")
     private Short flagEstaSoc;
-    @JoinColumn(name = "CODI_PERS_PER", referencedColumnName = "CODI_PERS_PER", insertable = false, updatable = false)
+    @JoinColumn(name = "IDEN_PERS_PER", referencedColumnName = "IDEN_PERS_PER", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private MaePersona maePersona;
 

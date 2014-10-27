@@ -175,7 +175,7 @@ public class MaePersona implements Serializable {
     private Short flagEstaPer;
     @OneToMany(mappedBy = "codiPerpPer")
     private List<MaePersona> maePersonaList;
-    @JoinColumn(name = "CODI_PERP_PER", referencedColumnName = "CODI_PERS_PER")
+    @JoinColumn(name = "CODI_PERP_PER", referencedColumnName = "IDEN_PERS_PER")
     @ManyToOne
     private MaePersona codiPerpPer;
     @JoinColumn(name = "UBIG_NACI_PER", referencedColumnName = "IDEN_UBIG_UBI")

@@ -38,4 +38,28 @@ public class MaeSocioFacade extends AbstractFacade<MaeSocio> {
         lista = q.getResultList();
         return lista;
     }
+    public List<MaeSocio> findByName(String nombre) {
+        List<MaeSocio> lista = null;
+        String sql = "FROM MaeSocio a WHERE a.maePersona.nombCompPer like :nombre";        
+        Query q = em.createQuery(sql);
+        q.setParameter("nombre", "%"+nombre+"%");
+        lista = q.getResultList();
+        return lista;
+    }
+    public List<MaeSocio> findByDNI(String dni) {
+        List<MaeSocio> lista = null;
+        String sql = "FROM MaeSocio a WHERE a.maePersona.numeIdenPer =:dni";        
+        Query q = em.createQuery(sql);
+        q.setParameter("dni", dni);
+        lista = q.getResultList();
+        return lista;
+    }
+    public List<MaeSocio> findByCIP(String cip) {
+        List<MaeSocio> lista = null;
+        String sql = "FROM MaeSocio a WHERE a.codiCcipSoc =:cip";        
+        Query q = em.createQuery(sql);
+        q.setParameter("cip", cip);
+        lista = q.getResultList();
+        return lista;
+    }
 }

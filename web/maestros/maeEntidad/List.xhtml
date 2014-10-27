@@ -97,7 +97,7 @@
                         <f:facet name="header">
                             Mantenimiento de Detalle de Maestro de Entidades
                             <p:spacer width="25"/>
-                            <p:commandButton id="createButtonDetalle" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maeEntidadController.preparaCrear}" update=":MaeEntidaddetCreateForm" oncomplete="PF('MaeEntidaddetCreateDialog').show()"/>
+                            <p:commandButton id="createButtonDetalle" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maeEntidadController.preparaCrear}" update=":MaeEntidaddetCreateForm" oncomplete="PF('MaeEntidaddetCreateDialog').show()" disabled="#{empty maeEntidadController.selected}"/>
                             <p:commandButton id="viewButtonDetalle"   icon="ui-icon-search" value="#{bundle.View}" update=":MaeEntidaddetViewForm" oncomplete="PF('MaeEntidaddetViewDialog').show()" disabled="#{empty maeEntidadController.detalleSeleccionado}"/>
                             <p:commandButton id="editButtonDetalle"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaeEntidaddetEditForm" oncomplete="PF('MaeEntidaddetEditDialog').show()" disabled="#{empty maeEntidadController.detalleSeleccionado}"/>
                             <p:commandButton id="deleteButtonDetalle" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maeEntidaddetController.destruir(maeEntidadController.detalleSeleccionado)}" 
