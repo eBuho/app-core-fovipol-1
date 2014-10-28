@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrmMovimientoViewDlg" widgetVar="TrmMovimientoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tramite.ViewTrmMovimientoTitle}">
+            <h:form id="TrmMovimientoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trmMovimientoController.selected != null}">
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_trmMovimientoPK_secuMoviMvm}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.trmMovimientoPK.secuMoviMvm}" title="#{tramite.ViewTrmMovimientoTitle_trmMovimientoPK_secuMoviMvm}"/>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_usuaEnviMvm}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.usuaEnviMvm}" title="#{tramite.ViewTrmMovimientoTitle_usuaEnviMvm}"/>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_fechEnviMvm}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.fechEnviMvm}" title="#{tramite.ViewTrmMovimientoTitle_fechEnviMvm}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_usuaReceMvm}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.usuaReceMvm}" title="#{tramite.ViewTrmMovimientoTitle_usuaReceMvm}"/>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_fechReceMvm}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.fechReceMvm}" title="#{tramite.ViewTrmMovimientoTitle_fechReceMvm}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_descInfoMvm}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.descInfoMvm}" title="#{tramite.ViewTrmMovimientoTitle_descInfoMvm}"/>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_usuaAsigMvm}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.usuaAsigMvm}" title="#{tramite.ViewTrmMovimientoTitle_usuaAsigMvm}"/>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_usuaTrabMvm}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.usuaTrabMvm}" title="#{tramite.ViewTrmMovimientoTitle_usuaTrabMvm}"/>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_fechAsigMvm}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.fechAsigMvm}" title="#{tramite.ViewTrmMovimientoTitle_fechAsigMvm}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_numeDiasMvm}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.numeDiasMvm}" title="#{tramite.ViewTrmMovimientoTitle_numeDiasMvm}"/>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_fechVencMvm}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.fechVencMvm}" title="#{tramite.ViewTrmMovimientoTitle_fechVencMvm}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.usuaCreaAud}" title="#{tramite.ViewTrmMovimientoTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_fechCreaAud}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.fechCreaAud}" title="#{tramite.ViewTrmMovimientoTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_usuaModiAud}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.usuaModiAud}" title="#{tramite.ViewTrmMovimientoTitle_usuaModiAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_fechModiAud}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.fechModiAud}" title="#{tramite.ViewTrmMovimientoTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_nombEquiAud}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.nombEquiAud}" title="#{tramite.ViewTrmMovimientoTitle_nombEquiAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_nombSopeAud}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.nombSopeAud}" title="#{tramite.ViewTrmMovimientoTitle_nombSopeAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_flagSituMvm}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.flagSituMvm}" title="#{tramite.ViewTrmMovimientoTitle_flagSituMvm}"/>
+                        <h:outputText value="#{tramite.ViewTrmMovimientoLabel_trmTramite}"/>
+                        <h:outputText value="#{trmMovimientoController.selected.trmTramite}" title="#{tramite.ViewTrmMovimientoTitle_trmTramite}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{tramite.Close}" onclick="TrmMovimientoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

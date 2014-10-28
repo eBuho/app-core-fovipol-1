@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrmMovimientoCreateDlg" widgetVar="TrmMovimientoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tramite.CreateTrmMovimientoTitle}">
+            <h:form id="TrmMovimientoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trmMovimientoController.selected != null}">
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_trmMovimientoPK_secuMoviMvm}" for="trmMovimientoPK_secuMoviMvm" />
+                        <p:inputText id="trmMovimientoPK_secuMoviMvm" value="#{trmMovimientoController.selected.trmMovimientoPK.secuMoviMvm}" title="#{tramite.CreateTrmMovimientoTitle_trmMovimientoPK_secuMoviMvm}" required="true" requiredMessage="#{tramite.CreateTrmMovimientoRequiredMessage_trmMovimientoPK_secuMoviMvm}"/>
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_usuaEnviMvm}" for="usuaEnviMvm" />
+                        <p:inputText id="usuaEnviMvm" value="#{trmMovimientoController.selected.usuaEnviMvm}" title="#{tramite.CreateTrmMovimientoTitle_usuaEnviMvm}" />
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_fechEnviMvm}" for="fechEnviMvm" />
+                        <p:calendar id="fechEnviMvm" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmMovimientoController.selected.fechEnviMvm}" title="#{tramite.EditTrmMovimientoTitle_fechEnviMvm}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_usuaReceMvm}" for="usuaReceMvm" />
+                        <p:inputText id="usuaReceMvm" value="#{trmMovimientoController.selected.usuaReceMvm}" title="#{tramite.CreateTrmMovimientoTitle_usuaReceMvm}" />
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_fechReceMvm}" for="fechReceMvm" />
+                        <p:calendar id="fechReceMvm" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmMovimientoController.selected.fechReceMvm}" title="#{tramite.EditTrmMovimientoTitle_fechReceMvm}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_descInfoMvm}" for="descInfoMvm" />
+                        <p:inputText id="descInfoMvm" value="#{trmMovimientoController.selected.descInfoMvm}" title="#{tramite.CreateTrmMovimientoTitle_descInfoMvm}" />
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_usuaAsigMvm}" for="usuaAsigMvm" />
+                        <p:inputText id="usuaAsigMvm" value="#{trmMovimientoController.selected.usuaAsigMvm}" title="#{tramite.CreateTrmMovimientoTitle_usuaAsigMvm}" />
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_usuaTrabMvm}" for="usuaTrabMvm" />
+                        <p:inputText id="usuaTrabMvm" value="#{trmMovimientoController.selected.usuaTrabMvm}" title="#{tramite.CreateTrmMovimientoTitle_usuaTrabMvm}" />
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_fechAsigMvm}" for="fechAsigMvm" />
+                        <p:calendar id="fechAsigMvm" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmMovimientoController.selected.fechAsigMvm}" title="#{tramite.EditTrmMovimientoTitle_fechAsigMvm}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_numeDiasMvm}" for="numeDiasMvm" />
+                        <p:inputText id="numeDiasMvm" value="#{trmMovimientoController.selected.numeDiasMvm}" title="#{tramite.CreateTrmMovimientoTitle_numeDiasMvm}" />
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_fechVencMvm}" for="fechVencMvm" />
+                        <p:calendar id="fechVencMvm" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmMovimientoController.selected.fechVencMvm}" title="#{tramite.EditTrmMovimientoTitle_fechVencMvm}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{trmMovimientoController.selected.usuaCreaAud}" title="#{tramite.CreateTrmMovimientoTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmMovimientoController.selected.fechCreaAud}" title="#{tramite.EditTrmMovimientoTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{trmMovimientoController.selected.usuaModiAud}" title="#{tramite.CreateTrmMovimientoTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmMovimientoController.selected.fechModiAud}" title="#{tramite.EditTrmMovimientoTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{trmMovimientoController.selected.nombEquiAud}" title="#{tramite.CreateTrmMovimientoTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{trmMovimientoController.selected.nombSopeAud}" title="#{tramite.CreateTrmMovimientoTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_flagSituMvm}" for="flagSituMvm" />
+                        <p:inputText id="flagSituMvm" value="#{trmMovimientoController.selected.flagSituMvm}" title="#{tramite.CreateTrmMovimientoTitle_flagSituMvm}" />
+                        <p:outputLabel value="#{tramite.CreateTrmMovimientoLabel_trmTramite}" for="trmTramite" />
+                        <p:selectOneMenu id="trmTramite" value="#{trmMovimientoController.selected.trmTramite}" required="true" requiredMessage="#{tramite.EditTrmMovimientoRequiredMessage_trmTramite}">
+                            <f:selectItems value="#{trmTramiteController.itemsAvailableSelectOne}"
+                                           var="trmTramiteItem"
+                                           itemValue="#{trmTramiteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{trmMovimientoController.create}" value="#{tramite.Save}" update="display,:TrmMovimientoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TrmMovimientoCreateDialog');"/>
+                    <p:commandButton value="#{tramite.Cancel}" onclick="TrmMovimientoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
