@@ -12,13 +12,17 @@
         </ui:define>
         <ui:define name="body">
             <h:form id="formPrueba">    
-                <comp:consultaIntegralSocio socio="#{pruebaController.socio}" actualizar=":formPrueba:socio"/>
-                <div style="height: 20px;"></div>
-                <p:panel id="socio">
+                <comp:consultaIntegralSocio socio="#{pruebaController.socio}" 
+                    actualizar=":formPrueba:socio"
+                    />
+                <div style="height: 10px;"></div>
+                <p:panelGrid id="socio" columns="8" styleClass="tablaNoBorde"
+                        >
                     <h:outputText value="#{pruebaController.socio.maePersona.nombCompPer}"/> <br/>
                     <h:outputText value="#{pruebaController.socio.maePersona.numeIdenPer}"/> <br/>
                     <h:outputText value="#{pruebaController.socio.codiCcipSoc}"/> 
-                </p:panel>
+                    <h:outputText value="#{pruebaController.socio.maePersona.numeCeluPer}"/>
+                </p:panelGrid>
             </h:form>
         </ui:define>
     </ui:composition>

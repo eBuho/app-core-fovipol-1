@@ -44,7 +44,8 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
      * Set the selected and available values of the day, month and year fields based on the model.
      */
     @Override
-    public void encodeBegin(FacesContext context) throws IOException {        
+    public void encodeBegin(FacesContext context) throws IOException {   
+        setListaSocios(ejbSocioFacade.findAll());
         super.encodeBegin(context);
     }
 
@@ -109,6 +110,14 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
         getStateHelper().put("socios", socios);
     }
 
+    public List<MaeSocio> getListaSocios() {
+        return (List<MaeSocio>) getStateHelper().get("listaSocios");
+    }
+
+    public void setListaSocios(List<MaeSocio> socios) {
+        getStateHelper().put("listaSocios", socios);
+    }
+    
     /**
      * @return the criterioBusqueda
      */

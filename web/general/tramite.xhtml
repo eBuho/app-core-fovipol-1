@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="body">
+            <h:form id="TramiteListForm">
+                <p:panel header="Trámite de documentos">
+                    <p:tabView id="tabVista">
+                        <p:tab title="Bandeja de trabajo">
+
+                            <h:form>
+                                <p:dataTable id="datalist"
+                                    value="#{tramiteController.lista}" var="item"
+                                    selectionMode="single" 
+                                    selection="#{tramiteController.seleccionado}"
+                                    paginator="true"
+                                    rowKey="#{item.id}"
+                                    filteredValue="#{tramiteController.listaSeleccionados}"
+                                    rows="5"
+                                    paginatorPosition="top"
+                                    rowsPerPageTemplate="5,10,20,30,40,50"
+                                    emptyMessage="No se encontraron registros"
+                                    >
+
+                                    <p:ajax event="rowSelect"   
+                                            listener="#{tramiteController.onRowSelect}"
+                                            update="createButton viewButton editButton deleteButton :TramiteListForm"/>
+                                    <p:ajax event="rowUnselect" 
+                                            listener="#{tramiteController.onRowUnselect}"
+                                            update="createButton viewButton editButton deleteButton :TramiteListForm"/>
+                                    <f:facet name="header">
+                                        <h:outputText value="Trámites"></h:outputText>
+                                        <p:spacer width="25px"/>
+                                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tramiteController.prepareCreate}" update=":TramiteCreateForm" oncomplete="PF('TramiteCreateDialog').show()"/>
+                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TramiteViewForm" oncomplete="PF('TramiteViewDialog').show()" disabled="#{empty tramiteController.seleccionado}"/>
+                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TramiteEditForm" oncomplete="PF('TramiteEditDialog').show()" disabled="#{empty tramiteController.seleccionado}"/>
+                                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tramiteController.destroy}" update=":growl,datalist" disabled="#{empty tramiteController.seleccionado}">
+                                            <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                    </f:facet>
+                                    <p:column filterBy="#{item.id}"
+                                              filterMatchMode="contains">
+                                        <f:facet name="header">
+                                            <h:outputText value="Id"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.id}"/>
+                                    </p:column>
+                                    <p:column filterBy="#{item.tipo.nombre}"
+                                              filterMatchMode="contains">
+                                        <f:facet name="header">
+                                            <h:outputText value="Tipo"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.tipo.nombre}"/>
+                                    </p:column>
+                                    <p:column filterBy="#{item.descripcion}"
+                                              filterMatchMode="contains">
+                                        <f:facet name="header">
+                                            <h:outputText value="Descripcion"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.descripcion}"/>
+                                    </p:column>
+                                    <p:column filterBy="#{item.fecha}"
+                                              filterMatchMode="contains">
+                                        <f:facet name="header">
+                                            <h:outputText value="Fecha"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fecha}"/>
+                                    </p:column>
+                                    <p:column filterBy="#{item.estado}"
+                                              filterMatchMode="contains">
+                                        <f:facet name="header">
+                                            <h:outputText value="Estado"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.estado}"/>
+                                    </p:column>
+                                </p:dataTable>
+                                
+                            </h:form>
+
+                        </p:tab>
+                        <p:tab id="tabDinamico"
+                               title="#{tramiteController.tipo.nombre}">
+                            <iframe width="1200" height="400" frameborder="0" 
+                                src="#{tramiteController.tipo.pagina}.xhtml"/>
+                        </p:tab>
+                        <p:tab title="Historial">
+
+                        </p:tab>
+                    </p:tabView>
+                </p:panel>
+
+            </h:form>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>
+

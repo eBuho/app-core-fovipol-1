@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrmDocumentoCreateDlg" widgetVar="TrmDocumentoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tramite.CreateTrmDocumentoTitle}">
+            <h:form id="TrmDocumentoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trmDocumentoController.selected != null}">
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_trmDocumentoPK_secuDocuDoc}" for="trmDocumentoPK_secuDocuDoc" />
+                        <p:inputText id="trmDocumentoPK_secuDocuDoc" value="#{trmDocumentoController.selected.trmDocumentoPK.secuDocuDoc}" title="#{tramite.CreateTrmDocumentoTitle_trmDocumentoPK_secuDocuDoc}" required="true" requiredMessage="#{tramite.CreateTrmDocumentoRequiredMessage_trmDocumentoPK_secuDocuDoc}"/>
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_fechVigeDoc}" for="fechVigeDoc" />
+                        <p:calendar id="fechVigeDoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmDocumentoController.selected.fechVigeDoc}" title="#{tramite.EditTrmDocumentoTitle_fechVigeDoc}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_fechEmisDoc}" for="fechEmisDoc" />
+                        <p:calendar id="fechEmisDoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmDocumentoController.selected.fechEmisDoc}" title="#{tramite.EditTrmDocumentoTitle_fechEmisDoc}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_numeFoliDoc}" for="numeFoliDoc" />
+                        <p:inputText id="numeFoliDoc" value="#{trmDocumentoController.selected.numeFoliDoc}" title="#{tramite.CreateTrmDocumentoTitle_numeFoliDoc}" />
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_descObseDoc}" for="descObseDoc" />
+                        <p:inputText id="descObseDoc" value="#{trmDocumentoController.selected.descObseDoc}" title="#{tramite.CreateTrmDocumentoTitle_descObseDoc}" />
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_nombRutaDoc}" for="nombRutaDoc" />
+                        <p:inputText id="nombRutaDoc" value="#{trmDocumentoController.selected.nombRutaDoc}" title="#{tramite.CreateTrmDocumentoTitle_nombRutaDoc}" />
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_flagFisiDoc}" for="flagFisiDoc" />
+                        <p:inputText id="flagFisiDoc" value="#{trmDocumentoController.selected.flagFisiDoc}" title="#{tramite.CreateTrmDocumentoTitle_flagFisiDoc}" />
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_flagPertDoc}" for="flagPertDoc" />
+                        <p:inputText id="flagPertDoc" value="#{trmDocumentoController.selected.flagPertDoc}" title="#{tramite.CreateTrmDocumentoTitle_flagPertDoc}" />
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_descNombDoc}" for="descNombDoc" />
+                        <p:inputText id="descNombDoc" value="#{trmDocumentoController.selected.descNombDoc}" title="#{tramite.CreateTrmDocumentoTitle_descNombDoc}" />
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_usuaRegiAud}" for="usuaRegiAud" />
+                        <p:inputText id="usuaRegiAud" value="#{trmDocumentoController.selected.usuaRegiAud}" title="#{tramite.CreateTrmDocumentoTitle_usuaRegiAud}" />
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_fechRegiAud}" for="fechRegiAud" />
+                        <p:calendar id="fechRegiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmDocumentoController.selected.fechRegiAud}" title="#{tramite.EditTrmDocumentoTitle_fechRegiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{trmDocumentoController.selected.usuaModiAud}" title="#{tramite.CreateTrmDocumentoTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmDocumentoController.selected.fechModiAud}" title="#{tramite.EditTrmDocumentoTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{trmDocumentoController.selected.nombEquiAud}" title="#{tramite.CreateTrmDocumentoTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{trmDocumentoController.selected.nombSopeAud}" title="#{tramite.CreateTrmDocumentoTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_flagEstaDoc}" for="flagEstaDoc" />
+                        <p:inputText id="flagEstaDoc" value="#{trmDocumentoController.selected.flagEstaDoc}" title="#{tramite.CreateTrmDocumentoTitle_flagEstaDoc}" />
+                        <p:outputLabel value="#{tramite.CreateTrmDocumentoLabel_trmTramite}" for="trmTramite" />
+                        <p:selectOneMenu id="trmTramite" value="#{trmDocumentoController.selected.trmTramite}" required="true" requiredMessage="#{tramite.EditTrmDocumentoRequiredMessage_trmTramite}">
+                            <f:selectItems value="#{trmTramiteController.itemsAvailableSelectOne}"
+                                           var="trmTramiteItem"
+                                           itemValue="#{trmTramiteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{trmDocumentoController.create}" value="#{tramite.Save}" update="display,:TrmDocumentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TrmDocumentoCreateDialog');"/>
+                    <p:commandButton value="#{tramite.Cancel}" onclick="TrmDocumentoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

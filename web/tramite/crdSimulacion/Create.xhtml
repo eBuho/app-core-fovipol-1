@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CrdSimulacionCreateDlg" widgetVar="CrdSimulacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCrdSimulacionTitle}">
+            <h:form id="CrdSimulacionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{crdSimulacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCrdSimulacionLabel_secuSimuSim}" for="secuSimuSim" />
+                        <p:inputText id="secuSimuSim" value="#{crdSimulacionController.selected.secuSimuSim}" title="#{bundle.CreateCrdSimulacionTitle_secuSimuSim}" required="true" requiredMessage="#{bundle.CreateCrdSimulacionRequiredMessage_secuSimuSim}"/>
+                        <p:outputLabel value="#{bundle.CreateCrdSimulacionLabel_tasaInteSim}" for="tasaInteSim" />
+                        <p:inputText id="tasaInteSim" value="#{crdSimulacionController.selected.tasaInteSim}" title="#{bundle.CreateCrdSimulacionTitle_tasaInteSim}" />
+                        <p:outputLabel value="#{bundle.CreateCrdSimulacionLabel_numeCuotSim}" for="numeCuotSim" />
+                        <p:inputText id="numeCuotSim" value="#{crdSimulacionController.selected.numeCuotSim}" title="#{bundle.CreateCrdSimulacionTitle_numeCuotSim}" />
+                        <p:outputLabel value="#{bundle.CreateCrdSimulacionLabel_idenProdPrd}" for="idenProdPrd" />
+                        <p:selectOneMenu id="idenProdPrd" value="#{crdSimulacionController.selected.idenProdPrd}" >
+                            <f:selectItems value="#{maeProductoController.itemsAvailableSelectOne}"
+                                           var="idenProdPrdItem"
+                                           itemValue="#{idenProdPrdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{crdSimulacionController.create}" value="#{bundle.Save}" update="display,:CrdSimulacionListForm:datalist,:growl" oncomplete="handleSubmit(args,'CrdSimulacionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CrdSimulacionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
