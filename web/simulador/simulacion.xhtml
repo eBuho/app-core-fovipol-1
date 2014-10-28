@@ -42,7 +42,7 @@
                                         <h:outputText value="Desc Personales (S/.)"/>
                                         <p:inputText value="#{simulacionController.simulacion.dsctPersSim}"/>
                                         <h:outputText value="Combustible (S/.)"/>
-                                        <p:inputText disabled="#{simulacionController.tipoSocio}" value="#{simulacionController.simulacion.ingrCombSim}"/>
+                                        <p:inputText disabled="#{simulacionController.tipoSocio!=2}" value="#{simulacionController.simulacion.ingrCombSim}"/>
                                     </p:panelGrid>
                                 </p:fieldset>
                             </td>

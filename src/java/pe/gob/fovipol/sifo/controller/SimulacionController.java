@@ -25,7 +25,7 @@ public class SimulacionController implements Serializable {
     private BigDecimal porcDescuento;
     private BigDecimal totalAporte;
     private MaeEntidaddet detalle;
-    private boolean tipoSocio;
+    private int tipoSocio;
     @EJB
     private MaeProductoFacade ejbProductoFacade;
     @EJB
@@ -39,7 +39,7 @@ public class SimulacionController implements Serializable {
         simulacion.setIngrCombSim(BigDecimal.ZERO);
         simulacion.setDeudOtraSim(BigDecimal.ZERO);
         totalAporte=BigDecimal.ZERO;
-        tipoSocio=true;
+        tipoSocio=1;
     }
     public SimulacionController() {
     }
@@ -85,9 +85,9 @@ public class SimulacionController implements Serializable {
             detalle=ejbEntidaddetFacade.findIdenEntiDet(socio.getEntiPagoSoc(), "ENTIPAGOSOC");
             porcDescuento=detalle.getValoDecuDet();
             if(detalle.getValoDecuDet().compareTo(new BigDecimal(30))==0)
-                tipoSocio=true;
+                tipoSocio=2;
             else
-                tipoSocio=false;
+                tipoSocio=1;
         }
         this.socio = socio;
     }
@@ -167,14 +167,14 @@ public class SimulacionController implements Serializable {
     /**
      * @return the tipoSocio
      */
-    public boolean isTipoSocio() {
+    public int getTipoSocio() {
         return tipoSocio;
     }
 
     /**
      * @param tipoSocio the tipoSocio to set
      */
-    public void setTipoSocio(boolean tipoSocio) {
+    public void setTipoSocio(int tipoSocio) {
         this.tipoSocio = tipoSocio;
     }
     
