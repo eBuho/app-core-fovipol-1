@@ -116,7 +116,8 @@ public class MaePersonaController implements Serializable {
     public MaeSocio prepareCreateSocio() {
         selectedSocio = new MaeSocio();
         selectedSocio.setFlagEstaSoc(new Short("1"));
-        selectedSocio.setCodiPersPer(selected.getCodiPersPer());        
+        selectedSocio.setCodiPersPer(selected.getCodiPersPer());  
+        selectedSocio.setMaePersona(selected);
         return selectedSocio;
     }
     public void createSocio(){

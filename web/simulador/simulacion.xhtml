@@ -12,21 +12,105 @@
             <h:outputText value="Simulador"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form id="formSimulacion">    
+            <h:form id="formBusqueda">    
                 <comp:consultaIntegralSocio socio="#{simulacionController.socio}" actualizar=":formSimulacion:socio"/>
                 <div style="height: 20px;"></div>
-                <p:panel id="socio">
-                    <h:outputText value="#{simulacionController.socio.maePersona.nombCompPer}"/> <br/>
-                    <h:outputText value="#{simulacionController.socio.maePersona.numeIdenPer}"/> <br/>
-                    <h:outputText value="#{simulacionController.socio.codiCcipSoc}"/> <br/>
-                    
-                    <h:outputText value="Simulador de créditos"/> <br/>
+            </h:form>
+            <h:form id="formSimulacion">  
+                <p:panel id="socio">                    
+                    <h:outputText value="Simulador de créditos"/> <br/><br/>
                     <h:outputText value="Productos: "/>
                     <p:selectOneMenu value="#{simulacionController.producto}">
+                        <f:selectItem itemValue="" itemLabel="Seleccione"/>
                         <f:selectItems value="#{simulacionController.productos}" var="producto"
                                        itemLabel="#{producto.nombProdPrd}" itemValue="#{producto}"/>
+                        <p:ajax update="cantVeces"/>
                     </p:selectOneMenu>
-                    
+                    <br/>
+                    <table style="width: 60%">
+                        <tr>
+                            <td style="width: 30%;">
+                                <p:fieldset legend="Ingresos" >
+                                    <p:panelGrid columns="2" styleClass="tablaNoBorde">
+                                        <h:outputText value="Remu. Consolidada"/>
+                                        <p:inputText value="#{simulacionController.simulacion.ingrBrtoSim}">
+                                            <p:ajax  event="click" listener="#{simulacionController.calcularDescuentoMaximo()}" update="porcDescuento"/>
+                                        </p:inputText>
+                                        <h:outputText value="%Desc. Máximo"/>
+                                        <p:inputText id="porcDescuento" value="#{simulacionController.porcDescuento}" disabled="true"/>
+                                        <h:outputText value="Desc Oficiales"/>
+                                        <p:inputText value="#{simulacionController.simulacion.dsctOficSim}" />
+                                        <h:outputText value="Desc Personales"/>
+                                        <p:inputText value="#{simulacionController.simulacion.dsctPersSim}"/>
+                                        <h:outputText value="Combustible"/>
+                                        <p:inputText value="#{simulacionController.simulacion.ingrCombSim}"/>
+                                    </p:panelGrid>
+                                </p:fieldset>
+                            </td>
+                            <td style="width: 30%;margin-left: 10px;">
+                                <p:fieldset legend="Nivel de Endeudamiento">
+                                    <p:panelGrid columns="2" styleClass="tablaNoBorde">
+                                        <h:outputText value="Total Aporte"/>
+                                        <p:inputText value="#{simulacionController.totalAporte}"/>
+                                        <h:outputText value="Máximo por Producto"/>
+                                        <p:inputText id="cantVeces" disabled="true" value="#{simulacionController.producto.cantVecePrd}"/>
+                                        <h:outputText value="Otras deudas financieras"/>
+                                        <p:inputText value="#{simulacionController.simulacion.deudOtraSim}"/>                            
+                                    </p:panelGrid>
+                                </p:fieldset>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p:commandButton update="capacidadCredito" value="Calcular" actionListener="#{simulacionController.calcular()}" disabled="#{simulacionController.socio==null}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p:fieldset legend="Capacidad de Crédito">
+                                    <p:panelGrid columns="4" styleClass="tablaNoBorde" id="capacidadCredito">
+                                        <h:outputText value="Máxima Cuota"/>
+                                        <p:inputText value="#{simulacionController.simulacion.capaMcuoSim}"/>
+                                        <h:outputText value="Máximo Préstamo"/>
+                                        <p:inputText value="#{simulacionController.simulacion.impoMaxpSim}"/>                                                                 
+                                    </p:panelGrid>
+                                </p:fieldset>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p:fieldset legend="Condiciones">
+                                    <p:panelGrid columns="8" styleClass="tablaNoBorde">
+                                        <h:outputText value="Moneda"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/>
+                                        <h:outputText value="Monto"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/>
+                                        <h:outputText value="Liq."/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/> 
+                                        <h:outputText value="Cíclica"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/> 
+                                        <h:outputText value="Cronograma"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/> 
+                                        <h:outputText value="Plazo"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/> 
+                                        <h:outputText value="Cuota"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/> 
+                                        <h:outputText value="Otras deudas financieras"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/> 
+                                        <h:outputText value="TEA"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/> 
+                                        <h:outputText value="Nac"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/> 
+                                        <h:outputText value="Seguro"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/> 
+                                        <h:outputText value="Gastos Administrativos"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/> 
+                                    </p:panelGrid>
+                                    <p:commandButton value="Simular" actionListener="#{simulacionController.simular()}" disabled="#{simulacionController.socio==null}"/>
+                                </p:fieldset>
+                            </td>
+                        </tr>
+                    </table>
                 </p:panel>
             </h:form>
         </ui:define>
