@@ -34,7 +34,10 @@
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_corrElecEmp}" for="corrElecEmp" />
                         <p:inputText id="corrElecEmp" value="#{maeEmpresaController.selected.corrElecEmp}" title="#{bundle.EditMaeEmpresaTitle_corrElecEmp}" />
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_flagReteEmp}" for="flagReteEmp" />
-                        <p:inputText id="flagReteEmp" value="#{maeEmpresaController.selected.flagReteEmp}" title="#{bundle.EditMaeEmpresaTitle_flagReteEmp}" />
+                        <p:selectOneMenu id="flagReteEmp" value="#{maeEmpresaController.selected.flagReteEmp}">
+                            <f:selectItem itemLabel="Sí" itemValue="1"/>
+                            <f:selectItem itemLabel="No" itemValue="0"/>
+                        </p:selectOneMenu> 
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_flagEstaEmp}" for="flagEstaEmp" />
                         <p:selectOneMenu id="flagEstaEmp" value="#{maeEmpresaController.selected.flagEstaEmp}">
                             <f:selectItem itemLabel="Activo" itemValue="1"/>
