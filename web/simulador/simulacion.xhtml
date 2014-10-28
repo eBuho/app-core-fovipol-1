@@ -17,7 +17,8 @@
                 <div style="height: 20px;"></div>
             </h:form>
             <h:form id="formSimulacion">  
-                <p:panel id="socio">                    
+                <p:panel id="socio">
+                    <p:growl id="growl"/>
                     <h:outputText value="Simulador de créditos"/> <br/><br/>
                     <h:outputText value="Productos: "/>
                     <p:selectOneMenu value="#{simulacionController.producto}">
@@ -32,29 +33,27 @@
                             <td style="width: 30%;">
                                 <p:fieldset legend="Ingresos" >
                                     <p:panelGrid columns="2" styleClass="tablaNoBorde">
-                                        <h:outputText value="Remu. Consolidada"/>
-                                        <p:inputText value="#{simulacionController.simulacion.ingrBrtoSim}">
-                                            <p:ajax  event="click" listener="#{simulacionController.calcularDescuentoMaximo()}" update="porcDescuento"/>
-                                        </p:inputText>
-                                        <h:outputText value="%Desc. Máximo"/>
+                                        <h:outputText value="Remu. Consolidada (S/.)"/>
+                                        <p:inputText value="#{simulacionController.simulacion.ingrBrtoSim}"/>                                            
+                                        <h:outputText value="% Desc. Máximo"/>
                                         <p:inputText id="porcDescuento" value="#{simulacionController.porcDescuento}" disabled="true"/>
-                                        <h:outputText value="Desc Oficiales"/>
+                                        <h:outputText value="Desc Oficiales (S/.)"/>
                                         <p:inputText value="#{simulacionController.simulacion.dsctOficSim}" />
-                                        <h:outputText value="Desc Personales"/>
+                                        <h:outputText value="Desc Personales (S/.)"/>
                                         <p:inputText value="#{simulacionController.simulacion.dsctPersSim}"/>
-                                        <h:outputText value="Combustible"/>
-                                        <p:inputText value="#{simulacionController.simulacion.ingrCombSim}"/>
+                                        <h:outputText value="Combustible (S/.)"/>
+                                        <p:inputText disabled="#{simulacionController.tipoSocio}" value="#{simulacionController.simulacion.ingrCombSim}"/>
                                     </p:panelGrid>
                                 </p:fieldset>
                             </td>
                             <td style="width: 30%;margin-left: 10px;">
                                 <p:fieldset legend="Nivel de Endeudamiento">
                                     <p:panelGrid columns="2" styleClass="tablaNoBorde">
-                                        <h:outputText value="Total Aporte"/>
+                                        <h:outputText value="Total Aporte (S/.)"/>
                                         <p:inputText value="#{simulacionController.totalAporte}"/>
                                         <h:outputText value="Máximo por Producto"/>
                                         <p:inputText id="cantVeces" disabled="true" value="#{simulacionController.producto.cantVecePrd}"/>
-                                        <h:outputText value="Otras deudas financieras"/>
+                                        <h:outputText value="Otras deudas financieras (S/.)"/>
                                         <p:inputText value="#{simulacionController.simulacion.deudOtraSim}"/>                            
                                     </p:panelGrid>
                                 </p:fieldset>
@@ -62,7 +61,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <p:commandButton update="capacidadCredito" value="Calcular" actionListener="#{simulacionController.calcular()}" disabled="#{simulacionController.socio==null}"/>
+                                <p:commandButton update="capacidadCredito,growl" value="Calcular" actionListener="#{simulacionController.calcular()}" disabled="#{simulacionController.socio==null}"/>
                             </td>
                         </tr>
                         <tr>

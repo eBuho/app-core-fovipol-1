@@ -2,12 +2,12 @@ package pe.gob.fovipol.sifo.controller;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
@@ -25,6 +25,7 @@ public class SimulacionController implements Serializable {
     private BigDecimal porcDescuento;
     private BigDecimal totalAporte;
     private MaeEntidaddet detalle;
+    private boolean tipoSocio;
     @EJB
     private MaeProductoFacade ejbProductoFacade;
     @EJB
@@ -38,18 +39,19 @@ public class SimulacionController implements Serializable {
         simulacion.setIngrCombSim(BigDecimal.ZERO);
         simulacion.setDeudOtraSim(BigDecimal.ZERO);
         totalAporte=BigDecimal.ZERO;
+        tipoSocio=true;
     }
     public SimulacionController() {
     }
     
-    public void calcularDescuentoMaximo(){
+    /*public void calcularDescuentoMaximo(){
         if(socio!=null){
             detalle=ejbEntidaddetFacade.findIdenEntiDet(socio.getEntiPagoSoc(), "ENTIPAGOSOC");
             if(detalle!=null){
-                porcDescuento=detalle.getValoDecuDet();
+                porcDescuento=detalle.getValoDecuDet();                
             }            
         }
-    }
+    }*/
     public void calcular(){
         if(producto!=null && socio!=null){
             BigDecimal valor1,valor2;
@@ -59,6 +61,9 @@ public class SimulacionController implements Serializable {
             simulacion.setCapaMcuoSim(valor1);
             valor2=totalAporte.multiply(new BigDecimal(producto.getCantVecePrd())).add(simulacion.getDeudOtraSim().negate());
             simulacion.setImpoMaxpSim(valor2);
+        }
+        else{
+            JsfUtil.addErrorMessage("Ingrese Producto");
         }
     }
     
@@ -76,6 +81,14 @@ public class SimulacionController implements Serializable {
      * @param socio the socio to set
      */
     public void setSocio(MaeSocio socio) {
+        if(socio!=null){
+            detalle=ejbEntidaddetFacade.findIdenEntiDet(socio.getEntiPagoSoc(), "ENTIPAGOSOC");
+            porcDescuento=detalle.getValoDecuDet();
+            if(detalle.getValoDecuDet().compareTo(new BigDecimal(30))==0)
+                tipoSocio=true;
+            else
+                tipoSocio=false;
+        }
         this.socio = socio;
     }
 
@@ -149,6 +162,20 @@ public class SimulacionController implements Serializable {
      */
     public void setTotalAporte(BigDecimal totalAporte) {
         this.totalAporte = totalAporte;
+    }
+
+    /**
+     * @return the tipoSocio
+     */
+    public boolean isTipoSocio() {
+        return tipoSocio;
+    }
+
+    /**
+     * @param tipoSocio the tipoSocio to set
+     */
+    public void setTipoSocio(boolean tipoSocio) {
+        this.tipoSocio = tipoSocio;
     }
     
 }
