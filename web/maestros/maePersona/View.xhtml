@@ -24,15 +24,15 @@
                         <h:outputText value="#{bundle.ViewMaePersonaLabel_nombCompPer}"/>
                         <h:outputText value="#{maePersonaController.selected.nombCompPer}" title="#{bundle.ViewMaePersonaTitle_nombCompPer}"/>
                         <h:outputText value="#{bundle.ViewMaePersonaLabel_tipoIdenPer}"/>
-                        <comp:entidadDetalle value="#{maePersonaController.selected.tipoIdenPer}" />                        
+                        <comp:entidadDetalle value="#{maePersonaController.selected.tipoIdenPer}" entidad="TIPOIDENPER"/>                        
                         <h:outputText value="#{bundle.ViewMaePersonaLabel_numeIdenPer}"/>
                         <h:outputText value="#{maePersonaController.selected.numeIdenPer}" title="#{bundle.ViewMaePersonaTitle_numeIdenPer}"/>
                         <h:outputText value="#{bundle.ViewMaePersonaLabel_direPersPer}"/>
                         <h:outputText value="#{maePersonaController.selected.direPersPer}" title="#{bundle.ViewMaePersonaTitle_direPersPer}"/>
                         <h:outputText value="#{bundle.ViewMaePersonaLabel_estaCiviPer}"/>
-                        <comp:entidadDetalle value="#{maePersonaController.selected.estaCiviPer}" /> 
+                        <comp:entidadDetalle value="#{maePersonaController.selected.estaCiviPer}" entidad="ESTACIVIPER"/> 
                         <h:outputText value="#{bundle.ViewMaePersonaLabel_sexoPersPer}"/>
-                        <comp:entidadDetalle value="#{maePersonaController.selected.sexoPersPer}" />                        
+                        <comp:entidadDetalle value="#{maePersonaController.selected.sexoPersPer}" entidad="SEXOPERSPER"/>                        
                         <h:outputText value="#{bundle.ViewMaePersonaLabel_fechNaciPer}"/>
                         <h:outputText value="#{maePersonaController.selected.fechNaciPer}" title="#{bundle.ViewMaePersonaTitle_fechNaciPer}">
                             <f:convertDateTime locale="es" dateStyle="short" type="both"/>
@@ -52,7 +52,7 @@
                             <f:convertDateTime locale="es" dateStyle="short" type="both"/>
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewMaePersonaLabel_tipoProfPer}"/>
-                        <comp:entidadDetalle value="#{maePersonaController.selected.tipoProfPer}" />                        
+                        <comp:entidadDetalle value="#{maePersonaController.selected.tipoProfPer}" entidad="TIPOPROFPER"/>                        
                         <h:outputText value="#{bundle.ViewMaePersonaLabel_refeUbigPer}"/>
                         <h:outputText value="#{maePersonaController.selected.refeUbigPer}" title="#{bundle.ViewMaePersonaTitle_refeUbigPer}"/>
                         <h:outputText value="#{bundle.ViewMaePersonaLabel_mediTallPer}"/>

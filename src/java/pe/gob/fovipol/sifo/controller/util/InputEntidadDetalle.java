@@ -56,7 +56,9 @@ public class InputEntidadDetalle extends UIInput implements NamingContainer {
             }            
         }
         //BigDecimal key=new BigDecimal(ingreso);
-        MaeEntidaddet aux=ejbEntidadDetalleFacade.findIdenEntiDet(key);
+        int clave=key.intValue();
+        String entidad=getAttributeValue("entidad", null);
+        MaeEntidaddet aux=ejbEntidadDetalleFacade.findIdenEntiDet(clave,entidad);
         if(aux!=null)
             resultado.setValue(aux.getValoCaduDet());
         else

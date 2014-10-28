@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
+
+    <ui:composition>
+
+        <p:dialog id="MaeRequisitoViewDlg" widgetVar="MaeRequisitoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMaeRequisitoTitle}">
+            <h:form id="MaeRequisitoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{maeProcesoController.selectedRequisito != null}">
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_maeRequisitoPK_secuMaeReq}"/>
+                        <h:outputText value="#{maeProcesoController.selectedRequisito.maeRequisitoPK.secuMaeReq}" title="#{bundle.ViewMaeRequisitoTitle_maeRequisitoPK_secuMaeReq}"/>
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_nombRequReq}"/>
+                        <h:outputText value="#{maeProcesoController.selectedRequisito.nombRequReq}" title="#{bundle.ViewMaeRequisitoTitle_nombRequReq}"/>
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_codiTipoReq}"/>
+                        <comp:entidadDetalle value="#{maeProcesoController.selectedRequisito.codiTipoReq}" entidad="CODITIPOREQ"/>                        
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_descObseReq}"/>
+                        <h:outputText value="#{maeProcesoController.selectedRequisito.descObseReq}" title="#{bundle.ViewMaeRequisitoTitle_descObseReq}"/>
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_secuOrdeReq}"/>
+                        <h:outputText value="#{maeProcesoController.selectedRequisito.secuOrdeReq}" title="#{bundle.ViewMaeRequisitoTitle_secuOrdeReq}"/>
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{maeProcesoController.selectedRequisito.usuaCreaAud}" title="#{bundle.ViewMaeRequisitoTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_fechCreaAud}"/>
+                        <h:outputText value="#{maeProcesoController.selectedRequisito.fechCreaAud}" title="#{bundle.ViewMaeRequisitoTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_usuaModiAud}"/>
+                        <h:outputText value="#{maeProcesoController.selectedRequisito.usuaModiAud}" title="#{bundle.ViewMaeRequisitoTitle_usuaModiAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_fechModiAud}"/>
+                        <h:outputText value="#{maeProcesoController.selectedRequisito.fechModiAud}" title="#{bundle.ViewMaeRequisitoTitle_fechModiAud}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_nombEquiAud}"/>
+                        <h:outputText value="#{maeProcesoController.selectedRequisito.nombEquiAud}" title="#{bundle.ViewMaeRequisitoTitle_nombEquiAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_nombSopeAud}"/>
+                        <h:outputText value="#{maeProcesoController.selectedRequisito.nombSopeAud}" title="#{bundle.ViewMaeRequisitoTitle_nombSopeAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_flagEstaReq}"/>
+                        <comp:activo value="#{maeProcesoController.selectedRequisito.flagEstaReq}"/>
+                        <h:outputText value="#{bundle.ViewMaeRequisitoLabel_maeProceso}"/>
+                        <h:outputText value="#{maeProcesoController.selectedRequisito.maeProceso.nombProcPrc}" title="#{bundle.ViewMaeRequisitoTitle_maeProceso}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MaeRequisitoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

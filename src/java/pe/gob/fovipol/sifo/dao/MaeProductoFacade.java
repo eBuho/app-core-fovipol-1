@@ -12,7 +12,7 @@ import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 
 /**
  *
- * @author ebuho
+ * @author probook
  */
 @Stateless
 public class MaeProductoFacade extends AbstractFacade<MaeProducto> {

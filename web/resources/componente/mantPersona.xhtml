@@ -29,7 +29,7 @@
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_tipoIdenPer}" for="tipoIdenPer" />                        
             <p:selectOneMenu value="#{cc.attrs.value.selected.tipoIdenPer}" id="tipoIdenPer">
                 <f:selectItems value="#{cc.attrs.value.documentos}" var="doc" 
-                               itemValue="#{doc.idenEntiDet}" itemLabel="#{doc.valoCaduDet}"/>
+                               itemValue="#{doc.secuEntiDet}" itemLabel="#{doc.valoCaduDet}"/>
             </p:selectOneMenu>
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeIdenPer}" for="numeIdenPer" />
             <p:inputText id="numeIdenPer" value="#{cc.attrs.value.selected.numeIdenPer}" title="#{bundle.CreateMaePersonaTitle_numeIdenPer}" />
@@ -38,12 +38,12 @@
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_estaCiviPer}" for="estaCiviPer" />                        
             <p:selectOneMenu value="#{cc.attrs.value.selected.estaCiviPer}" id="estaCiviPer">
                 <f:selectItems value="#{cc.attrs.value.estadosCiviles}" var="doc" 
-                               itemValue="#{doc.idenEntiDet}" itemLabel="#{doc.valoCaduDet}"/>
+                               itemValue="#{doc.secuEntiDet}" itemLabel="#{doc.valoCaduDet}"/>
             </p:selectOneMenu>
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_sexoPersPer}" for="sexoPersPer" />
             <p:selectOneMenu value="#{cc.attrs.value.selected.sexoPersPer}" id="sexoPersPer">
                 <f:selectItems value="#{cc.attrs.value.generos}" var="sexo" 
-                               itemValue="#{sexo.idenEntiDet}" itemLabel="#{sexo.valoCaduDet}"/>
+                               itemValue="#{sexo.secuEntiDet}" itemLabel="#{sexo.valoCaduDet}"/>
             </p:selectOneMenu>                        
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_fechNaciPer}" for="fechNaciPer" />
             <p:calendar id="fechNaciPer" pattern="dd/MM/yyyy" value="#{cc.attrs.value.selected.fechNaciPer}" title="#{bundle.EditMaePersonaTitle_fechNaciPer}"  showOn="button"/>
@@ -62,7 +62,7 @@
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_tipoProfPer}" for="tipoProfPer" />
             <p:selectOneMenu value="#{cc.attrs.value.selected.tipoProfPer}" id="tipoProfPer">
                 <f:selectItems value="#{cc.attrs.value.profesiones}" var="prof" 
-                               itemValue="#{prof.idenEntiDet}" itemLabel="#{prof.valoCaduDet}"/>
+                               itemValue="#{prof.secuEntiDet}" itemLabel="#{prof.valoCaduDet}"/>
             </p:selectOneMenu>                          
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_refeUbigPer}" for="refeUbigPer" />
             <p:inputText id="refeUbigPer" value="#{cc.attrs.value.selected.refeUbigPer}" title="#{bundle.CreateMaePersonaTitle_refeUbigPer}" />
@@ -75,7 +75,7 @@
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_motiBloqPer}" for="motiBloqPer" />
             <p:selectOneMenu value="#{cc.attrs.value.selected.motiBloqPer}" id="motiBloqPer">
                 <f:selectItems value="#{cc.attrs.value.bloqueos}" var="bloq" 
-                               itemValue="#{bloq.idenEntiDet}" itemLabel="#{bloq.valoCaduDet}"/>
+                               itemValue="#{bloq.secuEntiDet}" itemLabel="#{bloq.valoCaduDet}"/>
             </p:selectOneMenu>                        
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_flagHomoPer}" for="flagHomoPer" />
             <p:inputText id="flagHomoPer" value="#{cc.attrs.value.selected.flagHomoPer}" title="#{bundle.CreateMaePersonaTitle_flagHomoPer}" />

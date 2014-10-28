@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -49,12 +50,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MaeProceso.findByNombSopeAud", query = "SELECT m FROM MaeProceso m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeProceso.findByFlagEstaPrc", query = "SELECT m FROM MaeProceso m WHERE m.flagEstaPrc = :flagEstaPrc")})
 public class MaeProceso implements Serializable {
-    @Column(name = "TIPO_PROC_PRC")
-    private Character tipoProcPrc;
     @Column(name = "NIVE_PROC_PRC")
     private Short niveProcPrc;
     @Column(name = "ORDE_SECU_PRC")
     private int ordeSecuPrc;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "maeProceso")
+    private List<MaeRequisito> maeRequisitoList;
+    @Column(name = "TIPO_PROC_PRC")
+    private Character tipoProcPrc;
     @OneToMany(mappedBy = "idenProcPrc")
     private Collection<MaeProducto> maeProductoCollection;
     private static final long serialVersionUID = 1L;
@@ -266,6 +269,16 @@ public class MaeProceso implements Serializable {
 
     public void setMaeProductoCollection(Collection<MaeProducto> maeProductoCollection) {
         this.maeProductoCollection = maeProductoCollection;
+    }
+
+
+    @XmlTransient
+    public List<MaeRequisito> getMaeRequisitoList() {
+        return maeRequisitoList;
+    }
+
+    public void setMaeRequisitoList(List<MaeRequisito> maeRequisitoList) {
+        this.maeRequisitoList = maeRequisitoList;
     }
     
 }

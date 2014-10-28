@@ -20,6 +20,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
+import pe.gob.fovipol.sifo.model.maestros.MaeRequisito;
+import pe.gob.fovipol.sifo.model.maestros.MaeRequisitoPK;
 
 @ManagedBean(name = "maeProcesoController")
 @ViewScoped
@@ -27,6 +31,10 @@ public class MaeProcesoController implements Serializable {
 
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeProcesoFacade ejbFacade;
+    @EJB
+    private pe.gob.fovipol.sifo.dao.MaeRequisitoFacade ejbRequisitoFacade;
+    @EJB
+    private pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade ejbEntidadDetalleFacade;
     private List<MaeProceso> items = null;
     private List<MaeProceso> itemsFiltro = null;
     private List<MaeProceso> itemsFiltroSubProceso = null;
@@ -37,12 +45,23 @@ public class MaeProcesoController implements Serializable {
     private MaeProceso selectedSubProceso;
     private MaeProceso selectedActividad;
     private MaeProceso selected;
+    private List<MaeRequisito> requisitos;
+    private MaeRequisito selectedRequisito;
+    private List<MaeEntidaddet> tiposRequisito;
 
     public MaeProcesoController() {
     }
     
     public void cargarSubProcesos(){
-        itemsSubProceso=ejbFacade.findProcesosHijos(selectedProceso);
+        if(selectedProceso==null){
+            itemsSubProceso=null;
+            requisitos=null;
+        }
+        else{
+            itemsSubProceso=ejbFacade.findProcesosHijos(selectedProceso);
+            requisitos=ejbRequisitoFacade.findByProceso(selectedProceso.getCodiProcPrc());
+        }        
+        selectedRequisito=null;
         itemsActividad=null;
         selectedSubProceso=null;
         selectedActividad=null;
@@ -76,6 +95,16 @@ public class MaeProcesoController implements Serializable {
         selected.setFlagEstaPrc(new Short("1"));
         initializeEmbeddableKey();
         return selected;
+    }
+    public MaeRequisito prepareCreateRequisito() {
+        selectedRequisito = new MaeRequisito();
+        MaeRequisitoPK b=new MaeRequisitoPK();
+        b.setIdenProcPrc(selectedProceso.getCodiProcPrc().toBigInteger());
+        b.setSecuMaeReq(ejbRequisitoFacade.obtenerCorrelativo(selectedProceso.getCodiProcPrc()));
+        selectedRequisito.setMaeProceso(selectedProceso);
+        selectedRequisito.setMaeRequisitoPK(b);
+        selectedRequisito.setFlagEstaReq(new Short("1"));
+        return selectedRequisito;
     }
     public MaeProceso prepareCreateSubProceso() {
         selected = new MaeProceso();
@@ -117,10 +146,22 @@ public class MaeProcesoController implements Serializable {
             // Invalidate list of items to trigger re-query.
         }
     }
+    public void createRequisito() {
+        selectedRequisito.setFechCreaAud(new Date());        
+        persistRequisito(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeRequisitoCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            cargarSubProcesos();
+            // Invalidate list of items to trigger re-query.
+        }
+    }
 
     public void update() {
         selected.setFechModiAud(new Date());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoUpdated"));
+    }
+    public void updateRequisito() {
+        selectedRequisito.setFechModiAud(new Date());
+        persistRequisito(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeRequisitoUpdated"));
     }
 
     public void destroy() {
@@ -129,6 +170,13 @@ public class MaeProcesoController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    public void destroyRequisito() {
+        persistRequisito(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoDeleted"));
+        if (!JsfUtil.isValidationFailed()) {
+            selectedRequisito = null; // Remove selection
+            cargarSubProcesos();    // Invalidate list of items to trigger re-query.
         }
     }
     public void destroySubProceso() {
@@ -141,7 +189,7 @@ public class MaeProcesoController implements Serializable {
     }
     public void destroyActividad() {
         selected=selectedActividad;
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeRequisitoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             cargarActividad();    // Invalidate list of items to trigger re-query.
@@ -183,13 +231,40 @@ public class MaeProcesoController implements Serializable {
             }
         }
     }
+    private void persistRequisito(PersistAction persistAction, String successMessage) {
+        if (selectedRequisito != null) {
+            try {
+                if (persistAction != PersistAction.DELETE) {
+                    ejbRequisitoFacade.edit(selectedRequisito);
+                } else {
+                    ejbRequisitoFacade.remove(selectedRequisito);
+                }
+                JsfUtil.addSuccessMessage(successMessage);
+            }            
+            catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
 
     public List<MaeProceso> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
     public List<MaeProceso> getItemsAvailableSelectOne() {
-        return getFacade().findProcesosActivos();
+        return getFacade().findProcesos();
     }
 
     /**
@@ -302,6 +377,50 @@ public class MaeProcesoController implements Serializable {
      */
     public void setItemsFiltroActividad(List<MaeProceso> itemsFiltroActividad) {
         this.itemsFiltroActividad = itemsFiltroActividad;
+    }
+
+    /**
+     * @return the requisitos
+     */
+    public List<MaeRequisito> getRequisitos() {
+        return requisitos;
+    }
+
+    /**
+     * @param requisitos the requisitos to set
+     */
+    public void setRequisitos(List<MaeRequisito> requisitos) {
+        this.requisitos = requisitos;
+    }
+
+    /**
+     * @return the selectedRequisito
+     */
+    public MaeRequisito getSelectedRequisito() {
+        return selectedRequisito;
+    }
+
+    /**
+     * @param selectedRequisito the selectedRequisito to set
+     */
+    public void setSelectedRequisito(MaeRequisito selectedRequisito) {
+        this.selectedRequisito = selectedRequisito;
+    }
+
+    /**
+     * @return the tiposRequisito
+     */
+    public List<MaeEntidaddet> getTiposRequisito() {
+        if(tiposRequisito==null)
+            tiposRequisito=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("CODITIPOREQ"));
+        return tiposRequisito;
+    }
+
+    /**
+     * @param tiposRequisito the tiposRequisito to set
+     */
+    public void setTiposRequisito(List<MaeEntidaddet> tiposRequisito) {
+        this.tiposRequisito = tiposRequisito;
     }
 
     @FacesConverter(forClass = MaeProceso.class)

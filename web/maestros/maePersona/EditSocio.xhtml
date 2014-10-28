@@ -19,7 +19,7 @@
                         <p:outputLabel value="#{bundle.EditMaeSocioLabel_tipoPoliSoc}" for="tipoPoliSoc" />
                         <p:selectOneMenu value="#{maePersonaController.selectedSocio.tipoPoliSoc}" id="tipoPoliSoc">
                             <f:selectItems value="#{maePersonaController.tiposPolicia}" var="doc" 
-                                           itemValue="#{doc.idenEntiDet}" itemLabel="#{doc.valoCaduDet}"/>
+                                           itemValue="#{doc.secuEntiDet}" itemLabel="#{doc.valoCaduDet}"/>
                         </p:selectOneMenu> 
                         <p:outputLabel value="#{bundle.EditMaeSocioLabel_codiCcipSoc}" for="codiCcipSoc" />
                         <p:inputText id="codiCcipSoc" value="#{maePersonaController.selectedSocio.codiCcipSoc}" title="#{bundle.EditMaeSocioTitle_codiCcipSoc}" required="true" requiredMessage="#{bundle.EditMaeSocioRequiredMessage_codiCcipSoc}"/>
@@ -46,12 +46,12 @@
                         <p:outputLabel value="#{bundle.EditMaeSocioLabel_unidTrabSoc}" for="unidTrabSoc" />
                         <p:selectOneMenu value="#{maePersonaController.selectedSocio.unidTrabSoc}" id="unidTrabSoc">
                             <f:selectItems value="#{maePersonaController.unidadesTrabajo}" var="doc" 
-                                           itemValue="#{doc.idenEntiDet}" itemLabel="#{doc.valoCaduDet}"/>
+                                           itemValue="#{doc.secuEntiDet}" itemLabel="#{doc.valoCaduDet}"/>
                         </p:selectOneMenu> 
                         <p:outputLabel value="#{bundle.EditMaeSocioLabel_entiPagoSoc}" for="entiPagoSoc" />
                         <p:selectOneMenu value="#{maePersonaController.selectedSocio.entiPagoSoc}" id="entiPagoSoc">
                             <f:selectItems value="#{maePersonaController.entidadesPago}" var="doc" 
-                                           itemValue="#{doc.idenEntiDet}" itemLabel="#{doc.valoCaduDet}"/>
+                                           itemValue="#{doc.secuEntiDet}" itemLabel="#{doc.valoCaduDet}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditMaeSocioLabel_fechReinSoc}" for="fechReinSoc" />
                         <p:calendar id="fechReinSoc" pattern="dd/MM/yyyy" value="#{maePersonaController.selectedSocio.fechReinSoc}" title="#{bundle.EditMaeSocioTitle_fechReinSoc}"  showOn="button"/>

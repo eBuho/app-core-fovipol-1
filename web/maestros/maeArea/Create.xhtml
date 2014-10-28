@@ -20,7 +20,7 @@
                         <p:outputLabel value="#{bundle.CreateMaeAreaLabel_tipoAreaAre}" for="tipoAreaAre" />
                         <p:selectOneMenu value="#{maeAreaController.selected.tipoAreaAre}" id="tipoAreaAre">
                             <f:selectItems value="#{maeAreaController.tiposArea}" var="tipo" 
-                                           itemValue="#{tipo.idenEntiDet}" itemLabel="#{tipo.valoCaduDet}"/>
+                                           itemValue="#{tipo.secuEntiDet}" itemLabel="#{tipo.valoCaduDet}"/>
                         </p:selectOneMenu>                        
                         <p:outputLabel value="#{bundle.CreateMaeAreaLabel_numeTeleAre}" for="numeTeleAre" />
                         <p:inputText id="numeTeleAre" value="#{maeAreaController.selected.numeTeleAre}" title="#{bundle.CreateMaeAreaTitle_numeTeleAre}" />
