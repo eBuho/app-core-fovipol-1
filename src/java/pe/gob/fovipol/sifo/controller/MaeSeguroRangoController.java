@@ -1,9 +1,8 @@
-package pe.gob.fovipol.sifo.dao;
+package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
+import pe.gob.fovipol.sifo.model.maestros.MaeSeguroRango;
 import pe.gob.fovipol.sifo.dao.util.JsfUtil;
 import pe.gob.fovipol.sifo.dao.util.JsfUtil.PersistAction;
-import pe.gob.fovipol.sifo.controller.MaeSeguroFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,63 +17,66 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import pe.gob.fovipol.sifo.dao.MaeSeguroRangoFacade;
 
-@ManagedBean(name = "maeSeguroController")
+@ManagedBean(name = "maeSeguroRangoController")
 @SessionScoped
-public class MaeSeguroController implements Serializable {
+public class MaeSeguroRangoController implements Serializable {
 
     @EJB
-    private pe.gob.fovipol.sifo.controller.MaeSeguroFacade ejbFacade;
-    private List<MaeSeguro> items = null;
-    private MaeSeguro selected;
+    private pe.gob.fovipol.sifo.dao.MaeSeguroRangoFacade ejbFacade;
+    private List<MaeSeguroRango> items = null;
+    private MaeSeguroRango selected;
 
-    public MaeSeguroController() {
+    public MaeSeguroRangoController() {
     }
 
-    public MaeSeguro getSelected() {
+    public MaeSeguroRango getSelected() {
         return selected;
     }
 
-    public void setSelected(MaeSeguro selected) {
+    public void setSelected(MaeSeguroRango selected) {
         this.selected = selected;
     }
 
     protected void setEmbeddableKeys() {
+        selected.getMaeSeguroRangoPK().setIdenSeguSeg(selected.getMaeSeguro().getIdenSeguSeg().toBigInteger());
     }
 
     protected void initializeEmbeddableKey() {
+        selected.setMaeSeguroRangoPK(new pe.gob.fovipol.sifo.model.maestros.MaeSeguroRangoPK());
     }
 
-    private MaeSeguroFacade getFacade() {
+    private MaeSeguroRangoFacade getFacade() {
         return ejbFacade;
     }
 
-    public MaeSeguro prepareCreate() {
-        selected = new MaeSeguro();
+    public MaeSeguroRango prepareCreate() {
+        selected = new MaeSeguroRango();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle2").getString("MaeSeguroCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle2").getString("MaeSeguroRangoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle2").getString("MaeSeguroUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle2").getString("MaeSeguroRangoUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle2").getString("MaeSeguroDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle2").getString("MaeSeguroRangoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<MaeSeguro> getItems() {
+    public List<MaeSeguroRango> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,36 +111,44 @@ public class MaeSeguroController implements Serializable {
         }
     }
 
-    public List<MaeSeguro> getItemsAvailableSelectMany() {
+    public List<MaeSeguroRango> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<MaeSeguro> getItemsAvailableSelectOne() {
+    public List<MaeSeguroRango> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = MaeSeguro.class)
-    public static class MaeSeguroControllerConverter implements Converter {
+    @FacesConverter(forClass = MaeSeguroRango.class)
+    public static class MaeSeguroRangoControllerConverter implements Converter {
+
+        private static final String SEPARATOR = "#";
+        private static final String SEPARATOR_ESCAPED = "\\#";
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MaeSeguroController controller = (MaeSeguroController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "maeSeguroController");
+            MaeSeguroRangoController controller = (MaeSeguroRangoController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "maeSeguroRangoController");
             return controller.getFacade().find(getKey(value));
         }
 
-        java.math.BigDecimal getKey(String value) {
-            java.math.BigDecimal key;
-            key = new java.math.BigDecimal(value);
+        pe.gob.fovipol.sifo.model.maestros.MaeSeguroRangoPK getKey(String value) {
+            pe.gob.fovipol.sifo.model.maestros.MaeSeguroRangoPK key;
+            String values[] = value.split(SEPARATOR_ESCAPED);
+            key = new pe.gob.fovipol.sifo.model.maestros.MaeSeguroRangoPK();
+            //key.setIdenSeguSeg(values[0]);
+            key.setSecuSeguSgd(Integer.parseInt(values[1]));
             return key;
         }
 
-        String getStringKey(java.math.BigDecimal value) {
+        String getStringKey(pe.gob.fovipol.sifo.model.maestros.MaeSeguroRangoPK value) {
             StringBuilder sb = new StringBuilder();
-            sb.append(value);
+            sb.append(value.getIdenSeguSeg());
+            sb.append(SEPARATOR);
+            sb.append(value.getSecuSeguSgd());
             return sb.toString();
         }
 
@@ -147,11 +157,11 @@ public class MaeSeguroController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof MaeSeguro) {
-                MaeSeguro o = (MaeSeguro) object;
-                return getStringKey(o.getIdenSeguSeg());
+            if (object instanceof MaeSeguroRango) {
+                MaeSeguroRango o = (MaeSeguroRango) object;
+                return getStringKey(o.getMaeSeguroRangoPK());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeSeguro.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeSeguroRango.class.getName()});
                 return null;
             }
         }

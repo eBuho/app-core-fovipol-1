@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.gob.fovipol.sifo.controller;
+package pe.gob.fovipol.sifo.dao;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

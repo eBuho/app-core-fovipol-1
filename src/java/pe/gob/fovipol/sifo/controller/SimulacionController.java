@@ -1,5 +1,6 @@
 package pe.gob.fovipol.sifo.controller;
 
+import pe.gob.fovipol.sifo.dao.MaeSeguroFacade;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;

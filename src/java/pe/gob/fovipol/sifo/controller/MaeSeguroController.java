@@ -1,9 +1,8 @@
-package pe.gob.fovipol.sifo.dao;
+package pe.gob.fovipol.sifo.controller;
 
-import pe.gob.fovipol.sifo.model.maestros.MaeSeguroRango;
+import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
 import pe.gob.fovipol.sifo.dao.util.JsfUtil;
 import pe.gob.fovipol.sifo.dao.util.JsfUtil.PersistAction;
-import pe.gob.fovipol.sifo.controller.MaeSeguroRangoFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,65 +17,64 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import pe.gob.fovipol.sifo.dao.MaeSeguroFacade;
 
-@ManagedBean(name = "maeSeguroRangoController")
+@ManagedBean(name = "maeSeguroController")
 @SessionScoped
-public class MaeSeguroRangoController implements Serializable {
+public class MaeSeguroController implements Serializable {
 
     @EJB
-    private pe.gob.fovipol.sifo.controller.MaeSeguroRangoFacade ejbFacade;
-    private List<MaeSeguroRango> items = null;
-    private MaeSeguroRango selected;
+    private pe.gob.fovipol.sifo.dao.MaeSeguroFacade ejbFacade;
+    private List<MaeSeguro> items = null;
+    private MaeSeguro selected;
 
-    public MaeSeguroRangoController() {
+    public MaeSeguroController() {
     }
 
-    public MaeSeguroRango getSelected() {
+    public MaeSeguro getSelected() {
         return selected;
     }
 
-    public void setSelected(MaeSeguroRango selected) {
+    public void setSelected(MaeSeguro selected) {
         this.selected = selected;
     }
 
     protected void setEmbeddableKeys() {
-        selected.getMaeSeguroRangoPK().setIdenSeguSeg(selected.getMaeSeguro().getIdenSeguSeg().toBigInteger());
     }
 
     protected void initializeEmbeddableKey() {
-        selected.setMaeSeguroRangoPK(new pe.gob.fovipol.sifo.model.maestros.MaeSeguroRangoPK());
     }
 
-    private MaeSeguroRangoFacade getFacade() {
+    private MaeSeguroFacade getFacade() {
         return ejbFacade;
     }
 
-    public MaeSeguroRango prepareCreate() {
-        selected = new MaeSeguroRango();
+    public MaeSeguro prepareCreate() {
+        selected = new MaeSeguro();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle2").getString("MaeSeguroRangoCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle2").getString("MaeSeguroCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle2").getString("MaeSeguroRangoUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle2").getString("MaeSeguroUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle2").getString("MaeSeguroRangoDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle2").getString("MaeSeguroDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<MaeSeguroRango> getItems() {
+    public List<MaeSeguro> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -111,44 +109,36 @@ public class MaeSeguroRangoController implements Serializable {
         }
     }
 
-    public List<MaeSeguroRango> getItemsAvailableSelectMany() {
+    public List<MaeSeguro> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<MaeSeguroRango> getItemsAvailableSelectOne() {
+    public List<MaeSeguro> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = MaeSeguroRango.class)
-    public static class MaeSeguroRangoControllerConverter implements Converter {
-
-        private static final String SEPARATOR = "#";
-        private static final String SEPARATOR_ESCAPED = "\\#";
+    @FacesConverter(forClass = MaeSeguro.class)
+    public static class MaeSeguroControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MaeSeguroRangoController controller = (MaeSeguroRangoController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "maeSeguroRangoController");
+            MaeSeguroController controller = (MaeSeguroController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "maeSeguroController");
             return controller.getFacade().find(getKey(value));
         }
 
-        pe.gob.fovipol.sifo.model.maestros.MaeSeguroRangoPK getKey(String value) {
-            pe.gob.fovipol.sifo.model.maestros.MaeSeguroRangoPK key;
-            String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new pe.gob.fovipol.sifo.model.maestros.MaeSeguroRangoPK();
-            //key.setIdenSeguSeg(values[0]);
-            key.setSecuSeguSgd(Integer.parseInt(values[1]));
+        java.math.BigDecimal getKey(String value) {
+            java.math.BigDecimal key;
+            key = new java.math.BigDecimal(value);
             return key;
         }
 
-        String getStringKey(pe.gob.fovipol.sifo.model.maestros.MaeSeguroRangoPK value) {
+        String getStringKey(java.math.BigDecimal value) {
             StringBuilder sb = new StringBuilder();
-            sb.append(value.getIdenSeguSeg());
-            sb.append(SEPARATOR);
-            sb.append(value.getSecuSeguSgd());
+            sb.append(value);
             return sb.toString();
         }
 
@@ -157,11 +147,11 @@ public class MaeSeguroRangoController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof MaeSeguroRango) {
-                MaeSeguroRango o = (MaeSeguroRango) object;
-                return getStringKey(o.getMaeSeguroRangoPK());
+            if (object instanceof MaeSeguro) {
+                MaeSeguro o = (MaeSeguro) object;
+                return getStringKey(o.getIdenSeguSeg());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeSeguroRango.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeSeguro.class.getName()});
                 return null;
             }
         }
