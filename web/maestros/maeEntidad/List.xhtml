@@ -113,23 +113,29 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoCaduDet}"/>
+                            </f:facet>
+                            <h:outputText value="#{itemDetalle.valoCaduDet}"/>
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoNumuDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.valoNumuDet}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoNumdDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.valoNumdDet}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoNumtDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.valoNumtDet}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_usuaCreaDet}"/>
                             </f:facet>
@@ -141,7 +147,7 @@
                             </f:facet>
                             <h:outputText value="#{itemDetalle.valoDecuDet}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_fechCreaDet}"/>
                             </f:facet>
@@ -149,25 +155,25 @@
                                 <f:convertDateTime locale="es" dateStyle="short"/>
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoDecdDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.valoDecdDet}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_usuaModiDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.usuaModiDet}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoDectDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.valoDectDet}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_fechModiDet}"/>
                             </f:facet>
@@ -183,7 +189,7 @@
                                 <f:convertDateTime locale="es" dateStyle="short"/>
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoFecdDet}"/>
                             </f:facet>
@@ -198,35 +204,26 @@
                             <comp:activo value="#{itemDetalle.flagEstaDet}"/>
                         </p:column>
                         
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoFectDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.valoFectDet}">
                                 <f:convertDateTime locale="es" dateStyle="short"/>
                             </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoCaduDet}"/>
-                            </f:facet>
-                            <h:outputText value="#{itemDetalle.valoCaduDet}"/>
-                        </p:column>
-                        <p:column>
+                        </p:column>                        
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoCaddDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.valoCaddDet}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaeEntidaddetTitle_valoCadtDet}"/>
                             </f:facet>
                             <h:outputText value="#{itemDetalle.valoCadtDet}"/>
                         </p:column>
-                       
-                        
-                        
                     </p:dataTable>
                 </p:panel>
                 <p:remoteCommand actionListener="#{maeEntidadController.actualizarDetalle}" name="detalleActualiza" 

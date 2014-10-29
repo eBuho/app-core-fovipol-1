@@ -334,7 +334,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getDocumentos() {
         if(documentos==null){
-            documentos=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("TIPOIDENPER"));
+            documentos=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("TIPOIDENPER"));
         }
         return documentos;
     }
@@ -351,7 +351,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getEstadosCiviles() {
         if(estadosCiviles==null){
-            estadosCiviles=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("ESTACIVIPER"));
+            estadosCiviles=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("ESTACIVIPER"));
         }
         return estadosCiviles;
     }
@@ -368,7 +368,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getGeneros() {
         if(generos==null){
-            generos=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("SEXOPERSPER"));
+            generos=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("SEXOPERSPER"));
         }
         return generos;
     }
@@ -385,7 +385,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getProfesiones() {
         if(profesiones==null){
-            profesiones=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("TIPOPROFPER"));
+            profesiones=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("TIPOPROFPER"));
         }
         return profesiones;
     }
@@ -402,7 +402,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getBloqueos() {
         if(bloqueos==null){
-            bloqueos=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("MOTIBLOQPER"));
+            bloqueos=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("MOTIBLOQPER"));
         }
         return bloqueos;
     }
@@ -420,7 +420,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getEntidadesPago() {
         if(entidadesPago==null){
-            entidadesPago=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("ENTIPAGOSOC"));
+            entidadesPago=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("ENTIPAGOSOC"));
         }
         return entidadesPago;
     }
@@ -465,7 +465,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getTiposPolicia() {
         if(tiposPolicia==null){
-            tiposPolicia=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("TIPOPOLISOC"));
+            tiposPolicia=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("TIPOPOLISOC"));
         }
         return tiposPolicia;
     }
@@ -482,7 +482,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getUnidadesTrabajo() {
         if(unidadesTrabajo==null){
-            unidadesTrabajo=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("UNIDTRABSOC"));
+            unidadesTrabajo=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("UNIDTRABSOC"));
         }
         return unidadesTrabajo;
     }

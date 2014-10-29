@@ -34,7 +34,16 @@ public class MaeEntidaddetFacade extends AbstractFacade<MaeEntidaddet> {
     
     public List<MaeEntidaddet> findDetalle(MaeEntidad padre) {
         List<MaeEntidaddet> lista = null;
-        String sql = "select d from MaeEntidaddet d where d.codiEntiEnt = :codiEntiEnt";
+        String sql = "select d from MaeEntidaddet d where d.codiEntiEnt = :codiEntiEnt order by d.secuEntiDet";
+
+        Query q = em.createQuery(sql);
+        q.setParameter("codiEntiEnt", padre);
+        lista = q.getResultList();
+        return lista;
+    }
+    public List<MaeEntidaddet> findDetalleActivo(MaeEntidad padre) {
+        List<MaeEntidaddet> lista = null;
+        String sql = "select d from MaeEntidaddet d where d.codiEntiEnt = :codiEntiEnt and d.flagEstaDet=1 order by d.secuEntiDet";
 
         Query q = em.createQuery(sql);
         q.setParameter("codiEntiEnt", padre);

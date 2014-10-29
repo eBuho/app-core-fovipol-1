@@ -412,7 +412,7 @@ public class MaeProcesoController implements Serializable {
      */
     public List<MaeEntidaddet> getTiposRequisito() {
         if(tiposRequisito==null)
-            tiposRequisito=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("CODITIPOREQ"));
+            tiposRequisito=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODITIPOREQ"));
         return tiposRequisito;
     }
 
