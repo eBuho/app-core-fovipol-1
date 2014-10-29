@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeSeguroRangoCreateDlg" widgetVar="MaeSeguroRangoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.CreateMaeSeguroRangoTitle}">
+            <h:form id="MaeSeguroRangoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maeSeguroRangoController.selected != null}">
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_maeSeguroRangoPK_secuSeguSgd}" for="maeSeguroRangoPK_secuSeguSgd" />
+                        <p:inputText id="maeSeguroRangoPK_secuSeguSgd" value="#{maeSeguroRangoController.selected.maeSeguroRangoPK.secuSeguSgd}" title="#{bundle2.CreateMaeSeguroRangoTitle_maeSeguroRangoPK_secuSeguSgd}" required="true" requiredMessage="#{bundle2.CreateMaeSeguroRangoRequiredMessage_maeSeguroRangoPK_secuSeguSgd}"/>
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_descNombSgr}" for="descNombSgr" />
+                        <p:inputText id="descNombSgr" value="#{maeSeguroRangoController.selected.descNombSgr}" title="#{bundle2.CreateMaeSeguroRangoTitle_descNombSgr}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_ragnEdaiSgr}" for="ragnEdaiSgr" />
+                        <p:inputText id="ragnEdaiSgr" value="#{maeSeguroRangoController.selected.ragnEdaiSgr}" title="#{bundle2.CreateMaeSeguroRangoTitle_ragnEdaiSgr}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_rangEdafSgr}" for="rangEdafSgr" />
+                        <p:inputText id="rangEdafSgr" value="#{maeSeguroRangoController.selected.rangEdafSgr}" title="#{bundle2.CreateMaeSeguroRangoTitle_rangEdafSgr}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_tasaSeguSgr}" for="tasaSeguSgr" />
+                        <p:inputText id="tasaSeguSgr" value="#{maeSeguroRangoController.selected.tasaSeguSgr}" title="#{bundle2.CreateMaeSeguroRangoTitle_tasaSeguSgr}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_usuaCreaSgr}" for="usuaCreaSgr" />
+                        <p:inputText id="usuaCreaSgr" value="#{maeSeguroRangoController.selected.usuaCreaSgr}" title="#{bundle2.CreateMaeSeguroRangoTitle_usuaCreaSgr}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_fechCreaSgr}" for="fechCreaSgr" />
+                        <p:calendar id="fechCreaSgr" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSeguroRangoController.selected.fechCreaSgr}" title="#{bundle2.EditMaeSeguroRangoTitle_fechCreaSgr}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_usuaModiSgr}" for="usuaModiSgr" />
+                        <p:inputText id="usuaModiSgr" value="#{maeSeguroRangoController.selected.usuaModiSgr}" title="#{bundle2.CreateMaeSeguroRangoTitle_usuaModiSgr}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_fechModiSgr}" for="fechModiSgr" />
+                        <p:calendar id="fechModiSgr" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSeguroRangoController.selected.fechModiSgr}" title="#{bundle2.EditMaeSeguroRangoTitle_fechModiSgr}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{maeSeguroRangoController.selected.nombEquiAud}" title="#{bundle2.CreateMaeSeguroRangoTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{maeSeguroRangoController.selected.nombSopeAud}" title="#{bundle2.CreateMaeSeguroRangoTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_flagEstaSgr}" for="flagEstaSgr" />
+                        <p:inputText id="flagEstaSgr" value="#{maeSeguroRangoController.selected.flagEstaSgr}" title="#{bundle2.CreateMaeSeguroRangoTitle_flagEstaSgr}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroRangoLabel_maeSeguro}" for="maeSeguro" />
+                        <p:selectOneMenu id="maeSeguro" value="#{maeSeguroRangoController.selected.maeSeguro}" required="true" requiredMessage="#{bundle2.EditMaeSeguroRangoRequiredMessage_maeSeguro}">
+                            <f:selectItems value="#{maeSeguroController.itemsAvailableSelectOne}"
+                                           var="maeSeguroItem"
+                                           itemValue="#{maeSeguroItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maeSeguroRangoController.create}" value="#{bundle2.Save}" update="display,:MaeSeguroRangoListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeSeguroRangoCreateDialog');"/>
+                    <p:commandButton value="#{bundle2.Cancel}" onclick="MaeSeguroRangoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

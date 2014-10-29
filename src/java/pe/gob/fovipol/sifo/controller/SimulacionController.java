@@ -2,16 +2,20 @@ package pe.gob.fovipol.sifo.controller;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
+import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
 import pe.gob.fovipol.sifo.model.simulacion.CrdSimulacion;
 
@@ -25,11 +29,22 @@ public class SimulacionController implements Serializable {
     private BigDecimal porcDescuento;
     private BigDecimal totalAporte;
     private MaeEntidaddet detalle;
+    private int ciclica;
     private int tipoSocio;
+    private Date nacimiento;
+    private int edad;
+    private String polizaNombre;
+    private MaeEntidaddet moneda;
+    private List<MaeEntidaddet> monedas;
+    private List<MaeSeguro> seguros;
+    private List<MaeSeguro> segurosSimulacion;
+    private BigDecimal seguro;
     @EJB
     private MaeProductoFacade ejbProductoFacade;
     @EJB
     private MaeEntidaddetFacade ejbEntidaddetFacade;
+    @EJB
+    private MaeSeguroFacade ejbSeguroFacade;
     @PostConstruct
     public void init(){
         simulacion=new CrdSimulacion();
@@ -38,20 +53,47 @@ public class SimulacionController implements Serializable {
         simulacion.setDsctPersSim(BigDecimal.ZERO);
         simulacion.setIngrCombSim(BigDecimal.ZERO);
         simulacion.setDeudOtraSim(BigDecimal.ZERO);
+        simulacion.setTasaTeaSim(new BigDecimal(3));
         totalAporte=BigDecimal.ZERO;
         tipoSocio=1;
+        segurosSimulacion=new ArrayList<>();
     }
     public SimulacionController() {
     }
     
-    /*public void calcularDescuentoMaximo(){
-        if(socio!=null){
-            detalle=ejbEntidaddetFacade.findIdenEntiDet(socio.getEntiPagoSoc(), "ENTIPAGOSOC");
-            if(detalle!=null){
-                porcDescuento=detalle.getValoDecuDet();                
-            }            
+    public void calcularEdad(){
+        Calendar dob = Calendar.getInstance();  
+        dob.setTime(nacimiento);  
+        Calendar today = Calendar.getInstance();  
+        edad = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);  
+        if (today.get(Calendar.MONTH) < dob.get(Calendar.MONTH)) {
+          edad--;  
+        } else if (today.get(Calendar.MONTH) == dob.get(Calendar.MONTH)
+            && today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)) {
+          edad--;  
         }
-    }*/
+    }
+    
+    public void agregarPoliza(){
+        System.out.println("Haciendo algo --->>>> ");
+        if(seguro!=null){
+            //segurosSimulacion.add(seguro);
+            System.out.println("No es nulo");
+        }  
+        else{
+            System.out.println("Es nulo no hay nada");
+        }
+        polizaNombre="";
+        System.out.println("Ingresando --->>>> ");
+        for(MaeSeguro seg:segurosSimulacion){
+            System.out.println("Ingresando --->>>> "+seg.getDescNombSeg());
+            if(polizaNombre.equals(""))
+                polizaNombre=seg.getDescNombSeg();
+            else
+                polizaNombre=polizaNombre+", "+seg.getDescNombSeg();
+        }
+    }
+    
     public void calcular(){
         if(producto!=null && socio!=null){
             BigDecimal valor1,valor2;
@@ -63,7 +105,7 @@ public class SimulacionController implements Serializable {
             simulacion.setImpoMaxpSim(valor2);
         }
         else{
-            JsfUtil.addErrorMessage("Ingrese Producto");
+            //JsfUtil.addErrorMessage("Seleccione un Producto");
         }
     }
     
@@ -86,8 +128,10 @@ public class SimulacionController implements Serializable {
             porcDescuento=detalle.getValoDecuDet();
             if(detalle.getValoDecuDet().compareTo(new BigDecimal(30))==0)
                 tipoSocio=2;
-            else
+            else{
                 tipoSocio=1;
+                simulacion.setIngrCombSim(BigDecimal.ZERO);
+            }                
         }
         this.socio = socio;
     }
@@ -176,6 +220,136 @@ public class SimulacionController implements Serializable {
      */
     public void setTipoSocio(int tipoSocio) {
         this.tipoSocio = tipoSocio;
+    }
+
+    /**
+     * @return the moneda
+     */
+    public MaeEntidaddet getMoneda() {
+        return moneda;
+    }
+
+    /**
+     * @param moneda the moneda to set
+     */
+    public void setMoneda(MaeEntidaddet moneda) {
+        this.moneda = moneda;
+    }
+
+    /**
+     * @return the monedas
+     */
+    public List<MaeEntidaddet> getMonedas() {
+        if(monedas==null)
+            monedas=ejbEntidaddetFacade.findDetalle(new MaeEntidad("TIPOMONECRD"));
+        return monedas;
+    }
+
+    /**
+     * @param monedas the monedas to set
+     */
+    public void setMonedas(List<MaeEntidaddet> monedas) {
+        this.monedas = monedas;
+    }
+
+    /**
+     * @return the seguros
+     */
+    public List<MaeSeguro> getSeguros() {
+        if(seguros==null)
+            seguros=ejbSeguroFacade.findAll();
+        return seguros;
+    }
+
+    /**
+     * @param seguros the seguros to set
+     */
+    public void setSeguros(List<MaeSeguro> seguros) {
+        this.seguros = seguros;
+    }
+
+    /**
+     * @return the seguro
+     */
+    public BigDecimal getSeguro() {
+        return seguro;
+    }
+
+    /**
+     * @param seguro the seguro to set
+     */
+    public void setSeguro(BigDecimal seguro) {
+        this.seguro = seguro;
+    }
+
+    /**
+     * @return the ciclica
+     */
+    public int getCiclica() {
+        return ciclica;
+    }
+
+    /**
+     * @param ciclica the ciclica to set
+     */
+    public void setCiclica(int ciclica) {
+        this.ciclica = ciclica;
+    }
+
+    /**
+     * @return the nacimiento
+     */
+    public Date getNacimiento() {
+        return nacimiento;
+    }
+
+    /**
+     * @param nacimiento the nacimiento to set
+     */
+    public void setNacimiento(Date nacimiento) {
+        this.nacimiento = nacimiento;
+    }
+
+    /**
+     * @return the edad
+     */
+    public int getEdad() {
+        return edad;
+    }
+
+    /**
+     * @param edad the edad to set
+     */
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    /**
+     * @return the polizaNombre
+     */
+    public String getPolizaNombre() {
+        return polizaNombre;
+    }
+
+    /**
+     * @param polizaNombre the polizaNombre to set
+     */
+    public void setPolizaNombre(String polizaNombre) {
+        this.polizaNombre = polizaNombre;
+    }
+
+    /**
+     * @return the segurosSimulacion
+     */
+    public List<MaeSeguro> getSegurosSimulacion() {
+        return segurosSimulacion;
+    }
+
+    /**
+     * @param segurosSimulacion the segurosSimulacion to set
+     */
+    public void setSegurosSimulacion(List<MaeSeguro> segurosSimulacion) {
+        this.segurosSimulacion = segurosSimulacion;
     }
     
 }

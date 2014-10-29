@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -54,6 +55,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MaeEmpresa.findByNombSopeAud", query = "SELECT m FROM MaeEmpresa m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeEmpresa.findByFlagEstaEmp", query = "SELECT m FROM MaeEmpresa m WHERE m.flagEstaEmp = :flagEstaEmp")})
 public class MaeEmpresa implements Serializable {
+    @OneToMany(mappedBy = "idenEmprEmp")
+    private List<MaeSeguro> maeSeguroList;
     @Column(name = "GIRO_NEGO_EMP")
     private Integer giroNegoEmp;
     @OneToMany(mappedBy = "idenEmprEmp")
@@ -321,6 +324,15 @@ public class MaeEmpresa implements Serializable {
 
     public void setMaeSedeCollection(Collection<MaeSede> maeSedeCollection) {
         this.maeSedeCollection = maeSedeCollection;
+    }
+
+    @XmlTransient
+    public List<MaeSeguro> getMaeSeguroList() {
+        return maeSeguroList;
+    }
+
+    public void setMaeSeguroList(List<MaeSeguro> maeSeguroList) {
+        this.maeSeguroList = maeSeguroList;
     }
     
 }
