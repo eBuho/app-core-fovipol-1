@@ -65,7 +65,9 @@ public class SimulacionController implements Serializable {
     public void calcularEdad(){
         Calendar dob = Calendar.getInstance();  
         dob.setTime(nacimiento);  
-        Calendar today = Calendar.getInstance();  
+        Calendar today = Calendar.getInstance(); 
+        System.out.println("Dia -->>> "+today.get(Calendar.DAY_OF_MONTH));
+        System.out.println("Dia -->>> "+today.get(Calendar.DAY_OF_MONTH));
         edad = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);  
         if (today.get(Calendar.MONTH) < dob.get(Calendar.MONTH)) {
           edad--;  
