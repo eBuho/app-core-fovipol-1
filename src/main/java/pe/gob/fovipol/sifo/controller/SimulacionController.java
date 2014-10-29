@@ -262,7 +262,7 @@ public class SimulacionController implements Serializable {
      */
     public void setSeguros(List<MaeSeguro> seguros) {
         this.seguros = seguros;
-    }
+    }//borrar
 
     /**
      * @return the seguro
