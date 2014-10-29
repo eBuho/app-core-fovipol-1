@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIInput;
 import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
@@ -39,7 +40,7 @@ public class SimulacionController implements Serializable {
     private List<MaeEntidaddet> monedas;
     private List<MaeSeguro> seguros;
     private List<MaeSeguro> segurosSimulacion;
-    private BigDecimal seguro;
+    private MaeSeguro seguro;
     @EJB
     private MaeProductoFacade ejbProductoFacade;
     @EJB
@@ -58,6 +59,7 @@ public class SimulacionController implements Serializable {
         totalAporte=BigDecimal.ZERO;
         tipoSocio=1;
         segurosSimulacion=new ArrayList<>();
+        producto=new MaeProducto();
     }
     public SimulacionController() {
     }
@@ -66,8 +68,6 @@ public class SimulacionController implements Serializable {
         Calendar dob = Calendar.getInstance();  
         dob.setTime(nacimiento);  
         Calendar today = Calendar.getInstance(); 
-        System.out.println("Dia -->>> "+today.get(Calendar.DAY_OF_MONTH));
-        System.out.println("Dia -->>> "+today.get(Calendar.DAY_OF_MONTH));
         edad = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);  
         if (today.get(Calendar.MONTH) < dob.get(Calendar.MONTH)) {
           edad--;  
@@ -78,18 +78,11 @@ public class SimulacionController implements Serializable {
     }
     
     public void agregarPoliza(){
-        System.out.println("Haciendo algo --->>>> ");
         if(seguro!=null){
-            //segurosSimulacion.add(seguro);
-            System.out.println("No es nulo");
-        }  
-        else{
-            System.out.println("Es nulo no hay nada");
+            segurosSimulacion.add(seguro);        
         }
         polizaNombre="";
-        System.out.println("Ingresando --->>>> ");
         for(MaeSeguro seg:segurosSimulacion){
-            System.out.println("Ingresando --->>>> "+seg.getDescNombSeg());
             if(polizaNombre.equals(""))
                 polizaNombre=seg.getDescNombSeg();
             else
@@ -244,7 +237,7 @@ public class SimulacionController implements Serializable {
      */
     public List<MaeEntidaddet> getMonedas() {
         if(monedas==null)
-            monedas=ejbEntidaddetFacade.findDetalle(new MaeEntidad("TIPOMONECRD"));
+            monedas=ejbEntidaddetFacade.findDetalleActivo(new MaeEntidad("TIPOMONECRD"));
         return monedas;
     }
 
@@ -274,14 +267,14 @@ public class SimulacionController implements Serializable {
     /**
      * @return the seguro
      */
-    public BigDecimal getSeguro() {
+    public MaeSeguro getSeguro() {
         return seguro;
     }
 
     /**
      * @param seguro the seguro to set
      */
-    public void setSeguro(BigDecimal seguro) {
+    public void setSeguro(MaeSeguro seguro) {
         this.seguro = seguro;
     }
 
@@ -354,5 +347,5 @@ public class SimulacionController implements Serializable {
     public void setSegurosSimulacion(List<MaeSeguro> segurosSimulacion) {
         this.segurosSimulacion = segurosSimulacion;
     }
-    
+
 }

@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
 
     <ui:composition template="/template.xhtml">
 
@@ -116,19 +117,19 @@
                             </f:facet>
                             <h:outputText value="#{item.codiPrioTrm}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{tramite.ListTrmTramiteTitle_flagPrivTrm}"/>
                             </f:facet>
                             <h:outputText value="#{item.flagPrivTrm}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{tramite.ListTrmTramiteTitle_usuaCreaAud}"/>
                             </f:facet>
                             <h:outputText value="#{item.usuaCreaAud}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{tramite.ListTrmTramiteTitle_fechCreaAud}"/>
                             </f:facet>
@@ -136,13 +137,13 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{tramite.ListTrmTramiteTitle_usuaModiAud}"/>
                             </f:facet>
                             <h:outputText value="#{item.usuaModiAud}"/>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{tramite.ListTrmTramiteTitle_fechModiAud}"/>
                             </f:facet>
@@ -150,7 +151,7 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{tramite.ListTrmTramiteTitle_nombEquiAud}"/>
                             </f:facet>
@@ -166,9 +167,9 @@
                             <f:facet name="header">
                                 <h:outputText value="#{tramite.ListTrmTramiteTitle_flagEstaTrm}"/>
                             </f:facet>
-                            <h:outputText value="#{item.flagEstaTrm}"/>
+                            <comp:activo value="#{item.flagEstaTrm}" />
                         </p:column>
-                        <p:column>
+                        <p:column rendered="false">
                             <f:facet name="header">
                                 <h:outputText value="#{tramite.ListTrmTramiteTitle_docuRefeTrm}"/>
                             </f:facet>

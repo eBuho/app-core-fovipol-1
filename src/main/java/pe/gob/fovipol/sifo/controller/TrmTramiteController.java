@@ -18,6 +18,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 
 @ManagedBean(name = "trmTramiteController")
 @SessionScoped
@@ -25,8 +27,16 @@ public class TrmTramiteController implements Serializable {
 
     @EJB
     private pe.gob.fovipol.sifo.dao.TrmTramiteFacade ejbFacade;
+    @EJB
+    private pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade ejbEntidadDetalleFacade;
+    
     private List<TrmTramite> items = null;
     private TrmTramite selected;
+    
+    private List<MaeEntidaddet> listaTiposTramite;      // TIPOTRAMTRM
+    private List<MaeEntidaddet> listaCodigoOrigen;      // CODIORIGTRM
+    private List<MaeEntidaddet> listaModalidadTramite;  // CODIMODATRM
+    private List<MaeEntidaddet> listaCodigoPrioridad;   // CODIPRIOTRM
 
     public TrmTramiteController() {
     }
@@ -46,19 +56,19 @@ public class TrmTramiteController implements Serializable {
     }
 
     private TrmTramiteFacade getFacade() {
-        return ejbFacade;
+        return getEjbFacade();
     }
 
     public TrmTramite prepareCreate() {
-        selected = new TrmTramite();
+        setSelected(new TrmTramite());
         initializeEmbeddableKey();
-        return selected;
+        return getSelected();
     }
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Tramite").getString("TrmTramiteCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+            setItems(null);    // Invalidate list of items to trigger re-query.
         }
     }
 
@@ -69,8 +79,8 @@ public class TrmTramiteController implements Serializable {
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Tramite").getString("TrmTramiteDeleted"));
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+            setSelected(null); // Remove selection
+            setItems(null);    // Invalidate list of items to trigger re-query.
         }
     }
 
@@ -82,13 +92,13 @@ public class TrmTramiteController implements Serializable {
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
-        if (selected != null) {
+        if (getSelected() != null) {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    getFacade().edit(getSelected());
                 } else {
-                    getFacade().remove(selected);
+                    getFacade().remove(getSelected());
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
@@ -115,6 +125,109 @@ public class TrmTramiteController implements Serializable {
 
     public List<TrmTramite> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    /**
+     * @return the ejbFacade
+     */
+    public pe.gob.fovipol.sifo.dao.TrmTramiteFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    /**
+     * @param ejbFacade the ejbFacade to set
+     */
+    public void setEjbFacade(pe.gob.fovipol.sifo.dao.TrmTramiteFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    /**
+     * @return the ejbEntidadDetalleFacade
+     */
+    public pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade getEjbEntidadDetalleFacade() {
+        return ejbEntidadDetalleFacade;
+    }
+
+    /**
+     * @param ejbEntidadDetalleFacade the ejbEntidadDetalleFacade to set
+     */
+    public void setEjbEntidadDetalleFacade(pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade ejbEntidadDetalleFacade) {
+        this.ejbEntidadDetalleFacade = ejbEntidadDetalleFacade;
+    }
+
+    /**
+     * @param items the items to set
+     */
+    public void setItems(List<TrmTramite> items) {
+        this.items = items;
+    }
+
+    /**
+     * @return the listaTiposTramite
+     */
+    public List<MaeEntidaddet> getListaTiposTramite() {
+        if(listaTiposTramite==null){
+            listaTiposTramite=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("TIPOTRAMTRM"));
+        }
+        return listaTiposTramite;
+    }
+
+    /**
+     * @param listaTiposTramite the listaTiposTramite to set
+     */
+    public void setListaTiposTramite(List<MaeEntidaddet> listaTiposTramite) {
+        this.listaTiposTramite = listaTiposTramite;
+    }
+
+    /**
+     * @return the listaCodigoOrigen
+     */
+    public List<MaeEntidaddet> getListaCodigoOrigen() {
+        if(listaCodigoOrigen==null){
+            listaCodigoOrigen=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("CODIORIGTRM"));
+        }
+        return listaCodigoOrigen;
+    }
+
+    /**
+     * @param listaCodigoOrigen the listaCodigoOrigen to set
+     */
+    public void setListaCodigoOrigen(List<MaeEntidaddet> listaCodigoOrigen) {
+        this.listaCodigoOrigen = listaCodigoOrigen;
+    }
+
+    /**
+     * @return the listaModalidadTramite
+     */
+    public List<MaeEntidaddet> getListaModalidadTramite() {
+        if(listaModalidadTramite==null){
+            listaModalidadTramite=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("CODIMODATRM"));
+        }
+        return listaModalidadTramite;
+    }
+
+    /**
+     * @param listaModalidadTramite the listaModalidadTramite to set
+     */
+    public void setListaModalidadTramite(List<MaeEntidaddet> listaModalidadTramite) {
+        this.listaModalidadTramite = listaModalidadTramite;
+    }
+
+    /**
+     * @return the listaCodigoPrioridad
+     */
+    public List<MaeEntidaddet> getListaCodigoPrioridad() {
+        if(listaCodigoPrioridad==null){
+            listaCodigoPrioridad=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("CODIPRIOTRM"));
+        }
+        return listaCodigoPrioridad;
+    }
+
+    /**
+     * @param listaCodigoPrioridad the listaCodigoPrioridad to set
+     */
+    public void setListaCodigoPrioridad(List<MaeEntidaddet> listaCodigoPrioridad) {
+        this.listaCodigoPrioridad = listaCodigoPrioridad;
     }
 
     @FacesConverter(forClass = TrmTramite.class)

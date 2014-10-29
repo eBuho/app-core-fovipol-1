@@ -13,7 +13,7 @@
             <var>tramite</var>
         </resource-bundle>
         <resource-bundle>
-            <base-name>/Bundle2</base-name>
+            <base-name>/Simulacion</base-name>
             <var>bundle2</var>
         </resource-bundle>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>

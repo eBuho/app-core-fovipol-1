@@ -17,11 +17,20 @@
                         <p:outputLabel value="#{tramite.CreateTrmTramiteLabel_numeGuiaTrm}" for="numeGuiaTrm" />
                         <p:inputText id="numeGuiaTrm" value="#{trmTramiteController.selected.numeGuiaTrm}" title="#{tramite.CreateTrmTramiteTitle_numeGuiaTrm}" />
                         <p:outputLabel value="#{tramite.CreateTrmTramiteLabel_tipoTramTrm}" for="tipoTramTrm" />
-                        <p:inputText id="tipoTramTrm" value="#{trmTramiteController.selected.tipoTramTrm}" title="#{tramite.CreateTrmTramiteTitle_tipoTramTrm}" />
+                        <p:selectOneMenu id="tipoTramTrm" value="#{trmTramiteController.selected.tipoTramTrm}">
+                            <f:selectItems value="#{trmTramiteController.listaTiposTramite}" var="opcion" 
+                                           itemValue="#{opcion.secuEntiDet}" itemLabel="#{opcion.valoCaduDet}"/>
+                        </p:selectOneMenu> 
                         <p:outputLabel value="#{tramite.CreateTrmTramiteLabel_codiOrigTrm}" for="codiOrigTrm" />
-                        <p:inputText id="codiOrigTrm" value="#{trmTramiteController.selected.codiOrigTrm}" title="#{tramite.CreateTrmTramiteTitle_codiOrigTrm}" />
+                        <p:selectOneMenu id="codiOrigTrm" value="#{trmTramiteController.selected.codiOrigTrm}">
+                            <f:selectItems value="#{trmTramiteController.listaCodigoOrigen}" var="opcion" 
+                                           itemValue="#{opcion.secuEntiDet}" itemLabel="#{opcion.valoCaduDet}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{tramite.CreateTrmTramiteLabel_codiModaTrm}" for="codiModaTrm" />
-                        <p:inputText id="codiModaTrm" value="#{trmTramiteController.selected.codiModaTrm}" title="#{tramite.CreateTrmTramiteTitle_codiModaTrm}" />
+                        <p:selectOneMenu id="codiModaTrm" value="#{trmTramiteController.selected.codiModaTrm}">
+                            <f:selectItems value="#{trmTramiteController.listaModalidadTramite}" var="opcion" 
+                                           itemValue="#{opcion.secuEntiDet}" itemLabel="#{opcion.valoCaduDet}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{tramite.CreateTrmTramiteLabel_codiExpeTrm}" for="codiExpeTrm" />
                         <p:inputText id="codiExpeTrm" value="#{trmTramiteController.selected.codiExpeTrm}" title="#{tramite.CreateTrmTramiteTitle_codiExpeTrm}" />
                         <p:outputLabel value="#{tramite.CreateTrmTramiteLabel_codiBarrTrm}" for="codiBarrTrm" />
@@ -39,7 +48,10 @@
                         <p:outputLabel value="#{tramite.CreateTrmTramiteLabel_fechVencTrm}" for="fechVencTrm" />
                         <p:calendar id="fechVencTrm" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmTramiteController.selected.fechVencTrm}" title="#{tramite.EditTrmTramiteTitle_fechVencTrm}"  showOn="button"/>
                         <p:outputLabel value="#{tramite.CreateTrmTramiteLabel_codiPrioTrm}" for="codiPrioTrm" />
-                        <p:inputText id="codiPrioTrm" value="#{trmTramiteController.selected.codiPrioTrm}" title="#{tramite.CreateTrmTramiteTitle_codiPrioTrm}" />
+                        <p:selectOneMenu id="codiPrioTrm" value="#{trmTramiteController.selected.codiPrioTrm}">
+                            <f:selectItems value="#{trmTramiteController.listaCodigoPrioridad}" var="opcion" 
+                                           itemValue="#{opcion.secuEntiDet}" itemLabel="#{opcion.valoCaduDet}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{tramite.CreateTrmTramiteLabel_flagPrivTrm}" for="flagPrivTrm" />
                         <p:inputText id="flagPrivTrm" value="#{trmTramiteController.selected.flagPrivTrm}" title="#{tramite.CreateTrmTramiteTitle_flagPrivTrm}" />
                         <p:outputLabel value="#{tramite.CreateTrmTramiteLabel_usuaCreaAud}" for="usuaCreaAud" />

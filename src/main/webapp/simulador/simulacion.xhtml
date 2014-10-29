@@ -129,30 +129,30 @@
                                         </p:inputText>
                                         <h:outputText value="Nac. #{simulacionController.edad}" id="edad"/>
                                         <p:calendar value="#{simulacionController.nacimiento}" locale="es" lang="es" > 
-                                            <p:ajax update="edad" listener="#{simulacionController.calcularEdad}"/>
+                                            <p:ajax update="edad" event="dateSelect" listener="#{simulacionController.calcularEdad}"/>
+                                            <p:ajax update="edad" event="change" listener="#{simulacionController.calcularEdad}"/>
                                         </p:calendar>
-                                        <h:outputText value="Póliza"/>
-                                        <p:inputText value="#{simulacionController.polizaNombre}">
-                                            <p:ajax event="click" update="display" oncomplete="PF('dialogoPoliza').show()"/>
-                                        </p:inputText>
                                         <h:outputText value="Gastos Administrativos"/>
                                         <p:inputText value="#{simulacionController.producto.tasaGadmPrd}"/> 
+                                        <h:outputText value="Póliza"/>
+                                        <p:inputText value="#{simulacionController.polizaNombre}" id="polizaNombre"/>
+                                        <p:commandButton id="polizaBtn" value="Póliza" type="button" />
+                                        <p:overlayPanel widgetVar="polizaPanel" id="polizaPanel" showCloseIcon="true" for="polizaBtn" hideEffect="fade" dynamic="true" style="width:200px">
+                                            <h:panelGroup id="display">
+                                                <h:outputText value="Póliza" />
+                                                <p:selectOneMenu value="#{simulacionController.seguro}">
+                                                    <f:selectItem itemValue="" itemLabel="Seleccione Póliza"/>
+                                                    <f:selectItems value="#{simulacionController.seguros}" var="poliza"
+                                                                   itemValue="#{poliza}" itemLabel="#{poliza.descNombSeg}"/>
+                                                </p:selectOneMenu>
+                                                <p:commandButton value="Agregar" oncomplete="detalleActualiza()"/>
+                                            </h:panelGroup>
+                                        </p:overlayPanel>
                                     </p:panelGrid>
                                     <p:commandButton value="Simular" actionListener="#{simulacionController.simular()}" disabled="#{simulacionController.socio==null}"/>
-                                </p:fieldset>  
-                                <p:dialog id="dialogPoliza" appendTo="@(body)" widgetVar="dialogoPoliza" modal="true"
-                                    header="Seleccionar Póliza">
-                                    <h:panelGroup id="display">
-                                        <h:outputText value="Póliza" />
-                                        <p:selectOneMenu value="#{simulacionController.seguro}">
-                                            <f:selectItems value="#{simulacionController.seguros}" var="poliza"
-                                                           itemValue="#{poliza.idenSeguSeg}" itemLabel="#{poliza.descNombSeg}"/>
-                                            
-                                        </p:selectOneMenu>
-                                        <p:commandButton actionListener="#{simulacionController.agregarPoliza()}" value="Agregar" update="condiciones" oncomplete="PF('dialogoPoliza').hide()"/>
-                                        <p:commandButton value="Cancelar" onclick="PF('dialogoPoliza').hide()"/>
-                                    </h:panelGroup>
-                                </p:dialog>
+                                </p:fieldset>
+                                <p:remoteCommand actionListener="#{simulacionController.agregarPoliza}" name="detalleActualiza" 
+                                                 oncomplete="PF('polizaPanel').hide()"        update="polizaNombre"/>
                             </td>
                         </tr>
                     </table>

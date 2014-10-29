@@ -1,5 +1,6 @@
 package pe.gob.fovipol.sifo.controller;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
@@ -148,7 +149,7 @@ public class MaeProductoController implements Serializable {
      */
     public List<MaeEntidaddet> getLineasProducto() {
         if(lineasProducto==null)
-            lineasProducto=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("CODILINEPRD"));
+            lineasProducto=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODILINEPRD"));
         return lineasProducto;
     }
 
