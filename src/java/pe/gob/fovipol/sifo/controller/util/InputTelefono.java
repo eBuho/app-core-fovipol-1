@@ -51,7 +51,7 @@ public class InputTelefono extends UIInput implements NamingContainer {
             numero.setValue(split[1]);
             prefijo.setValue(split[0]);
         }
-        setPrefijos(ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("CODITELEFON")));        
+        setPrefijos(ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODITELEFON")));        
         super.encodeBegin(context);
     }
 

@@ -148,7 +148,7 @@ public class MaeAreaController implements Serializable {
      */
     public List<MaeEntidaddet> getTiposArea() {
         if(tiposArea==null)
-            tiposArea=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("TipoAreaAre"));
+            tiposArea=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("TipoAreaAre"));
         return tiposArea;
     }
 

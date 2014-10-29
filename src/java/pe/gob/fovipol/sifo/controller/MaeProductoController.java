@@ -149,7 +149,7 @@ public class MaeProductoController implements Serializable {
      */
     public List<MaeEntidaddet> getLineasProducto() {
         if(lineasProducto==null)
-            lineasProducto=ejbEntidadDetalleFacade.findDetalle(new MaeEntidad("CODILINEPRD"));
+            lineasProducto=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODILINEPRD"));
         return lineasProducto;
     }
 
