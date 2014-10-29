@@ -1,6 +1,5 @@
 package pe.gob.fovipol.sifo.controller;
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
