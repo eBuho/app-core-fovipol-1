@@ -11,7 +11,7 @@
         <p:dialog id="TrmTramiteCreateDlg" widgetVar="TrmTramiteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tramite.CreateTrmTramiteTitle}">
             <h:form id="TrmTramiteCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{trmTramiteController.selected != null}">
+                    <p:panelGrid columns="6" rendered="#{trmTramiteController.selected != null}">
                         <p:outputLabel value="#{tramite.CreateTrmTramiteLabel_idenExpeTrm}" for="idenExpeTrm" />
                         <p:inputText id="idenExpeTrm" value="#{trmTramiteController.selected.idenExpeTrm}" title="#{tramite.CreateTrmTramiteTitle_idenExpeTrm}" required="true" requiredMessage="#{tramite.CreateTrmTramiteRequiredMessage_idenExpeTrm}"/>
                         <p:outputLabel value="#{tramite.CreateTrmTramiteLabel_numeGuiaTrm}" for="numeGuiaTrm" />

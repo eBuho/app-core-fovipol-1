@@ -11,7 +11,7 @@
         <p:dialog id="TrmTramiteViewDlg" widgetVar="TrmTramiteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tramite.ViewTrmTramiteTitle}">
             <h:form id="TrmTramiteViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{trmTramiteController.selected != null}">
+                    <p:panelGrid columns="6" rendered="#{trmTramiteController.selected != null}">
                         <h:outputText value="#{tramite.ViewTrmTramiteLabel_idenExpeTrm}"/>
                         <h:outputText value="#{trmTramiteController.selected.idenExpeTrm}" title="#{tramite.ViewTrmTramiteTitle_idenExpeTrm}"/>
                         <h:outputText value="#{tramite.ViewTrmTramiteLabel_numeGuiaTrm}"/>
