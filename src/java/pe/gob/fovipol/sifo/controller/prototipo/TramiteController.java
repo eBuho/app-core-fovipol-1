@@ -6,6 +6,7 @@
 package pe.gob.fovipol.sifo.controller.prototipo;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -23,7 +24,7 @@ import pe.gob.fovipol.sifo.model.general.Tramite;
  */
 @ManagedBean(name="tramiteController")
 @SessionScoped
-public class TramiteController {
+public class TramiteController implements Serializable {
     private Tramite seleccionado;
     private List<Tramite> lista;
     private List<Tramite> listaSeleccionados;
