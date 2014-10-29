@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeSeguroRangoViewDlg" widgetVar="MaeSeguroRangoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.ViewMaeSeguroRangoTitle}">
+            <h:form id="MaeSeguroRangoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maeSeguroRangoController.selected != null}">
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_maeSeguroRangoPK_secuSeguSgd}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.maeSeguroRangoPK.secuSeguSgd}" title="#{bundle2.ViewMaeSeguroRangoTitle_maeSeguroRangoPK_secuSeguSgd}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_descNombSgr}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.descNombSgr}" title="#{bundle2.ViewMaeSeguroRangoTitle_descNombSgr}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_ragnEdaiSgr}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.ragnEdaiSgr}" title="#{bundle2.ViewMaeSeguroRangoTitle_ragnEdaiSgr}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_rangEdafSgr}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.rangEdafSgr}" title="#{bundle2.ViewMaeSeguroRangoTitle_rangEdafSgr}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_tasaSeguSgr}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.tasaSeguSgr}" title="#{bundle2.ViewMaeSeguroRangoTitle_tasaSeguSgr}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_usuaCreaSgr}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.usuaCreaSgr}" title="#{bundle2.ViewMaeSeguroRangoTitle_usuaCreaSgr}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_fechCreaSgr}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.fechCreaSgr}" title="#{bundle2.ViewMaeSeguroRangoTitle_fechCreaSgr}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_usuaModiSgr}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.usuaModiSgr}" title="#{bundle2.ViewMaeSeguroRangoTitle_usuaModiSgr}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_fechModiSgr}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.fechModiSgr}" title="#{bundle2.ViewMaeSeguroRangoTitle_fechModiSgr}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_nombEquiAud}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.nombEquiAud}" title="#{bundle2.ViewMaeSeguroRangoTitle_nombEquiAud}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_nombSopeAud}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.nombSopeAud}" title="#{bundle2.ViewMaeSeguroRangoTitle_nombSopeAud}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_flagEstaSgr}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.flagEstaSgr}" title="#{bundle2.ViewMaeSeguroRangoTitle_flagEstaSgr}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroRangoLabel_maeSeguro}"/>
+                        <h:outputText value="#{maeSeguroRangoController.selected.maeSeguro}" title="#{bundle2.ViewMaeSeguroRangoTitle_maeSeguro}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle2.Close}" onclick="MaeSeguroRangoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

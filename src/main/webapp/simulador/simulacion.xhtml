@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Simulador"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form id="formBusqueda">    
+                <comp:consultaIntegralSocio socio="#{simulacionController.socio}" actualizar=":formSimulacion:socio"/>
+                <div style="height: 20px;"></div>
+            </h:form>
+            <h:form id="formSimulacion">  
+                <p:panel id="socio">
+                    <p:growl id="growl"/>
+                    <h:outputText value="Simulador de créditos"/> <br/><br/>
+                    <h:outputText value="Productos: "/>
+                    <p:selectOneMenu value="#{simulacionController.producto}">
+                        <f:selectItem itemValue="" itemLabel="Seleccione un Producto"/>
+                        <f:selectItems value="#{simulacionController.productos}" var="producto"
+                                       itemLabel="#{producto.nombProdPrd}" itemValue="#{producto}"/>
+                        <p:ajax update="cantVeces,condiciones"/>
+                    </p:selectOneMenu>
+                    <br/>
+                    <table style="width: 60%">
+                        <tr>
+                            <td style="width: 30%;">
+                                <p:fieldset legend="Ingresos" >
+                                    <p:panelGrid columns="2" styleClass="tablaNoBorde">
+                                        <h:outputText value="Remu. Consolidada (S/.)"/>
+                                        <p:inputText value="#{simulacionController.simulacion.ingrBrtoSim}">
+                                            <p:ajax listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                        </p:inputText>
+                                        <h:outputText value="% Desc. Máximo"/>
+                                        <p:inputText id="porcDescuento" value="#{simulacionController.porcDescuento}" disabled="true">
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                        </p:inputText>
+                                        <h:outputText value="Desc Oficiales (S/.)"/>
+                                        <p:inputText value="#{simulacionController.simulacion.dsctOficSim}" >
+                                            <p:ajax listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                        </p:inputText>
+                                        <h:outputText value="Desc Personales (S/.)"/>
+                                        <p:inputText value="#{simulacionController.simulacion.dsctPersSim}">
+                                            <p:ajax listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                        </p:inputText>
+                                        <h:outputText value="Combustible (S/.)"/>
+                                        <p:inputText disabled="#{simulacionController.tipoSocio!=2}" value="#{simulacionController.simulacion.ingrCombSim}">
+                                            <p:ajax listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                        </p:inputText>
+                                    </p:panelGrid>
+                                </p:fieldset>
+                            </td>
+                            <td style="width: 30%;margin-left: 10px;">
+                                <p:fieldset legend="Nivel de Endeudamiento">
+                                    <p:panelGrid columns="2" styleClass="tablaNoBorde">
+                                        <h:outputText value="Total Aporte (S/.)"/>
+                                        <p:inputText value="#{simulacionController.totalAporte}">
+                                            <p:ajax listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                        </p:inputText>
+                                        <h:outputText value="Máximo por Producto"/>
+                                        <p:inputText id="cantVeces" disabled="true" value="#{simulacionController.producto.cantVecePrd}"/>
+                                        <h:outputText value="Otras deudas financieras (S/.)"/>
+                                        <p:inputText value="#{simulacionController.simulacion.deudOtraSim}"> 
+                                            <p:ajax listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                        </p:inputText>
+                                    </p:panelGrid>
+                                </p:fieldset>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p:fieldset legend="Capacidad de Crédito">
+                                    <p:panelGrid columns="4" styleClass="tablaNoBorde" id="capacidadCredito">
+                                        <h:outputText value="Máxima Cuota (S/.)"/>
+                                        <p:inputText value="#{simulacionController.simulacion.capaMcuoSim}">
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                        </p:inputText>
+                                        <h:outputText value="Máximo Préstamo (S/.)"/>
+                                        <p:inputText value="#{simulacionController.simulacion.impoMaxpSim}">
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                        </p:inputText>
+                                    </p:panelGrid>
+                                </p:fieldset>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p:fieldset legend="Condiciones">
+                                    <p:panelGrid columns="8" styleClass="tablaNoBorde" id="condiciones">
+                                        <h:outputText value="Moneda"/>
+                                        <p:selectOneMenu value="#{simulacionController.moneda}">
+                                            <f:selectItems value="#{simulacionController.monedas}"
+                                                           itemValue="#{moneda}" var="moneda" itemLabel="#{moneda.valoCaduDet}"/>
+                                        </p:selectOneMenu>
+                                        <h:outputText value="Monto"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/>
+                                        <h:outputText value="Liq."/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/> 
+                                        <h:outputText value="Cíclica"/>
+                                        <p:selectOneMenu value="#{simulacionController.ciclica}">
+                                            <f:selectItem itemLabel="5" itemValue="5"/>
+                                            <f:selectItem itemLabel="15" itemValue="15"/>
+                                            <f:selectItem itemLabel="25" itemValue="25"/>
+                                        </p:selectOneMenu>
+                                        <h:outputText value="Cronograma"/>
+                                        <p:selectOneMenu value="#{simulacionController.simulacion.autoCdobSim}"> 
+                                            <f:selectItem itemLabel="Cuota Fija" itemValue="N"/>
+                                            <f:selectItem itemLabel="Cuota Doble" itemValue="S"/>
+                                        </p:selectOneMenu>
+                                        <h:outputText value="Plazo"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/> 
+                                        <h:outputText value="Cuota"/>
+                                        <p:inputText value="#{simulacionController.simulacion.otrsDsctSim}"/>                                          
+                                        <h:outputText value="TEA %"/>
+                                        <p:inputText value="#{simulacionController.simulacion.tasaTeaSim}">
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                        </p:inputText>
+                                        <h:outputText value="Nac. #{simulacionController.edad}" id="edad"/>
+                                        <p:calendar value="#{simulacionController.nacimiento}" locale="es" lang="es" > 
+                                            <p:ajax update="edad" listener="#{simulacionController.calcularEdad}"/>
+                                        </p:calendar>
+                                        <h:outputText value="Póliza"/>
+                                        <p:inputText value="#{simulacionController.polizaNombre}">
+                                            <p:ajax event="click" update="display" oncomplete="PF('dialogoPoliza').show()"/>
+                                        </p:inputText>
+                                        <h:outputText value="Gastos Administrativos"/>
+                                        <p:inputText value="#{simulacionController.producto.tasaGadmPrd}"/> 
+                                    </p:panelGrid>
+                                    <p:commandButton value="Simular" actionListener="#{simulacionController.simular()}" disabled="#{simulacionController.socio==null}"/>
+                                </p:fieldset>  
+                                <p:dialog id="dialogPoliza" appendTo="@(body)" widgetVar="dialogoPoliza" modal="true"
+                                    header="Seleccionar Póliza">
+                                    <h:panelGroup id="display">
+                                        <h:outputText value="Póliza" />
+                                        <p:selectOneMenu value="#{simulacionController.seguro}">
+                                            <f:selectItems value="#{simulacionController.seguros}" var="poliza"
+                                                           itemValue="#{poliza.idenSeguSeg}" itemLabel="#{poliza.descNombSeg}"/>
+                                            
+                                        </p:selectOneMenu>
+                                        <p:commandButton actionListener="#{simulacionController.agregarPoliza()}" value="Agregar" update="condiciones" oncomplete="PF('dialogoPoliza').hide()"/>
+                                        <p:commandButton value="Cancelar" onclick="PF('dialogoPoliza').hide()"/>
+                                    </h:panelGroup>
+                                </p:dialog>
+                            </td>
+                        </tr>
+                    </table>
+                </p:panel>
+            </h:form>            
+        </ui:define>
+    </ui:composition>
+
+</html>

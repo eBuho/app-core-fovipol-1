@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeSeguroViewDlg" widgetVar="MaeSeguroViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.ViewMaeSeguroTitle}">
+            <h:form id="MaeSeguroViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maeSeguroController.selected != null}">
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_idenSeguSeg}"/>
+                        <h:outputText value="#{maeSeguroController.selected.idenSeguSeg}" title="#{bundle2.ViewMaeSeguroTitle_idenSeguSeg}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_descNombSeg}"/>
+                        <h:outputText value="#{maeSeguroController.selected.descNombSeg}" title="#{bundle2.ViewMaeSeguroTitle_descNombSeg}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_codiTipoSeg}"/>
+                        <h:outputText value="#{maeSeguroController.selected.codiTipoSeg}" title="#{bundle2.ViewMaeSeguroTitle_codiTipoSeg}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_fechInicSeg}"/>
+                        <h:outputText value="#{maeSeguroController.selected.fechInicSeg}" title="#{bundle2.ViewMaeSeguroTitle_fechInicSeg}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_fechFfinSeg}"/>
+                        <h:outputText value="#{maeSeguroController.selected.fechFfinSeg}" title="#{bundle2.ViewMaeSeguroTitle_fechFfinSeg}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_descRutaSeg}"/>
+                        <h:outputText value="#{maeSeguroController.selected.descRutaSeg}" title="#{bundle2.ViewMaeSeguroTitle_descRutaSeg}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{maeSeguroController.selected.usuaCreaAud}" title="#{bundle2.ViewMaeSeguroTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_fechCreaAud}"/>
+                        <h:outputText value="#{maeSeguroController.selected.fechCreaAud}" title="#{bundle2.ViewMaeSeguroTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_usuaModiAud}"/>
+                        <h:outputText value="#{maeSeguroController.selected.usuaModiAud}" title="#{bundle2.ViewMaeSeguroTitle_usuaModiAud}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_fechModiAud}"/>
+                        <h:outputText value="#{maeSeguroController.selected.fechModiAud}" title="#{bundle2.ViewMaeSeguroTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_nombEquiAud}"/>
+                        <h:outputText value="#{maeSeguroController.selected.nombEquiAud}" title="#{bundle2.ViewMaeSeguroTitle_nombEquiAud}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_nombSopeAud}"/>
+                        <h:outputText value="#{maeSeguroController.selected.nombSopeAud}" title="#{bundle2.ViewMaeSeguroTitle_nombSopeAud}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_flagEstaSeg}"/>
+                        <h:outputText value="#{maeSeguroController.selected.flagEstaSeg}" title="#{bundle2.ViewMaeSeguroTitle_flagEstaSeg}"/>
+                        <h:outputText value="#{bundle2.ViewMaeSeguroLabel_idenEmprEmp}"/>
+                        <h:outputText value="#{maeSeguroController.selected.idenEmprEmp}" title="#{bundle2.ViewMaeSeguroTitle_idenEmprEmp}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle2.Close}" onclick="MaeSeguroViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
