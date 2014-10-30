@@ -169,8 +169,8 @@
                                                 <h:outputText value="Nacimiento" />                                        
                                             </p:column>
                                             <p:column>
-                                                <p:inputText value="#{simulacionController.edad}" id="edad" size="3" style="width: 20px;"/>
-                                                <p:calendar size="10" value="#{simulacionController.nacimiento}" locale="es" lang="es" > 
+                                                <p:inputText disabled="true" value="#{simulacionController.edad}" id="edad" size="3" style="width: 20px;"/>
+                                                <p:calendar disabled="true" size="10" value="#{simulacionController.socio.maePersona.fechNaciPer}" locale="es" lang="es" > 
                                                     <p:ajax update="edad" event="dateSelect" listener="#{simulacionController.calcularEdad}"/>
                                                     <p:ajax update="edad" event="change" listener="#{simulacionController.calcularEdad}"/>
                                                 </p:calendar>
@@ -207,9 +207,9 @@
                                 <p:remoteCommand actionListener="#{simulacionController.agregarPoliza}" name="detalleActualiza" 
                                                  oncomplete="PF('polizaPanel').hide()"        update="polizaNombre"/>
                                 <p:dialog appendTo="@(body)" widgetVar="dialogSimulacion" dynamic="true" modal="true" resizable="false"
-                                          header="Resultado" width="800">
+                                          header="Resultado" width="1200">
                                     <p:scrollPanel mode="native" style="width:100%;height:400px">
-                                        <p:commandButton value="Imprimir" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px;margin-left: 5px;">
+                                        <p:commandButton value="Imprimir" type="button" icon="ui-icon-print" style="display:block;margin-top: 20px;margin-bottom: 20px;margin-left: 5px;">
                                             <p:printer target="resultado" />
                                         </p:commandButton>
                                         <p:messages autoUpdate="true" id="mensajesSimulacion"/>
@@ -235,8 +235,7 @@
                                                 </h:outputText>
                                                 <h:outputText value="Plazo de Crédito"/>
                                                 <h:outputText value="#{simulacionController.simulacion.plazPresSim}"/>
-                                                <h:outputText value="Tasa de seguro desagravamen"/>
-                                                <h:outputText value="#{simulacionController.degravamen}"/>
+                                                
                                             </p:panelGrid>
                                             <p:spacer width="20"/>
                                             <p:dataTable emptyMessage="No hay resultados" 
@@ -278,15 +277,7 @@
                                                     <h:outputText value="#{simu.interes}">
                                                         <f:convertNumber minFractionDigits="2"/>
                                                     </h:outputText>
-                                                </p:column>
-                                                <p:column>
-                                                    <f:facet name="header">
-                                                        <h:outputText value="Seguro"/>
-                                                    </f:facet>
-                                                    <h:outputText value="#{simu.numero}">
-                                                        <f:convertNumber minFractionDigits="2"/>
-                                                    </h:outputText>
-                                                </p:column>
+                                                </p:column>                                                
                                                 <p:column>
                                                     <f:facet name="header">
                                                         <h:outputText value="Cuota"/>
@@ -300,6 +291,29 @@
                                                         <h:outputText value="Estado"/>
                                                     </f:facet>
                                                     <h:outputText value="Pendiente"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Edad"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{simu.edad}">                                                        
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="% Desgravamen"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{simu.capital}">
+                                                        <f:convertNumber minFractionDigits="2"/>
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Desgravamen"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{simu.degravamen}">
+                                                        <f:convertNumber minFractionDigits="2"/>
+                                                    </h:outputText>
                                                 </p:column>
                                                 <p:columnGroup type="footer">
                                                     <p:row>

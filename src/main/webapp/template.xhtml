@@ -6,9 +6,14 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
         <title><ui:insert name="title">Sistema Integrado Fovipol</ui:insert></title>
-        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>        
         <h:outputScript library="js" name="jsfcrud.js"/>
+        <ui:insert name="css"/>
     </h:head>
 
     <h:body>
@@ -35,6 +40,7 @@
                         </p:submenu>
                         <p:submenu label="Trámites">
                             <p:menuitem value="Trámites" outcome="/general/tramite.xhtml" /> 
+                            <p:menuitem value="Registrar Expediente" outcome="/tramite/registrarExpediente.xhtml" /> 
                         </p:submenu>
                         <p:menuitem value="Salir" url="#{request.contextPath}/logout"/>
                     </p:menubar>

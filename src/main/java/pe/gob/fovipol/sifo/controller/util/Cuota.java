@@ -19,6 +19,8 @@ public class Cuota {
     private BigDecimal capital;
     private BigDecimal interes;
     private BigDecimal cuota;
+    private BigDecimal degravamen;
+    private int edad;
     private BigDecimal amortizado;
 
     /**
@@ -117,5 +119,33 @@ public class Cuota {
      */
     public void setAmortizado(BigDecimal amortizado) {
         this.amortizado = amortizado;
+    }
+
+    /**
+     * @return the degravamen
+     */
+    public BigDecimal getDegravamen() {
+        return degravamen;
+    }
+
+    /**
+     * @param degravamen the degravamen to set
+     */
+    public void setDegravamen(BigDecimal degravamen) {
+        this.degravamen = degravamen;
+    }
+
+    /**
+     * @return the edad
+     */
+    public int getEdad() {
+        return edad;
+    }
+
+    /**
+     * @param edad the edad to set
+     */
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 }

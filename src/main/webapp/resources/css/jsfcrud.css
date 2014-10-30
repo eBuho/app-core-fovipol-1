@@ -13,9 +13,16 @@
     text-transform: uppercase;
 }
 .ui-button {
-    margin-top: 10px !important;
+    /* margin-top: 10px !important; */
 }
 
 .tablaNoBorde tr, .tablaNoBorde td {
     border: none !important;
+}
+.fieldSet legend{
+    font-size: 1em !important;
+    width: auto !important;
+}
+.boton{
+    margin-top: 0px !important;
 }
