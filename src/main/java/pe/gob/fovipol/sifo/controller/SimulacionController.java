@@ -74,7 +74,7 @@ public class SimulacionController implements Serializable {
         simulacion.setDsctPersSim(BigDecimal.ZERO);
         simulacion.setIngrCombSim(BigDecimal.ZERO);
         simulacion.setDeudOtraSim(BigDecimal.ZERO);
-        simulacion.setTasaTeaSim(new BigDecimal(3));
+        //simulacion.setTasaTeaSim(new BigDecimal(3));
         totalAporte = BigDecimal.ZERO;
         tipoSocio = 1;
         segurosSimulacion = new ArrayList<>();
@@ -170,6 +170,7 @@ public class SimulacionController implements Serializable {
             cuotasSimulacion=new ArrayList<>();
         } else {
             calcularDegravamen();
+            simulacion.setTasaTeaSim(producto.getTasaIntePrd());
             if(cuota!=null){
                 if(simulacion.getPlazPresSim()!=null){
                     cuotaPagar=cuota;
@@ -218,6 +219,11 @@ public class SimulacionController implements Serializable {
                 cuotasSimulacion.add(c);
             }
             simulacion.setIdenSimuSim(ejbSimulacionFacade.obtenerCorrelativo());
+            simulacion.setFechCreaAud(new Date());
+            simulacion.setFlagEstaSim(new Short("1"));
+            simulacion.setIdenPersPer(socio);
+            simulacion.setIdenProdPrd(producto);
+            simulacion.setTasaGadmSim(producto.getTasaGadmPrd());
             ejbSimulacionFacade.create(simulacion);
         }
     }
