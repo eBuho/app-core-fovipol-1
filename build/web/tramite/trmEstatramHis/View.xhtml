@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrmEstatramHisViewDlg" widgetVar="TrmEstatramHisViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tramite.ViewTrmEstatramHisTitle}">
+            <h:form id="TrmEstatramHisViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trmEstatramHisController.selected != null}">
+                        <h:outputText value="#{tramite.ViewTrmEstatramHisLabel_trmEstatramHisPK_secuEstaHis}"/>
+                        <h:outputText value="#{trmEstatramHisController.selected.trmEstatramHisPK.secuEstaHis}" title="#{tramite.ViewTrmEstatramHisTitle_trmEstatramHisPK_secuEstaHis}"/>
+                        <h:outputText value="#{tramite.ViewTrmEstatramHisLabel_codiEstaHis}"/>
+                        <h:outputText value="#{trmEstatramHisController.selected.codiEstaHis}" title="#{tramite.ViewTrmEstatramHisTitle_codiEstaHis}"/>
+                        <h:outputText value="#{tramite.ViewTrmEstatramHisLabel_fechEstaHis}"/>
+                        <h:outputText value="#{trmEstatramHisController.selected.fechEstaHis}" title="#{tramite.ViewTrmEstatramHisTitle_fechEstaHis}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmEstatramHisLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{trmEstatramHisController.selected.usuaCreaAud}" title="#{tramite.ViewTrmEstatramHisTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmEstatramHisLabel_fechCreaAud}"/>
+                        <h:outputText value="#{trmEstatramHisController.selected.fechCreaAud}" title="#{tramite.ViewTrmEstatramHisTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmEstatramHisLabel_usuaModiAud}"/>
+                        <h:outputText value="#{trmEstatramHisController.selected.usuaModiAud}" title="#{tramite.ViewTrmEstatramHisTitle_usuaModiAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmEstatramHisLabel_fechModiAud}"/>
+                        <h:outputText value="#{trmEstatramHisController.selected.fechModiAud}" title="#{tramite.ViewTrmEstatramHisTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmEstatramHisLabel_nombEquiAud}"/>
+                        <h:outputText value="#{trmEstatramHisController.selected.nombEquiAud}" title="#{tramite.ViewTrmEstatramHisTitle_nombEquiAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmEstatramHisLabel_nombSopeAud}"/>
+                        <h:outputText value="#{trmEstatramHisController.selected.nombSopeAud}" title="#{tramite.ViewTrmEstatramHisTitle_nombSopeAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmEstatramHisLabel_flagEstaHis}"/>
+                        <h:outputText value="#{trmEstatramHisController.selected.flagEstaHis}" title="#{tramite.ViewTrmEstatramHisTitle_flagEstaHis}"/>
+                        <h:outputText value="#{tramite.ViewTrmEstatramHisLabel_trmTramite}"/>
+                        <h:outputText value="#{trmEstatramHisController.selected.trmTramite}" title="#{tramite.ViewTrmEstatramHisTitle_trmTramite}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{tramite.Close}" onclick="TrmEstatramHisViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

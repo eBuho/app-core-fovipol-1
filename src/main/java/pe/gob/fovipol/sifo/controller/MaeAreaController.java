@@ -126,7 +126,7 @@ public class MaeAreaController implements Serializable {
     }
 
     public List<MaeArea> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getFacade().findAllActivo();
     }
 
     /**

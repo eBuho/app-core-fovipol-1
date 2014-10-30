@@ -39,7 +39,7 @@ public class MaeProcesoFacade extends AbstractFacade<MaeProceso> {
     }
     public List<MaeProceso> findProcesos() {
         List<MaeProceso> lista = null;
-        String sql = "select d from MaeProceso d where d.niveProcPrc = 1";
+        String sql = "select d from MaeProceso d where d.niveProcPrc = 1 and d.flagEstaPrc<>0";
         Query q = em.createQuery(sql);
         lista = q.getResultList();
         return lista;

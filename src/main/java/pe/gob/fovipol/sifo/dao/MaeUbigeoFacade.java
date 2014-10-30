@@ -32,7 +32,7 @@ public class MaeUbigeoFacade extends AbstractFacade<MaeUbigeo> {
     
     public List<MaeUbigeo> findDepartamentos() {
         List<MaeUbigeo> lista = null;
-        String sql = "FROM MaeUbigeo a WHERE a.niveUbigUbi=1 ORDER BY a.nombUbigUbi";
+        String sql = "FROM MaeUbigeo a WHERE a.niveUbigUbi=1 and a.flagEstaUbi<>0  ORDER BY a.nombUbigUbi";
 
         Query q = em.createQuery(sql);
         lista = q.getResultList();
@@ -41,7 +41,7 @@ public class MaeUbigeoFacade extends AbstractFacade<MaeUbigeo> {
     
     public List<MaeUbigeo> findHijos(MaeUbigeo padre) {
         List<MaeUbigeo> lista = null;
-        String sql = "FROM MaeUbigeo a WHERE a.idenUbipUbi=:padre ORDER BY a.nombUbigUbi";
+        String sql = "FROM MaeUbigeo a WHERE a.idenUbipUbi=:padre and a.flagEstaUbi<>0 ORDER BY a.nombUbigUbi";
         
         Query q = em.createQuery(sql);
         q.setParameter("padre", padre);

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrmEstatramHisCreateDlg" widgetVar="TrmEstatramHisCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tramite.CreateTrmEstatramHisTitle}">
+            <h:form id="TrmEstatramHisCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trmEstatramHisController.selected != null}">
+                        <p:outputLabel value="#{tramite.CreateTrmEstatramHisLabel_trmEstatramHisPK_secuEstaHis}" for="trmEstatramHisPK_secuEstaHis" />
+                        <p:inputText id="trmEstatramHisPK_secuEstaHis" value="#{trmEstatramHisController.selected.trmEstatramHisPK.secuEstaHis}" title="#{tramite.CreateTrmEstatramHisTitle_trmEstatramHisPK_secuEstaHis}" required="true" requiredMessage="#{tramite.CreateTrmEstatramHisRequiredMessage_trmEstatramHisPK_secuEstaHis}"/>
+                        <p:outputLabel value="#{tramite.CreateTrmEstatramHisLabel_codiEstaHis}" for="codiEstaHis" />
+                        <p:inputText id="codiEstaHis" value="#{trmEstatramHisController.selected.codiEstaHis}" title="#{tramite.CreateTrmEstatramHisTitle_codiEstaHis}" />
+                        <p:outputLabel value="#{tramite.CreateTrmEstatramHisLabel_fechEstaHis}" for="fechEstaHis" />
+                        <p:calendar id="fechEstaHis" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmEstatramHisController.selected.fechEstaHis}" title="#{tramite.EditTrmEstatramHisTitle_fechEstaHis}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmEstatramHisLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{trmEstatramHisController.selected.usuaCreaAud}" title="#{tramite.CreateTrmEstatramHisTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{tramite.CreateTrmEstatramHisLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmEstatramHisController.selected.fechCreaAud}" title="#{tramite.EditTrmEstatramHisTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmEstatramHisLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{trmEstatramHisController.selected.usuaModiAud}" title="#{tramite.CreateTrmEstatramHisTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{tramite.CreateTrmEstatramHisLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmEstatramHisController.selected.fechModiAud}" title="#{tramite.EditTrmEstatramHisTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.CreateTrmEstatramHisLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{trmEstatramHisController.selected.nombEquiAud}" title="#{tramite.CreateTrmEstatramHisTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{tramite.CreateTrmEstatramHisLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{trmEstatramHisController.selected.nombSopeAud}" title="#{tramite.CreateTrmEstatramHisTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{tramite.CreateTrmEstatramHisLabel_flagEstaHis}" for="flagEstaHis" />
+                        <p:inputText id="flagEstaHis" value="#{trmEstatramHisController.selected.flagEstaHis}" title="#{tramite.CreateTrmEstatramHisTitle_flagEstaHis}" />
+                        <p:outputLabel value="#{tramite.CreateTrmEstatramHisLabel_trmTramite}" for="trmTramite" />
+                        <p:selectOneMenu id="trmTramite" value="#{trmEstatramHisController.selected.trmTramite}" required="true" requiredMessage="#{tramite.EditTrmEstatramHisRequiredMessage_trmTramite}">
+                            <f:selectItems value="#{trmTramiteController.itemsAvailableSelectOne}"
+                                           var="trmTramiteItem"
+                                           itemValue="#{trmTramiteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{trmEstatramHisController.create}" value="#{tramite.Save}" update="display,:TrmEstatramHisListForm:datalist,:growl" oncomplete="handleSubmit(args,'TrmEstatramHisCreateDialog');"/>
+                    <p:commandButton value="#{tramite.Cancel}" onclick="TrmEstatramHisCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

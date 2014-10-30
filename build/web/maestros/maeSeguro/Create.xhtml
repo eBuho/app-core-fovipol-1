@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeSeguroCreateDlg" widgetVar="MaeSeguroCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.CreateMaeSeguroTitle}">
+            <h:form id="MaeSeguroCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maeSeguroController.selected != null}">
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_idenSeguSeg}" for="idenSeguSeg" />
+                        <p:inputText id="idenSeguSeg" value="#{maeSeguroController.selected.idenSeguSeg}" title="#{bundle2.CreateMaeSeguroTitle_idenSeguSeg}" required="true" requiredMessage="#{bundle2.CreateMaeSeguroRequiredMessage_idenSeguSeg}"/>
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_descNombSeg}" for="descNombSeg" />
+                        <p:inputText id="descNombSeg" value="#{maeSeguroController.selected.descNombSeg}" title="#{bundle2.CreateMaeSeguroTitle_descNombSeg}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_codiTipoSeg}" for="codiTipoSeg" />
+                        <p:inputText id="codiTipoSeg" value="#{maeSeguroController.selected.codiTipoSeg}" title="#{bundle2.CreateMaeSeguroTitle_codiTipoSeg}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_fechInicSeg}" for="fechInicSeg" />
+                        <p:calendar id="fechInicSeg" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSeguroController.selected.fechInicSeg}" title="#{bundle2.EditMaeSeguroTitle_fechInicSeg}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_fechFfinSeg}" for="fechFfinSeg" />
+                        <p:calendar id="fechFfinSeg" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSeguroController.selected.fechFfinSeg}" title="#{bundle2.EditMaeSeguroTitle_fechFfinSeg}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_descRutaSeg}" for="descRutaSeg" />
+                        <p:inputText id="descRutaSeg" value="#{maeSeguroController.selected.descRutaSeg}" title="#{bundle2.CreateMaeSeguroTitle_descRutaSeg}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{maeSeguroController.selected.usuaCreaAud}" title="#{bundle2.CreateMaeSeguroTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSeguroController.selected.fechCreaAud}" title="#{bundle2.EditMaeSeguroTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{maeSeguroController.selected.usuaModiAud}" title="#{bundle2.CreateMaeSeguroTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSeguroController.selected.fechModiAud}" title="#{bundle2.EditMaeSeguroTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{maeSeguroController.selected.nombEquiAud}" title="#{bundle2.CreateMaeSeguroTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{maeSeguroController.selected.nombSopeAud}" title="#{bundle2.CreateMaeSeguroTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_flagEstaSeg}" for="flagEstaSeg" />
+                        <p:inputText id="flagEstaSeg" value="#{maeSeguroController.selected.flagEstaSeg}" title="#{bundle2.CreateMaeSeguroTitle_flagEstaSeg}" />
+                        <p:outputLabel value="#{bundle2.CreateMaeSeguroLabel_idenEmprEmp}" for="idenEmprEmp" />
+                        <p:selectOneMenu id="idenEmprEmp" value="#{maeSeguroController.selected.idenEmprEmp}" >
+                            <f:selectItems value="#{maeEmpresaController.itemsAvailableSelectOne}"
+                                           var="idenEmprEmpItem"
+                                           itemValue="#{idenEmprEmpItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maeSeguroController.create}" value="#{bundle2.Save}" update="display,:MaeSeguroListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeSeguroCreateDialog');"/>
+                    <p:commandButton value="#{bundle2.Cancel}" onclick="MaeSeguroCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

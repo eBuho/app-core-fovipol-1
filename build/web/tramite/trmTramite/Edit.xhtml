@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrmTramiteEditDlg" widgetVar="TrmTramiteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tramite.EditTrmTramiteTitle}">
+            <h:form id="TrmTramiteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{trmTramiteController.selected != null}">
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_idenExpeTrm}" for="idenExpeTrm" />
+                        <p:inputText id="idenExpeTrm" value="#{trmTramiteController.selected.idenExpeTrm}" title="#{tramite.EditTrmTramiteTitle_idenExpeTrm}" required="true" requiredMessage="#{tramite.EditTrmTramiteRequiredMessage_idenExpeTrm}"/>
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_numeGuiaTrm}" for="numeGuiaTrm" />
+                        <p:inputText id="numeGuiaTrm" value="#{trmTramiteController.selected.numeGuiaTrm}" title="#{tramite.EditTrmTramiteTitle_numeGuiaTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_tipoTramTrm}" for="tipoTramTrm" />
+                        <p:inputText id="tipoTramTrm" value="#{trmTramiteController.selected.tipoTramTrm}" title="#{tramite.EditTrmTramiteTitle_tipoTramTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_codiOrigTrm}" for="codiOrigTrm" />
+                        <p:inputText id="codiOrigTrm" value="#{trmTramiteController.selected.codiOrigTrm}" title="#{tramite.EditTrmTramiteTitle_codiOrigTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_codiModaTrm}" for="codiModaTrm" />
+                        <p:inputText id="codiModaTrm" value="#{trmTramiteController.selected.codiModaTrm}" title="#{tramite.EditTrmTramiteTitle_codiModaTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_codiExpeTrm}" for="codiExpeTrm" />
+                        <p:inputText id="codiExpeTrm" value="#{trmTramiteController.selected.codiExpeTrm}" title="#{tramite.EditTrmTramiteTitle_codiExpeTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_codiBarrTrm}" for="codiBarrTrm" />
+                        <p:inputText id="codiBarrTrm" value="#{trmTramiteController.selected.codiBarrTrm}" title="#{tramite.EditTrmTramiteTitle_codiBarrTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_nombTramTrm}" for="nombTramTrm" />
+                        <p:inputText id="nombTramTrm" value="#{trmTramiteController.selected.nombTramTrm}" title="#{tramite.EditTrmTramiteTitle_nombTramTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_numeFolioTrm}" for="numeFolioTrm" />
+                        <p:inputText id="numeFolioTrm" value="#{trmTramiteController.selected.numeFolioTrm}" title="#{tramite.EditTrmTramiteTitle_numeFolioTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_descAsunTrm}" for="descAsunTrm" />
+                        <p:inputText id="descAsunTrm" value="#{trmTramiteController.selected.descAsunTrm}" title="#{tramite.EditTrmTramiteTitle_descAsunTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_fechIngrTrm}" for="fechIngrTrm" />
+                        <p:calendar id="fechIngrTrm" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmTramiteController.selected.fechIngrTrm}" title="#{tramite.EditTrmTramiteTitle_fechIngrTrm}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_numeDiasTrm}" for="numeDiasTrm" />
+                        <p:inputText id="numeDiasTrm" value="#{trmTramiteController.selected.numeDiasTrm}" title="#{tramite.EditTrmTramiteTitle_numeDiasTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_fechVencTrm}" for="fechVencTrm" />
+                        <p:calendar id="fechVencTrm" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmTramiteController.selected.fechVencTrm}" title="#{tramite.EditTrmTramiteTitle_fechVencTrm}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_codiPrioTrm}" for="codiPrioTrm" />
+                        <p:inputText id="codiPrioTrm" value="#{trmTramiteController.selected.codiPrioTrm}" title="#{tramite.EditTrmTramiteTitle_codiPrioTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_flagPrivTrm}" for="flagPrivTrm" />
+                        <p:inputText id="flagPrivTrm" value="#{trmTramiteController.selected.flagPrivTrm}" title="#{tramite.EditTrmTramiteTitle_flagPrivTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{trmTramiteController.selected.usuaCreaAud}" title="#{tramite.EditTrmTramiteTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmTramiteController.selected.fechCreaAud}" title="#{tramite.EditTrmTramiteTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{trmTramiteController.selected.usuaModiAud}" title="#{tramite.EditTrmTramiteTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{trmTramiteController.selected.fechModiAud}" title="#{tramite.EditTrmTramiteTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{trmTramiteController.selected.nombEquiAud}" title="#{tramite.EditTrmTramiteTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{trmTramiteController.selected.nombSopeAud}" title="#{tramite.EditTrmTramiteTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_flagEstaTrm}" for="flagEstaTrm" />
+                        <p:inputText id="flagEstaTrm" value="#{trmTramiteController.selected.flagEstaTrm}" title="#{tramite.EditTrmTramiteTitle_flagEstaTrm}" />
+                        <p:outputLabel value="#{tramite.EditTrmTramiteLabel_docuRefeTrm}" for="docuRefeTrm" />
+                        <p:selectOneMenu id="docuRefeTrm" value="#{trmTramiteController.selected.docuRefeTrm}" >
+                            <f:selectItem itemLabel="#{tramite.SelectOneMessage}"/>
+                            <f:selectItems value="#{trmTramiteController.itemsAvailableSelectOne}"
+                                           var="docuRefeTrmItem"
+                                           itemValue="#{docuRefeTrmItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{trmTramiteController.update}" value="#{tramite.Save}" update="display,:TrmTramiteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TrmTramiteEditDialog');"/>
+                    <p:commandButton value="#{tramite.Cancel}" onclick="TrmTramiteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

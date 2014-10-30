@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeSocioCreateDlg" widgetVar="MaeSocioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMaeSocioTitle}">
+            <h:form id="MaeSocioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{maeSocioController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_codiPersPer}" for="codiPersPer" />
+                        <p:inputText id="codiPersPer" value="#{maeSocioController.selected.codiPersPer}" title="#{bundle.CreateMaeSocioTitle_codiPersPer}" required="true" requiredMessage="#{bundle.CreateMaeSocioRequiredMessage_codiPersPer}"/>
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_codiMigrSoc}" for="codiMigrSoc" />
+                        <p:inputText id="codiMigrSoc" value="#{maeSocioController.selected.codiMigrSoc}" title="#{bundle.CreateMaeSocioTitle_codiMigrSoc}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_tipoPoliSoc}" for="tipoPoliSoc" />
+                        <p:inputText id="tipoPoliSoc" value="#{maeSocioController.selected.tipoPoliSoc}" title="#{bundle.CreateMaeSocioTitle_tipoPoliSoc}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_codiCcipSoc}" for="codiCcipSoc" />
+                        <p:inputText id="codiCcipSoc" value="#{maeSocioController.selected.codiCcipSoc}" title="#{bundle.CreateMaeSocioTitle_codiCcipSoc}" required="true" requiredMessage="#{bundle.CreateMaeSocioRequiredMessage_codiCcipSoc}"/>
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_codiCdfiSoc}" for="codiCdfiSoc" />
+                        <p:inputText id="codiCdfiSoc" value="#{maeSocioController.selected.codiCdfiSoc}" title="#{bundle.CreateMaeSocioTitle_codiCdfiSoc}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_codiCajaSoc}" for="codiCajaSoc" />
+                        <p:inputText id="codiCajaSoc" value="#{maeSocioController.selected.codiCajaSoc}" title="#{bundle.CreateMaeSocioTitle_codiCajaSoc}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_codiMpolSoc}" for="codiMpolSoc" />
+                        <p:inputText id="codiMpolSoc" value="#{maeSocioController.selected.codiMpolSoc}" title="#{bundle.CreateMaeSocioTitle_codiMpolSoc}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_fechAfilSoc}" for="fechAfilSoc" />
+                        <p:calendar id="fechAfilSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechAfilSoc}" title="#{bundle.EditMaeSocioTitle_fechAfilSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_fechDesaSoc}" for="fechDesaSoc" />
+                        <p:calendar id="fechDesaSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechDesaSoc}" title="#{bundle.EditMaeSocioTitle_fechDesaSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_codiGradSoc}" for="codiGradSoc" />
+                        <p:inputText id="codiGradSoc" value="#{maeSocioController.selected.codiGradSoc}" title="#{bundle.CreateMaeSocioTitle_codiGradSoc}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_codiEspeSoc}" for="codiEspeSoc" />
+                        <p:inputText id="codiEspeSoc" value="#{maeSocioController.selected.codiEspeSoc}" title="#{bundle.CreateMaeSocioTitle_codiEspeSoc}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_fechIescSoc}" for="fechIescSoc" />
+                        <p:calendar id="fechIescSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechIescSoc}" title="#{bundle.EditMaeSocioTitle_fechIescSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_fechEescSoc}" for="fechEescSoc" />
+                        <p:calendar id="fechEescSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechEescSoc}" title="#{bundle.EditMaeSocioTitle_fechEescSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_fechBajaSoc}" for="fechBajaSoc" />
+                        <p:calendar id="fechBajaSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechBajaSoc}" title="#{bundle.EditMaeSocioTitle_fechBajaSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_unidTrabSoc}" for="unidTrabSoc" />
+                        <p:inputText id="unidTrabSoc" value="#{maeSocioController.selected.unidTrabSoc}" title="#{bundle.CreateMaeSocioTitle_unidTrabSoc}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_entiPagoSoc}" for="entiPagoSoc" />
+                        <p:inputText id="entiPagoSoc" value="#{maeSocioController.selected.entiPagoSoc}" title="#{bundle.CreateMaeSocioTitle_entiPagoSoc}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_fechReinSoc}" for="fechReinSoc" />
+                        <p:calendar id="fechReinSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechReinSoc}" title="#{bundle.EditMaeSocioTitle_fechReinSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_flagRenuSoc}" for="flagRenuSoc" />
+                        <p:inputText id="flagRenuSoc" value="#{maeSocioController.selected.flagRenuSoc}" title="#{bundle.CreateMaeSocioTitle_flagRenuSoc}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_fechRenuSoc}" for="fechRenuSoc" />
+                        <p:calendar id="fechRenuSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechRenuSoc}" title="#{bundle.EditMaeSocioTitle_fechRenuSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{maeSocioController.selected.usuaCreaAud}" title="#{bundle.CreateMaeSocioTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechCreaAud}" title="#{bundle.EditMaeSocioTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{maeSocioController.selected.usuaModiAud}" title="#{bundle.CreateMaeSocioTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechModiAud}" title="#{bundle.EditMaeSocioTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{maeSocioController.selected.nombEquiAud}" title="#{bundle.CreateMaeSocioTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{maeSocioController.selected.nombSopeAud}" title="#{bundle.CreateMaeSocioTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_flagEstaSoc}" for="flagEstaSoc" />
+                        <p:selectOneMenu id="flagEstaSoc" value="#{maeSocioController.selected.flagEstaSoc}" disabled="true">
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateMaeSocioLabel_maePersona}" for="maePersona" />
+                        <p:selectOneMenu id="maePersona" value="#{maeSocioController.selected.maePersona}" required="true" requiredMessage="#{bundle.EditMaeSocioRequiredMessage_maePersona}">
+                            <f:selectItems value="#{maePersonaController.itemsAvailableSelectOne}"
+                                           var="maePersonaItem"
+                                           itemValue="#{maePersonaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maeSocioController.create}" value="#{bundle.Save}" update="display,:MaeSocioListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeSocioCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MaeSocioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

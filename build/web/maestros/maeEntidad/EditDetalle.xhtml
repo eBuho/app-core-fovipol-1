@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeEntidaddetEditDlg" widgetVar="MaeEntidaddetEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMaeEntidaddetTitle}">
+            <h:form id="MaeEntidaddetEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{maeEntidadController.detalleSeleccionado != null}">
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_secuEntiDet}" for="secuEntiDet" />
+                        <p:inputText id="secuEntiDet" value="#{maeEntidadController.detalleSeleccionado.secuEntiDet}" title="#{bundle.EditMaeEntidaddetTitle_secuEntiDet}" required="true" requiredMessage="#{bundle.EditMaeEntidaddetRequiredMessage_secuEntiDet}"/>
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_valoNumuDet}" for="valoNumuDet" />
+                        <p:inputText id="valoNumuDet" value="#{maeEntidadController.detalleSeleccionado.valoNumuDet}" title="#{bundle.EditMaeEntidaddetTitle_valoNumuDet}" />
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_valoNumdDet}" for="valoNumdDet" />
+                        <p:inputText id="valoNumdDet" value="#{maeEntidadController.detalleSeleccionado.valoNumdDet}" title="#{bundle.EditMaeEntidaddetTitle_valoNumdDet}" />
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_valoNumtDet}" for="valoNumtDet" />
+                        <p:inputText id="valoNumtDet" value="#{maeEntidadController.detalleSeleccionado.valoNumtDet}" title="#{bundle.EditMaeEntidaddetTitle_valoNumtDet}" />
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_valoDecuDet}" for="valoDecuDet" />
+                        <p:inputText id="valoDecuDet" value="#{maeEntidadController.detalleSeleccionado.valoDecuDet}" title="#{bundle.EditMaeEntidaddetTitle_valoDecuDet}" />
+                        
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_valoDecdDet}" for="valoDecdDet" />
+                        <p:inputText id="valoDecdDet" value="#{maeEntidadController.detalleSeleccionado.valoDecdDet}" title="#{bundle.EditMaeEntidaddetTitle_valoDecdDet}" />
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_valoDectDet}" for="valoDectDet" />
+                        <p:inputText id="valoDectDet" value="#{maeEntidadController.detalleSeleccionado.valoDectDet}" title="#{bundle.EditMaeEntidaddetTitle_valoDectDet}" />
+                        
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_valoFecuDet}" for="valoFecuDet" />
+                        <p:calendar id="valoFecuDet" pattern="dd/MM/yyyy" value="#{maeEntidadController.detalleSeleccionado.valoFecuDet}" title="#{bundle.EditMaeEntidaddetTitle_valoFecuDet}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_valoFecdDet}" for="valoFecdDet" />
+                        <p:calendar id="valoFecdDet" pattern="dd/MM/yyyy" value="#{maeEntidadController.detalleSeleccionado.valoFecdDet}" title="#{bundle.EditMaeEntidaddetTitle_valoFecdDet}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_flagEstaDet}" for="flagEstaDet" />
+                        <p:selectOneMenu id="flagEstaDet" value="#{maeEntidadController.detalleSeleccionado.flagEstaDet}">
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_valoFectDet}" for="valoFectDet" />
+                        <p:calendar id="valoFectDet" pattern="dd/MM/yyyy" value="#{maeEntidadController.detalleSeleccionado.valoFectDet}" title="#{bundle.EditMaeEntidaddetTitle_valoFectDet}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_valoCaduDet}" for="valoCaduDet" />
+                        <p:inputText id="valoCaduDet" value="#{maeEntidadController.detalleSeleccionado.valoCaduDet}" title="#{bundle.EditMaeEntidaddetTitle_valoCaduDet}" />
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_valoCaddDet}" for="valoCaddDet" />
+                        <p:inputText id="valoCaddDet" value="#{maeEntidadController.detalleSeleccionado.valoCaddDet}" title="#{bundle.EditMaeEntidaddetTitle_valoCaddDet}" />
+                        <p:outputLabel value="#{bundle.EditMaeEntidaddetLabel_valoCadtDet}" for="valoCadtDet" />
+                        <p:inputText id="valoCadtDet" value="#{maeEntidadController.detalleSeleccionado.valoCadtDet}" title="#{bundle.EditMaeEntidaddetTitle_valoCadtDet}" />
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maeEntidaddetController.actualiza(maeEntidadController.detalleSeleccionado)}" value="#{bundle.Save}" update="display,:MaeEntidadListForm:dataDetalle,:growl" oncomplete="handleSubmit(args, 'MaeEntidaddetEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MaeEntidaddetEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

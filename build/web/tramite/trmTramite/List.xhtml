@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{tramite.ListTrmTramiteTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TrmTramiteListForm">
+                <p:panel header="#{tramite.ListTrmTramiteTitle}">
+                    <p:dataTable id="datalist" value="#{trmTramiteController.items}" var="item"
+                                 selectionMode="single" selection="#{trmTramiteController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idenExpeTrm}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron registros"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_idenExpeTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idenExpeTrm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_numeGuiaTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeGuiaTrm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_tipoTramTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoTramTrm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_codiOrigTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codiOrigTrm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_codiModaTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codiModaTrm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_codiExpeTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codiExpeTrm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_codiBarrTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codiBarrTrm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_nombTramTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombTramTrm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_numeFolioTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeFolioTrm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_descAsunTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descAsunTrm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_fechIngrTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechIngrTrm}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_numeDiasTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeDiasTrm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_fechVencTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechVencTrm}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_codiPrioTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codiPrioTrm}"/>
+                        </p:column>
+                        <p:column rendered="false">
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_flagPrivTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flagPrivTrm}"/>
+                        </p:column>
+                        <p:column rendered="false">
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_usuaCreaAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuaCreaAud}"/>
+                        </p:column>
+                        <p:column rendered="false">
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_fechCreaAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechCreaAud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column rendered="false">
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_usuaModiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuaModiAud}"/>
+                        </p:column>
+                        <p:column rendered="false">
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_fechModiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechModiAud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column rendered="false">
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_nombEquiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombEquiAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_nombSopeAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombSopeAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_flagEstaTrm}"/>
+                            </f:facet>
+                            <comp:activo value="#{item.flagEstaTrm}" />
+                        </p:column>
+                        <p:column rendered="false">
+                            <f:facet name="header">
+                                <h:outputText value="#{tramite.ListTrmTramiteTitle_docuRefeTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.docuRefeTrm}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{tramite.Create}" actionListener="#{trmTramiteController.prepareCreate}" update=":TrmTramiteCreateForm" oncomplete="PF('TrmTramiteCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{tramite.View}" update=":TrmTramiteViewForm" oncomplete="PF('TrmTramiteViewDialog').show()" disabled="#{empty trmTramiteController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{tramite.Edit}" update=":TrmTramiteEditForm" oncomplete="PF('TrmTramiteEditDialog').show()" disabled="#{empty trmTramiteController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{tramite.Delete}" actionListener="#{trmTramiteController.destroy}" update=":growl,datalist" disabled="#{empty trmTramiteController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

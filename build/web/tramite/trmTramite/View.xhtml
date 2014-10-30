@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrmTramiteViewDlg" widgetVar="TrmTramiteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tramite.ViewTrmTramiteTitle}">
+            <h:form id="TrmTramiteViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{trmTramiteController.selected != null}">
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_idenExpeTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.idenExpeTrm}" title="#{tramite.ViewTrmTramiteTitle_idenExpeTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_numeGuiaTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.numeGuiaTrm}" title="#{tramite.ViewTrmTramiteTitle_numeGuiaTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_tipoTramTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.tipoTramTrm}" title="#{tramite.ViewTrmTramiteTitle_tipoTramTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_codiOrigTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.codiOrigTrm}" title="#{tramite.ViewTrmTramiteTitle_codiOrigTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_codiModaTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.codiModaTrm}" title="#{tramite.ViewTrmTramiteTitle_codiModaTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_codiExpeTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.codiExpeTrm}" title="#{tramite.ViewTrmTramiteTitle_codiExpeTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_codiBarrTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.codiBarrTrm}" title="#{tramite.ViewTrmTramiteTitle_codiBarrTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_nombTramTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.nombTramTrm}" title="#{tramite.ViewTrmTramiteTitle_nombTramTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_numeFolioTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.numeFolioTrm}" title="#{tramite.ViewTrmTramiteTitle_numeFolioTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_descAsunTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.descAsunTrm}" title="#{tramite.ViewTrmTramiteTitle_descAsunTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_fechIngrTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.fechIngrTrm}" title="#{tramite.ViewTrmTramiteTitle_fechIngrTrm}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_numeDiasTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.numeDiasTrm}" title="#{tramite.ViewTrmTramiteTitle_numeDiasTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_fechVencTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.fechVencTrm}" title="#{tramite.ViewTrmTramiteTitle_fechVencTrm}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_codiPrioTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.codiPrioTrm}" title="#{tramite.ViewTrmTramiteTitle_codiPrioTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_flagPrivTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.flagPrivTrm}" title="#{tramite.ViewTrmTramiteTitle_flagPrivTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{trmTramiteController.selected.usuaCreaAud}" title="#{tramite.ViewTrmTramiteTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_fechCreaAud}"/>
+                        <h:outputText value="#{trmTramiteController.selected.fechCreaAud}" title="#{tramite.ViewTrmTramiteTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_usuaModiAud}"/>
+                        <h:outputText value="#{trmTramiteController.selected.usuaModiAud}" title="#{tramite.ViewTrmTramiteTitle_usuaModiAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_fechModiAud}"/>
+                        <h:outputText value="#{trmTramiteController.selected.fechModiAud}" title="#{tramite.ViewTrmTramiteTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_nombEquiAud}"/>
+                        <h:outputText value="#{trmTramiteController.selected.nombEquiAud}" title="#{tramite.ViewTrmTramiteTitle_nombEquiAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_nombSopeAud}"/>
+                        <h:outputText value="#{trmTramiteController.selected.nombSopeAud}" title="#{tramite.ViewTrmTramiteTitle_nombSopeAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_flagEstaTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.flagEstaTrm}" title="#{tramite.ViewTrmTramiteTitle_flagEstaTrm}"/>
+                        <h:outputText value="#{tramite.ViewTrmTramiteLabel_docuRefeTrm}"/>
+                        <h:outputText value="#{trmTramiteController.selected.docuRefeTrm}" title="#{tramite.ViewTrmTramiteTitle_docuRefeTrm}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{tramite.Close}" onclick="TrmTramiteViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

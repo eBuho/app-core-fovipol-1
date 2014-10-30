@@ -5,9 +5,11 @@
  */
 package pe.gob.fovipol.sifo.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import pe.gob.fovipol.sifo.model.maestros.MaeArea;
 
 /**
@@ -28,4 +30,12 @@ public class MaeAreaFacade extends AbstractFacade<MaeArea> {
         super(MaeArea.class);
     }
     
+    public List<MaeArea> findAllActivo() {
+        List<MaeArea> lista = null;
+        String sql = "select d from MaeArea d where d.flagEstaAre<>0";
+
+        Query q = em.createQuery(sql);
+        lista = q.getResultList();
+        return lista;
+    }
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
+
+    <ui:composition>
+
+        <p:dialog id="MaeProductoViewDlg" widgetVar="MaeProductoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMaeProductoTitle}">
+            <h:form id="MaeProductoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{maeProductoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_idenProdPrd}"/>
+                        <h:outputText value="#{maeProductoController.selected.idenProdPrd}" title="#{bundle.ViewMaeProductoTitle_idenProdPrd}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_codiLinePrd}"/>
+                        <comp:entidadDetalle value="#{maeProductoController.selected.codiLinePrd}" entidad="CODILINEPRD"/>                        
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_nombProdPrd}"/>
+                        <h:outputText value="#{maeProductoController.selected.nombProdPrd}" title="#{bundle.ViewMaeProductoTitle_nombProdPrd}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_cantVecePrd}"/>
+                        <h:outputText value="#{maeProductoController.selected.cantVecePrd}" title="#{bundle.ViewMaeProductoTitle_cantVecePrd}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_maxiPeriPrd}"/>
+                        <h:outputText value="#{maeProductoController.selected.maxiPeriPrd}" title="#{bundle.ViewMaeProductoTitle_maxiPeriPrd}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_fechIvigPrd}"/>
+                        <h:outputText value="#{maeProductoController.selected.fechIvigPrd}" title="#{bundle.ViewMaeProductoTitle_fechIvigPrd}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_fechFvigPrd}"/>
+                        <h:outputText value="#{maeProductoController.selected.fechFvigPrd}" title="#{bundle.ViewMaeProductoTitle_fechFvigPrd}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_tasaIntePrd}"/>
+                        <h:outputText value="#{maeProductoController.selected.tasaIntePrd}" title="#{bundle.ViewMaeProductoTitle_tasaIntePrd}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_tasaGadmPrd}"/>
+                        <h:outputText value="#{maeProductoController.selected.tasaGadmPrd}" title="#{bundle.ViewMaeProductoTitle_tasaGadmPrd}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_montDeudPrd}"/>
+                        <h:outputText value="#{maeProductoController.selected.montDeudPrd}" title="#{bundle.ViewMaeProductoTitle_montDeudPrd}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_autoCdobPrd}"/>
+                        <h:outputText value="#{maeProductoController.selected.autoCdobPrd}" title="#{bundle.ViewMaeProductoTitle_autoCdobPrd}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_descRequPrd}"/>
+                        <h:outputText value="#{maeProductoController.selected.descRequPrd}" title="#{bundle.ViewMaeProductoTitle_descRequPrd}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_formCalcPrd}"/>
+                        <h:outputText value="#{maeProductoController.selected.formCalcPrd}" title="#{bundle.ViewMaeProductoTitle_formCalcPrd}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{maeProductoController.selected.usuaCreaAud}" title="#{bundle.ViewMaeProductoTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_fechCreaAud}"/>
+                        <h:outputText value="#{maeProductoController.selected.fechCreaAud}" title="#{bundle.ViewMaeProductoTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_usuaModiAud}"/>
+                        <h:outputText value="#{maeProductoController.selected.usuaModiAud}" title="#{bundle.ViewMaeProductoTitle_usuaModiAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_fechModAud}"/>
+                        <h:outputText value="#{maeProductoController.selected.fechModAud}" title="#{bundle.ViewMaeProductoTitle_fechModAud}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_nombEquiAud}"/>
+                        <h:outputText value="#{maeProductoController.selected.nombEquiAud}" title="#{bundle.ViewMaeProductoTitle_nombEquiAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_nombSopeAud}"/>
+                        <h:outputText value="#{maeProductoController.selected.nombSopeAud}" title="#{bundle.ViewMaeProductoTitle_nombSopeAud}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_flagEstaPrd}"/>
+                        <comp:activo value="#{maeProductoController.selected.flagEstaPrd}"/>
+                        <h:outputText value="#{bundle.ViewMaeProductoLabel_idenProcPrc}"/>
+                        <h:outputText value="#{maeProductoController.selected.idenProcPrc.nombProcPrc}" title="#{bundle.ViewMaeProductoTitle_idenProcPrc}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="MaeProductoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

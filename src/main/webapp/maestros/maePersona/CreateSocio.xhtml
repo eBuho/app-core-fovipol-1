@@ -57,8 +57,8 @@
                         <p:calendar id="fechReinSoc" pattern="dd/MM/yyyy" value="#{maePersonaController.selectedSocio.fechReinSoc}" title="#{bundle.EditMaeSocioTitle_fechReinSoc}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateMaeSocioLabel_flagRenuSoc}" for="flagRenuSoc" />
                         <p:selectOneMenu id="flagRenuSoc" value="#{maePersonaController.selectedSocio.flagRenuSoc}">
-                            <f:selectItem itemLabel="Sí" itemValue="S"/>
-                            <f:selectItem itemLabel="No" itemValue="N"/>
+                            <f:selectItem itemLabel="Sí" itemValue="1"/>
+                            <f:selectItem itemLabel="No" itemValue="0"/>
                         </p:selectOneMenu>                        
                         <p:outputLabel value="#{bundle.CreateMaeSocioLabel_fechRenuSoc}" for="fechRenuSoc" />
                         <p:calendar id="fechRenuSoc" pattern="dd/MM/yyyy" value="#{maePersonaController.selectedSocio.fechRenuSoc}" title="#{bundle.EditMaeSocioTitle_fechRenuSoc}"  showOn="button"/>

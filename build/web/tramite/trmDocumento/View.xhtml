@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrmDocumentoViewDlg" widgetVar="TrmDocumentoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tramite.ViewTrmDocumentoTitle}">
+            <h:form id="TrmDocumentoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trmDocumentoController.selected != null}">
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_trmDocumentoPK_secuDocuDoc}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.trmDocumentoPK.secuDocuDoc}" title="#{tramite.ViewTrmDocumentoTitle_trmDocumentoPK_secuDocuDoc}"/>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_fechVigeDoc}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.fechVigeDoc}" title="#{tramite.ViewTrmDocumentoTitle_fechVigeDoc}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_fechEmisDoc}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.fechEmisDoc}" title="#{tramite.ViewTrmDocumentoTitle_fechEmisDoc}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_numeFoliDoc}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.numeFoliDoc}" title="#{tramite.ViewTrmDocumentoTitle_numeFoliDoc}"/>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_descObseDoc}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.descObseDoc}" title="#{tramite.ViewTrmDocumentoTitle_descObseDoc}"/>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_nombRutaDoc}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.nombRutaDoc}" title="#{tramite.ViewTrmDocumentoTitle_nombRutaDoc}"/>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_flagFisiDoc}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.flagFisiDoc}" title="#{tramite.ViewTrmDocumentoTitle_flagFisiDoc}"/>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_flagPertDoc}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.flagPertDoc}" title="#{tramite.ViewTrmDocumentoTitle_flagPertDoc}"/>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_descNombDoc}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.descNombDoc}" title="#{tramite.ViewTrmDocumentoTitle_descNombDoc}"/>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_usuaRegiAud}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.usuaRegiAud}" title="#{tramite.ViewTrmDocumentoTitle_usuaRegiAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_fechRegiAud}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.fechRegiAud}" title="#{tramite.ViewTrmDocumentoTitle_fechRegiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_usuaModiAud}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.usuaModiAud}" title="#{tramite.ViewTrmDocumentoTitle_usuaModiAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_fechModiAud}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.fechModiAud}" title="#{tramite.ViewTrmDocumentoTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_nombEquiAud}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.nombEquiAud}" title="#{tramite.ViewTrmDocumentoTitle_nombEquiAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_nombSopeAud}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.nombSopeAud}" title="#{tramite.ViewTrmDocumentoTitle_nombSopeAud}"/>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_flagEstaDoc}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.flagEstaDoc}" title="#{tramite.ViewTrmDocumentoTitle_flagEstaDoc}"/>
+                        <h:outputText value="#{tramite.ViewTrmDocumentoLabel_trmTramite}"/>
+                        <h:outputText value="#{trmDocumentoController.selected.trmTramite}" title="#{tramite.ViewTrmDocumentoTitle_trmTramite}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{tramite.Close}" onclick="TrmDocumentoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
