@@ -15,14 +15,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import pe.gob.fovipol.sifo.controller.util.Cuota;
-import pe.gob.fovipol.sifo.controller.util.JsfUtil;
 import pe.gob.fovipol.sifo.dao.CrdSimulacionFacade;
 import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
+import pe.gob.fovipol.sifo.dao.MaeSeguroRangoFacade;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
+import pe.gob.fovipol.sifo.model.maestros.MaeSeguroRango;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
 import pe.gob.fovipol.sifo.model.simulacion.CrdSimulacion;
 
@@ -66,6 +67,8 @@ public class SimulacionController implements Serializable {
     private MaeSeguroFacade ejbSeguroFacade;
     @EJB
     private CrdSimulacionFacade ejbSimulacionFacade;
+    @EJB
+    private MaeSeguroRangoFacade ejbSeguroRangoFacade;
     @PostConstruct
     public void init() {
         simulacion = new CrdSimulacion();
@@ -85,16 +88,21 @@ public class SimulacionController implements Serializable {
     }
 
     public void calcularEdad() {
+        edad=calcularEdad(socio.getMaePersona().getFechNaciPer(),new Date());
+    }
+    public int calcularEdad(Date a,Date b){
         Calendar dob = Calendar.getInstance();
-        dob.setTime(nacimiento);
+        dob.setTime(a);
         Calendar today = Calendar.getInstance();
-        edad = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        today.setTime(b);
+        int edadC = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
         if (today.get(Calendar.MONTH) < dob.get(Calendar.MONTH)) {
-            edad--;
+            edadC--;
         } else if (today.get(Calendar.MONTH) == dob.get(Calendar.MONTH)
                 && today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)) {
-            edad--;
+            edadC--;
         }
+        return edadC;
     }
 
     public void agregarPoliza() {
@@ -118,7 +126,11 @@ public class SimulacionController implements Serializable {
             valor1 = valor1.add(simulacion.getDsctOficSim().negate());
             valor1 = valor1.add(simulacion.getDsctPersSim().negate()).add(simulacion.getIngrCombSim());
             simulacion.setCapaMcuoSim(valor1);
-            valor2 = totalAporte.multiply(new BigDecimal(producto.getCantVecePrd())).add(simulacion.getDeudOtraSim().negate());
+            BigDecimal desc;
+            valor2 = totalAporte.multiply(new BigDecimal(producto.getCantVecePrd()));
+            if(simulacion.getDeudOtraSim().compareTo(new BigDecimal(10000))==1){
+                valor2=valor2.add(new BigDecimal(10000)).add(simulacion.getDeudOtraSim().negate());
+            }            
             simulacion.setImpoMaxpSim(valor2);
         } else {
             //JsfUtil.addErrorMessage("Seleccione un Producto");
@@ -161,73 +173,121 @@ public class SimulacionController implements Serializable {
     }
 
     public void simular() {
-        if (monto.compareTo(simulacion.getImpoMaxpSim()) == 1) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"El Monto es superior al Máximo Préstamo",""));
-            totalAmortizacion = BigDecimal.ZERO;
-            totalAporte = BigDecimal.ZERO;
-            totalCuota = BigDecimal.ZERO;
-            totalInteres = BigDecimal.ZERO;
-            cuotasSimulacion=new ArrayList<>();
-        } else {
-            calcularDegravamen();
-            simulacion.setTasaTeaSim(producto.getTasaIntePrd());
-            if(cuota!=null){
-                if(simulacion.getPlazPresSim()!=null){
-                    cuotaPagar=cuota;
-                    monto = calcularMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue());
-                    if(monto.compareTo(simulacion.getImpoMaxpSim()) == 1){
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"La monto de préstamo es superior al Máximo préstamo posible",""));            
-                        monto = simulacion.getImpoMaxpSim();
+        if(seguros!=null && !seguros.isEmpty())
+            seguro=seguros.get(0);
+        if(monto==null){
+            
+        }
+        else {
+            if (monto.compareTo(simulacion.getImpoMaxpSim()) == 1) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El Monto es superior al Máximo Préstamo", ""));
+                totalAmortizacion = BigDecimal.ZERO;
+                totalAporte = BigDecimal.ZERO;
+                totalCuota = BigDecimal.ZERO;
+                totalInteres = BigDecimal.ZERO;
+                cuotasSimulacion = new ArrayList<>();
+            } else {
+                calcularDegravamen();
+                simulacion.setTasaTeaSim(producto.getTasaIntePrd());
+                if (cuota != null) {
+                    if (simulacion.getPlazPresSim() != null) {
+                        cuotaPagar = cuota;
+                        monto = calcularMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue());
+                        if (monto.compareTo(simulacion.getImpoMaxpSim()) == 1) {
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La monto de préstamo es superior al Máximo préstamo posible", ""));
+                            monto = simulacion.getImpoMaxpSim();
+                            cuotaPagar = calcularMontoMensual(monto, simulacion.getPlazPresSim().intValue());
+                        }
+                    }
+                } else {
+                    if (monto != null) {
                         cuotaPagar = calcularMontoMensual(monto, simulacion.getPlazPresSim().intValue());
+                        if (cuotaPagar.compareTo(simulacion.getCapaMcuoSim()) == 1) {
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La Cuota es superior a la Máxima cuota posible", ""));
+                            cuotaPagar = simulacion.getCapaMcuoSim();
+                            monto = calcularMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue());
+                        }
                     }
                 }
-            }
-            else{
-                if(monto!=null){
-                    cuotaPagar = calcularMontoMensual(monto, simulacion.getPlazPresSim().intValue());
-                    if (cuotaPagar.compareTo(simulacion.getCapaMcuoSim()) == 1) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"La Cuota es superior a la Máxima cuota posible",""));            
-                        cuotaPagar = simulacion.getCapaMcuoSim();
-                        monto = calcularMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue());
+                List<MaeSeguroRango> rangos=ejbSeguroRangoFacade.findBySeguro(seguro.getIdenSeguSeg());
+                Calendar today = Calendar.getInstance();
+                today.set(Calendar.DAY_OF_MONTH, ciclica);
+                int mes;
+                cuotasSimulacion = new ArrayList<>();
+                BigDecimal tasa = simulacion.getTasaTeaSim().divide(new BigDecimal(100));
+                BigDecimal montoaux = monto;
+                totalAmortizacion = BigDecimal.ZERO;
+                totalAporte = BigDecimal.ZERO;
+                totalCuota = BigDecimal.ZERO;
+                totalInteres = BigDecimal.ZERO;
+                int rangoUsado=0,rangoMaximo=rangos.size()-1;
+                for (int i = 0; i < simulacion.getPlazPresSim().intValue(); i++) {
+                    Cuota c = new Cuota();
+                    mes = today.get(Calendar.MONTH);
+                    today.set(Calendar.MONTH, mes + 1);
+                    c.setSaldoInicial(montoaux);
+                    c.setCuota(cuotaPagar);
+                    c.setInteres(montoaux.multiply(tasa).divide(BigDecimal.ONE, 2, RoundingMode.UP));
+                    c.setAmortizado(c.getCuota().add(c.getInteres().negate()));
+                    montoaux = montoaux.add(c.getAmortizado().negate());
+                    c.setNumero(i + 1);
+                    c.setFechaPago(today.getTime());
+                    totalAmortizacion = totalAmortizacion.add(c.getAmortizado());
+                    totalCuota = totalCuota.add(c.getCuota());
+                    totalInteres = totalInteres.add(c.getInteres());
+                    c.setEdad(calcularEdad(socio.getMaePersona().getFechNaciPer(), c.getFechaPago()));
+                    if(rangoUsado>rangoMaximo){
+                        c.setDegravamen(BigDecimal.ONE);
+                        c.setCapital(BigDecimal.ONE);
                     }
-                }                 
+                    else{
+                        if(estaIncluido(c.getEdad(),new BigDecimal(rangos.get(rangoUsado).getRagnEdaiSgr()),new BigDecimal(rangos.get(rangoUsado).getRangEdafSgr()))){                        
+                            BigDecimal auxiliarDegravamen=c.getSaldoInicial().multiply(rangos.get(rangoUsado).getTasaSeguSgr());
+                            auxiliarDegravamen=auxiliarDegravamen.divide(new BigDecimal(1000), 2, RoundingMode.UP);
+                            c.setCapital(rangos.get(rangoUsado).getTasaSeguSgr());
+                            c.setDegravamen(auxiliarDegravamen);
+                        }
+                        else{
+                            rangoUsado++;
+                            if(rangoUsado>rangoMaximo){
+                                c.setDegravamen(BigDecimal.ONE);
+                                c.setCapital(BigDecimal.ONE);
+                            }
+                            else{
+                                if(estaIncluido(c.getEdad(),new BigDecimal(rangos.get(rangoUsado).getRagnEdaiSgr()),new BigDecimal(rangos.get(rangoUsado).getRangEdafSgr()))){
+                                    BigDecimal auxiliarDegravamen=c.getSaldoInicial().multiply(rangos.get(rangoUsado).getTasaSeguSgr());
+                                    auxiliarDegravamen=auxiliarDegravamen.divide(new BigDecimal(1000), 2, RoundingMode.UP);
+                                    c.setCapital(rangos.get(rangoUsado).getTasaSeguSgr());
+                                    c.setDegravamen(auxiliarDegravamen);
+                                }
+                                else{
+                                    rangoUsado=rangoMaximo+1;
+                                    c.setDegravamen(BigDecimal.ONE);
+                                    c.setCapital(BigDecimal.ONE);
+                                }
+                            }
+                        }
+                    }
+                    cuotasSimulacion.add(c);
+                }
+                simulacion.setIdenSimuSim(ejbSimulacionFacade.obtenerCorrelativo());
+                simulacion.setFechCreaAud(new Date());
+                simulacion.setFlagEstaSim(new Short("1"));
+                simulacion.setIdenPersPer(socio);
+                simulacion.setIdenProdPrd(producto);
+                simulacion.setTasaGadmSim(producto.getTasaGadmPrd());
+                ejbSimulacionFacade.create(simulacion);
             }
-            Calendar today = Calendar.getInstance();
-            today.set(Calendar.DAY_OF_MONTH, ciclica);
-            int mes;
-            cuotasSimulacion = new ArrayList<>();
-            BigDecimal tasa = simulacion.getTasaTeaSim().divide(new BigDecimal(100));
-            BigDecimal montoaux = monto;
-            totalAmortizacion = BigDecimal.ZERO;
-            totalAporte = BigDecimal.ZERO;
-            totalCuota = BigDecimal.ZERO;
-            totalInteres = BigDecimal.ZERO;
-            for (int i = 0; i < simulacion.getPlazPresSim().intValue(); i++) {
-                Cuota c = new Cuota();
-                mes = today.get(Calendar.MONTH);
-                today.set(Calendar.MONTH, mes + 1);
-                c.setSaldoInicial(montoaux);
-                c.setCuota(cuotaPagar);
-                c.setInteres(montoaux.multiply(tasa).divide(BigDecimal.ONE, 2, RoundingMode.UP));
-                c.setAmortizado(c.getCuota().add(c.getInteres().negate()));
-                montoaux = montoaux.add(c.getAmortizado().negate());
-                c.setNumero(i + 1);
-                c.setFechaPago(today.getTime());
-                totalAmortizacion = totalAmortizacion.add(c.getAmortizado());
-                totalCuota = totalCuota.add(c.getCuota());
-                totalInteres = totalInteres.add(c.getInteres());
-                cuotasSimulacion.add(c);
-            }
-            simulacion.setIdenSimuSim(ejbSimulacionFacade.obtenerCorrelativo());
-            simulacion.setFechCreaAud(new Date());
-            simulacion.setFlagEstaSim(new Short("1"));
-            simulacion.setIdenPersPer(socio);
-            simulacion.setIdenProdPrd(producto);
-            simulacion.setTasaGadmSim(producto.getTasaGadmPrd());
-            ejbSimulacionFacade.create(simulacion);
         }
     }
-
+    
+    public boolean estaIncluido(int a,BigDecimal b,BigDecimal c){
+        BigDecimal auxBigDecimal=new BigDecimal(a);
+        if(auxBigDecimal.compareTo(b)!=-1 && auxBigDecimal.compareTo(c)!=1)
+            return true;
+        else
+            return false;
+    }
     /**
      * @return the socio
      */
@@ -239,9 +299,11 @@ public class SimulacionController implements Serializable {
      * @param socio the socio to set
      */
     public void setSocio(MaeSocio socio) {
+        this.socio = socio;
         if (socio != null) {
+            calcularEdad();
             detalle = ejbEntidaddetFacade.findIdenEntiDet(socio.getEntiPagoSoc(), "ENTIPAGOSOC");
-            porcDescuento = detalle.getValoDecuDet();
+            porcDescuento = detalle.getValoDecuDet();            
             if (detalle.getValoDecuDet().compareTo(new BigDecimal(30)) == 0) {
                 tipoSocio = 2;
             } else {
@@ -249,7 +311,8 @@ public class SimulacionController implements Serializable {
                 simulacion.setIngrCombSim(BigDecimal.ZERO);
             }
         }
-        this.socio = socio;
+        
+        
     }
 
     /**
