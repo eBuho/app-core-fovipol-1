@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.ejb.EJB;
 
 import javax.faces.component.FacesComponent;
@@ -23,7 +24,6 @@ import pe.gob.fovipol.sifo.model.maestros.MaeUbigeo;
 public class InputConsultaIntegralSocio extends UIInput implements NamingContainer {
 
     // Fields -------------------------------------------------------------------------------------
-
     private UIInput criterioBusqueda;
     private UIInput valorBusqueda;
     private UIInput tablaSocio;
@@ -32,8 +32,8 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
     // Actions ------------------------------------------------------------------------------------
 
     /**
-     * Returns the component family of {@link UINamingContainer}.
-     * (that's just required by composite component)
+     * Returns the component family of {@link UINamingContainer}. (that's just
+     * required by composite component)
      */
     @Override
     public String getFamily() {
@@ -41,10 +41,11 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
     }
 
     /**
-     * Set the selected and available values of the day, month and year fields based on the model.
+     * Set the selected and available values of the day, month and year fields
+     * based on the model.
      */
     @Override
-    public void encodeBegin(FacesContext context) throws IOException {   
+    public void encodeBegin(FacesContext context) throws IOException {
         setListaSocios(ejbSocioFacade.findAll());
         super.encodeBegin(context);
     }
@@ -54,8 +55,8 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
      */
     @Override
     public Object getSubmittedValue() {
-        MaeUbigeo res=null;
-        
+        MaeUbigeo res = null;
+
         return res;
     }
 
@@ -68,28 +69,52 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
     }
 
     /**
-     * Update the available days based on the selected month and year, if necessary.
+     * Update the available days based on the selected month and year, if
+     * necessary.
      */
     public void buscarSocio() {
-        String valorBuscar=valorBusqueda.getValue().toString();
-        String criterioBuscar=criterioBusqueda.getValue().toString();
-        if(valorBuscar==null || valorBuscar.trim().equals("")){
+        String valorBuscar = valorBusqueda.getValue().toString();
+        String criterioBuscar = criterioBusqueda.getValue().toString();
+        if (valorBuscar == null || valorBuscar.trim().equals("")) {
             JsfUtil.addErrorMessage("Debe ingresar un valor a buscar");
-        }
-        else{
-            if(criterioBuscar.equals("1"))
+        } else {
+            if (criterioBuscar.equals("1")) {
                 setSocios(ejbSocioFacade.findByDNI(valorBuscar));
-            if(criterioBuscar.equals("2"))
+            }
+            if (criterioBuscar.equals("2")) {
                 setSocios(ejbSocioFacade.findByCIP(valorBuscar));
-            if(criterioBuscar.equals("0"))
+            }
+            if (criterioBuscar.equals("0")) {
                 setSocios(ejbSocioFacade.findByName(valorBuscar));
-        }            
+            }
+        }
     }
-    
-    // Helpers ------------------------------------------------------------------------------------
 
+    //filtroPorNombre
+    public boolean filtroPorNombre(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+
+        if (value == null) {
+            return false;
+        }
+
+        String nombre = value.toString().toUpperCase();
+        filterText = filterText.toUpperCase();
+
+        if (nombre.contains(filterText)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Helpers ------------------------------------------------------------------------------------
     /**
-     * Return specified attribute value or otherwise the specified default if it's null.
+     * Return specified attribute value or otherwise the specified default if
+     * it's null.
      */
     @SuppressWarnings("unchecked")
     private <T> T getAttributeValue(String key, T defaultValue) {
@@ -97,11 +122,7 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
         return (value != null) ? value : defaultValue;
     }
 
-    
-
     // Getters/setters ----------------------------------------------------------------------------
-
-    
     public List<MaeSocio> getSocios() {
         return (List<MaeSocio>) getStateHelper().get("socios");
     }
@@ -117,7 +138,7 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
     public void setListaSocios(List<MaeSocio> socios) {
         getStateHelper().put("listaSocios", socios);
     }
-    
+
     /**
      * @return the criterioBusqueda
      */
