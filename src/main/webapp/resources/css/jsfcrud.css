@@ -26,3 +26,11 @@
 .boton{
     margin-top: 0px !important;
 }
+.margen{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.inputLargo{
+    width: 100% !important;
+    resize: none;
+}

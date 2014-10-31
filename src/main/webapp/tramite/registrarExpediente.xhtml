@@ -32,23 +32,199 @@
                                 <p:inputText value="#{registrarExpedienteController.cip}"/>
                             </div>
                             <div class="col-lg-2">
-                                <p:commandButton styleClass="boton" value="Buscar" update="informacion" actionListener="#{registrarExpedienteController.buscarSocio()}"/>
+                                <p:commandButton styleClass="boton" value="Buscar Socio" update="informacion" actionListener="#{registrarExpedienteController.buscarSocio()}"/>
                             </div>
                         </div>
                         <p:spacer width="10"/>
-                        <div class="col-lg-12">
+                        <div class="col-lg-12 margen">
                             <div class="col-lg-1">
                                 <h:outputText value="Nombres:"/>
                             </div>
-                            <div class="col-lg-1">
+                            <div class="col-lg-2">
                                 <h:outputText value="#{registrarExpedienteController.socio.maePersona.nombPersPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                             </div>
                             <div class="col-lg-1">
                                 <h:outputText value="Apellidos:"/>
                             </div>
-                            <div class="col-lg-1">
+                            <div class="col-lg-2">
                                 <h:outputText value="#{registrarExpedienteController.socio.maePersona.apelPatePer}" rendered="#{registrarExpedienteController.socio!=null}"/><h:outputText value=" "/><h:outputText value="#{registrarExpedienteController.socio.maePersona.apelMatePer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                             </div>
+                            <div class="col-lg-1">
+                                <h:outputText value="Est. Civil:"/>
+                            </div>
+                            <div class="col-lg-2">
+                                <comp:entidadDetalle entidad="ESTACIVIPER" value="#{registrarExpedienteController.socio.maePersona.estaCiviPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
+                            </div>
+                            <div class="col-lg-1">
+                                <h:outputText value="CIP:"/>
+                            </div>
+                            <div class="col-lg-2">
+                                <h:outputText value="#{registrarExpedienteController.socio.codiCcipSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 margen">
+                            <div class="col-lg-1">
+                                <h:outputText value="Sexo:"/>
+                            </div>
+                            <div class="col-lg-2">
+                                <comp:entidadDetalle entidad="SEXOPERSPER" value="#{registrarExpedienteController.socio.maePersona.sexoPersPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
+                            </div>
+                            <div class="col-lg-1">
+                                <h:outputText value="DNI:"/>
+                            </div>
+                            <div class="col-lg-2">
+                                <h:outputText value="#{registrarExpedienteController.socio.maePersona.numeIdenPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
+                            </div>
+                            <div class="col-lg-1">
+                                <h:outputText value="CODOFIN:"/>
+                            </div>
+                            <div class="col-lg-2">
+                                <h:outputText value="#{registrarExpedienteController.socio.codiCdfiSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
+                            </div>
+                            <div class="col-lg-1">
+                                <h:outputText value="Estado:"/>
+                            </div>
+                            <div class="col-lg-2">
+                                <comp:activo value="#{registrarExpedienteController.socio.flagEstaSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 margen">
+                            <div class="col-lg-1">
+                                <h:outputText value="Grado:"/>
+                            </div>
+                            <div class="col-lg-2">
+                                <comp:entidadDetalle entidad="TIPOPOLISOC" value="#{registrarExpedienteController.socio.tipoPoliSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
+                            </div>
+                            <div class="col-lg-1">
+                                <h:outputText value="Nacimiento:"/>
+                            </div>
+                            <div class="col-lg-2">
+                                <h:outputText value="#{registrarExpedienteController.socio.maePersona.fechNaciPer}" rendered="#{registrarExpedienteController.socio!=null}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </div>
+                        </div>
+                    </p:fieldset>
+                    <p:spacer width="20"/>
+                    <p:fieldset legend="Documento" styleClass="fieldSet" id="documento">
+                        <div class="col-lg-12 margen">
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="Tipo Trámite:"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <p:selectOneMenu value="#{registrarExpedienteController.tramite.tipoTramTrm}" styleClass="inputLargo">
+                                        <f:selectItems value="#{registrarExpedienteController.tiposTramite}"
+                                                       itemValue="#{tipo.secuEntiDet}" var="tipo" itemLabel="#{tipo.valoCaduDet}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="Agencia:"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <h:outputText value="010101 SEDE CENTRAL"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="N° Guía:"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <p:inputText value="#{registrarExpedienteController.tramite.numeGuiaTrm}" styleClass="inputLargo"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 margen">
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="Modalidad Trámite:"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <p:selectOneMenu value="#{registrarExpedienteController.tramite.codiModaTrm}" styleClass="inputLargo">
+                                        <f:selectItems value="#{registrarExpedienteController.modalidadesTramite}"
+                                                       itemValue="#{modalidad.secuEntiDet}" var="modalidad" itemLabel="#{modalidad.valoCaduDet}"/>
+                                    </p:selectOneMenu>                                
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="Nombre del Tramitante:"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <p:inputText value="#{registrarExpedienteController.tramite.nombTramTrm}" styleClass="inputLargo"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="N° Iden. Documento"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <p:calendar value="#{registrarExpedienteController.tramite.codiExpeTrm}" lang="es" locale="es" styleClass="inputLargo"/>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 margen">
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="Fecha de Registro"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <p:calendar value="#{registrarExpedienteController.tramite.fechIngrTrm}" styleClass="inputLargo"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="Fecha de Vencimiento"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <p:calendar value="#{registrarExpedienteController.tramite.fechVencTrm}" styleClass="inputLargo"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="N° Folios"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <p:inputText value="#{registrarExpedienteController.tramite.numeFolioTrm}" styleClass="inputLargo"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 margen">
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="Documento Referencia"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <p:inputText value="#{registrarExpedienteController.tramite.docuRefeTrm}" styleClass="inputLargo"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="Modalidad Trámite:"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <p:selectOneMenu value="#{registrarExpedienteController.tramite.codiPrioTrm}" styleClass="inputLargo">
+                                        <f:selectItems value="#{registrarExpedienteController.tiposPrioridad}"
+                                                       itemValue="#{prioridad.secuEntiDet}" var="prioridad" itemLabel="#{prioridad.valoCaduDet}"/>
+                                    </p:selectOneMenu>                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 margen">
+                            <div class="col-lg-2">
+                                <div class="col-lg-8">
+                                    <h:outputText value="Descripción:"/>  
+                                </div>                                                              
+                            </div>
+                            <div class="col-lg-10">
+                                <p:inputTextarea rows="4" autoResize="false" value="#{registrarExpedienteController.tramite.descAsunTrm}" styleClass="inputLargo"/>                                                                 
+                            </div>
+                        </div>
+                        <div class="col-lg-12 margen">
+                            Confidencial : 
+                            
                         </div>
                     </p:fieldset>
                 </div> 

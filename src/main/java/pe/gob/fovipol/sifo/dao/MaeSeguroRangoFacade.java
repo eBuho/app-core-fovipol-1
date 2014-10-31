@@ -40,4 +40,17 @@ public class MaeSeguroRangoFacade extends AbstractFacade<MaeSeguroRango> {
         lista = q.getResultList();
         return lista;
     }
+    public boolean findByEdad(BigDecimal idenSeguSeg,int edad) {
+        String sql = "select count(d) from MaeSeguroRango d where d.flagEstaSgr<>0 and "
+                + "d.maeSeguroRangoPK.idenSeguSeg=:idenSeguSeg and "
+                + "d.ragnEdaiSgr<=:edad and d.rangEdafSgr>=:edad";
+        Query q = em.createQuery(sql);
+        q.setParameter("idenSeguSeg", idenSeguSeg);
+        q.setParameter("edad", edad);
+        long cantidad = (long) q.getSingleResult();
+        if(cantidad>0)
+            return true;
+        else
+            return false;
+    }
 }

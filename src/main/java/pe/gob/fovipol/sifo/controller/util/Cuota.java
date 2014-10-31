@@ -22,7 +22,10 @@ public class Cuota {
     private BigDecimal degravamen;
     private int edad;
     private BigDecimal amortizado;
-
+    private BigDecimal totalAmortizacion;
+    private BigDecimal totalInteres;
+    private BigDecimal totalSeguro;
+    private BigDecimal totalCuota;
     /**
      * @return the numero
      */
@@ -147,5 +150,61 @@ public class Cuota {
      */
     public void setEdad(int edad) {
         this.edad = edad;
+    }
+
+    /**
+     * @return the totalAmortizacion
+     */
+    public BigDecimal getTotalAmortizacion() {
+        return totalAmortizacion;
+    }
+
+    /**
+     * @param totalAmortizacion the totalAmortizacion to set
+     */
+    public void setTotalAmortizacion(BigDecimal totalAmortizacion) {
+        this.totalAmortizacion = totalAmortizacion;
+    }
+
+    /**
+     * @return the totalInteres
+     */
+    public BigDecimal getTotalInteres() {
+        return totalInteres;
+    }
+
+    /**
+     * @param totalInteres the totalInteres to set
+     */
+    public void setTotalInteres(BigDecimal totalInteres) {
+        this.totalInteres = totalInteres;
+    }
+
+    /**
+     * @return the totalSeguro
+     */
+    public BigDecimal getTotalSeguro() {
+        return totalSeguro;
+    }
+
+    /**
+     * @param totalSeguro the totalSeguro to set
+     */
+    public void setTotalSeguro(BigDecimal totalSeguro) {
+        this.totalSeguro = totalSeguro;
+    }
+
+    /**
+     * @return the totalCuota
+     */
+    public BigDecimal getTotalCuota() {
+        return totalCuota;
+    }
+
+    /**
+     * @param totalCuota the totalCuota to set
+     */
+    public void setTotalCuota(BigDecimal totalCuota) {
+        this.totalCuota = totalCuota;
     }
 }
