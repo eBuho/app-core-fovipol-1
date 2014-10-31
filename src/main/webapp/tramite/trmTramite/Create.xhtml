@@ -75,7 +75,7 @@
                                            itemValue="#{docuRefeTrmItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{trmTramiteController.create}" value="#{tramite.Save}" update="display,:TrmTramiteListForm:datalist,:growl" oncomplete="handleSubmit(args,'TrmTramiteCreateDialog');"/>
+                    <p:commandButton actionListener="#{trmTramiteController.create}" value="#{tramite.Save}" update="display,:TrmTramiteListForm:tabVista:datalist,:growl" oncomplete="handleSubmit(args,'TrmTramiteCreateDialog');"/>
                     <p:commandButton value="#{tramite.Cancel}" onclick="TrmTramiteCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

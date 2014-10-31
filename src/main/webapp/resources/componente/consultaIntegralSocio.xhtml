@@ -62,7 +62,8 @@
                     <p:ajax event="rowSelect" update="#{cc.attrs.actualizar}"/>
                     <p:ajax event="rowUnselect" update="#{cc.attrs.actualizar}"/>
                     <p:column filterBy="#{socio.maePersona.nombCompPer}"
-                              filterMatchMode="contains"
+                              filterMatchMode="contains" 
+                              filterFunction="#{cc.filtroPorNombre}"
                               sortBy="#{socio.maePersona.nombCompPer}">
                         <f:facet name="header">
                             <h:outputText value="Nombres y Apellidos"/>
