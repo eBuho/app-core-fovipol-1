@@ -26,6 +26,7 @@ public class RegistrarExpedienteController implements Serializable{
     private List<MaeEntidaddet> tiposTramite;
     private List<MaeEntidaddet> tiposPrioridad;
     private List<MaeEntidaddet> modalidadesTramite;
+    private boolean confidencial;
     @PostConstruct
     public void init(){
         tramite=new TrmTramite();
@@ -125,5 +126,19 @@ public class RegistrarExpedienteController implements Serializable{
      */
     public void setTiposPrioridad(List<MaeEntidaddet> tiposPrioridad) {
         this.tiposPrioridad = tiposPrioridad;
+    }
+
+    /**
+     * @return the confidencial
+     */
+    public boolean isConfidencial() {
+        return confidencial;
+    }
+
+    /**
+     * @param confidencial the confidencial to set
+     */
+    public void setConfidencial(boolean confidencial) {
+        this.confidencial = confidencial;
     }
 }
