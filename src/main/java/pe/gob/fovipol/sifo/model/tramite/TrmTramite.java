@@ -27,6 +27,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import pe.gob.fovipol.sifo.model.maestros.MaePersona;
+import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
+import pe.gob.fovipol.sifo.model.simulacion.CrdSimulacion;
 
 /**
  *
@@ -60,6 +63,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TrmTramite.findByNombSopeAud", query = "SELECT t FROM TrmTramite t WHERE t.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "TrmTramite.findByFlagEstaTrm", query = "SELECT t FROM TrmTramite t WHERE t.flagEstaTrm = :flagEstaTrm")})
 public class TrmTramite implements Serializable {
+    @JoinColumn(name = "CODI_PERS_TRM", referencedColumnName = "IDEN_PERS_PER")
+    @ManyToOne
+    private MaePersona codiPersTrm;
+    @JoinColumn(name = "IDEN_SIMU_SIM", referencedColumnName = "IDEN_SIMU_SIM")
+    @ManyToOne
+    private CrdSimulacion idenSimuSim;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -133,6 +142,9 @@ public class TrmTramite implements Serializable {
     private TrmTramite docuRefeTrm;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trmTramite")
     private List<TrmEstatramHis> trmEstatramHisList;
+    @JoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private MaeProceso maeProceso;
 
     public TrmTramite() {
     }
@@ -384,6 +396,36 @@ public class TrmTramite implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.tramite.TrmTramite[ idenExpeTrm=" + idenExpeTrm + " ]";
+    }
+
+    /**
+     * @return the maeProceso
+     */
+    public MaeProceso getMaeProceso() {
+        return maeProceso;
+    }
+
+    /**
+     * @param maeProceso the maeProceso to set
+     */
+    public void setMaeProceso(MaeProceso maeProceso) {
+        this.maeProceso = maeProceso;
+    }
+
+    public MaePersona getCodiPersTrm() {
+        return codiPersTrm;
+    }
+
+    public void setCodiPersTrm(MaePersona codiPersTrm) {
+        this.codiPersTrm = codiPersTrm;
+    }
+
+    public CrdSimulacion getIdenSimuSim() {
+        return idenSimuSim;
+    }
+
+    public void setIdenSimuSim(CrdSimulacion idenSimuSim) {
+        this.idenSimuSim = idenSimuSim;
     }
     
 }

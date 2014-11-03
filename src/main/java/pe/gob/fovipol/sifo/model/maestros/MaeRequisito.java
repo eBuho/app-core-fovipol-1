@@ -8,6 +8,7 @@ package pe.gob.fovipol.sifo.model.maestros;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -16,12 +17,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.model.tramite.TrmDocumento;
 
 /**
  *
@@ -46,6 +51,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MaeRequisito.findByNombSopeAud", query = "SELECT m FROM MaeRequisito m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeRequisito.findByFlagEstaReq", query = "SELECT m FROM MaeRequisito m WHERE m.flagEstaReq = :flagEstaReq")})
 public class MaeRequisito implements Serializable {
+    @OneToMany(mappedBy = "maeRequisito")
+    private List<TrmDocumento> trmDocumentoList;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected MaeRequisitoPK maeRequisitoPK;
@@ -228,6 +235,16 @@ public class MaeRequisito implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.maestros.MaeRequisito[ maeRequisitoPK=" + maeRequisitoPK + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TrmDocumento> getTrmDocumentoList() {
+        return trmDocumentoList;
+    }
+
+    public void setTrmDocumentoList(List<TrmDocumento> trmDocumentoList) {
+        this.trmDocumentoList = trmDocumentoList;
     }
     
 }

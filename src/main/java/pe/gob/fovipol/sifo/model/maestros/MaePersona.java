@@ -28,6 +28,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
  *
@@ -74,7 +76,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MaePersona.findByFlagEstaPer", query = "SELECT m FROM MaePersona m WHERE m.flagEstaPer = :flagEstaPer")})
 public class MaePersona implements Serializable {
     @Column(name = "TIPO_IDEN_PER")
-    private BigDecimal tipoIdenPer;
+    private BigDecimal tipoIdenPer;    
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
