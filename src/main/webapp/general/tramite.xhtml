@@ -38,6 +38,8 @@
                                     <f:facet name="header">
                                         <h:outputText value="Trámites"></h:outputText>
                                         <p:spacer width="25px"/>
+                                        <p:commandButton id="prueba" icon="ui-inon-document" value="Prueba"
+                                                         action="#{tramiteController.obtenerIP()}" ></p:commandButton>
                                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tramiteController.prepareCreate}" update=":TramiteCreateForm" oncomplete="PF('TramiteCreateDialog').show()"/>
                                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TramiteViewForm" oncomplete="PF('TramiteViewDialog').show()" disabled="#{empty tramiteController.seleccionado}"/>
                                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TramiteEditForm" oncomplete="PF('TramiteEditDialog').show()" disabled="#{empty tramiteController.seleccionado}"/>

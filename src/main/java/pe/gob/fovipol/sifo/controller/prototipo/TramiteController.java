@@ -5,7 +5,6 @@
  */
 package pe.gob.fovipol.sifo.controller.prototipo;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import pe.gob.fovipol.sifo.model.general.TipoTramite;
@@ -22,15 +22,16 @@ import pe.gob.fovipol.sifo.model.general.Tramite;
  *
  * @author ebuho
  */
-@ManagedBean(name="tramiteController")
+@ManagedBean(name = "tramiteController")
 @SessionScoped
 public class TramiteController implements Serializable {
+
     private Tramite seleccionado;
     private List<Tramite> lista;
     private List<Tramite> listaSeleccionados;
     private TipoTramite tipo;
     private String pagina = "";
-    
+
     /**
      * Creates a new instance of TramiteController
      */
@@ -49,14 +50,38 @@ public class TramiteController implements Serializable {
         lista.add(t2);
         lista.add(t3);
     }
-    
+
+    public void obtenerIP() {
+        /*
+         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+         String ipAddress = request.getHeader("X-FORWARDED-FOR");
+         if (ipAddress == null) {
+         ipAddress = request.getRemoteAddr();
+         }
+         System.out.println("ipAddress:" + ipAddress);*/
+        // Get the request-object.  
+        HttpServletRequest request = (HttpServletRequest) (FacesContext.getCurrentInstance().
+                getExternalContext().getRequest());
+
+        // Get the header attributes. Use them to retrieve the actual  
+        // values.  
+        request.getHeaderNames();
+
+        // Get the IP-address of the client.    
+        String ip = request.getRemoteAddr();
+        System.out.println("ip:" + ip);
+        // Get the hostname of the client.  
+        String pc = request.getRemoteHost();
+        System.out.println("pc:" + pc);
+    }
+
     public void onRowSelect(SelectEvent event) {
         Tramite tramite = (Tramite) event.getObject();
-        
-        FacesMessage msg = new FacesMessage("Tramite Seleccionado", 
-                "" + tramite.getId() + " " + tramite.getDescripcion() );
+
+        FacesMessage msg = new FacesMessage("Tramite Seleccionado",
+                "" + tramite.getId() + " " + tramite.getDescripcion());
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        
+
         //int tipo = tramite.getTipo().getId();
         tipo = tramite.getTipo();
         pagina = tipo.getPagina();
@@ -64,8 +89,8 @@ public class TramiteController implements Serializable {
 
     public void onRowUnselect(UnselectEvent event) {
         Tramite tramite = (Tramite) event.getObject();
-        FacesMessage msg = new FacesMessage("Tramite Deseleccionado", 
-                "" + tramite.getId() + " " + tramite.getDescripcion() );
+        FacesMessage msg = new FacesMessage("Tramite Deseleccionado",
+                "" + tramite.getId() + " " + tramite.getDescripcion());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
@@ -138,5 +163,5 @@ public class TramiteController implements Serializable {
     public void setPagina(String pagina) {
         this.pagina = pagina;
     }
-    
+
 }
