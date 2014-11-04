@@ -22,7 +22,7 @@ import javax.faces.convert.FacesConverter;
 
 @ManagedBean(name = "trmMovimientoController")
 @SessionScoped
-public class TrmMovimientoController implements Serializable {
+public class TrmMovimHisController implements Serializable {
 
     @EJB
     private pe.gob.fovipol.sifo.dao.TrmMovimientoFacade ejbFacade;
@@ -31,7 +31,7 @@ public class TrmMovimientoController implements Serializable {
     private TrmMovimiento selected;
     private TrmMovimiento selectedHistorico;
 
-    public TrmMovimientoController() {
+    public TrmMovimHisController() {
     }
 
     public TrmMovimiento getSelected() {
@@ -193,7 +193,7 @@ public class TrmMovimientoController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            TrmMovimientoController controller = (TrmMovimientoController) facesContext.getApplication().getELResolver().
+            TrmMovimHisController controller = (TrmMovimHisController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "trmMovimientoController");
             return controller.getFacade().find(getKey(value));
         }
