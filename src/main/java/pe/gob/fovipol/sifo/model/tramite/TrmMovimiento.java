@@ -20,6 +20,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import pe.gob.fovipol.sifo.model.maestros.MaeArea;
+import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
 
 /**
  *
@@ -50,6 +52,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TrmMovimiento.findByNombSopeAud", query = "SELECT t FROM TrmMovimiento t WHERE t.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "TrmMovimiento.findByFlagSituMvm", query = "SELECT t FROM TrmMovimiento t WHERE t.flagSituMvm = :flagSituMvm")})
 public class TrmMovimiento implements Serializable {
+    @JoinColumn(name = "AREA_ORIG_MVM", referencedColumnName = "IDEN_AREA_ARE")
+    @ManyToOne
+    private MaeArea areaOrigMvm;
+    @JoinColumn(name = "AREA_DEST_MVM", referencedColumnName = "IDEN_AREA_ARE")
+    @ManyToOne
+    private MaeArea areaDestMvm;
+    @JoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC")
+    @ManyToOne
+    private MaeProceso idenProcPrc;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TrmMovimientoPK trmMovimientoPK;
@@ -292,6 +303,30 @@ public class TrmMovimiento implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.tramite.TrmMovimiento[ trmMovimientoPK=" + trmMovimientoPK + " ]";
+    }
+
+    public MaeArea getAreaOrigMvm() {
+        return areaOrigMvm;
+    }
+
+    public void setAreaOrigMvm(MaeArea areaOrigMvm) {
+        this.areaOrigMvm = areaOrigMvm;
+    }
+
+    public MaeArea getAreaDestMvm() {
+        return areaDestMvm;
+    }
+
+    public void setAreaDestMvm(MaeArea areaDestMvm) {
+        this.areaDestMvm = areaDestMvm;
+    }
+
+    public MaeProceso getIdenProcPrc() {
+        return idenProcPrc;
+    }
+
+    public void setIdenProcPrc(MaeProceso idenProcPrc) {
+        this.idenProcPrc = idenProcPrc;
     }
     
 }
