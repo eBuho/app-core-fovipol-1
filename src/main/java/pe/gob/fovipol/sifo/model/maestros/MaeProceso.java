@@ -7,6 +7,7 @@ package pe.gob.fovipol.sifo.model.maestros;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.model.tramite.TrmMovimiento;
+import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
  *
@@ -53,7 +57,14 @@ public class MaeProceso implements Serializable {
     @Column(name = "NIVE_PROC_PRC")
     private Short niveProcPrc;
     @Column(name = "ORDE_SECU_PRC")
-    private int ordeSecuPrc;
+    private Integer ordeSecuPrc;
+    @Size(max = 100)
+    @Column(name = "PAGI_PROC_PRC")
+    private String pagiProcPrc;
+    @OneToMany(mappedBy = "idenProcPrc")
+    private List<TrmMovimiento> trmMovimientoList;
+    @OneToMany(mappedBy = "idenProcPrc")
+    private List<TrmTramite> trmTramiteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "maeProceso")
     private List<MaeRequisito> maeRequisitoList;
     @Column(name = "TIPO_PROC_PRC")
@@ -279,6 +290,34 @@ public class MaeProceso implements Serializable {
 
     public void setMaeRequisitoList(List<MaeRequisito> maeRequisitoList) {
         this.maeRequisitoList = maeRequisitoList;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TrmMovimiento> getTrmMovimientoList() {
+        return trmMovimientoList;
+    }
+
+    public void setTrmMovimientoList(List<TrmMovimiento> trmMovimientoList) {
+        this.trmMovimientoList = trmMovimientoList;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TrmTramite> getTrmTramiteList() {
+        return trmTramiteList;
+    }
+
+    public void setTrmTramiteList(List<TrmTramite> trmTramiteList) {
+        this.trmTramiteList = trmTramiteList;
+    }
+
+    public String getPagiProcPrc() {
+        return pagiProcPrc;
+    }
+
+    public void setPagiProcPrc(String pagiProcPrc) {
+        this.pagiProcPrc = pagiProcPrc;
     }
     
 }

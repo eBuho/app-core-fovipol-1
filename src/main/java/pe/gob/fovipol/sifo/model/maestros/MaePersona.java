@@ -28,6 +28,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
  *
@@ -75,6 +77,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class MaePersona implements Serializable {
     @Column(name = "TIPO_IDEN_PER")
     private BigDecimal tipoIdenPer;
+    @OneToMany(mappedBy = "codiPersTrm")
+    private List<TrmTramite> trmTramiteList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -530,6 +534,16 @@ public class MaePersona implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.model.MaePersona[ codiPersPer=" + codiPersPer + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TrmTramite> getTrmTramiteList() {
+        return trmTramiteList;
+    }
+
+    public void setTrmTramiteList(List<TrmTramite> trmTramiteList) {
+        this.trmTramiteList = trmTramiteList;
     }
 
 }
