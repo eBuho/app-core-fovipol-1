@@ -25,6 +25,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.model.tramite.TrmDocumento;
 
 /**
  *
@@ -55,6 +57,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MaeEmpresa.findByNombSopeAud", query = "SELECT m FROM MaeEmpresa m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeEmpresa.findByFlagEstaEmp", query = "SELECT m FROM MaeEmpresa m WHERE m.flagEstaEmp = :flagEstaEmp")})
 public class MaeEmpresa implements Serializable {
+    @OneToMany(mappedBy = "emprExpiDoc")
+    private List<TrmDocumento> trmDocumentoList;
     @OneToMany(mappedBy = "idenEmprEmp")
     private List<MaeSeguro> maeSeguroList;
     @Column(name = "GIRO_NEGO_EMP")
@@ -333,6 +337,16 @@ public class MaeEmpresa implements Serializable {
 
     public void setMaeSeguroList(List<MaeSeguro> maeSeguroList) {
         this.maeSeguroList = maeSeguroList;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TrmDocumento> getTrmDocumentoList() {
+        return trmDocumentoList;
+    }
+
+    public void setTrmDocumentoList(List<TrmDocumento> trmDocumentoList) {
+        this.trmDocumentoList = trmDocumentoList;
     }
     
 }

@@ -145,6 +145,9 @@ public class TrmTramite implements Serializable {
     private TrmTramite docuRefeTrm;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trmTramite")
     private List<TrmEstatramHis> trmEstatramHisList;
+    @JoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private MaeProceso maeProceso;
 
     public TrmTramite() {
     }
@@ -398,12 +401,18 @@ public class TrmTramite implements Serializable {
         return "pe.gob.fovipol.sifo.model.tramite.TrmTramite[ idenExpeTrm=" + idenExpeTrm + " ]";
     }
 
-    public CrdSimulacion getIdenSimuSim() {
-        return idenSimuSim;
+    /**
+     * @return the maeProceso
+     */
+    public MaeProceso getMaeProceso() {
+        return maeProceso;
     }
 
-    public void setIdenSimuSim(CrdSimulacion idenSimuSim) {
-        this.idenSimuSim = idenSimuSim;
+    /**
+     * @param maeProceso the maeProceso to set
+     */
+    public void setMaeProceso(MaeProceso maeProceso) {
+        this.maeProceso = maeProceso;
     }
 
     public MaePersona getCodiPersTrm() {
@@ -414,12 +423,12 @@ public class TrmTramite implements Serializable {
         this.codiPersTrm = codiPersTrm;
     }
 
-    public MaeProceso getIdenProcPrc() {
-        return idenProcPrc;
+    public CrdSimulacion getIdenSimuSim() {
+        return idenSimuSim;
     }
 
-    public void setIdenProcPrc(MaeProceso idenProcPrc) {
-        this.idenProcPrc = idenProcPrc;
+    public void setIdenSimuSim(CrdSimulacion idenSimuSim) {
+        this.idenSimuSim = idenSimuSim;
     }
     
 }

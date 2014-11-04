@@ -22,20 +22,14 @@
                 <h5>Registro del Trámite</h5>
             </div>
             <h:form id="formRegistroExpediente">
-                <div class="col-lg-12">                
+                <div class="col-lg-12"> 
+                    <div class="col-lg-12">
+                        <comp:consultaIntegralSocio 
+                            actualizar=":formRegistroExpediente:informacion,:formRegistroExpediente:documento,:formRegistroExpediente:parejaSocio" 
+                            socio="#{registrarExpedienteController.socio}"/>                            
+                    </div>
+                    <p:spacer width="10"/>
                     <p:fieldset legend="Información" styleClass="fieldSet" id="informacion">
-                        <div class="col-lg-12">
-                            <div class="col-lg-2">
-                                <h:outputText value="Ingrese CIP"/>
-                            </div>
-                            <div class="col-lg-2">
-                                <p:inputText value="#{registrarExpedienteController.cip}"/>
-                            </div>
-                            <div class="col-lg-2">
-                                <p:commandButton styleClass="boton" value="Buscar Socio" update="informacion" actionListener="#{registrarExpedienteController.buscarSocio()}"/>
-                            </div>
-                        </div>
-                        <p:spacer width="10"/>
                         <div class="col-lg-12 margen">
                             <div class="col-lg-1">
                                 <h:outputText value="Nombres:"/>
@@ -161,7 +155,7 @@
                                     <h:outputText value="N° Iden. Documento"/>                                
                                 </div>
                                 <div class="col-lg-8">
-                                    <p:calendar value="#{registrarExpedienteController.tramite.codiExpeTrm}" lang="es" locale="es" styleClass="inputLargo"/>                                    
+                                    <p:inputText value="#{registrarExpedienteController.tramite.codiExpeTrm}" styleClass="inputLargo"/>                                    
                                 </div>
                             </div>
                         </div>
@@ -202,7 +196,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="col-lg-4">
-                                    <h:outputText value="Modalidad Trámite:"/>                                
+                                    <h:outputText value="Prioridad:"/>                                
                                 </div>
                                 <div class="col-lg-8">
                                     <p:selectOneMenu value="#{registrarExpedienteController.tramite.codiPrioTrm}" styleClass="inputLargo">
@@ -224,7 +218,375 @@
                         </div>
                         <div class="col-lg-12 margen">
                             Confidencial : 
-                            <h:selectBooleanCheckbox value="#{registrarExpedienteController.confidencial}" styleClass="forn-control"/>
+                            <comp:booleanCheckbox value="#{registrarExpedienteController.tramite.flagPrivTrm}"/>                      
+                        </div>
+                        <div class="col-lg-12 margen">
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="Producto:"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <p:selectOneMenu disabled="#{registrarExpedienteController.socio==null}" value="#{registrarExpedienteController.producto}" styleClass="inputLargo">
+                                        <f:selectItem itemValue="" itemLabel="Seleccione un Producto"/>
+                                        <f:selectItems value="#{registrarExpedienteController.productos}"
+                                                       itemValue="#{tipo}" var="tipo" itemLabel="#{tipo.nombProdPrd}"/>
+                                        <p:ajax update="tablaRequisito,simulacion" listener="#{registrarExpedienteController.cargarRequisitos()}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 margen">
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="Requisitos "/>                                
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <p:dataTable id="tablaRequisito" value="#{registrarExpedienteController.documentos}"
+                                             editMode="cell" editable="true"      var="requisito" emptyMessage="No hay requisitos">
+                                    <p:ajax event="cellEdit" update="tablaRequisito" />
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Item"/>
+                                        </f:facet>
+                                        <h:outputText value="#{requisito.trmDocumentoPK.secuDocuDoc}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Documento"/>
+                                        </f:facet>
+                                        <h:outputText value="#{requisito.descNombDoc}"/>
+                                    </p:column>
+                                    <p:column headerText="Recibido">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText
+                                                    value="#{requisito.flagPertDoc=='S' ? 'SÍ' : 'NO'}" />
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu
+                                                    value="#{requisito.flagPertDoc}"
+                                                    styleClass="inputLargo">
+                                                    <f:selectItem itemValue="N" itemLabel="NO" />
+                                                    <f:selectItem itemValue="S" itemLabel="SÍ" />                                                    
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="Digitalizado">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText
+                                                    value="#{requisito.flagFisiDoc=='S' ? 'SÍ' : 'NO'}" />
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu
+                                                    value="#{requisito.flagFisiDoc}"
+                                                    styleClass="inputLargo">
+                                                    <f:selectItem itemValue="N" itemLabel="NO" />
+                                                    <f:selectItem itemValue="S" itemLabel="SÍ" />                                                    
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Observacion"/>
+                                        </f:facet>
+                                        <h:outputText value="#{requisito.descObseDoc}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Fecha de Emisión"/>
+                                        </f:facet>
+                                        <h:outputText value="#{requisito.fechEmisDoc}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Estado"/>
+                                        </f:facet>
+                                        <comp:activo value="#{requisito.flagEstaDoc}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-12 margen">
+                            <div class="col-lg-4">
+                                <div class="col-lg-4">
+                                    <h:outputText value="N° Simulación"/>                                
+                                </div>
+                                <div class="col-lg-8">
+                                    <p:selectOneMenu id="simulacion" value="#{registrarExpedienteController.simulacion}" >
+                                        <f:selectItem itemValue="" itemLabel="Seleccione una simulación"/>
+                                        <f:selectItems value="#{registrarExpedienteController.simulaciones}" var="simu"
+                                                       itemValue="#{simu.idenSimuSim}" /> 
+                                        <p:ajax update="datosSimulacion" listener="#{registrarExpedienteController.mostrarSimulacion()}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                        </div>
+                    </p:fieldset>
+                    <p:spacer width="20"/>
+                    <p:fieldset legend="Información General" styleClass="fieldSet" id="datosSimulacion">
+                        <div class="col-lg-6 margen">
+                            <p:fieldset legend="Datos de Crédito" styleClass="fieldSet" 
+                                        rendered="#{registrarExpedienteController.tramite.idenSimuSim!=null}">
+                                <div class="col-lg-12 margen">
+                                    <div class="col-lg-6 sin-margen margen">
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="Producto: "/>
+                                        </div>
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.idenProdPrd.nombProdPrd}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 sin-margen margen">
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="Centro de Costo: "/>
+                                        </div>
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="1546"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 margen">
+                                    <div class="col-lg-6 sin-margen margen">
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="Plazo: "/>
+                                        </div>
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.plazPresSim} meses"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 sin-margen margen">
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="Moneda: "/>
+                                        </div>
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="Nuevos Soles"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 margen">                                    
+                                    <div class="col-lg-6 sin-margen margen">
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="Tipo de Cuota: "/>
+                                        </div>
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="CUOTA DOBLE" rendered="#{registrarExpedienteController.tramite.idenSimuSim.autoCdobSim=='S'}"/>
+                                            <h:outputText value="CUOTA SIMPLE" rendered="#{registrarExpedienteController.tramite.idenSimuSim.autoCdobSim=='N'}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 sin-margen margen">
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="Seguro: "/>
+                                        </div>
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="MAPFRE"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 margen">
+                                    <div class="col-lg-6 sin-margen margen">
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="TEA: "/>
+                                        </div>
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.tasaTeaSim}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 sin-margen margen">
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="Monto Solicitado: "/>
+                                        </div>
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.tasaTeaSim}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 margen">
+                                    <div class="col-lg-6 sin-margen margen">
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="Gastos Administrativos: "/>
+                                        </div>
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.tasaGadmSim}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 sin-margen margen">
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="Neto a girar: "/>
+                                        </div>
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.tasaTeaSim}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 margen">                                    
+                                    <div class="col-lg-6 sin-margen margen">
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="Neto a girar: "/>
+                                        </div>
+                                        <div class="col-lg-6 sin-margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.tasaTeaSim}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:fieldset>                            
+                        </div>
+                        <div class="col-lg-6 margen">
+                            <p:fieldset legend="Capacidad de Endeudamiento" styleClass="fieldSet" 
+                                        rendered="#{registrarExpedienteController.tramite.idenSimuSim!=null}">
+                                <div class="col-lg-6 sin-margen margen">
+                                    <div class="col-lg-12 sin-margen margen">
+                                        <h:outputText value="Ingresos"/>
+                                    </div>
+                                    <div class="col-lg-12 sin-margen margen">
+                                        <div class="col-lg-8 sin-margen margen">
+                                            <h:outputText value="Ingreso Bruto:"/>
+                                        </div>
+                                        <div class="col-lg-4 sin-margen margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.ingrBrtoSim}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 sin-margen margen">
+                                        <div class="col-lg-8 sin-margen margen">
+                                            <h:outputText value="Desc. Máximo:"/>
+                                        </div>
+                                        <div class="col-lg-4 sin-margen margen">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 sin-margen margen">
+                                        <div class="col-lg-8 sin-margen margen">
+                                            <h:outputText value="Desc. Oficiales:"/>
+                                        </div>
+                                        <div class="col-lg-4 sin-margen margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.dsctOficSim}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 sin-margen margen">
+                                        <div class="col-lg-8 sin-margen margen">
+                                            <h:outputText value="Desc. personales:"/>
+                                        </div>
+                                        <div class="col-lg-4 sin-margen margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.dsctPersSim}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 sin-margen margen">
+                                        <div class="col-lg-8 sin-margen margen">
+                                            <h:outputText value="Combustible:"/>
+                                        </div>
+                                        <div class="col-lg-4 sin-margen margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.ingrCombSim}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 sin-margen margen">
+                                        <div class="col-lg-8 sin-margen margen">
+                                            <h:outputText value="Capacidad Máxima Cuota:"/>
+                                        </div>
+                                        <div class="col-lg-4 sin-margen margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.capaMcuoSim}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 sin-margen margen">
+                                    <div class="col-lg-12 sin-margen margen">
+                                        <h:outputText value="Nivel de Endeudamiento"/>
+                                    </div>
+                                    <div class="col-lg-12 sin-margen margen">
+                                        <div class="col-lg-8 sin-margen margen">
+                                            <h:outputText value="Total Aportes:"/>
+                                        </div>
+                                        <div class="col-lg-4 sin-margen margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.ingrBrtoSim}"/>
+                                        </div>
+                                        <div class="col-lg-8 sin-margen margen">
+                                            <h:outputText value="# Veces total Aporte:"/>
+                                        </div>
+                                        <div class="col-lg-4 sin-margen margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.ingrBrtoSim}"/>
+                                        </div>
+                                        <div class="col-lg-8 sin-margen margen">
+                                            <h:outputText value="Monto Máximo:"/>
+                                        </div>
+                                        <div class="col-lg-4 sin-margen margen">
+                                            <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.impoMaxpSim}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:fieldset>
+                        </div>
+                        <div class="col-lg-6 margen">
+                            <p:fieldset legend="Anexos" styleClass="fieldSet" 
+                                        rendered="#{registrarExpedienteController.tramite.idenSimuSim!=null}">
+                                <p:fieldset legend="Persona" styleClass="fieldSet" id="parejaSocio">
+                                    <div class="col-lg-12 margen sin-margen">
+                                        <div class="col-lg-3 sin-margen">
+                                            <h:outputText value="Nombres"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <p:inputText disabled="#{registrarExpedienteController.socio.maePersona.estaCiviPer!=2}" styleClass="inputLargo" value="#{registrarExpedienteController.pareja.nombPersPer}"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <h:outputText value="Apellidos"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <p:inputText styleClass="inputLargo" value="#{registrarExpedienteController.pareja.apelPatePer}"
+                                                         disabled="#{registrarExpedienteController.socio.maePersona.estaCiviPer!=2}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 margen sin-margen">
+                                        <div class="col-lg-3 sin-margen">
+                                            <h:outputText value="Identificador"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <p:inputText disabled="#{registrarExpedienteController.socio.maePersona.estaCiviPer!=2}" 
+                                                         styleClass="inputLargo" value="#{registrarExpedienteController.pareja.numeIdenPer}"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <h:outputText value="Fecha Nacimiento"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <p:calendar locale="es" lang="es" pattern="dd/MM/yyyy" styleClass="inputLargo" value="#{registrarExpedienteController.pareja.fechNaciPer}"
+                                                        disabled="#{registrarExpedienteController.socio.maePersona.estaCiviPer!=2}" />
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-12 margen sin-margen">
+                                        <div class="col-lg-3 sin-margen">
+                                            <h:outputText value="Vínculo"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <p:selectOneMenu disabled="#{registrarExpedienteController.socio.maePersona.estaCiviPer!=2}" 
+                                                             styleClass="inputLargo" value="#{registrarExpedienteController.pareja.gradParePer}">
+                                                <f:selectItems value="#{registrarExpedienteController.gradosParentesco}"
+                                                               var="grado"      itemLabel="#{grado.valoCaduDet}" itemValue="#{grado.secuEntiDet}"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div> 
+                                </p:fieldset>
+                                <p:spacer width="10"/>
+                                <p:fieldset legend="Unidad Inmobiliaria" styleClass="fieldSet">
+                                    <div class="col-lg-12 margen sin-margen">
+                                        <comp:ubigeo value="#{registrarExpedienteController.inmueble.idenUbigUbi}"/>
+                                    </div>
+                                    <div class="col-lg-12 margen sin-margen">
+                                        <div class="col-lg-2 margen sin-margen">
+                                            <h:outputText value="Dirección"/>
+                                        </div>
+                                        <div class="col-lg-10 margen sin-margen">
+                                            <p:inputTextarea autoResize="false" styleClass="inputLargo"
+                                                             rows="3"            value="#{registrarExpedienteController.inmueble.descDireImb}"/>
+                                        </div>
+                                    </div> 
+                                </p:fieldset>
+                            </p:fieldset>
+                        </div>
+                        <div class="col-lg-12 margen sin-margen">
+                            <p:commandButton value="Guardar" actionListener="#{registrarExpedienteController.registrar()}"/>
                         </div>
                     </p:fieldset>
                 </div> 

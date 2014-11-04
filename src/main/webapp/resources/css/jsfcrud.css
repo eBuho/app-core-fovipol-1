@@ -22,6 +22,7 @@
 .fieldSet legend{
     font-size: 1em !important;
     width: auto !important;
+    margin-bottom: 5px !important;
 }
 .boton{
     margin-top: 0px !important;
@@ -33,4 +34,8 @@
 .inputLargo{
     width: 100% !important;
     resize: none;
+}
+.sin-margen{
+    padding-left: 2px !important;
+    padding-right: 2px !important;
 }

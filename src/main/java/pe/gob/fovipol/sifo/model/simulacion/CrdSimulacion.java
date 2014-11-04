@@ -9,7 +9,9 @@ import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,13 +20,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
+import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
  *
@@ -60,7 +66,7 @@ import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
     @NamedQuery(name = "CrdSimulacion.findByNombEquiAud", query = "SELECT c FROM CrdSimulacion c WHERE c.nombEquiAud = :nombEquiAud"),
     @NamedQuery(name = "CrdSimulacion.findByNombSopeAud", query = "SELECT c FROM CrdSimulacion c WHERE c.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "CrdSimulacion.findByFlagEstaSim", query = "SELECT c FROM CrdSimulacion c WHERE c.flagEstaSim = :flagEstaSim")})
-public class CrdSimulacion implements Serializable {
+public class CrdSimulacion implements Serializable {    
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -377,7 +383,12 @@ public class CrdSimulacion implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.gob.fovipol.sifo.model.consulta.CrdSimulacion[ idenSimuSim=" + idenSimuSim + " ]";
+        String fecha=" ";
+        if(getFechCreaAud()!=null){
+            DateFormat d=DateFormat.getDateInstance(DateFormat.SHORT);
+            fecha=" - "+d.format(fechCreaAud);
+        }
+        return idenSimuSim + fecha;
     }
-    
+
 }

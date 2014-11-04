@@ -3,30 +3,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <cc:interface componentType="inputUbigeo">
-        <cc:attribute name="value" /> 
+        <cc:attribute name="value" />
+        <cc:attribute name="ancho" default="3" />
     </cc:interface>
     <cc:implementation>
-        
-            <p:selectOneMenu id="day" binding="#{cc.departamento}">
+        <div class="col-lg-#{cc.attrs.ancho} margen sin-margen">
+            <h:outputText value="Departamento"/>
+        </div>
+        <div class="col-lg-#{cc.attrs.ancho} margen sin-margen">
+            <p:selectOneMenu id="day" binding="#{cc.departamento}" styleClass="inputLargo">
                 <f:selectItem itemValue="0" itemLabel="Seleccione" />
                 <f:selectItems value="#{cc.departamentos}" var="departamento"
                                itemValue="#{departamento.idenUbigUbi}" itemLabel="#{departamento.nombUbigUbi}"/>
                 <p:ajax update="provincias" listener="#{cc.cargarProvincias}"/>
             </p:selectOneMenu>
-            <p:selectOneMenu id="provincias" binding="#{cc.provincia}">
+        </div>
+        <div class="col-lg-#{cc.attrs.ancho} margen sin-margen">
+            <h:outputText value="Provincia"/>
+        </div>
+        <div class="col-lg-#{cc.attrs.ancho} margen sin-margen">
+            <p:selectOneMenu id="provincias" binding="#{cc.provincia}" styleClass="inputLargo">
                 <f:selectItem itemValue="0" itemLabel="Seleccione" />
                 <f:selectItems value="#{cc.provincias}" var="provincia"
                                itemValue="#{provincia.idenUbigUbi}" itemLabel="#{provincia.nombUbigUbi}"/>
                 <p:ajax update="distritos" listener="#{cc.cargarDistritos}"/>
             </p:selectOneMenu>
-            <p:selectOneMenu id="distritos" binding="#{cc.distrito}">
+        </div>
+        <div class="col-lg-#{cc.attrs.ancho} margen sin-margen">
+            <h:outputText value="Distrito"/>
+        </div>
+        <div class="col-lg-#{cc.attrs.ancho} margen sin-margen">
+            <p:selectOneMenu id="distritos" binding="#{cc.distrito}" styleClass="inputLargo">
                 <f:selectItem itemValue="0" itemLabel="Seleccione" />
                 <f:selectItems value="#{cc.distritos}" var="distrito"
                                itemValue="#{distrito.idenUbigUbi}" itemLabel="#{distrito.nombUbigUbi}"/>
             </p:selectOneMenu> 
-        
+        </div>
     </cc:implementation>
 </html>

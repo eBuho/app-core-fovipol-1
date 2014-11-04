@@ -40,6 +40,14 @@ public class MaeRequisitoFacade extends AbstractFacade<MaeRequisito> {
         return lista;
     }
     
+    public List<MaeRequisito> findByProcesoActivo(BigDecimal idenProcPrc) {
+        List<MaeRequisito> lista = null;
+        Query q=em.createQuery("SELECT a FROM MaeRequisito a where a.maeRequisitoPK.idenProcPrc=:idenProcPrc and a.flagEstaReq<>0");
+        q.setParameter("idenProcPrc", idenProcPrc);
+        lista = q.getResultList();
+        return lista;
+    }
+    
     public BigInteger obtenerCorrelativo(BigDecimal idenProcPrc) {
         BigInteger id = new BigInteger("0");
         Query q = em.createQuery("SELECT MAX(a.maeRequisitoPK.secuMaeReq) FROM MaeRequisito a where a.maeRequisitoPK.idenProcPrc=:idenProcPrc", BigDecimal.class);

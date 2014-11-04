@@ -31,7 +31,8 @@
                                            itemValue="#{codiAreaAreItem}"/>
                         </p:selectOneMenu>                        
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{maeProcesoController.create}" value="#{bundle.Save}" update="display,:MaeProcesoListForm:pestanaProceso:datalist,:MaeProcesoListForm:pestanaProceso:datalistActividad,:MaeProcesoListForm:datalistSubProceso,:growl" oncomplete="handleSubmit(args,'MaeProcesoCreateDialog');"/>
+                    <p:commandButton actionListener="#{maeProcesoController.create}" value="#{bundle.Save}" 
+                                     update="display,:MaeProcesoListForm:datalist,:MaeProcesoListForm:pestanaProceso:datalistActividad,:MaeProcesoListForm:pestanaProceso:datalistSubProceso,:growl" oncomplete="handleSubmit(args,'MaeProcesoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaeProcesoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -31,11 +31,14 @@ public class CreditoServiceImpl implements CreditoService {
     }
 
     @Override
-    public BigDecimal calcularMaximoPrestamo(BigDecimal totalAporte, BigInteger maximoPorProducto, BigDecimal otrasDeudas, BigDecimal minimaDeuda) {
+    public BigDecimal calcularMaximoPrestamo(BigDecimal totalAporte, BigInteger maximoPorProducto,
+            BigDecimal otrasDeudas, BigDecimal minimaDeuda,BigDecimal otrosIngresos) {
         BigDecimal maximaPrestamo = BigDecimal.ZERO;
         maximaPrestamo = totalAporte.multiply(new BigDecimal(maximoPorProducto));
-        if (minimaDeuda != null && minimaDeuda != BigDecimal.ZERO && otrasDeudas.compareTo(minimaDeuda) == 1)
-            maximaPrestamo = maximaPrestamo.add(minimaDeuda).add(otrasDeudas.negate());        
+        if(otrosIngresos==null || otrosIngresos.compareTo(BigDecimal.ZERO)==0){
+            if (minimaDeuda != null && minimaDeuda != BigDecimal.ZERO && otrasDeudas.compareTo(minimaDeuda) == 1)
+                maximaPrestamo = maximaPrestamo.add(minimaDeuda).add(otrasDeudas.negate());
+        }                        
         return maximaPrestamo;
     }
 
@@ -58,7 +61,11 @@ public class CreditoServiceImpl implements CreditoService {
     @Override
     public BigDecimal calcularCuotaMontoMensual(BigDecimal monto, int numeroCuotas, BigDecimal interes) {
         BigDecimal montoMensual;
-        BigDecimal tasa = interes.divide(new BigDecimal(100));
+        double tem=interes.divide(new BigDecimal(100)).doubleValue()+1;
+        double expo=BigDecimal.ONE.divide(new BigDecimal(12),10,RoundingMode.HALF_UP).doubleValue();
+        tem=Math.pow(tem, expo);
+        tem=tem-1;
+        BigDecimal tasa = new BigDecimal(tem);
         montoMensual = monto.multiply(tasa);
         BigDecimal auxi = tasa.add(BigDecimal.ONE);
         auxi = auxi.pow(numeroCuotas);
@@ -69,7 +76,11 @@ public class CreditoServiceImpl implements CreditoService {
     @Override
     public BigDecimal calcularCuotaMontoTotal(BigDecimal montoMensual, int numeroCuotas, BigDecimal interes) {
         BigDecimal totPagar;
-        BigDecimal tasa = interes.divide(new BigDecimal(100));
+        double tem=interes.divide(new BigDecimal(100)).doubleValue()+1;
+        double expo=BigDecimal.ONE.divide(new BigDecimal(12),10,RoundingMode.HALF_UP).doubleValue();
+        tem=Math.pow(tem, expo);
+        tem=tem-1;
+        BigDecimal tasa = new BigDecimal(tem);
         BigDecimal auxi = tasa.add(BigDecimal.ONE);
         auxi = auxi.pow(numeroCuotas);
         totPagar = montoMensual.multiply(auxi.add(BigDecimal.ONE.negate()));
@@ -90,7 +101,11 @@ public class CreditoServiceImpl implements CreditoService {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.DAY_OF_MONTH, ciclica);
         int mes;
-        BigDecimal tasa = interes.divide(new BigDecimal(100));
+        double tem=interes.divide(new BigDecimal(100)).doubleValue()+1;
+        double expo=BigDecimal.ONE.divide(new BigDecimal(12),10,RoundingMode.HALF_UP).doubleValue();
+        tem=Math.pow(tem, expo);
+        tem=tem-1;
+        BigDecimal tasa = new BigDecimal(tem);
         BigDecimal montoaux = montoPrestamo;
         //int rangoUsado = 0, rangoMaximo = rangos.size() - 1;
         BigDecimal totalAmortizacion = BigDecimal.ZERO;

@@ -81,13 +81,18 @@ public class SimulacionController implements Serializable {
         simulacion.setDsctPersSim(BigDecimal.ZERO);
         simulacion.setIngrCombSim(BigDecimal.ZERO);
         simulacion.setDeudOtraSim(BigDecimal.ZERO);
+        simulacion.setOtroIngrSim(BigDecimal.ZERO);
         //simulacion.setTasaTeaSim(new BigDecimal(3));
         totalAporte = BigDecimal.ZERO;
         tipoSocio = 1;
         segurosSimulacion = new ArrayList<>();
         producto = new MaeProducto();
     }
-
+    
+    public void calcularGastosAdministrativos(){
+        if(monto!=null && producto!=null && producto.getTasaGadmPrd()!=null)
+            gastosAdministrativos=monto.multiply(producto.getTasaGadmPrd()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+    }
     public SimulacionController() {
     }
 
@@ -114,7 +119,7 @@ public class SimulacionController implements Serializable {
             simulacion.setCapaMcuoSim(creditoService.calcularMaximaCuota(simulacion.getIngrBrtoSim(), porcDescuento,
                     simulacion.getDsctOficSim(), simulacion.getDsctPersSim(), simulacion.getIngrCombSim()));
             simulacion.setImpoMaxpSim(creditoService.calcularMaximoPrestamo(totalAporte,
-                    producto.getCantVecePrd(), simulacion.getDeudOtraSim(), producto.getMontDeudPrd()));
+                    producto.getCantVecePrd(), simulacion.getDeudOtraSim(), producto.getMontDeudPrd(),simulacion.getOtroIngrSim()));
         }
     }
 
