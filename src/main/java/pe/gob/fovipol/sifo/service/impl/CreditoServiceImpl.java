@@ -61,7 +61,11 @@ public class CreditoServiceImpl implements CreditoService {
     @Override
     public BigDecimal calcularCuotaMontoMensual(BigDecimal monto, int numeroCuotas, BigDecimal interes) {
         BigDecimal montoMensual;
-        BigDecimal tasa = interes.divide(new BigDecimal(100));
+        double tem=interes.divide(new BigDecimal(100)).doubleValue()+1;
+        double expo=BigDecimal.ONE.divide(new BigDecimal(12),10,RoundingMode.HALF_UP).doubleValue();
+        tem=Math.pow(tem, expo);
+        tem=tem-1;
+        BigDecimal tasa = new BigDecimal(tem);
         montoMensual = monto.multiply(tasa);
         BigDecimal auxi = tasa.add(BigDecimal.ONE);
         auxi = auxi.pow(numeroCuotas);
@@ -72,7 +76,11 @@ public class CreditoServiceImpl implements CreditoService {
     @Override
     public BigDecimal calcularCuotaMontoTotal(BigDecimal montoMensual, int numeroCuotas, BigDecimal interes) {
         BigDecimal totPagar;
-        BigDecimal tasa = interes.divide(new BigDecimal(100));
+        double tem=interes.divide(new BigDecimal(100)).doubleValue()+1;
+        double expo=BigDecimal.ONE.divide(new BigDecimal(12),10,RoundingMode.HALF_UP).doubleValue();
+        tem=Math.pow(tem, expo);
+        tem=tem-1;
+        BigDecimal tasa = new BigDecimal(tem);
         BigDecimal auxi = tasa.add(BigDecimal.ONE);
         auxi = auxi.pow(numeroCuotas);
         totPagar = montoMensual.multiply(auxi.add(BigDecimal.ONE.negate()));
@@ -93,7 +101,11 @@ public class CreditoServiceImpl implements CreditoService {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.DAY_OF_MONTH, ciclica);
         int mes;
-        BigDecimal tasa = interes.divide(new BigDecimal(100));
+        double tem=interes.divide(new BigDecimal(100)).doubleValue()+1;
+        double expo=BigDecimal.ONE.divide(new BigDecimal(12),10,RoundingMode.HALF_UP).doubleValue();
+        tem=Math.pow(tem, expo);
+        tem=tem-1;
+        BigDecimal tasa = new BigDecimal(tem);
         BigDecimal montoaux = montoPrestamo;
         //int rangoUsado = 0, rangoMaximo = rangos.size() - 1;
         BigDecimal totalAmortizacion = BigDecimal.ZERO;

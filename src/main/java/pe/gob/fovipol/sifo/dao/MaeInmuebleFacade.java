@@ -10,14 +10,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
+import pe.gob.fovipol.sifo.model.maestros.MaeInmueble;
 
 /**
  *
  * @author ebuho
  */
 @Stateless
-public class TrmTramiteFacade extends AbstractFacade<TrmTramite> {
+public class MaeInmuebleFacade extends AbstractFacade<MaeInmueble> {
     @PersistenceContext(unitName = "SIFOPU")
     private EntityManager em;
 
@@ -26,13 +26,14 @@ public class TrmTramiteFacade extends AbstractFacade<TrmTramite> {
         return em;
     }
 
-    public TrmTramiteFacade() {
-        super(TrmTramite.class);
+    public MaeInmuebleFacade() {
+        super(MaeInmueble.class);
     }
     
     public BigDecimal obtenerCorrelativo() {
-        BigDecimal id;
-        Query q = em.createQuery("SELECT MAX(a.idenExpeTrm) FROM TrmTramite a", BigDecimal.class);
+        BigDecimal id = new BigDecimal(0);
+
+        Query q = em.createQuery("SELECT MAX(a.idenInmuImb) FROM MaeInmueble a", BigDecimal.class);
         id = (BigDecimal) q.getSingleResult();
         if(id==null)
             id=BigDecimal.ONE;

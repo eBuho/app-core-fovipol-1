@@ -22,6 +22,7 @@
 .fieldSet legend{
     font-size: 1em !important;
     width: auto !important;
+    margin-bottom: 5px !important;
 }
 .boton{
     margin-top: 0px !important;

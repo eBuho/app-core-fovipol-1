@@ -24,11 +24,12 @@
             <h:form id="formRegistroExpediente">
                 <div class="col-lg-12"> 
                     <div class="col-lg-12">
-                        <comp:consultaIntegralSocio actualizar=":formRegistroExpediente:informacion,:formRegistroExpediente:documento" socio="#{registrarExpedienteController.socio}"/>                            
+                        <comp:consultaIntegralSocio 
+                            actualizar=":formRegistroExpediente:informacion,:formRegistroExpediente:documento,:formRegistroExpediente:parejaSocio" 
+                            socio="#{registrarExpedienteController.socio}"/>                            
                     </div>
                     <p:spacer width="10"/>
                     <p:fieldset legend="Información" styleClass="fieldSet" id="informacion">
-                        <p:spacer width="10"/>
                         <div class="col-lg-12 margen">
                             <div class="col-lg-1">
                                 <h:outputText value="Nombres:"/>
@@ -154,7 +155,7 @@
                                     <h:outputText value="N° Iden. Documento"/>                                
                                 </div>
                                 <div class="col-lg-8">
-                                    <p:calendar value="#{registrarExpedienteController.tramite.codiExpeTrm}" lang="es" locale="es" styleClass="inputLargo"/>                                    
+                                    <p:inputText value="#{registrarExpedienteController.tramite.codiExpeTrm}" styleClass="inputLargo"/>                                    
                                 </div>
                             </div>
                         </div>
@@ -195,7 +196,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="col-lg-4">
-                                    <h:outputText value="Modalidad Trámite:"/>                                
+                                    <h:outputText value="Prioridad:"/>                                
                                 </div>
                                 <div class="col-lg-8">
                                     <p:selectOneMenu value="#{registrarExpedienteController.tramite.codiPrioTrm}" styleClass="inputLargo">
@@ -242,7 +243,8 @@
                             </div>
                             <div class="col-lg-12">
                                 <p:dataTable id="tablaRequisito" value="#{registrarExpedienteController.documentos}"
-                                             var="requisito" emptyMessage="No hay requisitos">
+                                             editMode="cell" editable="true"      var="requisito" emptyMessage="No hay requisitos">
+                                    <p:ajax event="cellEdit" update="tablaRequisito" />
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="Item"/>
@@ -251,9 +253,41 @@
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Requisito"/>
+                                            <h:outputText value="Documento"/>
                                         </f:facet>
                                         <h:outputText value="#{requisito.descNombDoc}"/>
+                                    </p:column>
+                                    <p:column headerText="Recibido">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText
+                                                    value="#{requisito.flagPertDoc=='S' ? 'SÍ' : 'NO'}" />
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu
+                                                    value="#{requisito.flagPertDoc}"
+                                                    styleClass="inputLargo">
+                                                    <f:selectItem itemValue="N" itemLabel="NO" />
+                                                    <f:selectItem itemValue="S" itemLabel="SÍ" />                                                    
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="Digitalizado">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText
+                                                    value="#{requisito.flagFisiDoc=='S' ? 'SÍ' : 'NO'}" />
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu
+                                                    value="#{requisito.flagFisiDoc}"
+                                                    styleClass="inputLargo">
+                                                    <f:selectItem itemValue="N" itemLabel="NO" />
+                                                    <f:selectItem itemValue="S" itemLabel="SÍ" />                                                    
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
@@ -401,8 +435,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </p:fieldset>
-                            <p:commandButton value="Registrar" actionListener="#{registrarExpedienteController.registrar()}" />
+                            </p:fieldset>                            
                         </div>
                         <div class="col-lg-6 margen">
                             <p:fieldset legend="Capacidad de Endeudamiento" styleClass="fieldSet" 
@@ -486,6 +519,74 @@
                                     </div>
                                 </div>
                             </p:fieldset>
+                        </div>
+                        <div class="col-lg-6 margen">
+                            <p:fieldset legend="Anexos" styleClass="fieldSet" 
+                                        rendered="#{registrarExpedienteController.tramite.idenSimuSim!=null}">
+                                <p:fieldset legend="Persona" styleClass="fieldSet" id="parejaSocio">
+                                    <div class="col-lg-12 margen sin-margen">
+                                        <div class="col-lg-3 sin-margen">
+                                            <h:outputText value="Nombres"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <p:inputText disabled="#{registrarExpedienteController.socio.maePersona.estaCiviPer!=2}" styleClass="inputLargo" value="#{registrarExpedienteController.pareja.nombPersPer}"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <h:outputText value="Apellidos"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <p:inputText styleClass="inputLargo" value="#{registrarExpedienteController.pareja.apelPatePer}"
+                                                         disabled="#{registrarExpedienteController.socio.maePersona.estaCiviPer!=2}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 margen sin-margen">
+                                        <div class="col-lg-3 sin-margen">
+                                            <h:outputText value="Identificador"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <p:inputText disabled="#{registrarExpedienteController.socio.maePersona.estaCiviPer!=2}" 
+                                                         styleClass="inputLargo" value="#{registrarExpedienteController.pareja.numeIdenPer}"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <h:outputText value="Fecha Nacimiento"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <p:calendar locale="es" lang="es" pattern="dd/MM/yyyy" styleClass="inputLargo" value="#{registrarExpedienteController.pareja.fechNaciPer}"
+                                                        disabled="#{registrarExpedienteController.socio.maePersona.estaCiviPer!=2}" />
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-12 margen sin-margen">
+                                        <div class="col-lg-3 sin-margen">
+                                            <h:outputText value="Vínculo"/>
+                                        </div>
+                                        <div class="col-lg-3 sin-margen">
+                                            <p:selectOneMenu disabled="#{registrarExpedienteController.socio.maePersona.estaCiviPer!=2}" 
+                                                             styleClass="inputLargo" value="#{registrarExpedienteController.pareja.gradParePer}">
+                                                <f:selectItems value="#{registrarExpedienteController.gradosParentesco}"
+                                                               var="grado"      itemLabel="#{grado.valoCaduDet}" itemValue="#{grado.secuEntiDet}"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div> 
+                                </p:fieldset>
+                                <p:spacer width="10"/>
+                                <p:fieldset legend="Unidad Inmobiliaria" styleClass="fieldSet">
+                                    <div class="col-lg-12 margen sin-margen">
+                                        <comp:ubigeo value="#{registrarExpedienteController.inmueble.idenUbigUbi}"/>
+                                    </div>
+                                    <div class="col-lg-12 margen sin-margen">
+                                        <div class="col-lg-2 margen sin-margen">
+                                            <h:outputText value="Dirección"/>
+                                        </div>
+                                        <div class="col-lg-10 margen sin-margen">
+                                            <p:inputTextarea autoResize="false" styleClass="inputLargo"
+                                                             rows="3"            value="#{registrarExpedienteController.inmueble.descDireImb}"/>
+                                        </div>
+                                    </div> 
+                                </p:fieldset>
+                            </p:fieldset>
+                        </div>
+                        <div class="col-lg-12 margen sin-margen">
+                            <p:commandButton value="Guardar" actionListener="#{registrarExpedienteController.registrar()}"/>
                         </div>
                     </p:fieldset>
                 </div> 
