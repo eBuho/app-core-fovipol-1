@@ -117,9 +117,9 @@
                                                 <h:outputText value="Moneda"/>
                                             </p:column>
                                             <p:column>
-                                                <p:selectOneMenu value="#{simulacionController.moneda}">
+                                                <p:selectOneMenu value="#{simulacionController.simulacion.codiMoneCrd}">
                                                     <f:selectItems value="#{simulacionController.monedas}"
-                                                                   itemValue="#{moneda}" var="moneda" itemLabel="#{moneda.valoCaduDet}"/>
+                                                                   itemValue="#{moneda.secuEntiDet}" var="moneda" itemLabel="#{moneda.valoCaduDet}"/>
                                                 </p:selectOneMenu>
                                             </p:column>
                                             <p:column>
@@ -235,7 +235,7 @@
                                                 <h:outputText value="Producto:"/>
                                                 <h:outputText value="#{simulacionController.producto.nombProdPrd}"/>
                                                 <h:outputText value="Moneda del Crédito:"/>
-                                                <h:outputText value="#{simulacionController.moneda.valoCaduDet}"/>
+                                                <comp:entidadDetalle entidad="TIPOMONECRD" value="#{simulacionController.simulacion.codiMoneCrd}"/>
                                                 <h:outputText value="Monto a financiar"/>
                                                 <h:outputText value="#{simulacionController.monto}">
                                                     <f:convertNumber groupingUsed="true" minFractionDigits="2"/>

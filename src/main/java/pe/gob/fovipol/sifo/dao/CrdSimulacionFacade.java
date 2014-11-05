@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import pe.gob.fovipol.sifo.model.simulacion.CrdSimulacion;
+import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 
 /**
  *

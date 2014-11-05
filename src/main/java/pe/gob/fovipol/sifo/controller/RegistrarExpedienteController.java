@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -17,6 +18,7 @@ import pe.gob.fovipol.sifo.dao.MaeInmuebleFacade;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
 import pe.gob.fovipol.sifo.dao.MaeRequisitoFacade;
 import pe.gob.fovipol.sifo.dao.MaeSocioFacade;
+import pe.gob.fovipol.sifo.dao.TrmDocumentoFacade;
 import pe.gob.fovipol.sifo.dao.TrmTramiteFacade;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
@@ -25,16 +27,20 @@ import pe.gob.fovipol.sifo.model.maestros.MaePersona;
 import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 import pe.gob.fovipol.sifo.model.maestros.MaeRequisito;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
-import pe.gob.fovipol.sifo.model.simulacion.CrdSimulacion;
+import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 import pe.gob.fovipol.sifo.model.tramite.TrmDocumento;
 import pe.gob.fovipol.sifo.model.tramite.TrmDocumentoPK;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
+import pe.gob.fovipol.sifo.service.CreditoService;
 
 @ManagedBean(name = "registrarExpedienteController")
 @ViewScoped
-public class RegistrarExpedienteController implements Serializable{    
+public class RegistrarExpedienteController implements Serializable {
+
     @EJB
     private TrmTramiteFacade ejbTramiteFacade;
+    @EJB
+    private TrmDocumentoFacade ejbDocumentoFacade;
     @EJB
     private MaeEntidaddetFacade ejbEntidadDetalleFacade;
     @EJB
@@ -45,6 +51,8 @@ public class RegistrarExpedienteController implements Serializable{
     private CrdSimulacionFacade ejbSimulacionFacade;
     @EJB
     private MaeInmuebleFacade ejbInmuebleFacade;
+    @EJB
+    private CreditoService creditoService;
     private MaeSocio socio;
     private TrmTramite tramite;
     private List<MaeProducto> productos;
@@ -58,41 +66,52 @@ public class RegistrarExpedienteController implements Serializable{
     private BigDecimal simulacion;
     private MaeInmueble inmueble;
     private MaePersona pareja;
+    private int edad;
+    private boolean beneficiaria;
+
     @PostConstruct
-    public void init(){
-        String idHistoria = (String) FacesContext.getCurrentInstance()
-				.getExternalContext().getRequestParameterMap()
-				.get("idTramite");
-        if(idHistoria!=null && !idHistoria.trim().equals("")){
-            tramite=ejbTramiteFacade.find(new BigDecimal(idHistoria));
-            if(tramite==null){
-                tramite=new TrmTramite();
+    public void init() {
+        String idTramite = (String) FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap()
+                .get("idTramite");
+        if (idTramite != null && !idTramite.trim().equals("")) {
+            tramite = ejbTramiteFacade.find(new BigDecimal(idTramite));
+            if (tramite == null) {
+                tramite = new TrmTramite();
                 tramite.setIdenSimuSim(new CrdSimulacion());
+            } else {
+                setSocio(tramite.getCodiPersTrm().getMaeSocio());
             }
-        }
-        else{
-            tramite=new TrmTramite();
+        } else {
+            tramite = new TrmTramite();
             tramite.setIdenSimuSim(new CrdSimulacion());
-        }        
-        productos=ejbProductoFacade.findAll();
-        inmueble=new MaeInmueble();
-        setPareja(new MaePersona());
-        gradosParentesco=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("GRADPAREPER"));
+        }
+        productos = ejbProductoFacade.findAll();
+        inmueble = new MaeInmueble();
+        gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("GRADPAREPER"));
+        beneficiaria=false;
     }
-    
-    public void mostrarSimulacion(){
+
+    public void nuevoTramite() {
+        tramite = new TrmTramite();
+        tramite.setIdenSimuSim(new CrdSimulacion());
+        socio=null;
+    }
+
+    public void mostrarSimulacion() {
         tramite.setIdenSimuSim(ejbSimulacionFacade.find(simulacion));
     }
-    public void cargarRequisitos(){
-        if(producto!=null){
-            List<MaeRequisito> reqs=ejbRequisitoFacade.findByProcesoActivo(producto.getIdenProcPrc().getCodiProcPrc());
-            if(socio!=null){
-                simulaciones=ejbSimulacionFacade.findBySocioProducto(socio.getCodiPersPer(),producto.getIdenProdPrd());
+
+    public void cargarRequisitos() {
+        if (producto != null) {
+            List<MaeRequisito> reqs = ejbRequisitoFacade.findByProcesoActivo(producto.getIdenProcPrc().getCodiProcPrc());
+            if (socio != null) {
+                simulaciones = ejbSimulacionFacade.findBySocioProducto(socio.getCodiPersPer(), producto.getIdenProdPrd());
             }
-            documentos=new ArrayList<>();
-            int i=1;
-            for(MaeRequisito aux:reqs){
-                TrmDocumento doc=new TrmDocumento();
+            documentos = new ArrayList<>();
+            int i = 1;
+            for (MaeRequisito aux : reqs) {
+                TrmDocumento doc = new TrmDocumento();
                 doc.setTrmDocumentoPK(new TrmDocumentoPK());
                 doc.getTrmDocumentoPK().setSecuDocuDoc(i);
                 doc.setMaeRequisito(aux);
@@ -103,40 +122,46 @@ public class RegistrarExpedienteController implements Serializable{
             }
         }
     }
-    
-    public void registrar(){
-        if(socio==null){
-            FacesContext.getCurrentInstance().addMessage(null, 
+
+    public void registrar() {
+        if (socio == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Seleccione Socio", ""));
             return;
         }
-        if(tramite.getNombTramTrm()==null || tramite.getNombTramTrm().trim().equals("")){
-            FacesContext.getCurrentInstance().addMessage(null, 
+        if (tramite.getNombTramTrm() == null || tramite.getNombTramTrm().trim().equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese nombre de Tramitante", ""));
             return;
         }
-        if(tramite.getNumeFolioTrm()==null){
-            FacesContext.getCurrentInstance().addMessage(null, 
+        if (tramite.getNumeFolioTrm() == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el número de folios", ""));
             return;
         }
-        if(tramite.getNumeFolioTrm().compareTo(BigInteger.ZERO)!=1){
-            FacesContext.getCurrentInstance().addMessage(null, 
+        if (tramite.getNumeFolioTrm().compareTo(BigInteger.ZERO) != 1) {
+            FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "El número de folios debe ser Mayor que 0", ""));
             return;
         }
-        if(tramite.getDescAsunTrm()==null || tramite.getDescAsunTrm().trim().equals("")){
-            FacesContext.getCurrentInstance().addMessage(null, 
+        if (tramite.getDescAsunTrm() == null || tramite.getDescAsunTrm().trim().equals("")) {
+            FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el Asunto del Expediente", ""));
             return;
         }
         tramite.setIdenExpeTrm(ejbTramiteFacade.obtenerCorrelativo());
         tramite.setCodiPersTrm(socio.getMaePersona());
         ejbTramiteFacade.create(tramite);
+        for(TrmDocumento doc:documentos){
+            doc.getTrmDocumentoPK().setIdenExpeTrm(tramite.getIdenExpeTrm().toBigInteger());
+            ejbDocumentoFacade.create(doc);
+        }
+        FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
         /*inmueble.setIdenInmuImb(ejbInmuebleFacade.obtenerCorrelativo());
-        inmueble.setFlagEstaImb(new Short("1"));
-        ejbInmuebleFacade.create(inmueble);*/
-    }    
+         inmueble.setFlagEstaImb(new Short("1"));
+         ejbInmuebleFacade.create(inmueble);*/
+    }
 
     /**
      * @return the socio
@@ -149,7 +174,25 @@ public class RegistrarExpedienteController implements Serializable{
      * @param socio the socio to set
      */
     public void setSocio(MaeSocio socio) {
-        this.socio = socio;        
+        this.socio = socio;
+        if(this.socio!=null){
+            edad=creditoService.calcularEdad(socio.getMaePersona().getFechNaciPer(), new Date());
+            if(this.socio.getMaePersona().getCodiPerpPer()!=null){
+                MaePersona aux=this.socio.getMaePersona().getCodiPerpPer();
+                if(aux.getFechFallPer()!=null){
+                    if(this.socio.getMaePersona().getGradParePer()==1){
+                        beneficiaria=true;
+                        pareja=this.socio.getMaePersona().getCodiPerpPer();
+                        edad=creditoService.calcularEdad(pareja.getFechNaciPer(), new Date());
+                    }
+                }
+                else
+                    beneficiaria=false; 
+            }
+            else
+                beneficiaria=false;
+            
+        }
     }
 
     /**
@@ -170,8 +213,9 @@ public class RegistrarExpedienteController implements Serializable{
      * @return the tiposTramite
      */
     public List<MaeEntidaddet> getTiposTramite() {
-        if(tiposTramite==null)
-            tiposTramite=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("TIPOTRAMTRM"));
+        if (tiposTramite == null) {
+            tiposTramite = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("TIPOTRAMTRM"));
+        }
         return tiposTramite;
     }
 
@@ -186,8 +230,9 @@ public class RegistrarExpedienteController implements Serializable{
      * @return the modalidadesTramite
      */
     public List<MaeEntidaddet> getModalidadesTramite() {
-        if(modalidadesTramite==null)
-            modalidadesTramite=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODIMODATRM"));
+        if (modalidadesTramite == null) {
+            modalidadesTramite = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODIMODATRM"));
+        }
         return modalidadesTramite;
     }
 
@@ -202,8 +247,9 @@ public class RegistrarExpedienteController implements Serializable{
      * @return the tiposPrioridad
      */
     public List<MaeEntidaddet> getTiposPrioridad() {
-        if(tiposPrioridad==null)
-            tiposPrioridad=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODIPRIOTRM"));
+        if (tiposPrioridad == null) {
+            tiposPrioridad = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODIPRIOTRM"));
+        }
         return tiposPrioridad;
     }
 
@@ -214,15 +260,13 @@ public class RegistrarExpedienteController implements Serializable{
         this.tiposPrioridad = tiposPrioridad;
     }
 
-    
-
     /**
      * @return the procesos
      */
     public List<MaeProducto> getProductos() {
         return productos;
     }
-    
+
     public void setProductos(List<MaeProducto> productos) {
         this.productos = productos;
     }
@@ -283,8 +327,6 @@ public class RegistrarExpedienteController implements Serializable{
         this.simulacion = simulacion;
     }
 
-    
-
     /**
      * @return the inmueble
      */
@@ -325,5 +367,33 @@ public class RegistrarExpedienteController implements Serializable{
      */
     public void setGradosParentesco(List<MaeEntidaddet> gradosParentesco) {
         this.gradosParentesco = gradosParentesco;
+    }
+
+    /**
+     * @return the edad
+     */
+    public int getEdad() {
+        return edad;
+    }
+
+    /**
+     * @param edad the edad to set
+     */
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    /**
+     * @return the beneficiaria
+     */
+    public boolean isBeneficiaria() {
+        return beneficiaria;
+    }
+
+    /**
+     * @param beneficiaria the beneficiaria to set
+     */
+    public void setBeneficiaria(boolean beneficiaria) {
+        this.beneficiaria = beneficiaria;
     }
 }
