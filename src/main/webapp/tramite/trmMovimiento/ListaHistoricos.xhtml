@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/plantilla.xhtml">
 
 
         <ui:define name="title">
@@ -14,10 +14,10 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="TrmMovimientoListForm">
+            <h:form id="TrmMovimientoHistForm">
 
-                <p:dataTable id="dataHistorica" value="#{trmMovimientoController.itemsHistoricos}" var="itemHistorico"
-                             selectionMode="single" selection="#{trmMovimientoController.selectedHistorico}"
+                <p:dataTable id="dataHistorica" value="#{trmMovimHisController.itemsHistoricos}" var="itemHistorico"
+                             selectionMode="single" selection="#{trmMovimHisController.selectedHistorico}"
 
                              paginator="true"
                              rowKey="#{itemHistorico.trmMovimientoPK}"

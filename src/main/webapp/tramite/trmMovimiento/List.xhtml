@@ -14,173 +14,182 @@
 
         <ui:define name="body">
             <h:form id="TrmMovimientoListForm">
-                <p:panel header="#{tramite.ListTrmMovimientoTitle}">
-                    <p:tabView id="tabVista">
-                        <p:tab title="Bandeja de trabajo">
-                            <p:dataTable id="datalist" value="#{trmMovimientoController.items}" var="item"
-                                         selectionMode="single" selection="#{trmMovimientoController.selected}"
+                <f:view locale="#{facesContext.externalContext.requestLocale}">
+                    <p:panel header="#{tramite.ListTrmMovimientoTitle}">
+                        <p:tabView id="tabVista">
+                            <p:tab title="Bandeja de trabajo">
+                                <p:dataTable id="datalist" value="#{trmMovimientoController.items}" var="item"
+                                             selectionMode="single" selection="#{trmMovimientoController.selected}"
 
-                                         paginator="true"
-                                         rowKey="#{item.trmMovimientoPK}"
-                                         rows="10"
-                                         rowsPerPageTemplate="10,20,30,40,50"
-                                         emptyMessage="No se encontraron registros"
-                                         >
+                                             paginator="true"
+                                             rowKey="#{item.trmMovimientoPK}"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             emptyMessage="No se encontraron registros"
+                                             >
 
-                                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton :TrmMovimientoListForm:tabVista"/>
-                                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton :TrmMovimientoListForm"/>
+                                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton :TrmMovimientoListForm:tabVista"/>
+                                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton :TrmMovimientoListForm"/>
 
-                                <!--p:column selectionMode="single" style="width:16px;text-align:center"/-->
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Expediente"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.trmTramite.codiExpeTrm}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_trmMovimientoPK_secuMoviMvm}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.trmMovimientoPK.secuMoviMvm}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_usuaEnviMvm}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.usuaEnviMvm}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_fechEnviMvm}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechEnviMvm}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_usuaReceMvm}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.usuaReceMvm}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_fechReceMvm}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechReceMvm}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_descInfoMvm}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.descInfoMvm}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_usuaAsigMvm}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.usuaAsigMvm}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_usuaTrabMvm}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.usuaTrabMvm}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_fechAsigMvm}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechAsigMvm}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_numeDiasMvm}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.numeDiasMvm}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_fechVencMvm}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechVencMvm}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_usuaCreaAud}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.usuaCreaAud}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_fechCreaAud}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechCreaAud}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_usuaModiAud}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.usuaModiAud}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_fechModiAud}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechModiAud}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_nombEquiAud}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.nombEquiAud}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_nombSopeAud}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.nombSopeAud}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{tramite.ListTrmMovimientoTitle_flagSituMvm}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.flagSituMvm}"/>
-                                </p:column>
+                                    <!--p:column selectionMode="single" style="width:16px;text-align:center"/-->
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Expediente"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.trmTramite.codiExpeTrm}"/>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_trmMovimientoPK_secuMoviMvm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.trmMovimientoPK.secuMoviMvm}"/>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_usuaEnviMvm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.usuaEnviMvm}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_fechEnviMvm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechEnviMvm}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_usuaReceMvm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.usuaReceMvm}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_fechReceMvm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechReceMvm}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_descInfoMvm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.descInfoMvm}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_usuaAsigMvm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.usuaAsigMvm}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_usuaTrabMvm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.usuaTrabMvm}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_fechAsigMvm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechAsigMvm}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_numeDiasMvm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.numeDiasMvm}"/>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_fechVencMvm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechVencMvm}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_usuaCreaAud}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.usuaCreaAud}"/>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_fechCreaAud}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechCreaAud}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_usuaModiAud}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.usuaModiAud}"/>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_fechModiAud}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechModiAud}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_nombEquiAud}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nombEquiAud}"/>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_nombSopeAud}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nombSopeAud}"/>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmMovimientoTitle_flagSituMvm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.flagSituMvm}"/>
+                                    </p:column>
 
-                                <f:facet name="footer">
-                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{tramite.Create}" actionListener="#{trmMovimientoController.prepareCreate}" update=":TrmMovimientoCreateForm" oncomplete="PF('TrmMovimientoCreateDialog').show()"/>
-                                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{tramite.View}" update=":TrmMovimientoViewForm" oncomplete="PF('TrmMovimientoViewDialog').show()" disabled="#{empty trmMovimientoController.selected}"/>
-                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{tramite.Edit}" update=":TrmMovimientoEditForm" oncomplete="PF('TrmMovimientoEditDialog').show()" disabled="#{empty trmMovimientoController.selected}"/>
-                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{tramite.Delete}" actionListener="#{trmMovimientoController.destroy}" update=":growl,datalist" disabled="#{empty trmMovimientoController.selected}"/>
-                                </f:facet>
-                            </p:dataTable>
-                        </p:tab>
-                        
-                        
-                        <p:tab id="tabDinamico" title="#{trmMovimientoController.selected.idenProcPrc.nombProcPrc}">
-                            <iframe width="1000" height="400" frameborder="0" 
-                                    src="#{trmMovimientoController.selected.idenProcPrc.pagiProcPrc}.xhtml?idExpediente=#{trmMovimientoController.selected.trmMovimientoPK.idenExpeTrm}"/>
-                        </p:tab>
-                        
-                        
-                        <p:tab title="Historial">
-                            <!--iframe width="1200" height="400" frameborder="0" 
-                                    src="ListaHistoricos.xhtml"/-->
-                        </p:tab>
-                    </p:tabView>
+                                    <f:facet name="footer">
+                                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{tramite.Create}" actionListener="#{trmMovimientoController.prepareCreate}" update=":TrmMovimientoCreateForm" oncomplete="PF('TrmMovimientoCreateDialog').show()"/>
+                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{tramite.View}" update=":TrmMovimientoViewForm" oncomplete="PF('TrmMovimientoViewDialog').show()" disabled="#{empty trmMovimientoController.selected}"/>
+                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{tramite.Edit}" update=":TrmMovimientoEditForm" oncomplete="PF('TrmMovimientoEditDialog').show()" disabled="#{empty trmMovimientoController.selected}"/>
+                                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{tramite.Delete}" actionListener="#{trmMovimientoController.destroy}" update=":growl,datalist" disabled="#{empty trmMovimientoController.selected}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </p:tab>
 
-                </p:panel>
+
+                            <p:tab id="tabDinamico" title="#{trmMovimientoController.selected.idenProcPrc.nombProcPrc}">
+                                <p:panel>
+                                    <iframe 
+                                        src="#{trmMovimientoController.selected.idenProcPrc.pagiProcPrc}=#{trmMovimientoController.selected.trmMovimientoPK.idenExpeTrm}" width="550px;" height="775px;" /> 
+                                </p:panel>
+                            </p:tab>
+
+
+                            <p:tab title="Historial">
+                                <p:layout>  
+                                    <p:layoutUnit position="center">  
+                                        <iframe width="100%" height="100%" frameborder="0" 
+                                                src="ListaHistoricos.xhtml"/>
+                                    </p:layoutUnit>  
+                                </p:layout>
+
+                            </p:tab>
+                        </p:tabView>
+
+                    </p:panel>
+                </f:view>
             </h:form>
 
             <ui:include src="Create.xhtml"/>
