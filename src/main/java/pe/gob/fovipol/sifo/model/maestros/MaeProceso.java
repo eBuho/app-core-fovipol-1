@@ -29,6 +29,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.model.tramite.TrmMovimiento;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
@@ -57,6 +58,8 @@ public class MaeProceso implements Serializable {
     private Short niveProcPrc;
     @Column(name = "ORDE_SECU_PRC")
     private Integer ordeSecuPrc;    
+    @OneToMany(mappedBy = "idenProcPrc")
+    private List<TrmMovimiento> trmMovimientoList;    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "maeProceso")
     private List<MaeRequisito> maeRequisitoList;
     @Column(name = "TIPO_PROC_PRC")
@@ -93,6 +96,8 @@ public class MaeProceso implements Serializable {
     @Size(max = 40)
     @Column(name = "NOMB_SOPE_AUD")
     private String nombSopeAud;
+    @Column(name = "PAGI_PROC_PRC")
+    private String pagiProcPrc;
     @Column(name = "FLAG_ESTA_PRC")
     private Short flagEstaPrc;    
     @JoinColumn(name = "IDEN_AREA_ARE", referencedColumnName = "IDEN_AREA_ARE")
@@ -283,5 +288,31 @@ public class MaeProceso implements Serializable {
     public void setMaeRequisitoList(List<MaeRequisito> maeRequisitoList) {
         this.maeRequisitoList = maeRequisitoList;
     }
+
+    /**
+     * @return the pagiProcPrc
+     */
+    public String getPagiProcPrc() {
+        return pagiProcPrc;
+    }
+
+    /**
+     * @param pagiProcPrc the pagiProcPrc to set
+     */
+    public void setPagiProcPrc(String pagiProcPrc) {
+        this.pagiProcPrc = pagiProcPrc;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TrmMovimiento> getTrmMovimientoList() {
+        return trmMovimientoList;
+    }
+
+    public void setTrmMovimientoList(List<TrmMovimiento> trmMovimientoList) {
+        this.trmMovimientoList = trmMovimientoList;
+    }
+
+    
     
 }

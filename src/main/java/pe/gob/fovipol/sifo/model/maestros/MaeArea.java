@@ -26,6 +26,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.model.tramite.TrmMovimiento;
 
 /**
  *
@@ -49,6 +51,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MaeArea.findByNombSopeAud", query = "SELECT m FROM MaeArea m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeArea.findByFlagEstaAre", query = "SELECT m FROM MaeArea m WHERE m.flagEstaAre = :flagEstaAre")})
 public class MaeArea implements Serializable {
+    @OneToMany(mappedBy = "areaDestMvm")
+    private List<TrmMovimiento> trmMovimientoList;
+    @OneToMany(mappedBy = "areaOrigMvm")
+    private List<TrmMovimiento> trmMovimientoList1;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -260,6 +266,26 @@ public class MaeArea implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.MaeArea[ codiAreaAre=" + codiAreaAre + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TrmMovimiento> getTrmMovimientoList() {
+        return trmMovimientoList;
+    }
+
+    public void setTrmMovimientoList(List<TrmMovimiento> trmMovimientoList) {
+        this.trmMovimientoList = trmMovimientoList;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TrmMovimiento> getTrmMovimientoList1() {
+        return trmMovimientoList1;
+    }
+
+    public void setTrmMovimientoList1(List<TrmMovimiento> trmMovimientoList1) {
+        this.trmMovimientoList1 = trmMovimientoList1;
     }
     
 }

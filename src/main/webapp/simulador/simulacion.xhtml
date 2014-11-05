@@ -81,12 +81,22 @@
                                             <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                         </p:inputText>
+                                        <h:outputText rendered="#{simulacionController.producto.idenProdPrd!=null and simulacionController.producto.idenProdPrd==3}" value="Total Aporte Anterior (S/.)"/>
+                                        <p:inputText rendered="#{simulacionController.producto.idenProdPrd!=null and simulacionController.producto.idenProdPrd==3}" value="#{simulacionController.totalAporteAnterior}">
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                            <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
+                                        </p:inputText>
                                         <h:outputText value="Máximo por Producto"/>
                                         <p:inputText id="cantVeces" disabled="true" value="#{simulacionController.producto.cantVecePrd}"/>
                                         <h:outputText value="Otras deudas financieras (S/.)"/>
                                         <p:inputText disabled="#{simulacionController.producto.idenProdPrd==null}" value="#{simulacionController.simulacion.deudOtraSim}"> 
                                             <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                        </p:inputText>
+                                        <h:outputText rendered="#{simulacionController.producto.idenProdPrd!=null and simulacionController.producto.idenProdPrd==3}" value="Importe Préstamo Anterior (S/.)"/>
+                                        <p:inputText rendered="#{simulacionController.producto.idenProdPrd!=null and simulacionController.producto.idenProdPrd==3}" value="#{simulacionController.montoAnteriorPrestamo}">
+                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                            <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
                                         </p:inputText>
                                     </p:panelGrid>
                                 </p:fieldset>
@@ -233,7 +243,7 @@
                                                 <h:outputText value="Código de Simulación:"/>
                                                 <h:outputText value="#{simulacionController.simulacion.idenSimuSim}"/>
                                                 <h:outputText value="Producto:"/>
-                                                <h:outputText value="#{simulacionController.producto.nombProdPrd}"/>
+                                                <h:outputText value="#{simulacionController.simulacion.idenProdPrd.nombProdPrd}"/>
                                                 <h:outputText value="Moneda del Crédito:"/>
                                                 <comp:entidadDetalle entidad="TIPOMONECRD" value="#{simulacionController.simulacion.codiMoneCrd}"/>
                                                 <h:outputText value="Monto a financiar"/>

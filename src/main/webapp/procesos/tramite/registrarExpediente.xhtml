@@ -7,14 +7,13 @@
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-        
+    <ui:composition>        
             <div class="col-lg-12">
                 <h5>Registro del Trámite</h5>
             </div>            
             <h:form id="formRegistroExpediente">
                 <div class="col-lg-12" style="margin-bottom: 10px;">
-                    <p:commandButton update="formRegistroExpediente" value="Nuevo" actionListener="#{registrarExpedienteController.nuevoTramite}">
+                    <p:commandButton icon="ui-icon-plus" rendered="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Nuevo" actionListener="#{registrarExpedienteController.nuevoTramite}">
                         <p:confirm header="Confirmación" message="¿Esta seguro perderá los cambios que no guardo?" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
@@ -336,7 +335,7 @@
                                     <h:outputText value="Producto:"/>                                
                                 </div>
                                 <div class="col-lg-8">
-                                    <p:selectOneMenu disabled="#{registrarExpedienteController.socio==null}" value="#{registrarExpedienteController.producto}" styleClass="inputLargo">
+                                    <p:selectOneMenu disabled="#{registrarExpedienteController.socio==null or registrarExpedienteController.tramite.idenExpeTrm!=null}" value="#{registrarExpedienteController.producto}" styleClass="inputLargo">
                                         <f:selectItem itemValue="" itemLabel="Seleccione un Producto"/>
                                         <f:selectItems value="#{registrarExpedienteController.productos}"
                                                        itemValue="#{tipo}" var="tipo" itemLabel="#{tipo.nombProdPrd}"/>
@@ -443,7 +442,7 @@
                                     <h:outputText value="N° Simulación"/>                                
                                 </div>
                                 <div class="col-lg-8">
-                                    <p:selectOneMenu id="simulacion" value="#{registrarExpedienteController.simulacion}" >
+                                    <p:selectOneMenu disabled="#{registrarExpedienteController.tramite.idenExpeTrm!=null}" id="simulacion" value="#{registrarExpedienteController.simulacion}" >
                                         <f:selectItem itemValue="" itemLabel="Seleccione una simulación"/>
                                         <f:selectItems value="#{registrarExpedienteController.simulaciones}" var="simu"
                                                        itemValue="#{simu.idenSimuSim}" /> 
@@ -703,7 +702,9 @@
                             </p:fieldset>
                         </div>
                         <div class="col-lg-12 margen sin-margen">
-                            <p:commandButton value="Guardar" actionListener="#{registrarExpedienteController.registrar()}"/>
+                            <p:commandButton  update="formRegistroExpediente" value="Guardar" actionListener="#{registrarExpedienteController.registrar()}"/>
+                            <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Dar Viabilidad" actionListener="#{registrarExpedienteController.darViabilidad()}"/>
+                            <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Rechazar" actionListener="#{registrarExpedienteController.rechazar()}"/>
                         </div>
                     </p:fieldset>
                 </div> 

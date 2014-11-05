@@ -5,10 +5,13 @@
  */
 package pe.gob.fovipol.sifo.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import pe.gob.fovipol.sifo.model.tramite.TrmDocumento;
+import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
  *
@@ -27,5 +30,12 @@ public class TrmDocumentoFacade extends AbstractFacade<TrmDocumento> {
     public TrmDocumentoFacade() {
         super(TrmDocumento.class);
     }
-    
+    public List<TrmDocumento> findByTramite(TrmTramite padre) {
+        List<TrmDocumento> lista = null;
+        String sql = "FROM TrmDocumento a WHERE a.trmTramite=:padre";        
+        Query q = em.createQuery(sql);
+        q.setParameter("padre", padre);
+        lista = q.getResultList();
+        return lista;
+    }
 }
