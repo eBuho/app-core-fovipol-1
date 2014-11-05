@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.gob.fovipol.sifo.model.simulacion;
+package pe.gob.fovipol.sifo.model.credito;
 
 import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 import java.io.Serializable;
@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,17 +19,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
-import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
  *
@@ -137,6 +132,8 @@ public class CrdSimulacion implements Serializable {
     @JoinColumn(name = "IDEN_PROD_PRD", referencedColumnName = "IDEN_PROD_PRD")
     @ManyToOne
     private MaeProducto idenProdPrd;
+    @Column(name = "CODI_MONE_CRD")
+    private Integer codiMoneCrd;
 
     public CrdSimulacion() {
     }
@@ -389,6 +386,20 @@ public class CrdSimulacion implements Serializable {
             fecha=" - "+d.format(fechCreaAud);
         }
         return idenSimuSim + fecha;
+    }
+
+    /**
+     * @return the codiMoneCrd
+     */
+    public Integer getCodiMoneCrd() {
+        return codiMoneCrd;
+    }
+
+    /**
+     * @param codiMoneCrd the codiMoneCrd to set
+     */
+    public void setCodiMoneCrd(Integer codiMoneCrd) {
+        this.codiMoneCrd = codiMoneCrd;
     }
 
 }

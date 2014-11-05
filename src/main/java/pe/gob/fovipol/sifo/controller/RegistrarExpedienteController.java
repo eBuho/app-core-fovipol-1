@@ -27,7 +27,7 @@ import pe.gob.fovipol.sifo.model.maestros.MaePersona;
 import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 import pe.gob.fovipol.sifo.model.maestros.MaeRequisito;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
-import pe.gob.fovipol.sifo.model.simulacion.CrdSimulacion;
+import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 import pe.gob.fovipol.sifo.model.tramite.TrmDocumento;
 import pe.gob.fovipol.sifo.model.tramite.TrmDocumentoPK;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
@@ -67,6 +67,7 @@ public class RegistrarExpedienteController implements Serializable {
     private MaeInmueble inmueble;
     private MaePersona pareja;
     private int edad;
+    private boolean beneficiaria;
 
     @PostConstruct
     public void init() {
@@ -87,8 +88,8 @@ public class RegistrarExpedienteController implements Serializable {
         }
         productos = ejbProductoFacade.findAll();
         inmueble = new MaeInmueble();
-        setPareja(new MaePersona());
         gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("GRADPAREPER"));
+        beneficiaria=false;
     }
 
     public void nuevoTramite() {
@@ -156,7 +157,7 @@ public class RegistrarExpedienteController implements Serializable {
             ejbDocumentoFacade.create(doc);
         }
         FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con éxito", ""));
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
         /*inmueble.setIdenInmuImb(ejbInmuebleFacade.obtenerCorrelativo());
          inmueble.setFlagEstaImb(new Short("1"));
          ejbInmuebleFacade.create(inmueble);*/
@@ -176,6 +177,21 @@ public class RegistrarExpedienteController implements Serializable {
         this.socio = socio;
         if(this.socio!=null){
             edad=creditoService.calcularEdad(socio.getMaePersona().getFechNaciPer(), new Date());
+            if(this.socio.getMaePersona().getCodiPerpPer()!=null){
+                MaePersona aux=this.socio.getMaePersona().getCodiPerpPer();
+                if(aux.getFechFallPer()!=null){
+                    if(this.socio.getMaePersona().getGradParePer()==1){
+                        beneficiaria=true;
+                        pareja=this.socio.getMaePersona().getCodiPerpPer();
+                        edad=creditoService.calcularEdad(pareja.getFechNaciPer(), new Date());
+                    }
+                }
+                else
+                    beneficiaria=false; 
+            }
+            else
+                beneficiaria=false;
+            
         }
     }
 
@@ -365,5 +381,19 @@ public class RegistrarExpedienteController implements Serializable {
      */
     public void setEdad(int edad) {
         this.edad = edad;
+    }
+
+    /**
+     * @return the beneficiaria
+     */
+    public boolean isBeneficiaria() {
+        return beneficiaria;
+    }
+
+    /**
+     * @param beneficiaria the beneficiaria to set
+     */
+    public void setBeneficiaria(boolean beneficiaria) {
+        this.beneficiaria = beneficiaria;
     }
 }
