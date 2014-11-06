@@ -53,7 +53,10 @@ public class MaeRequisitoFacade extends AbstractFacade<MaeRequisito> {
         Query q = em.createQuery("SELECT MAX(a.maeRequisitoPK.secuMaeReq) FROM MaeRequisito a where a.maeRequisitoPK.idenProcPrc=:idenProcPrc", BigDecimal.class);
         q.setParameter("idenProcPrc", idenProcPrc.toBigInteger());
         id = (BigInteger) q.getSingleResult();
-        id=id.add(new BigInteger("1"));
+        if(id==null)
+            id=BigInteger.ONE;
+        else
+            id=id.add(new BigInteger("1"));
         return id;
     }
 }

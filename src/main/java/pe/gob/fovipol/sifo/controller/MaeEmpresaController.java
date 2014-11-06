@@ -73,10 +73,12 @@ public class MaeEmpresaController implements Serializable {
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaDeleted"));
+        selected.setFechModiAud(new Date());
+        selected.setFlagEstaEmp(new Short("0"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeEmpresaUpdated"));
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+            //selected = null; // Remove selection
+            //items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 

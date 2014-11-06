@@ -35,6 +35,7 @@ public class MaeProductoController implements Serializable {
     private List<MaeProducto> itemsFiltro = null;
     private MaeProducto selected;
     private List<MaeEntidaddet> lineasProducto;
+    private List<MaeEntidaddet> monedas;
 
     public MaeProductoController() {
     }
@@ -79,10 +80,12 @@ public class MaeProductoController implements Serializable {
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeProductoDeleted"));
+        selected.setFlagEstaPrd(new Short("0"));
+        selected.setFechModAud(new Date());
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeProductoUpdated"));
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+            //elected = null; // Remove selection
+            //items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
@@ -157,6 +160,22 @@ public class MaeProductoController implements Serializable {
      */
     public void setLineasProducto(List<MaeEntidaddet> lineasProducto) {
         this.lineasProducto = lineasProducto;
+    }
+
+    /**
+     * @return the monedas
+     */
+    public List<MaeEntidaddet> getMonedas() {
+        if(monedas==null)
+            monedas=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODIMONECRD"));
+        return monedas;
+    }
+
+    /**
+     * @param monedas the monedas to set
+     */
+    public void setMonedas(List<MaeEntidaddet> monedas) {
+        this.monedas = monedas;
     }
 
     @FacesConverter(forClass = MaeProducto.class)

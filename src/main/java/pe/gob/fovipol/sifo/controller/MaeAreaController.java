@@ -79,16 +79,18 @@ public class MaeAreaController implements Serializable {
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeAreaDeleted"));
+        selected.setFlagEstaAre(new Short("0"));
+        selected.setFechModiAud(new Date());
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeAreaUpdated"));
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+            //selected = null; // Remove selection
+            //items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public List<MaeArea> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().findAllOrdenado();
         }
         return items;
     }

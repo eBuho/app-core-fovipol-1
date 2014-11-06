@@ -3,6 +3,7 @@ package pe.gob.fovipol.sifo.controller;
 import pe.gob.fovipol.sifo.dao.MaeSeguroFacade;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,6 +41,7 @@ public class SimulacionController implements Serializable {
     private BigDecimal cuotaPagar;
     private BigDecimal totalAporteAnterior;
     private BigDecimal montoAnteriorPrestamo;
+    private BigDecimal saldoPagarAnteriorPrestamo;
     private MaeEntidaddet detalle;
     private int ciclica;
     private int tipoSocio;
@@ -52,7 +54,7 @@ public class SimulacionController implements Serializable {
     private List<MaeSeguro> segurosSimulacion;
     private MaeSeguro seguro;
     private BigDecimal monto;
-    private BigDecimal liq;
+    private BigDecimal montoCheque;
     private BigDecimal cuota;
     private BigDecimal degravamen;
     private List<CrdSimulacion> simulaciones;
@@ -88,14 +90,17 @@ public class SimulacionController implements Serializable {
         totalAporteAnterior = BigDecimal.ZERO;
         montoAnteriorPrestamo = BigDecimal.ZERO;
         totalAporte = BigDecimal.ZERO;
+        saldoPagarAnteriorPrestamo=BigDecimal.ZERO;
         tipoSocio = 1;
         segurosSimulacion = new ArrayList<>();
         producto = new MaeProducto();
     }
     
     public void calcularGastosAdministrativos(){
-        if(monto!=null && producto!=null && producto.getTasaGadmPrd()!=null)
+        if(monto!=null && producto!=null && producto.getTasaGadmPrd()!=null && monto!=null){
             gastosAdministrativos=monto.multiply(producto.getTasaGadmPrd()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+            montoCheque=monto.add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
+        }
     }
     public SimulacionController() {
     }
@@ -123,6 +128,7 @@ public class SimulacionController implements Serializable {
             if(producto.getIdenProdPrd().compareTo(new BigDecimal(3))!=0){
                 totalAporteAnterior=BigDecimal.ZERO;
                 montoAnteriorPrestamo=BigDecimal.ZERO;
+                saldoPagarAnteriorPrestamo=BigDecimal.ZERO;
             }            
             simulacion.setCapaMcuoSim(creditoService.calcularMaximaCuota(simulacion.getIngrBrtoSim(), porcDescuento,
                     simulacion.getDsctOficSim(), simulacion.getDsctPersSim(), simulacion.getIngrCombSim()));
@@ -138,6 +144,11 @@ public class SimulacionController implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese un monto a simular", ""));
                 context.addCallbackParam("error", true);
             } else {
+                if(simulacion.getPlazPresSim().compareTo(BigInteger.ONE)==-1){
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese un número de cuotas mayor a 0", ""));
+                    context.addCallbackParam("error", true);
+                    return;
+                }
                 if (monto.compareTo(simulacion.getImpoMaxpSim()) == 1) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El Monto es superior al Máximo Préstamo", ""));
                     context.addCallbackParam("error", true);
@@ -147,7 +158,7 @@ public class SimulacionController implements Serializable {
                     totalInteres = BigDecimal.ZERO;
                     cuotasSimulacion = new ArrayList<>();
                 } else {
-                    if (simulacion.getPlazPresSim() != null && simulacion.getPlazPresSim().compareTo(producto.getMaxiPeriPrd()) == -1) {
+                    if (simulacion.getPlazPresSim() != null && simulacion.getPlazPresSim().compareTo(producto.getMaxiPeriPrd()) != 1) {
                         simulacion.setTasaTeaSim(producto.getTasaIntePrd());
                         if (cuota != null) {
                             if (simulacion.getPlazPresSim() != null) {
@@ -174,17 +185,20 @@ public class SimulacionController implements Serializable {
                             cuotasSimulacion = creditoService.calcularCuotas(segurosSimulacion, ciclica,
                                     simulacion.getTasaTeaSim(), monto, simulacion.getPlazPresSim(), cuotaPagar, socio.getMaePersona().getFechNaciPer());
                             if (cuotasSimulacion != null && !cuotasSimulacion.isEmpty()) {
-                                simulacion.setIdenSimuSim(ejbSimulacionFacade.obtenerCorrelativo());
+                                if(simulacion.getIdenSimuSim()==null)
+                                    simulacion.setIdenSimuSim(ejbSimulacionFacade.obtenerCorrelativo());
                                 simulacion.setFechCreaAud(new Date());
                                 simulacion.setFlagEstaSim(new Short("1"));
                                 simulacion.setIdenPersPer(socio);
                                 simulacion.setIdenProdPrd(producto);
                                 simulacion.setTasaGadmSim(producto.getTasaGadmPrd());
-                                ejbSimulacionFacade.create(simulacion);
+                                ejbSimulacionFacade.edit(simulacion);
                                 totalAmortizacion = cuotasSimulacion.get(0).getTotalAmortizacion();
                                 totalCuota = cuotasSimulacion.get(0).getTotalCuota();
                                 totalInteres = cuotasSimulacion.get(0).getTotalInteres();
                                 totalSeguro = cuotasSimulacion.get(0).getTotalSeguro();
+                                cuota=cuotaPagar;
+                                montoCheque=monto.add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
                                 context.addCallbackParam("error", false);
                             } else {
                                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudieron generar cuotas", ""));
@@ -192,7 +206,7 @@ public class SimulacionController implements Serializable {
                             }
                         }
                         else{
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "En ese periodo de tiempo no puede por los seguros", ""));
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "En ese periodo de tiempo no se puede generar pues no alcanzan los seguros", ""));
                             context.addCallbackParam("error", true);
                         }
                     } else {
@@ -354,7 +368,7 @@ public class SimulacionController implements Serializable {
      */
     public List<MaeEntidaddet> getMonedas() {
         if (monedas == null) {
-            monedas = ejbEntidaddetFacade.findDetalleActivo(new MaeEntidad("TIPOMONECRD"));
+            monedas = ejbEntidaddetFacade.findDetalleActivo(new MaeEntidad("CODIMONECRD"));
         }
         return monedas;
     }
@@ -481,19 +495,7 @@ public class SimulacionController implements Serializable {
         this.monto = monto;
     }
 
-    /**
-     * @return the liq
-     */
-    public BigDecimal getLiq() {
-        return liq;
-    }
-
-    /**
-     * @param liq the liq to set
-     */
-    public void setLiq(BigDecimal liq) {
-        this.liq = liq;
-    }
+    
 
     /**
      * @return the cuota
@@ -661,6 +663,34 @@ public class SimulacionController implements Serializable {
      */
     public void setMontoAnteriorPrestamo(BigDecimal montoAnteriorPrestamo) {
         this.montoAnteriorPrestamo = montoAnteriorPrestamo;
+    }
+
+    /**
+     * @return the saldoPagarAnteriorPrestamo
+     */
+    public BigDecimal getSaldoPagarAnteriorPrestamo() {
+        return saldoPagarAnteriorPrestamo;
+    }
+
+    /**
+     * @param saldoPagarAnteriorPrestamo the saldoPagarAnteriorPrestamo to set
+     */
+    public void setSaldoPagarAnteriorPrestamo(BigDecimal saldoPagarAnteriorPrestamo) {
+        this.saldoPagarAnteriorPrestamo = saldoPagarAnteriorPrestamo;
+    }
+
+    /**
+     * @return the montoCheque
+     */
+    public BigDecimal getMontoCheque() {
+        return montoCheque;
+    }
+
+    /**
+     * @param montoCheque the montoCheque to set
+     */
+    public void setMontoCheque(BigDecimal montoCheque) {
+        this.montoCheque = montoCheque;
     }
 
 }

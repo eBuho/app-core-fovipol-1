@@ -63,6 +63,8 @@
                         <comp:activo value="#{maeProductoController.selected.flagEstaPrd}"/>
                         <h:outputText value="#{bundle.ViewMaeProductoLabel_idenProcPrc}"/>
                         <h:outputText value="#{maeProductoController.selected.idenProcPrc.nombProcPrc}" title="#{bundle.ViewMaeProductoTitle_idenProcPrc}"/>
+                        <h:outputText value="Moneda"/>
+                        <comp:entidadDetalle value="#{maeProductoController.selected.codiMoneCrd}" entidad="CODIMONECRD"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="MaeProductoViewDialog.hide()"/>
                 </h:panelGroup>

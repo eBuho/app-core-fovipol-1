@@ -199,25 +199,31 @@ public class MaePersonaController implements Serializable {
 
     public void destroy() {
         selected=selectedPersona;
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaDeleted"));
+        selected.setFlagEstaPer(new Short("0"));
+        selected.setFechModiAud(new Date());
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaUpdated"));
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+            //selected = null; // Remove selection
+            //items = null;    // Invalidate list of items to trigger re-query.
         }
     }
     public void destroyFamilia() {
         selected=selectedFamilia;
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaDeleted"));
+        selected.setFlagEstaPer(new Short("0"));
+        selected.setFechModiAud(new Date());
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaUpdated"));
         if (!JsfUtil.isValidationFailed()) {
-            selectedFamilia = null; // Remove selection
-            cargarSocio();    // Invalidate list of items to trigger re-query.
+            //selectedFamilia = null; // Remove selection
+            //cargarSocio();    // Invalidate list of items to trigger re-query.
         }
     }
     public void destroySocio() {
-        persistSocio(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeSocioDeleted"));
+        selectedSocio.setFlagEstaSoc(new Short("0"));
+        selectedSocio.setFechModiAud(new Date());
+        persistSocio(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeSocioUpdated"));
         if (!JsfUtil.isValidationFailed()) {
-            cargarSocio();
-            selectedSocio = null; 
+            //cargarSocio();
+            //selectedSocio = null; 
         }
     }
 

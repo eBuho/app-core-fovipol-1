@@ -38,4 +38,12 @@ public class MaeAreaFacade extends AbstractFacade<MaeArea> {
         lista = q.getResultList();
         return lista;
     }
+    public List<MaeArea> findAllOrdenado() {
+        List<MaeArea> lista = null;
+        String sql = "select d from MaeArea d order by d.codiAreaAre";
+
+        Query q = em.createQuery(sql);
+        lista = q.getResultList();
+        return lista;
+    }
 }

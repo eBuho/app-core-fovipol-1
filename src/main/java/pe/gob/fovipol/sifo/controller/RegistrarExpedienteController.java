@@ -143,7 +143,11 @@ public class RegistrarExpedienteController implements Serializable {
     }
     
     public void rechazar(){
-        System.out.println("Rechazado");
+        boolean rechazar=tramiteService.cambiarEstadoExpediente(tramite, "RECHAZADO");
+        if(rechazar)
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Expediente Rechazado", ""));        
+        else
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo rechazar el Expediente", ""));
     }
     public void registrar() {
         if (socio == null) {
@@ -170,23 +174,16 @@ public class RegistrarExpedienteController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el Asunto del Expediente", ""));
             return;
-        }
-        if (tramite.getIdenExpeTrm() == null) {
-            tramite.setIdenExpeTrm(ejbTramiteFacade.obtenerCorrelativo());
-            tramite.setFechCreaAud(new Date());
-            tramite.setFlagEstaTrm(new Short("1"));
-        } else {
-            tramite.setFechModiAud(new Date());
-        }
+        }               
         tramite.setCodiPersTrm(socio.getMaePersona());
         tramite.setMaeProceso(producto.getIdenProcPrc());
-        ejbTramiteFacade.edit(tramite);
-        for (TrmDocumento doc : documentos) {
-            doc.getTrmDocumentoPK().setIdenExpeTrm(tramite.getIdenExpeTrm().toBigInteger());
-            ejbDocumentoFacade.edit(doc);
-        }
-        FacesContext.getCurrentInstance().addMessage(null,
+        boolean crea=tramiteService.registrarExpediente(tramite, documentos);
+        if(crea)
+            FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
+        else
+            FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo grabar el Trámite", ""));
         /*inmueble.setIdenInmuImb(ejbInmuebleFacade.obtenerCorrelativo());
          inmueble.setFlagEstaImb(new Short("1"));
          ejbInmuebleFacade.create(inmueble);*/

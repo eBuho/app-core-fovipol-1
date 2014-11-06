@@ -43,3 +43,6 @@
     padding: 0px !important;
     border: none !important;
 }
+.ui-state-disabled{
+    opacity: .85 !important;
+}

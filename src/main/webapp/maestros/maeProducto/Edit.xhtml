@@ -46,7 +46,12 @@
                         <p:selectOneMenu id="flagEstaPrd" value="#{maeProductoController.selected.flagEstaPrd}">
                             <f:selectItem itemLabel="Activo" itemValue="1"/>
                             <f:selectItem itemLabel="Inactivo" itemValue="0"/>
-                        </p:selectOneMenu>                         
+                        </p:selectOneMenu> 
+                        <p:outputLabel value="Moneda" for="codiMoneCrd" />
+                        <p:selectOneMenu value="#{maeProductoController.selected.codiMoneCrd}" id="codiMoneCrd">
+                            <f:selectItems value="#{maeProductoController.monedas}" var="moneda" 
+                                           itemValue="#{moneda.secuEntiDet}" itemLabel="#{moneda.valoCaduDet}"/>
+                        </p:selectOneMenu> 
                         <p:outputLabel value="#{bundle.EditMaeProductoLabel_idenProcPrc}" for="idenProcPrc" />
                         <p:selectOneMenu id="idenProcPrc" value="#{maeProductoController.selected.idenProcPrc}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
