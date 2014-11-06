@@ -29,9 +29,12 @@
                             <f:selectItems value="#{maeAreaController.itemsAvailableSelectOne}"
                                            var="codiAreaAreItem" itemLabel="#{codiAreaAreItem.descAreaAre}"
                                            itemValue="#{codiAreaAreItem}"/>
-                        </p:selectOneMenu>                        
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Página" for="pagiProcPrc" />
+                        <p:inputTextarea autoResize="false" styleClass="inputLargo" rows="3" id="pagiProcPrc" value="#{maeProcesoController.selected.pagiProcPrc}" title="Página" />                  
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{maeProcesoController.create}" value="#{bundle.Save}" update="display,:MaeProcesoListForm:pestanaProceso:datalist,:MaeProcesoListForm:pestanaProceso:datalistActividad,:MaeProcesoListForm:datalistSubProceso,:growl" oncomplete="handleSubmit(args,'MaeProcesoCreateDialog');"/>
+                    <p:commandButton actionListener="#{maeProcesoController.create}" value="#{bundle.Save}" 
+                                     update="display,:MaeProcesoListForm:datalist,:MaeProcesoListForm:pestanaProceso:datalistActividad,:MaeProcesoListForm:pestanaProceso:datalistSubProceso,:growl" oncomplete="handleSubmit(args,'MaeProcesoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaeProcesoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -32,7 +32,7 @@ public class MaeSocioFacade extends AbstractFacade<MaeSocio> {
     }
     public List<MaeSocio> findHijos(MaePersona padre) {
         List<MaeSocio> lista = null;
-        String sql = "FROM MaeSocio a WHERE a.maePersona=:padre";        
+        String sql = "FROM MaeSocio a WHERE a.maePersona=:padre and a.flagEstaSoc<>0";        
         Query q = em.createQuery(sql);
         q.setParameter("padre", padre);
         lista = q.getResultList();
@@ -40,7 +40,7 @@ public class MaeSocioFacade extends AbstractFacade<MaeSocio> {
     }
     public List<MaeSocio> findByName(String nombre) {
         List<MaeSocio> lista = null;
-        String sql = "FROM MaeSocio a WHERE a.maePersona.nombCompPer like :nombre";        
+        String sql = "FROM MaeSocio a WHERE a.maePersona.nombCompPer like :nombre and a.flagEstaSoc<>0";        
         Query q = em.createQuery(sql);
         q.setParameter("nombre", "%"+nombre+"%");
         lista = q.getResultList();
@@ -48,7 +48,7 @@ public class MaeSocioFacade extends AbstractFacade<MaeSocio> {
     }
     public List<MaeSocio> findByDNI(String dni) {
         List<MaeSocio> lista = null;
-        String sql = "FROM MaeSocio a WHERE a.maePersona.numeIdenPer =:dni";        
+        String sql = "FROM MaeSocio a WHERE a.maePersona.numeIdenPer =:dni and a.flagEstaSoc<>0";        
         Query q = em.createQuery(sql);
         q.setParameter("dni", dni);
         lista = q.getResultList();
@@ -56,7 +56,7 @@ public class MaeSocioFacade extends AbstractFacade<MaeSocio> {
     }
     public List<MaeSocio> findByCIP(String cip) {
         List<MaeSocio> lista = null;
-        String sql = "FROM MaeSocio a WHERE a.codiCcipSoc =:cip";        
+        String sql = "FROM MaeSocio a WHERE a.codiCcipSoc =:cip and a.flagEstaSoc<>0";        
         Query q = em.createQuery(sql);
         q.setParameter("cip", cip);
         lista = q.getResultList();

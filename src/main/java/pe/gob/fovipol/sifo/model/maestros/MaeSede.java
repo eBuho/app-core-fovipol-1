@@ -7,6 +7,7 @@ package pe.gob.fovipol.sifo.model.maestros;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -214,6 +215,6 @@ public class MaeSede implements Serializable {
 
     public void setIdenEmprEmp(MaeEmpresa idenEmprEmp) {
         this.idenEmprEmp = idenEmprEmp;
-    }
+    }    
     
 }

@@ -68,7 +68,7 @@
                             <f:selectItem itemLabel="Inactivo" itemValue="0"/>
                         </p:selectOneMenu>                        
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{maePersonaController.createSocio}" value="#{bundle.Save}" update="display,:MaeSocioListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeSocioCreateDialog');"/>
+                    <p:commandButton actionListener="#{maePersonaController.createSocio}" value="#{bundle.Save}" update="display,:MaeSocioListForm:pestanaProceso:datalist,:growl" oncomplete="handleSubmit(args,'MaeSocioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaeSocioCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -12,12 +12,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
+import pe.gob.fovipol.sifo.model.general.Tramite;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 
@@ -39,6 +43,21 @@ public class TrmTramiteController implements Serializable {
     private List<MaeEntidaddet> listaCodigoPrioridad;   // CODIPRIOTRM
 
     public TrmTramiteController() {
+    }
+    
+    public void onRowSelect(SelectEvent event) {
+        TrmTramite tramite = (TrmTramite) event.getObject();
+        
+        FacesMessage msg = new FacesMessage("Tramite Seleccionado", 
+                "" + tramite.getCodiExpeTrm() + " " + tramite.getNombTramTrm() );
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowUnselect(UnselectEvent event) {
+        TrmTramite tramite = (TrmTramite) event.getObject();
+        FacesMessage msg = new FacesMessage("Tramite Deseleccionado", 
+                "" + tramite.getCodiExpeTrm() + " " + tramite.getNombTramTrm() );
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public TrmTramite getSelected() {

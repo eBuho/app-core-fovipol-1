@@ -3,84 +3,86 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+    <f:view locale="es-PE">
+        <h:head>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <meta name="description" content=""/>
+            <meta name="author" content=""/>
+            <title><ui:insert name="title">Sistema Integrado Fovipol</ui:insert></title>
+            <h:outputStylesheet library="css" name="jsfcrud.css"/>        
+            <h:outputScript library="js" name="jsfcrud.js"/>
+            <h:outputScript library="js" name="calendar_es.js"/>
+            <ui:insert name="css"/>
+        </h:head>
 
-    <h:head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <meta name="description" content=""/>
-        <meta name="author" content=""/>
-        <title><ui:insert name="title">Sistema Integrado Fovipol</ui:insert></title>
-        <h:outputStylesheet library="css" name="jsfcrud.css"/>        
-        <h:outputScript library="js" name="jsfcrud.js"/>
-        <ui:insert name="css"/>
-    </h:head>
+        <h:body>
 
-    <h:body>
+            <p:growl id="growl" life="3000" />
 
-        <p:growl id="growl" life="3000" />
-
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
-                <h:form id="menuForm">
-                    <p:menubar  >
-                        <p:menuitem value="#{bundle.Home}" outcome="/index.xhtml" icon="ui-icon-home"/>
-                        <p:submenu label="#{bundle.Maintenance}">
-                            <p:menuitem value="Entidades" outcome="/maestros/maeEntidad/List.xhtml" />
-                            <p:menuitem value="Empresa" outcome="/maestros/maeEmpresa/List.xhtml" />
-                            <p:menuitem value="Persona/Socio" outcome="/maestros/maePersona/List.xhtml" />
-                            <p:menuitem value="Ubigeo" outcome="/maestros/maeUbigeo/List.xhtml" />
-                            <p:menuitem value="Proceso" outcome="/maestros/maeProceso/List.xhtml" />
-                            <p:menuitem value="Sede" outcome="/maestros/maeSede/List.xhtml" />
-                            <p:menuitem value="Área" outcome="/maestros/maeArea/List.xhtml" /> 
-                            <p:menuitem value="Producto" outcome="/maestros/maeProducto/List.xhtml" />
-                        </p:submenu>
-                        <p:submenu label="Simulación">
-                            <p:menuitem value="Simulador" outcome="/simulador/simulacion.xhtml" /> 
-                        </p:submenu>
-                        <p:submenu label="Trámites">
-                            <p:menuitem value="Trámites" outcome="/general/tramite.xhtml" /> 
-                            <p:menuitem value="Registrar Expediente" outcome="/tramite/registrarExpediente.xhtml" /> 
-                        </p:submenu>
-                        <p:menuitem value="Salir" url="#{request.contextPath}/logout"/>
-                    </p:menubar>
-                </h:form>
-            </p:layoutUnit>
-
-            <p:layoutUnit position="center">
-                <ui:insert name="body"/>
-            </p:layoutUnit>
-            <p:layoutUnit position="west">
-                <h:form id="menu">
-                    <p:growl autoUpdate="true"/>
-
-                    <p:panelMenu style="width:150px" >
-                        <p:submenu label="General">
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
+                    <h:form id="menuForm">
+                        <p:menubar  >
                             <p:menuitem value="#{bundle.Home}" outcome="/index.xhtml" icon="ui-icon-home"/>
-                        </p:submenu>
-                        
-                        <p:submenu label="Tablas">
-                            <p:menuitem value="Entidades" outcome="/maestros/maeEntidad/List.xhtml" />
-                            <p:menuitem value="Empresa" outcome="/maestros/maeEmpresa/List.xhtml" />
-                            <p:menuitem value="Persona/Socio" outcome="/maestros/maePersona/List.xhtml" />
-                            <p:menuitem value="Ubigeo" outcome="/maestros/maeUbigeo/List.xhtml" />
-                            <p:menuitem value="Proceso" outcome="/maestros/maeProceso/List.xhtml" />
-                            <p:menuitem value="Sede" outcome="/maestros/maeSede/List.xhtml" />
-                            <p:menuitem value="Área" outcome="/maestros/maeArea/List.xhtml" /> 
-                            <p:menuitem value="Producto" outcome="/maestros/maeProducto/List.xhtml" />
-                        </p:submenu>
-                        <p:submenu label="Procesos">
-                            <p:menuitem value="Simulador" outcome="/simulador/simulacion.xhtml" /> 
-                            <p:menuitem value="Trámites" outcome="/general/tramite.xhtml" /> 
-                        </p:submenu>
-                        <p:submenu label="Salir">
+                            <p:submenu label="#{bundle.Maintenance}">
+                                <p:menuitem value="Entidades" outcome="/maestros/maeEntidad/List.xhtml" />
+                                <p:menuitem value="Empresa" outcome="/maestros/maeEmpresa/List.xhtml" />
+                                <p:menuitem value="Persona/Socio" outcome="/maestros/maePersona/List.xhtml" />
+                                <p:menuitem value="Ubigeo" outcome="/maestros/maeUbigeo/List.xhtml" />
+                                <p:menuitem value="Proceso" outcome="/maestros/maeProceso/List.xhtml" />
+                                <p:menuitem value="Sede" outcome="/maestros/maeSede/List.xhtml" />
+                                <p:menuitem value="Área" outcome="/maestros/maeArea/List.xhtml" /> 
+                                <p:menuitem value="Producto" outcome="/maestros/maeProducto/List.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="Simulación">
+                                <p:menuitem value="Simulador" outcome="/simulador/simulacion.xhtml" /> 
+                            </p:submenu>
+                            <p:submenu label="Trámites">
+                                <p:menuitem value="Trámites" outcome="/general/tramite.xhtml" /> 
+                                <p:menuitem value="Registrar Expediente" outcome="/tramite/registrarExpediente.xhtml" /> 
+                            </p:submenu>
                             <p:menuitem value="Salir" url="#{request.contextPath}/logout"/>
-                        </p:submenu>
-                    </p:panelMenu>
-                </h:form>
-            </p:layoutUnit>
-        </p:layout>
+                        </p:menubar>
+                    </h:form>
+                </p:layoutUnit>
 
-    </h:body>
+                <p:layoutUnit position="center">
+                    <ui:insert name="body"/>
+                </p:layoutUnit>
+                <p:layoutUnit position="west">
+                    <h:form id="menu">
+                        <p:growl autoUpdate="true"/>
 
+                        <p:panelMenu style="width:150px" >
+                            <p:submenu label="General">
+                                <p:menuitem value="#{bundle.Home}" outcome="/index.xhtml" icon="ui-icon-home"/>
+                            </p:submenu>
+
+                            <p:submenu label="Tablas">
+                                <p:menuitem value="Entidades" outcome="/maestros/maeEntidad/List.xhtml" />
+                                <p:menuitem value="Empresa" outcome="/maestros/maeEmpresa/List.xhtml" />
+                                <p:menuitem value="Persona/Socio" outcome="/maestros/maePersona/List.xhtml" />
+                                <p:menuitem value="Ubigeo" outcome="/maestros/maeUbigeo/List.xhtml" />
+                                <p:menuitem value="Proceso" outcome="/maestros/maeProceso/List.xhtml" />
+                                <p:menuitem value="Sede" outcome="/maestros/maeSede/List.xhtml" />
+                                <p:menuitem value="Área" outcome="/maestros/maeArea/List.xhtml" /> 
+                                <p:menuitem value="Producto" outcome="/maestros/maeProducto/List.xhtml" />
+                            </p:submenu>
+                            <p:submenu label="Procesos">
+                                <p:menuitem value="Simulador" outcome="/simulador/simulacion.xhtml" /> 
+                                <p:menuitem value="Trámites" outcome="/general/tramite.xhtml" /> 
+                            </p:submenu>
+                            <p:submenu label="Salir">
+                                <p:menuitem value="Salir" url="#{request.contextPath}/logout"/>
+                            </p:submenu>
+                        </p:panelMenu>
+                    </h:form>
+                </p:layoutUnit>
+            </p:layout>
+
+        </h:body>
+    </f:view>
 </html>

@@ -6,11 +6,12 @@
 package pe.gob.fovipol.sifo.dao;
 
 import java.math.BigDecimal;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import pe.gob.fovipol.sifo.model.simulacion.CrdSimulacion;
+import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 
 /**
  *
@@ -39,5 +40,16 @@ public class CrdSimulacionFacade extends AbstractFacade<CrdSimulacion> {
         else
             id=id.add(new BigDecimal(1));
         return id;
+    }
+    
+    public List<CrdSimulacion> findBySocioProducto(BigDecimal idSocio,BigDecimal idProducto) {
+        List<CrdSimulacion> lista = null;
+        String sql = "select d from CrdSimulacion d where d.flagEstaSim<>0 "
+                + "and d.idenPersPer.codiPersPer=:idSocio and d.idenProdPrd.idenProdPrd =:idProducto order by d.fechCreaAud desc";        
+        Query q = em.createQuery(sql);
+        q.setParameter("idSocio", idSocio);
+        q.setParameter("idProducto", idProducto);
+        lista = q.getResultList();
+        return lista;
     }
 }

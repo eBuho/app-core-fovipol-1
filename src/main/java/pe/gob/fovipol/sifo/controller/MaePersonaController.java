@@ -38,9 +38,12 @@ public class MaePersonaController implements Serializable {
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade ejbEntidadDetalleFacade;
     private List<MaePersona> items = null;
+    private List<MaePersona> itemsFamilia = null;
     private List<MaePersona> itemsFiltro;
     private List<MaeSocio> socios;
     private MaePersona selected;
+    private MaePersona selectedFamilia;
+    private MaePersona selectedPersona;
     private MaeSocio selectedSocio;
     private MaeUbigeo departamentoNacimiento;
     private MaeUbigeo provinciaNacimiento;
@@ -48,6 +51,7 @@ public class MaePersonaController implements Serializable {
     private List<MaeUbigeo> provincias=null;
     private List<MaeUbigeo> distritos=null;
     private List<MaeEntidaddet> documentos;
+    private List<MaeEntidaddet> parentescos;
     private List<MaeEntidaddet> estadosCiviles;
     private List<MaeEntidaddet> generos;
     private List<MaeEntidaddet> profesiones;
@@ -63,6 +67,21 @@ public class MaePersonaController implements Serializable {
         
     }
     public void prepararActualizar(){
+        selected=selectedPersona;
+        if(selected!=null && selected.getUbigNaciPer()!=null){
+            provinciaNacimiento=selected.getUbigNaciPer().getIdenUbipUbi();
+            if(provinciaNacimiento!=null){
+                if(provinciaNacimiento.getIdenUbipUbi()!=null){
+                    departamentoNacimiento=provinciaNacimiento.getIdenUbipUbi();
+                    cargarProvincias();
+                    cargarDistritos();
+                }
+            }
+        }
+    }
+    
+    public void prepararActualizarFamilia(){
+        selected=selectedFamilia;
         if(selected!=null && selected.getUbigNaciPer()!=null){
             provinciaNacimiento=selected.getUbigNaciPer().getIdenUbipUbi();
             if(provinciaNacimiento!=null){
@@ -76,8 +95,10 @@ public class MaePersonaController implements Serializable {
     }
     
     public void cargarSocio(){
-        socios=ejbSocioFacade.findHijos(selected);
+        socios=ejbSocioFacade.findHijos(selectedPersona);
         selectedSocio=null;
+        itemsFamilia=ejbFacade.findFamilia(selectedPersona);
+        selectedFamilia=null;
     }
     public void cargarProvincias(){
         provincias=ejbUbigeoFacade.findHijos(departamentoNacimiento);
@@ -102,10 +123,27 @@ public class MaePersonaController implements Serializable {
     private MaePersonaFacade getFacade() {
         return ejbFacade;
     }
-
+    
+    public void prepararVer(){
+        selected=selectedPersona;
+    }
+    public void prepararVerFamilia(){
+        selected=selectedFamilia;
+    }
     public MaePersona prepareCreate() {
         selected = new MaePersona();
         selected.setCodiPersPer(ejbFacade.obtenerCorrelativo());
+        departamentoNacimiento=null;
+        provinciaNacimiento=null;
+        provincias=null;
+        distritos=null;
+        initializeEmbeddableKey();
+        return selected;
+    }
+    public MaePersona prepareCreateFamilia() {
+        selected = new MaePersona();
+        selected.setCodiPersPer(ejbFacade.obtenerCorrelativo());
+        selected.setCodiPerpPer(selectedPersona);
         departamentoNacimiento=null;
         provinciaNacimiento=null;
         provincias=null;
@@ -133,7 +171,8 @@ public class MaePersonaController implements Serializable {
         selected.setNombCompPer(nombreCompleto());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+            items = null;
+            cargarSocio();// Invalidate list of items to trigger re-query.
         }
     }
     
@@ -151,6 +190,7 @@ public class MaePersonaController implements Serializable {
         selected.setFechModiAud(new Date());
         selected.setNombCompPer(nombreCompleto());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaUpdated"));
+        items=null;
     }
     public void updateSocio() {
         selectedSocio.setFechModiAud(new Date());
@@ -158,10 +198,19 @@ public class MaePersonaController implements Serializable {
     }
 
     public void destroy() {
+        selected=selectedPersona;
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    public void destroyFamilia() {
+        selected=selectedFamilia;
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaDeleted"));
+        if (!JsfUtil.isValidationFailed()) {
+            selectedFamilia = null; // Remove selection
+            cargarSocio();    // Invalidate list of items to trigger re-query.
         }
     }
     public void destroySocio() {
@@ -492,6 +541,65 @@ public class MaePersonaController implements Serializable {
      */
     public void setUnidadesTrabajo(List<MaeEntidaddet> unidadesTrabajo) {
         this.unidadesTrabajo = unidadesTrabajo;
+    }
+
+    /**
+     * @return the itemsFamilia
+     */
+    public List<MaePersona> getItemsFamilia() {
+        return itemsFamilia;
+    }
+
+    /**
+     * @param itemsFamilia the itemsFamilia to set
+     */
+    public void setItemsFamilia(List<MaePersona> itemsFamilia) {
+        this.itemsFamilia = itemsFamilia;
+    }
+
+    /**
+     * @return the selectedFamilia
+     */
+    public MaePersona getSelectedFamilia() {
+        return selectedFamilia;
+    }
+
+    /**
+     * @param selectedFamilia the selectedFamilia to set
+     */
+    public void setSelectedFamilia(MaePersona selectedFamilia) {
+        this.selectedFamilia = selectedFamilia;
+    }
+
+    /**
+     * @return the selectedPersona
+     */
+    public MaePersona getSelectedPersona() {
+        return selectedPersona;
+    }
+
+    /**
+     * @param selectedPersona the selectedPersona to set
+     */
+    public void setSelectedPersona(MaePersona selectedPersona) {
+        this.selectedPersona = selectedPersona;
+    }
+
+    /**
+     * @return the parentescos
+     */
+    public List<MaeEntidaddet> getParentescos() {
+        if(parentescos==null){
+            parentescos=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("GRADPAREPER"));
+        }
+        return parentescos;
+    }
+
+    /**
+     * @param parentescos the parentescos to set
+     */
+    public void setParentescos(List<MaeEntidaddet> parentescos) {
+        this.parentescos = parentescos;
     }
 
     

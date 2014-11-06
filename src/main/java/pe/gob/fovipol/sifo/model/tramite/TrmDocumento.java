@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,6 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import pe.gob.fovipol.sifo.model.maestros.MaeEmpresa;
+import pe.gob.fovipol.sifo.model.maestros.MaeRequisito;
 
 /**
  *
@@ -48,6 +51,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TrmDocumento.findByNombSopeAud", query = "SELECT t FROM TrmDocumento t WHERE t.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "TrmDocumento.findByFlagEstaDoc", query = "SELECT t FROM TrmDocumento t WHERE t.flagEstaDoc = :flagEstaDoc")})
 public class TrmDocumento implements Serializable {
+    @JoinColumns({
+        @JoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC"),
+        @JoinColumn(name = "SECU_MAE_REQ", referencedColumnName = "SECU_MAE_REQ")})
+    @ManyToOne
+    private MaeRequisito maeRequisito;
+    @JoinColumn(name = "EMPR_EXPI_DOC", referencedColumnName = "IDEN_EMPR_EMP")
+    @ManyToOne
+    private MaeEmpresa emprExpiDoc;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TrmDocumentoPK trmDocumentoPK;
@@ -266,6 +277,22 @@ public class TrmDocumento implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.tramite.TrmDocumento[ trmDocumentoPK=" + trmDocumentoPK + " ]";
+    }
+
+    public MaeRequisito getMaeRequisito() {
+        return maeRequisito;
+    }
+
+    public void setMaeRequisito(MaeRequisito maeRequisito) {
+        this.maeRequisito = maeRequisito;
+    }
+
+    public MaeEmpresa getEmprExpiDoc() {
+        return emprExpiDoc;
+    }
+
+    public void setEmprExpiDoc(MaeEmpresa emprExpiDoc) {
+        this.emprExpiDoc = emprExpiDoc;
     }
     
 }

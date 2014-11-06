@@ -13,7 +13,7 @@
             <h:form id="MaePersonaEditForm">
                 <h:panelGroup id="display">
                     <comp:mantPersona value="#{maePersonaController}" crear="false"/>
-                    <p:commandButton actionListener="#{maePersonaController.update}" value="#{bundle.Save}" update="display,:MaePersonaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaePersonaEditDialog');"/>
+                    <p:commandButton actionListener="#{maePersonaController.update}" value="#{bundle.Save}" update="display,:MaePersonaListForm:datalist,:MaeSocioListForm:pestanaProceso:datalistFamiliar,:growl" oncomplete="handleSubmit(args, 'MaePersonaEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaePersonaEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

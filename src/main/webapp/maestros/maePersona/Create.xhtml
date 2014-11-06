@@ -16,7 +16,7 @@
                         <comp:mantPersona value="#{maePersonaController}" crear="true"/>
                         
                     
-                    <p:commandButton actionListener="#{maePersonaController.create}" value="#{bundle.Save}" update="display,:MaePersonaListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaePersonaCreateDialog');"/>
+                    <p:commandButton actionListener="#{maePersonaController.create}" value="#{bundle.Save}" update="display,:MaePersonaListForm:datalist,:MaeSocioListForm:pestanaProceso:datalistFamiliar,:growl" oncomplete="handleSubmit(args,'MaePersonaCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaePersonaCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

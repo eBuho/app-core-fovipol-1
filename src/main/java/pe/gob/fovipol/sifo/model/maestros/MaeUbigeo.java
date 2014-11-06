@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -43,6 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MaeUbigeo.findByFechModiUbi", query = "SELECT m FROM MaeUbigeo m WHERE m.fechModiUbi = :fechModiUbi"),
     @NamedQuery(name = "MaeUbigeo.findByFlagEstaUbi", query = "SELECT m FROM MaeUbigeo m WHERE m.flagEstaUbi = :flagEstaUbi")})
 public class MaeUbigeo implements Serializable {
+    @OneToMany(mappedBy = "idenUbigUbi")
+    private List<MaeInmueble> maeInmuebleList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -208,6 +211,16 @@ public class MaeUbigeo implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.model.MaeUbigeo[ idenUbigUbi=" + idenUbigUbi + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<MaeInmueble> getMaeInmuebleList() {
+        return maeInmuebleList;
+    }
+
+    public void setMaeInmuebleList(List<MaeInmueble> maeInmuebleList) {
+        this.maeInmuebleList = maeInmuebleList;
     }
     
 }

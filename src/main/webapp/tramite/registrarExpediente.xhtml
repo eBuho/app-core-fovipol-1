@@ -18,44 +18,8 @@
             <link href="#{request.contextPath}/resources/sbadmin/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         </ui:define>
         <ui:define name="body">
-            <div class="col-lg-12">
-                <h5>Registro del Trámite</h5>
-            </div>
-            <h:form id="formRegistroExpediente">
-                <div class="col-lg-12">                
-                    <p:fieldset legend="Información" styleClass="fieldSet" id="informacion">
-                        <div class="col-lg-12">
-                            <div class="col-lg-2">
-                                <h:outputText value="Ingrese CIP"/>
-                            </div>
-                            <div class="col-lg-2">
-                                <p:inputText value="#{registrarExpedienteController.cip}"/>
-                            </div>
-                            <div class="col-lg-2">
-                                <p:commandButton styleClass="boton" value="Buscar" update="informacion" actionListener="#{registrarExpedienteController.buscarSocio()}"/>
-                            </div>
-                        </div>
-                        <p:spacer width="10"/>
-                        <div class="col-lg-12">
-                            <div class="col-lg-1">
-                                <h:outputText value="Nombres:"/>
-                            </div>
-                            <div class="col-lg-1">
-                                <h:outputText value="#{registrarExpedienteController.socio.maePersona.nombPersPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
-                            </div>
-                            <div class="col-lg-1">
-                                <h:outputText value="Apellidos:"/>
-                            </div>
-                            <div class="col-lg-1">
-                                <h:outputText value="#{registrarExpedienteController.socio.maePersona.apelPatePer}" rendered="#{registrarExpedienteController.socio!=null}"/><h:outputText value=" "/><h:outputText value="#{registrarExpedienteController.socio.maePersona.apelMatePer}" rendered="#{registrarExpedienteController.socio!=null}"/>
-                            </div>
-                        </div>
-                    </p:fieldset>
-                </div> 
-            </h:form>            
-            <script src="#{request.contextPath}/resources/sbadmin/js/bootstrap.min.js"></script>
-            <script src="#{request.contextPath}/resources/sbadmin/js/plugins/metisMenu/metisMenu.min.js"></script>
-            <script src="#{request.contextPath}/resources/sbadmin/js/sb-admin-2.js"></script>
+            <ui:include src="../procesos/tramite/registrarExpediente.xhtml">
+            </ui:include>
         </ui:define>
     </ui:composition>
 

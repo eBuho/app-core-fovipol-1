@@ -25,7 +25,6 @@
             <p:inputText id="apelMatePer" value="#{cc.attrs.value.selected.apelMatePer}" title="#{bundle.CreateMaePersonaTitle_apelMatePer}" />
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_nombPersPer}" for="nombPersPer" />
             <p:inputText id="nombPersPer" value="#{cc.attrs.value.selected.nombPersPer}" title="#{bundle.CreateMaePersonaTitle_nombPersPer}" />
-
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_tipoIdenPer}" for="tipoIdenPer" />                        
             <p:selectOneMenu value="#{cc.attrs.value.selected.tipoIdenPer}" id="tipoIdenPer">
                 <f:selectItems value="#{cc.attrs.value.documentos}" var="doc" 
@@ -84,13 +83,12 @@
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_grpoSangPer}" for="grpoSangPer" />
             <p:inputText id="grpoSangPer" value="#{cc.attrs.value.selected.grpoSangPer}" title="#{bundle.CreateMaePersonaTitle_grpoSangPer}" />
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_gradParePer}" for="gradParePer" />
-            <p:inputText id="gradParePer" value="#{cc.attrs.value.selected.gradParePer}" title="#{bundle.CreateMaePersonaTitle_gradParePer}" />
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_nombEquiAud}" for="nombEquiAud" />
-            <p:inputText id="nombEquiAud" value="#{cc.attrs.value.selected.nombEquiAud}" title="#{bundle.CreateMaePersonaTitle_nombEquiAud}" />
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_nombSopeAud}" for="nombSopeAud" />
-            <p:inputText id="nombSopeAud" value="#{cc.attrs.value.selected.nombSopeAud}" title="#{bundle.CreateMaePersonaTitle_nombSopeAud}" />
+            <p:selectOneMenu value="#{cc.attrs.value.selected.gradParePer}" id="gradParePer" disabled="#{cc.attrs.value.selected.codiPerpPer==null}">
+                <f:selectItem itemValue="" itemLabel="Seleccione Parentesco"/>
+                <f:selectItems value="#{cc.attrs.value.parentescos}" var="paren" 
+                               itemValue="#{paren.secuEntiDet}" itemLabel="#{paren.valoCaduDet}"/>
+            </p:selectOneMenu>             
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_flagEstaPer}" for="flagEstaPer" />
-
             <p:selectOneMenu id="flagEstaPer" value="#{cc.attrs.value.selected.flagEstaPer}" disabled="#{cc.attrs.crear}">
                 <f:selectItem itemLabel="Activo" itemValue="1"/>
                 <f:selectItem itemLabel="Inactivo" itemValue="0"/>
@@ -99,7 +97,6 @@
             <comp:ubigeo value="#{cc.attrs.value.selected.ubigNaciPer}" />
             <p:outputLabel value="Ubigeo de Residencia"  />
             <comp:ubigeo value="#{cc.attrs.value.selected.ubigResiPer}" />
-        </p:panelGrid>
-        
+        </p:panelGrid>        
     </cc:implementation>
 </html>

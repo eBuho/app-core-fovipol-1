@@ -36,6 +36,8 @@
                                            var="codiAreaAreItem" itemLabel="#{codiAreaAreItem.descAreaAre}"
                                            itemValue="#{codiAreaAreItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="Página" for="pagiProcPrc" />
+                        <p:inputTextarea autoResize="false" styleClass="inputLargo" rows="3" id="pagiProcPrc" value="#{maeProcesoController.selected.pagiProcPrc}" title="Página" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{maeProcesoController.update}" value="#{bundle.Save}" update="display,:MaeProcesoListForm:datalist,:MaeProcesoListForm:pestanaProceso:datalistSubProceso,:MaeProcesoListForm:pestanaProceso:datalistActividad,:growl" oncomplete="handleSubmit(args, 'MaeProcesoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaeProcesoEditDialog.hide()"/>

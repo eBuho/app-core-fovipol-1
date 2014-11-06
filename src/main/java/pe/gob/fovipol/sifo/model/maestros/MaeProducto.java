@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import pe.gob.fovipol.sifo.model.simulacion.CrdSimulacion;
+import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
 
 /**
@@ -59,6 +59,8 @@ import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
     @NamedQuery(name = "MaeProducto.findByNombSopeAud", query = "SELECT m FROM MaeProducto m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeProducto.findByFlagEstaPrd", query = "SELECT m FROM MaeProducto m WHERE m.flagEstaPrd = :flagEstaPrd")})
 public class MaeProducto implements Serializable {
+    @Column(name = "MONT_COBD_PRD")
+    private BigDecimal montCobdPrd;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -335,6 +337,14 @@ public class MaeProducto implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.consulta.MaeProducto[ idenProdPrd=" + idenProdPrd + " ]";
+    }
+
+    public BigDecimal getMontCobdPrd() {
+        return montCobdPrd;
+    }
+
+    public void setMontCobdPrd(BigDecimal montCobdPrd) {
+        this.montCobdPrd = montCobdPrd;
     }
     
 }
