@@ -101,8 +101,6 @@ public class MaeProceso implements Serializable {
     @Size(max = 40)
     @Column(name = "NOMB_SOPE_AUD")
     private String nombSopeAud;
-    @Column(name = "PAGI_PROC_PRC")
-    private String pagiProcPrc;
     @Column(name = "FLAG_ESTA_PRC")
     private Short flagEstaPrc;    
     @JoinColumn(name = "IDEN_AREA_ARE", referencedColumnName = "IDEN_AREA_ARE")
@@ -318,17 +316,6 @@ public class MaeProceso implements Serializable {
         this.trmMovimientoList = trmMovimientoList;
     }
 
-    
-    @XmlTransient
-    @JsonIgnore
-    public List<TrmMovimiento> getTrmMovimientoList() {
-        return trmMovimientoList;
-    }
-
-    public void setTrmMovimientoList(List<TrmMovimiento> trmMovimientoList) {
-        this.trmMovimientoList = trmMovimientoList;
-    }
-
     @XmlTransient
     @JsonIgnore
     public List<TrmTramite> getTrmTramiteList() {
@@ -339,12 +326,5 @@ public class MaeProceso implements Serializable {
         this.trmTramiteList = trmTramiteList;
     }
 
-    public String getPagiProcPrc() {
-        return pagiProcPrc;
-    }
-
-    public void setPagiProcPrc(String pagiProcPrc) {
-        this.pagiProcPrc = pagiProcPrc;
-    }
     
 }

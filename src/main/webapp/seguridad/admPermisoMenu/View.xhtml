@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmPermisoMenuViewDlg" widgetVar="AdmPermisoMenuViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.ViewAdmPermisoMenuTitle}">
+            <h:form id="AdmPermisoMenuViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admPermisoMenuController.selected != null}">
+                        <h:outputText value="#{seguridad.ViewAdmPermisoMenuLabel_idenPermPmn}"/>
+                        <h:outputText value="#{admPermisoMenuController.selected.idenPermPmn}" title="#{seguridad.ViewAdmPermisoMenuTitle_idenPermPmn}"/>
+                        <h:outputText value="#{seguridad.ViewAdmPermisoMenuLabel_nombPermPmn}"/>
+                        <h:outputText value="#{admPermisoMenuController.selected.nombPermPmn}" title="#{seguridad.ViewAdmPermisoMenuTitle_nombPermPmn}"/>
+                        <h:outputText value="#{seguridad.ViewAdmPermisoMenuLabel_nombPercPmn}"/>
+                        <h:outputText value="#{admPermisoMenuController.selected.nombPercPmn}" title="#{seguridad.ViewAdmPermisoMenuTitle_nombPercPmn}"/>
+                        <h:outputText value="#{seguridad.ViewAdmPermisoMenuLabel_tipoVisuPmn}"/>
+                        <h:outputText value="#{admPermisoMenuController.selected.tipoVisuPmn}" title="#{seguridad.ViewAdmPermisoMenuTitle_tipoVisuPmn}"/>
+                        <h:outputText value="#{seguridad.ViewAdmPermisoMenuLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{admPermisoMenuController.selected.usuaCreaAud}" title="#{seguridad.ViewAdmPermisoMenuTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmPermisoMenuLabel_fechCreaAud}"/>
+                        <h:outputText value="#{admPermisoMenuController.selected.fechCreaAud}" title="#{seguridad.ViewAdmPermisoMenuTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmPermisoMenuLabel_usuaModiAud}"/>
+                        <h:outputText value="#{admPermisoMenuController.selected.usuaModiAud}" title="#{seguridad.ViewAdmPermisoMenuTitle_usuaModiAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmPermisoMenuLabel_fechModiAud}"/>
+                        <h:outputText value="#{admPermisoMenuController.selected.fechModiAud}" title="#{seguridad.ViewAdmPermisoMenuTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmPermisoMenuLabel_nombEquiAud}"/>
+                        <h:outputText value="#{admPermisoMenuController.selected.nombEquiAud}" title="#{seguridad.ViewAdmPermisoMenuTitle_nombEquiAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmPermisoMenuLabel_nombSopeAud}"/>
+                        <h:outputText value="#{admPermisoMenuController.selected.nombSopeAud}" title="#{seguridad.ViewAdmPermisoMenuTitle_nombSopeAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmPermisoMenuLabel_flagEstaPmn}"/>
+                        <h:outputText value="#{admPermisoMenuController.selected.flagEstaPmn}" title="#{seguridad.ViewAdmPermisoMenuTitle_flagEstaPmn}"/>
+                        <h:outputText value="#{seguridad.ViewAdmPermisoMenuLabel_idenMenuPmn}"/>
+                        <h:outputText value="#{admPermisoMenuController.selected.idenMenuPmn}" title="#{seguridad.ViewAdmPermisoMenuTitle_idenMenuPmn}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{seguridad.Close}" onclick="AdmPermisoMenuViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeUbigeoCreateDlg" widgetVar="MaeUbigeoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.CreateMaeUbigeoTitle}">
+            <h:form id="MaeUbigeoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maeUbigeoController.selected != null}">
+                        <p:outputLabel value="#{seguridad.CreateMaeUbigeoLabel_idenUbigUbi}" for="idenUbigUbi" />
+                        <p:inputText id="idenUbigUbi" value="#{maeUbigeoController.selected.idenUbigUbi}" title="#{seguridad.CreateMaeUbigeoTitle_idenUbigUbi}" required="true" requiredMessage="#{seguridad.CreateMaeUbigeoRequiredMessage_idenUbigUbi}"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeUbigeoLabel_nombUbigUbi}" for="nombUbigUbi" />
+                        <p:inputText id="nombUbigUbi" value="#{maeUbigeoController.selected.nombUbigUbi}" title="#{seguridad.CreateMaeUbigeoTitle_nombUbigUbi}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeUbigeoLabel_niveUbigUbi}" for="niveUbigUbi" />
+                        <p:inputText id="niveUbigUbi" value="#{maeUbigeoController.selected.niveUbigUbi}" title="#{seguridad.CreateMaeUbigeoTitle_niveUbigUbi}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeUbigeoLabel_usuaCreaUbi}" for="usuaCreaUbi" />
+                        <p:inputText id="usuaCreaUbi" value="#{maeUbigeoController.selected.usuaCreaUbi}" title="#{seguridad.CreateMaeUbigeoTitle_usuaCreaUbi}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeUbigeoLabel_fechCreaUbi}" for="fechCreaUbi" />
+                        <p:calendar id="fechCreaUbi" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeUbigeoController.selected.fechCreaUbi}" title="#{seguridad.EditMaeUbigeoTitle_fechCreaUbi}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeUbigeoLabel_usuaModiUbi}" for="usuaModiUbi" />
+                        <p:inputText id="usuaModiUbi" value="#{maeUbigeoController.selected.usuaModiUbi}" title="#{seguridad.CreateMaeUbigeoTitle_usuaModiUbi}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeUbigeoLabel_fechModiUbi}" for="fechModiUbi" />
+                        <p:calendar id="fechModiUbi" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeUbigeoController.selected.fechModiUbi}" title="#{seguridad.EditMaeUbigeoTitle_fechModiUbi}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeUbigeoLabel_flagEstaUbi}" for="flagEstaUbi" />
+                        <p:inputText id="flagEstaUbi" value="#{maeUbigeoController.selected.flagEstaUbi}" title="#{seguridad.CreateMaeUbigeoTitle_flagEstaUbi}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeUbigeoLabel_idenUbipUbi}" for="idenUbipUbi" />
+                        <p:selectOneMenu id="idenUbipUbi" value="#{maeUbigeoController.selected.idenUbipUbi}" >
+                            <f:selectItems value="#{maeUbigeoController.itemsAvailableSelectOne}"
+                                           var="idenUbipUbiItem"
+                                           itemValue="#{idenUbipUbiItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maeUbigeoController.create}" value="#{seguridad.Save}" update="display,:MaeUbigeoListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeUbigeoCreateDialog');"/>
+                    <p:commandButton value="#{seguridad.Cancel}" onclick="MaeUbigeoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeUbigeoEditDlg" widgetVar="MaeUbigeoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.EditMaeUbigeoTitle}">
+            <h:form id="MaeUbigeoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maeUbigeoController.selected != null}">
+                        <p:outputLabel value="#{seguridad.EditMaeUbigeoLabel_idenUbigUbi}" for="idenUbigUbi" />
+                        <p:inputText id="idenUbigUbi" value="#{maeUbigeoController.selected.idenUbigUbi}" title="#{seguridad.EditMaeUbigeoTitle_idenUbigUbi}" required="true" requiredMessage="#{seguridad.EditMaeUbigeoRequiredMessage_idenUbigUbi}"/>
+                        <p:outputLabel value="#{seguridad.EditMaeUbigeoLabel_nombUbigUbi}" for="nombUbigUbi" />
+                        <p:inputText id="nombUbigUbi" value="#{maeUbigeoController.selected.nombUbigUbi}" title="#{seguridad.EditMaeUbigeoTitle_nombUbigUbi}" />
+                        <p:outputLabel value="#{seguridad.EditMaeUbigeoLabel_niveUbigUbi}" for="niveUbigUbi" />
+                        <p:inputText id="niveUbigUbi" value="#{maeUbigeoController.selected.niveUbigUbi}" title="#{seguridad.EditMaeUbigeoTitle_niveUbigUbi}" />
+                        <p:outputLabel value="#{seguridad.EditMaeUbigeoLabel_usuaCreaUbi}" for="usuaCreaUbi" />
+                        <p:inputText id="usuaCreaUbi" value="#{maeUbigeoController.selected.usuaCreaUbi}" title="#{seguridad.EditMaeUbigeoTitle_usuaCreaUbi}" />
+                        <p:outputLabel value="#{seguridad.EditMaeUbigeoLabel_fechCreaUbi}" for="fechCreaUbi" />
+                        <p:calendar id="fechCreaUbi" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeUbigeoController.selected.fechCreaUbi}" title="#{seguridad.EditMaeUbigeoTitle_fechCreaUbi}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditMaeUbigeoLabel_usuaModiUbi}" for="usuaModiUbi" />
+                        <p:inputText id="usuaModiUbi" value="#{maeUbigeoController.selected.usuaModiUbi}" title="#{seguridad.EditMaeUbigeoTitle_usuaModiUbi}" />
+                        <p:outputLabel value="#{seguridad.EditMaeUbigeoLabel_fechModiUbi}" for="fechModiUbi" />
+                        <p:calendar id="fechModiUbi" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeUbigeoController.selected.fechModiUbi}" title="#{seguridad.EditMaeUbigeoTitle_fechModiUbi}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditMaeUbigeoLabel_flagEstaUbi}" for="flagEstaUbi" />
+                        <p:inputText id="flagEstaUbi" value="#{maeUbigeoController.selected.flagEstaUbi}" title="#{seguridad.EditMaeUbigeoTitle_flagEstaUbi}" />
+                        <p:outputLabel value="#{seguridad.EditMaeUbigeoLabel_idenUbipUbi}" for="idenUbipUbi" />
+                        <p:selectOneMenu id="idenUbipUbi" value="#{maeUbigeoController.selected.idenUbipUbi}" >
+                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
+                            <f:selectItems value="#{maeUbigeoController.itemsAvailableSelectOne}"
+                                           var="idenUbipUbiItem"
+                                           itemValue="#{idenUbipUbiItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maeUbigeoController.update}" value="#{seguridad.Save}" update="display,:MaeUbigeoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaeUbigeoEditDialog');"/>
+                    <p:commandButton value="#{seguridad.Cancel}" onclick="MaeUbigeoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

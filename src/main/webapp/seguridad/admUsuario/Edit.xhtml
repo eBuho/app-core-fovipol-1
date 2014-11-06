@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmUsuarioEditDlg" widgetVar="AdmUsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.EditAdmUsuarioTitle}">
+            <h:form id="AdmUsuarioEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admUsuarioController.selected != null}">
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_idenPersPer}" for="idenPersPer" />
+                        <p:inputText id="idenPersPer" value="#{admUsuarioController.selected.idenPersPer}" title="#{seguridad.EditAdmUsuarioTitle_idenPersPer}" required="true" requiredMessage="#{seguridad.EditAdmUsuarioRequiredMessage_idenPersPer}"/>
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_codiUsuaUsr}" for="codiUsuaUsr" />
+                        <p:inputText id="codiUsuaUsr" value="#{admUsuarioController.selected.codiUsuaUsr}" title="#{seguridad.EditAdmUsuarioTitle_codiUsuaUsr}" />
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_clavUsuaUsr}" for="clavUsuaUsr" />
+                        <p:inputText id="clavUsuaUsr" value="#{admUsuarioController.selected.clavUsuaUsr}" title="#{seguridad.EditAdmUsuarioTitle_clavUsuaUsr}" />
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_corrRecuUsr}" for="corrRecuUsr" />
+                        <p:inputText id="corrRecuUsr" value="#{admUsuarioController.selected.corrRecuUsr}" title="#{seguridad.EditAdmUsuarioTitle_corrRecuUsr}" />
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_fechExpiUsr}" for="fechExpiUsr" />
+                        <p:calendar id="fechExpiUsr" pattern="MM/dd/yyyy HH:mm:ss" value="#{admUsuarioController.selected.fechExpiUsr}" title="#{seguridad.EditAdmUsuarioTitle_fechExpiUsr}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{admUsuarioController.selected.usuaCreaAud}" title="#{seguridad.EditAdmUsuarioTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admUsuarioController.selected.fechCreaAud}" title="#{seguridad.EditAdmUsuarioTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{admUsuarioController.selected.usuaModiAud}" title="#{seguridad.EditAdmUsuarioTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admUsuarioController.selected.fechModiAud}" title="#{seguridad.EditAdmUsuarioTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{admUsuarioController.selected.nombEquiAud}" title="#{seguridad.EditAdmUsuarioTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{admUsuarioController.selected.nombSopeAud}" title="#{seguridad.EditAdmUsuarioTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_flagEstaUsr}" for="flagEstaUsr" />
+                        <p:inputText id="flagEstaUsr" value="#{admUsuarioController.selected.flagEstaUsr}" title="#{seguridad.EditAdmUsuarioTitle_flagEstaUsr}" />
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioLabel_maePersona}" for="maePersona" />
+                        <p:selectOneMenu id="maePersona" value="#{admUsuarioController.selected.maePersona}" required="true" requiredMessage="#{seguridad.EditAdmUsuarioRequiredMessage_maePersona}">
+                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
+                            <f:selectItems value="#{maePersonaController.itemsAvailableSelectOne}"
+                                           var="maePersonaItem"
+                                           itemValue="#{maePersonaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{admUsuarioController.update}" value="#{seguridad.Save}" update="display,:AdmUsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AdmUsuarioEditDialog');"/>
+                    <p:commandButton value="#{seguridad.Cancel}" onclick="AdmUsuarioEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

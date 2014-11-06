@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmRolPermenuCreateDlg" widgetVar="AdmRolPermenuCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.CreateAdmRolPermenuTitle}">
+            <h:form id="AdmRolPermenuCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admRolPermenuController.selected != null}">
+                        <p:outputLabel value="#{seguridad.CreateAdmRolPermenuLabel_idenRoleRpm}" for="idenRoleRpm" />
+                        <p:inputText id="idenRoleRpm" value="#{admRolPermenuController.selected.idenRoleRpm}" title="#{seguridad.CreateAdmRolPermenuTitle_idenRoleRpm}" required="true" requiredMessage="#{seguridad.CreateAdmRolPermenuRequiredMessage_idenRoleRpm}"/>
+                        <p:outputLabel value="#{seguridad.CreateAdmRolPermenuLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{admRolPermenuController.selected.usuaCreaAud}" title="#{seguridad.CreateAdmRolPermenuTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmRolPermenuLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admRolPermenuController.selected.fechCreaAud}" title="#{seguridad.EditAdmRolPermenuTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateAdmRolPermenuLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{admRolPermenuController.selected.usuaModiAud}" title="#{seguridad.CreateAdmRolPermenuTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmRolPermenuLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admRolPermenuController.selected.fechModiAud}" title="#{seguridad.EditAdmRolPermenuTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateAdmRolPermenuLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{admRolPermenuController.selected.nombEquiAud}" title="#{seguridad.CreateAdmRolPermenuTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmRolPermenuLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{admRolPermenuController.selected.nombSopeAud}" title="#{seguridad.CreateAdmRolPermenuTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmRolPermenuLabel_flagEstaRpm}" for="flagEstaRpm" />
+                        <p:inputText id="flagEstaRpm" value="#{admRolPermenuController.selected.flagEstaRpm}" title="#{seguridad.CreateAdmRolPermenuTitle_flagEstaRpm}" required="true" requiredMessage="#{seguridad.CreateAdmRolPermenuRequiredMessage_flagEstaRpm}"/>
+                        <p:outputLabel value="#{seguridad.CreateAdmRolPermenuLabel_idenPermPmn}" for="idenPermPmn" />
+                        <p:selectOneMenu id="idenPermPmn" value="#{admRolPermenuController.selected.idenPermPmn}" >
+                            <f:selectItems value="#{admPermisoMenuController.itemsAvailableSelectOne}"
+                                           var="idenPermPmnItem"
+                                           itemValue="#{idenPermPmnItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{seguridad.CreateAdmRolPermenuLabel_idenRoleRol}" for="idenRoleRol" />
+                        <p:selectOneMenu id="idenRoleRol" value="#{admRolPermenuController.selected.idenRoleRol}" >
+                            <f:selectItems value="#{admRolController.itemsAvailableSelectOne}"
+                                           var="idenRoleRolItem"
+                                           itemValue="#{idenRoleRolItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{admRolPermenuController.create}" value="#{seguridad.Save}" update="display,:AdmRolPermenuListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdmRolPermenuCreateDialog');"/>
+                    <p:commandButton value="#{seguridad.Cancel}" onclick="AdmRolPermenuCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

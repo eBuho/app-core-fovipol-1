@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmPermisoMenuCreateDlg" widgetVar="AdmPermisoMenuCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.CreateAdmPermisoMenuTitle}">
+            <h:form id="AdmPermisoMenuCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admPermisoMenuController.selected != null}">
+                        <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_idenPermPmn}" for="idenPermPmn" />
+                        <p:inputText id="idenPermPmn" value="#{admPermisoMenuController.selected.idenPermPmn}" title="#{seguridad.CreateAdmPermisoMenuTitle_idenPermPmn}" required="true" requiredMessage="#{seguridad.CreateAdmPermisoMenuRequiredMessage_idenPermPmn}"/>
+                        <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_nombPermPmn}" for="nombPermPmn" />
+                        <p:inputText id="nombPermPmn" value="#{admPermisoMenuController.selected.nombPermPmn}" title="#{seguridad.CreateAdmPermisoMenuTitle_nombPermPmn}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_nombPercPmn}" for="nombPercPmn" />
+                        <p:inputText id="nombPercPmn" value="#{admPermisoMenuController.selected.nombPercPmn}" title="#{seguridad.CreateAdmPermisoMenuTitle_nombPercPmn}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_tipoVisuPmn}" for="tipoVisuPmn" />
+                        <p:inputText id="tipoVisuPmn" value="#{admPermisoMenuController.selected.tipoVisuPmn}" title="#{seguridad.CreateAdmPermisoMenuTitle_tipoVisuPmn}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{admPermisoMenuController.selected.usuaCreaAud}" title="#{seguridad.CreateAdmPermisoMenuTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admPermisoMenuController.selected.fechCreaAud}" title="#{seguridad.EditAdmPermisoMenuTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{admPermisoMenuController.selected.usuaModiAud}" title="#{seguridad.CreateAdmPermisoMenuTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admPermisoMenuController.selected.fechModiAud}" title="#{seguridad.EditAdmPermisoMenuTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{admPermisoMenuController.selected.nombEquiAud}" title="#{seguridad.CreateAdmPermisoMenuTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{admPermisoMenuController.selected.nombSopeAud}" title="#{seguridad.CreateAdmPermisoMenuTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_flagEstaPmn}" for="flagEstaPmn" />
+                        <p:inputText id="flagEstaPmn" value="#{admPermisoMenuController.selected.flagEstaPmn}" title="#{seguridad.CreateAdmPermisoMenuTitle_flagEstaPmn}" required="true" requiredMessage="#{seguridad.CreateAdmPermisoMenuRequiredMessage_flagEstaPmn}"/>
+                        <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_idenMenuPmn}" for="idenMenuPmn" />
+                        <p:selectOneMenu id="idenMenuPmn" value="#{admPermisoMenuController.selected.idenMenuPmn}" >
+                            <f:selectItems value="#{admMenuController.itemsAvailableSelectOne}"
+                                           var="idenMenuPmnItem"
+                                           itemValue="#{idenMenuPmnItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{admPermisoMenuController.create}" value="#{seguridad.Save}" update="display,:AdmPermisoMenuListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdmPermisoMenuCreateDialog');"/>
+                    <p:commandButton value="#{seguridad.Cancel}" onclick="AdmPermisoMenuCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

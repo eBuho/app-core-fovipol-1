@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmModuloExcepcionEditDlg" widgetVar="AdmModuloExcepcionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.EditAdmModuloExcepcionTitle}">
+            <h:form id="AdmModuloExcepcionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admModuloExcepcionController.selected != null}">
+                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_idenModuMde}" for="idenModuMde" />
+                        <p:inputText id="idenModuMde" value="#{admModuloExcepcionController.selected.idenModuMde}" title="#{seguridad.EditAdmModuloExcepcionTitle_idenModuMde}" required="true" requiredMessage="#{seguridad.EditAdmModuloExcepcionRequiredMessage_idenModuMde}"/>
+                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{admModuloExcepcionController.selected.usuaCreaAud}" title="#{seguridad.EditAdmModuloExcepcionTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admModuloExcepcionController.selected.fechCreaAud}" title="#{seguridad.EditAdmModuloExcepcionTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{admModuloExcepcionController.selected.usuaModiAud}" title="#{seguridad.EditAdmModuloExcepcionTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admModuloExcepcionController.selected.fechModiAud}" title="#{seguridad.EditAdmModuloExcepcionTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{admModuloExcepcionController.selected.nombEquiAud}" title="#{seguridad.EditAdmModuloExcepcionTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{admModuloExcepcionController.selected.nombSopeAud}" title="#{seguridad.EditAdmModuloExcepcionTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_flagEstaMde}" for="flagEstaMde" />
+                        <p:inputText id="flagEstaMde" value="#{admModuloExcepcionController.selected.flagEstaMde}" title="#{seguridad.EditAdmModuloExcepcionTitle_flagEstaMde}" required="true" requiredMessage="#{seguridad.EditAdmModuloExcepcionRequiredMessage_flagEstaMde}"/>
+                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_idenMemoMmd}" for="idenMemoMmd" />
+                        <p:selectOneMenu id="idenMemoMmd" value="#{admModuloExcepcionController.selected.idenMemoMmd}" >
+                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
+                            <f:selectItems value="#{admMenuModuloController.itemsAvailableSelectOne}"
+                                           var="idenMemoMmdItem"
+                                           itemValue="#{idenMemoMmdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_idenMoroMdr}" for="idenMoroMdr" />
+                        <p:selectOneMenu id="idenMoroMdr" value="#{admModuloExcepcionController.selected.idenMoroMdr}" >
+                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
+                            <f:selectItems value="#{admModuloRolController.itemsAvailableSelectOne}"
+                                           var="idenMoroMdrItem"
+                                           itemValue="#{idenMoroMdrItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{admModuloExcepcionController.update}" value="#{seguridad.Save}" update="display,:AdmModuloExcepcionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AdmModuloExcepcionEditDialog');"/>
+                    <p:commandButton value="#{seguridad.Cancel}" onclick="AdmModuloExcepcionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

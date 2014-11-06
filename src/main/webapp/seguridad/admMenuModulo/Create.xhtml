@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmMenuModuloCreateDlg" widgetVar="AdmMenuModuloCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.CreateAdmMenuModuloTitle}">
+            <h:form id="AdmMenuModuloCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admMenuModuloController.selected != null}">
+                        <p:outputLabel value="#{seguridad.CreateAdmMenuModuloLabel_idenMemoMmd}" for="idenMemoMmd" />
+                        <p:inputText id="idenMemoMmd" value="#{admMenuModuloController.selected.idenMemoMmd}" title="#{seguridad.CreateAdmMenuModuloTitle_idenMemoMmd}" required="true" requiredMessage="#{seguridad.CreateAdmMenuModuloRequiredMessage_idenMemoMmd}"/>
+                        <p:outputLabel value="#{seguridad.CreateAdmMenuModuloLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{admMenuModuloController.selected.usuaCreaAud}" title="#{seguridad.CreateAdmMenuModuloTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmMenuModuloLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admMenuModuloController.selected.fechCreaAud}" title="#{seguridad.EditAdmMenuModuloTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateAdmMenuModuloLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{admMenuModuloController.selected.usuaModiAud}" title="#{seguridad.CreateAdmMenuModuloTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmMenuModuloLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admMenuModuloController.selected.fechModiAud}" title="#{seguridad.EditAdmMenuModuloTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateAdmMenuModuloLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{admMenuModuloController.selected.nombEquiAud}" title="#{seguridad.CreateAdmMenuModuloTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmMenuModuloLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{admMenuModuloController.selected.nombSopeAud}" title="#{seguridad.CreateAdmMenuModuloTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmMenuModuloLabel_flagEstaMmd}" for="flagEstaMmd" />
+                        <p:inputText id="flagEstaMmd" value="#{admMenuModuloController.selected.flagEstaMmd}" title="#{seguridad.CreateAdmMenuModuloTitle_flagEstaMmd}" required="true" requiredMessage="#{seguridad.CreateAdmMenuModuloRequiredMessage_flagEstaMmd}"/>
+                        <p:outputLabel value="#{seguridad.CreateAdmMenuModuloLabel_idenMenuMnu}" for="idenMenuMnu" />
+                        <p:selectOneMenu id="idenMenuMnu" value="#{admMenuModuloController.selected.idenMenuMnu}" >
+                            <f:selectItems value="#{admMenuController.itemsAvailableSelectOne}"
+                                           var="idenMenuMnuItem"
+                                           itemValue="#{idenMenuMnuItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{seguridad.CreateAdmMenuModuloLabel_idenModuMod}" for="idenModuMod" />
+                        <p:selectOneMenu id="idenModuMod" value="#{admMenuModuloController.selected.idenModuMod}" >
+                            <f:selectItems value="#{admModuloController.itemsAvailableSelectOne}"
+                                           var="idenModuModItem"
+                                           itemValue="#{idenModuModItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{admMenuModuloController.create}" value="#{seguridad.Save}" update="display,:AdmMenuModuloListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdmMenuModuloCreateDialog');"/>
+                    <p:commandButton value="#{seguridad.Cancel}" onclick="AdmMenuModuloCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

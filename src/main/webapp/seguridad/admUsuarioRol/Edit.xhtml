@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmUsuarioRolEditDlg" widgetVar="AdmUsuarioRolEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.EditAdmUsuarioRolTitle}">
+            <h:form id="AdmUsuarioRolEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admUsuarioRolController.selected != null}">
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_idenUsuaUro}" for="idenUsuaUro" />
+                        <p:inputText id="idenUsuaUro" value="#{admUsuarioRolController.selected.idenUsuaUro}" title="#{seguridad.EditAdmUsuarioRolTitle_idenUsuaUro}" required="true" requiredMessage="#{seguridad.EditAdmUsuarioRolRequiredMessage_idenUsuaUro}"/>
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{admUsuarioRolController.selected.usuaCreaAud}" title="#{seguridad.EditAdmUsuarioRolTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admUsuarioRolController.selected.fechCreaAud}" title="#{seguridad.EditAdmUsuarioRolTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{admUsuarioRolController.selected.usuaModiAud}" title="#{seguridad.EditAdmUsuarioRolTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admUsuarioRolController.selected.fechModiAud}" title="#{seguridad.EditAdmUsuarioRolTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{admUsuarioRolController.selected.nombEquiAud}" title="#{seguridad.EditAdmUsuarioRolTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{admUsuarioRolController.selected.nombSopeAud}" title="#{seguridad.EditAdmUsuarioRolTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_flagEstaUro}" for="flagEstaUro" />
+                        <p:inputText id="flagEstaUro" value="#{admUsuarioRolController.selected.flagEstaUro}" title="#{seguridad.EditAdmUsuarioRolTitle_flagEstaUro}" required="true" requiredMessage="#{seguridad.EditAdmUsuarioRolRequiredMessage_flagEstaUro}"/>
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_idenRoleRol}" for="idenRoleRol" />
+                        <p:selectOneMenu id="idenRoleRol" value="#{admUsuarioRolController.selected.idenRoleRol}" >
+                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
+                            <f:selectItems value="#{admRolController.itemsAvailableSelectOne}"
+                                           var="idenRoleRolItem"
+                                           itemValue="#{idenRoleRolItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_idenPersPer}" for="idenPersPer" />
+                        <p:selectOneMenu id="idenPersPer" value="#{admUsuarioRolController.selected.idenPersPer}" >
+                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
+                            <f:selectItems value="#{admUsuarioController.itemsAvailableSelectOne}"
+                                           var="idenPersPerItem"
+                                           itemValue="#{idenPersPerItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{admUsuarioRolController.update}" value="#{seguridad.Save}" update="display,:AdmUsuarioRolListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AdmUsuarioRolEditDialog');"/>
+                    <p:commandButton value="#{seguridad.Cancel}" onclick="AdmUsuarioRolEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

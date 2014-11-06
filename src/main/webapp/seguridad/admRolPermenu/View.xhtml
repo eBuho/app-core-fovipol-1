@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmRolPermenuViewDlg" widgetVar="AdmRolPermenuViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.ViewAdmRolPermenuTitle}">
+            <h:form id="AdmRolPermenuViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admRolPermenuController.selected != null}">
+                        <h:outputText value="#{seguridad.ViewAdmRolPermenuLabel_idenRoleRpm}"/>
+                        <h:outputText value="#{admRolPermenuController.selected.idenRoleRpm}" title="#{seguridad.ViewAdmRolPermenuTitle_idenRoleRpm}"/>
+                        <h:outputText value="#{seguridad.ViewAdmRolPermenuLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{admRolPermenuController.selected.usuaCreaAud}" title="#{seguridad.ViewAdmRolPermenuTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmRolPermenuLabel_fechCreaAud}"/>
+                        <h:outputText value="#{admRolPermenuController.selected.fechCreaAud}" title="#{seguridad.ViewAdmRolPermenuTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmRolPermenuLabel_usuaModiAud}"/>
+                        <h:outputText value="#{admRolPermenuController.selected.usuaModiAud}" title="#{seguridad.ViewAdmRolPermenuTitle_usuaModiAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmRolPermenuLabel_fechModiAud}"/>
+                        <h:outputText value="#{admRolPermenuController.selected.fechModiAud}" title="#{seguridad.ViewAdmRolPermenuTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmRolPermenuLabel_nombEquiAud}"/>
+                        <h:outputText value="#{admRolPermenuController.selected.nombEquiAud}" title="#{seguridad.ViewAdmRolPermenuTitle_nombEquiAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmRolPermenuLabel_nombSopeAud}"/>
+                        <h:outputText value="#{admRolPermenuController.selected.nombSopeAud}" title="#{seguridad.ViewAdmRolPermenuTitle_nombSopeAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmRolPermenuLabel_flagEstaRpm}"/>
+                        <h:outputText value="#{admRolPermenuController.selected.flagEstaRpm}" title="#{seguridad.ViewAdmRolPermenuTitle_flagEstaRpm}"/>
+                        <h:outputText value="#{seguridad.ViewAdmRolPermenuLabel_idenPermPmn}"/>
+                        <h:outputText value="#{admRolPermenuController.selected.idenPermPmn}" title="#{seguridad.ViewAdmRolPermenuTitle_idenPermPmn}"/>
+                        <h:outputText value="#{seguridad.ViewAdmRolPermenuLabel_idenRoleRol}"/>
+                        <h:outputText value="#{admRolPermenuController.selected.idenRoleRol}" title="#{seguridad.ViewAdmRolPermenuTitle_idenRoleRol}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{seguridad.Close}" onclick="AdmRolPermenuViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
