@@ -80,7 +80,6 @@ public class MaePersona implements Serializable {
     private BigDecimal tipoIdenPer;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "maePersona")
     private AdmUsuario admUsuario;
-    private BigDecimal tipoIdenPer;    
     @OneToMany(mappedBy = "codiPersTrm")
     private List<TrmTramite> trmTramiteList;
     private static final long serialVersionUID = 1L;
@@ -546,6 +545,7 @@ public class MaePersona implements Serializable {
 
     public void setAdmUsuario(AdmUsuario admUsuario) {
         this.admUsuario = admUsuario;
+    }
     @XmlTransient
     @JsonIgnore
     public List<TrmTramite> getTrmTramiteList() {
