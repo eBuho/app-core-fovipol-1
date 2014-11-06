@@ -142,7 +142,7 @@ public class TrmTramite implements Serializable {
     private TrmTramite docuRefeTrm;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trmTramite")
     private List<TrmEstatramHis> trmEstatramHisList;
-    @JoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC", insertable = false, updatable = false)
+    @JoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC")
     @ManyToOne(optional = false)
     private MaeProceso maeProceso;
 

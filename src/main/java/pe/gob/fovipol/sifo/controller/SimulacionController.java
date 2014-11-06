@@ -40,6 +40,7 @@ public class SimulacionController implements Serializable {
     private BigDecimal cuotaPagar;
     private BigDecimal totalAporteAnterior;
     private BigDecimal montoAnteriorPrestamo;
+    private BigDecimal saldoPagarAnteriorPrestamo;
     private MaeEntidaddet detalle;
     private int ciclica;
     private int tipoSocio;
@@ -52,7 +53,7 @@ public class SimulacionController implements Serializable {
     private List<MaeSeguro> segurosSimulacion;
     private MaeSeguro seguro;
     private BigDecimal monto;
-    private BigDecimal liq;
+    private BigDecimal montoCheque;
     private BigDecimal cuota;
     private BigDecimal degravamen;
     private List<CrdSimulacion> simulaciones;
@@ -88,6 +89,7 @@ public class SimulacionController implements Serializable {
         totalAporteAnterior = BigDecimal.ZERO;
         montoAnteriorPrestamo = BigDecimal.ZERO;
         totalAporte = BigDecimal.ZERO;
+        saldoPagarAnteriorPrestamo=BigDecimal.ZERO;
         tipoSocio = 1;
         segurosSimulacion = new ArrayList<>();
         producto = new MaeProducto();
@@ -123,6 +125,7 @@ public class SimulacionController implements Serializable {
             if(producto.getIdenProdPrd().compareTo(new BigDecimal(3))!=0){
                 totalAporteAnterior=BigDecimal.ZERO;
                 montoAnteriorPrestamo=BigDecimal.ZERO;
+                saldoPagarAnteriorPrestamo=BigDecimal.ZERO;
             }            
             simulacion.setCapaMcuoSim(creditoService.calcularMaximaCuota(simulacion.getIngrBrtoSim(), porcDescuento,
                     simulacion.getDsctOficSim(), simulacion.getDsctPersSim(), simulacion.getIngrCombSim()));
@@ -185,6 +188,7 @@ public class SimulacionController implements Serializable {
                                 totalCuota = cuotasSimulacion.get(0).getTotalCuota();
                                 totalInteres = cuotasSimulacion.get(0).getTotalInteres();
                                 totalSeguro = cuotasSimulacion.get(0).getTotalSeguro();
+                                montoCheque=monto.add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
                                 context.addCallbackParam("error", false);
                             } else {
                                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudieron generar cuotas", ""));
@@ -354,7 +358,7 @@ public class SimulacionController implements Serializable {
      */
     public List<MaeEntidaddet> getMonedas() {
         if (monedas == null) {
-            monedas = ejbEntidaddetFacade.findDetalleActivo(new MaeEntidad("TIPOMONECRD"));
+            monedas = ejbEntidaddetFacade.findDetalleActivo(new MaeEntidad("CODIMONECRD"));
         }
         return monedas;
     }
@@ -481,19 +485,7 @@ public class SimulacionController implements Serializable {
         this.monto = monto;
     }
 
-    /**
-     * @return the liq
-     */
-    public BigDecimal getLiq() {
-        return liq;
-    }
-
-    /**
-     * @param liq the liq to set
-     */
-    public void setLiq(BigDecimal liq) {
-        this.liq = liq;
-    }
+    
 
     /**
      * @return the cuota
@@ -661,6 +653,34 @@ public class SimulacionController implements Serializable {
      */
     public void setMontoAnteriorPrestamo(BigDecimal montoAnteriorPrestamo) {
         this.montoAnteriorPrestamo = montoAnteriorPrestamo;
+    }
+
+    /**
+     * @return the saldoPagarAnteriorPrestamo
+     */
+    public BigDecimal getSaldoPagarAnteriorPrestamo() {
+        return saldoPagarAnteriorPrestamo;
+    }
+
+    /**
+     * @param saldoPagarAnteriorPrestamo the saldoPagarAnteriorPrestamo to set
+     */
+    public void setSaldoPagarAnteriorPrestamo(BigDecimal saldoPagarAnteriorPrestamo) {
+        this.saldoPagarAnteriorPrestamo = saldoPagarAnteriorPrestamo;
+    }
+
+    /**
+     * @return the montoCheque
+     */
+    public BigDecimal getMontoCheque() {
+        return montoCheque;
+    }
+
+    /**
+     * @param montoCheque the montoCheque to set
+     */
+    public void setMontoCheque(BigDecimal montoCheque) {
+        this.montoCheque = montoCheque;
     }
 
 }

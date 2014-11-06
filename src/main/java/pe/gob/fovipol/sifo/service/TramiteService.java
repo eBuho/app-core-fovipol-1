@@ -15,4 +15,7 @@ import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
  */
 public interface TramiteService {
     public boolean darViabilidadExpediente(TrmTramite tramite,List<TrmDocumento> documentos);
+    public boolean generarMovimiento(TrmTramite tramite);
+    public boolean cambiarEstadoExpediente(TrmTramite tramite,String nombreEstado);
+    public boolean registrarExpediente(TrmTramite tramite,List<TrmDocumento> documentos);
 }

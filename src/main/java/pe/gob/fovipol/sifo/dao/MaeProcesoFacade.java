@@ -5,10 +5,10 @@
  */
 package pe.gob.fovipol.sifo.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
@@ -54,12 +54,24 @@ public class MaeProcesoFacade extends AbstractFacade<MaeProceso> {
         return lista;
     }
     public MaeProceso buscarSiguienteProceso(MaeProceso proceso){
-        if(proceso.getNiveProcPrc()==1){
-            
-        }
-        else{
-            
-        }
-        return proceso;
-    }
+        int orden=1;
+        BigDecimal idProceso=BigDecimal.ZERO;
+        if(proceso.getNiveProcPrc()!=1){
+            orden=proceso.getOrdeSecuPrc()+1;
+            idProceso=proceso.getCodiPropPrc().getCodiProcPrc();
+        } 
+        else
+            idProceso=proceso.getCodiProcPrc();
+        String sql = "select d from MaeProceso d where d.codiPropPrc.codiProcPrc=:idProceso AND d.ordeSecuPrc=:nivel";
+        Query q = em.createQuery(sql);
+        q.setParameter("idProceso", idProceso);
+        q.setParameter("nivel", orden);
+        List<MaeProceso> lista = null;
+        lista = q.getResultList();
+        if(lista==null || lista.isEmpty())
+            return null;
+        else
+            return lista.get(0);
+    }    
+    
 }
