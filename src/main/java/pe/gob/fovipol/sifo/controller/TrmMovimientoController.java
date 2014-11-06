@@ -13,12 +13,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
+import pe.gob.fovipol.sifo.model.general.Tramite;
 
 @ManagedBean(name = "trmMovimientoController")
 @SessionScoped
@@ -41,7 +45,26 @@ public class TrmMovimientoController implements Serializable {
     public void setSelected(TrmMovimiento selected) {
         this.selected = selected;
     }
+    /*
+    public void onRowSelect(SelectEvent event) {
+        TrmMovimiento movimiento = (TrmMovimiento) event.getObject();
 
+        FacesMessage msg = new FacesMessage("Movimiento de Tramite Seleccionado",
+                " " + movimiento.getTrmMovimientoPK().getIdenExpeTrm() + 
+                " " + movimiento.getTrmMovimientoPK().getSecuMoviMvm());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesContext.getCurrentInstance().
+                getExternalContext().getRequestMap().
+                put("idTramite", movimiento.getTrmTramite().getIdenExpeTrm());
+    }
+
+    public void onRowUnselect(UnselectEvent event) {
+        Tramite tramite = (Tramite) event.getObject();
+        FacesMessage msg = new FacesMessage("Tramite Deseleccionado",
+                "" + tramite.getId() + " " + tramite.getDescripcion());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    */
     protected void setEmbeddableKeys() {
         BigInteger id = getSelected().getTrmTramite().getIdenExpeTrm().toBigInteger();
         getSelected().getTrmMovimientoPK().setIdenExpeTrm(id);

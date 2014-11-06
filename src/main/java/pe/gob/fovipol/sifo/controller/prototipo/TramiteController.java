@@ -8,6 +8,7 @@ package pe.gob.fovipol.sifo.controller.prototipo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,6 +18,7 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import pe.gob.fovipol.sifo.model.general.TipoTramite;
 import pe.gob.fovipol.sifo.model.general.Tramite;
+import pe.gob.fovipol.sifo.service.AuditoriaService;
 
 /**
  *
@@ -25,7 +27,8 @@ import pe.gob.fovipol.sifo.model.general.Tramite;
 @ManagedBean(name = "tramiteController")
 @SessionScoped
 public class TramiteController implements Serializable {
-
+    @EJB
+    AuditoriaService auditoriaService;
     private Tramite seleccionado;
     private List<Tramite> lista;
     private List<Tramite> listaSeleccionados;
@@ -38,11 +41,11 @@ public class TramiteController implements Serializable {
     public TramiteController() {
         lista = new ArrayList<>();
         TipoTramite tipo1 = new TipoTramite(1, "Oficio", "oficio", "Activo");
-        Tramite t1 = new Tramite(1, tipo1, "Oficio 1", "2014-10-23", "Activo");
+        Tramite t1 = new Tramite(Long.parseLong("1"), tipo1, "Oficio 1", "2014-10-23", "Activo");
         TipoTramite tipo2 = new TipoTramite(2, "Solicitud", "solicitud", "Activo");
-        Tramite t2 = new Tramite(2, tipo2, "Solicitud 1", "2014-10-24", "Activo");
+        Tramite t2 = new Tramite(Long.parseLong("2"), tipo2, "Solicitud 1", "2014-10-24", "Activo");
         TipoTramite tipo3 = new TipoTramite(3, "Carta", "carta", "Activo");
-        Tramite t3 = new Tramite(3, tipo3, "Carta 1", "2014-10-25", "Activo");
+        Tramite t3 = new Tramite(Long.parseLong("3"), tipo3, "Carta 1", "2014-10-25", "Activo");
         seleccionado = t1;
         tipo = seleccionado.getTipo();
         pagina = tipo.getPagina();
@@ -51,28 +54,21 @@ public class TramiteController implements Serializable {
         lista.add(t3);
     }
 
-    public void obtenerIP() {
-        /*
-         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-         String ipAddress = request.getHeader("X-FORWARDED-FOR");
-         if (ipAddress == null) {
-         ipAddress = request.getRemoteAddr();
-         }
-         System.out.println("ipAddress:" + ipAddress);*/
-        // Get the request-object.  
+    public void obtenerIP() {  
         HttpServletRequest request = (HttpServletRequest) (FacesContext.getCurrentInstance().
                 getExternalContext().getRequest());
 
-        // Get the header attributes. Use them to retrieve the actual  
-        // values.  
+        // Obtener los atributos de cabecera. 
+        // Los usamos para recuperar los valores reales.
         request.getHeaderNames();
 
-        // Get the IP-address of the client.    
-        String ip = request.getRemoteAddr();
-        System.out.println("ip:" + ip);
-        // Get the hostname of the client.  
-        String pc = request.getRemoteHost();
-        System.out.println("pc:" + pc);
+        // Obtener la dirección IP del cliente.  
+        
+        String ip = auditoriaService.obtenerIP(); //request.getRemoteAddr();
+        //System.out.println("ip:" + ip);
+        // Obtener el nombre de host del cliente.  
+        String pc = auditoriaService.obtenerEquipo(); // request.getRemoteHost();
+        //System.out.println("pc:" + pc);
     }
 
     public void onRowSelect(SelectEvent event) {

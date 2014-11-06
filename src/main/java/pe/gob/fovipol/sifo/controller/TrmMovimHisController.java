@@ -20,7 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "trmMovimientoController")
+@ManagedBean(name = "trmMovimHisController")
 @SessionScoped
 public class TrmMovimHisController implements Serializable {
 
