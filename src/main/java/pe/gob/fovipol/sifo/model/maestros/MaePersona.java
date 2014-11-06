@@ -28,6 +28,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import pe.gob.fovipol.sifo.model.seguridad.AdmUsuario;
 
 /**
  *
@@ -75,6 +76,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class MaePersona implements Serializable {
     @Column(name = "TIPO_IDEN_PER")
     private BigDecimal tipoIdenPer;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "maePersona")
+    private AdmUsuario admUsuario;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -530,6 +533,14 @@ public class MaePersona implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.model.MaePersona[ codiPersPer=" + codiPersPer + " ]";
+    }
+
+    public AdmUsuario getAdmUsuario() {
+        return admUsuario;
+    }
+
+    public void setAdmUsuario(AdmUsuario admUsuario) {
+        this.admUsuario = admUsuario;
     }
 
 }
