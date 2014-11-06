@@ -60,8 +60,7 @@ public class MaeAreaController implements Serializable {
 
     public MaeArea prepareCreate() {
         selected = new MaeArea();
-        selected.setCodiAreaAre(new BigDecimal(ejbFacade.count()+1));
-        selected.setFlagEstaAre(new Short("1"));
+        selected.setFlagEstaAre(Constantes.ESTADO_ACTIVO_SHORT);
         initializeEmbeddableKey();
         return selected;
     }

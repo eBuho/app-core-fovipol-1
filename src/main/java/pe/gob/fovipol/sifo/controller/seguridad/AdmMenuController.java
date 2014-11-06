@@ -18,13 +18,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import pe.gob.fovipol.sifo.util.Constantes;
+
 
 @Named("admMenuController")
 @SessionScoped
 public class AdmMenuController implements Serializable {
 
-    @EJB
-    private pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade ejbFacade;
+
+    @EJB private pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade ejbFacade;
     private List<AdmMenu> items = null;
     private AdmMenu selected;
 
@@ -51,6 +53,7 @@ public class AdmMenuController implements Serializable {
 
     public AdmMenu prepareCreate() {
         selected = new AdmMenu();
+        selected.setFlagEstaMnu(Constantes.ESTADO_ACTIVO_SHORT);
         initializeEmbeddableKey();
         return selected;
     }
@@ -109,7 +112,7 @@ public class AdmMenuController implements Serializable {
         }
     }
 
-    public AdmMenu getAdmMenu(java.math.BigDecimal id) {
+    public AdmMenu getAdmMenu(long id) {
         return getFacade().find(id);
     }
 
@@ -121,7 +124,7 @@ public class AdmMenuController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = AdmMenu.class)
+    @FacesConverter(forClass=AdmMenu.class)
     public static class AdmMenuControllerConverter implements Converter {
 
         @Override
@@ -129,18 +132,18 @@ public class AdmMenuController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AdmMenuController controller = (AdmMenuController) facesContext.getApplication().getELResolver().
+            AdmMenuController controller = (AdmMenuController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "admMenuController");
             return controller.getAdmMenu(getKey(value));
         }
 
-        java.math.BigDecimal getKey(String value) {
-            java.math.BigDecimal key;
-            key = new java.math.BigDecimal(value);
+        long getKey(String value) {
+            long key;
+            key = Long.parseLong(value);
             return key;
         }
 
-        String getStringKey(java.math.BigDecimal value) {
+        String getStringKey(long value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
