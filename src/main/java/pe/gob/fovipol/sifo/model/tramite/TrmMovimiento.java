@@ -52,15 +52,15 @@ import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
     @NamedQuery(name = "TrmMovimiento.findByNombSopeAud", query = "SELECT t FROM TrmMovimiento t WHERE t.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "TrmMovimiento.findByFlagSituMvm", query = "SELECT t FROM TrmMovimiento t WHERE t.flagSituMvm = :flagSituMvm")})
 public class TrmMovimiento implements Serializable {
-    @JoinColumn(name = "AREA_ORIG_MVM", referencedColumnName = "IDEN_AREA_ARE")
-    @ManyToOne
-    private MaeArea areaOrigMvm;
-    @JoinColumn(name = "AREA_DEST_MVM", referencedColumnName = "IDEN_AREA_ARE")
-    @ManyToOne
-    private MaeArea areaDestMvm;
     @JoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC")
     @ManyToOne
     private MaeProceso idenProcPrc;
+    @JoinColumn(name = "AREA_DEST_MVM", referencedColumnName = "IDEN_AREA_ARE")
+    @ManyToOne
+    private MaeArea areaDestMvm;
+    @JoinColumn(name = "AREA_ORIG_MVM", referencedColumnName = "IDEN_AREA_ARE")
+    @ManyToOne
+    private MaeArea areaOrigMvm;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TrmMovimientoPK trmMovimientoPK;
@@ -305,12 +305,12 @@ public class TrmMovimiento implements Serializable {
         return "pe.gob.fovipol.sifo.model.tramite.TrmMovimiento[ trmMovimientoPK=" + trmMovimientoPK + " ]";
     }
 
-    public MaeArea getAreaOrigMvm() {
-        return areaOrigMvm;
+    public MaeProceso getIdenProcPrc() {
+        return idenProcPrc;
     }
 
-    public void setAreaOrigMvm(MaeArea areaOrigMvm) {
-        this.areaOrigMvm = areaOrigMvm;
+    public void setIdenProcPrc(MaeProceso idenProcPrc) {
+        this.idenProcPrc = idenProcPrc;
     }
 
     public MaeArea getAreaDestMvm() {
@@ -321,12 +321,12 @@ public class TrmMovimiento implements Serializable {
         this.areaDestMvm = areaDestMvm;
     }
 
-    public MaeProceso getIdenProcPrc() {
-        return idenProcPrc;
+    public MaeArea getAreaOrigMvm() {
+        return areaOrigMvm;
     }
 
-    public void setIdenProcPrc(MaeProceso idenProcPrc) {
-        this.idenProcPrc = idenProcPrc;
+    public void setAreaOrigMvm(MaeArea areaOrigMvm) {
+        this.areaOrigMvm = areaOrigMvm;
     }
     
 }

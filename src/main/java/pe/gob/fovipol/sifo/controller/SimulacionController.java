@@ -38,6 +38,8 @@ public class SimulacionController implements Serializable {
     private BigDecimal porcDescuento;
     private BigDecimal totalAporte;
     private BigDecimal cuotaPagar;
+    private BigDecimal totalAporteAnterior;
+    private BigDecimal montoAnteriorPrestamo;
     private MaeEntidaddet detalle;
     private int ciclica;
     private int tipoSocio;
@@ -83,6 +85,8 @@ public class SimulacionController implements Serializable {
         simulacion.setDeudOtraSim(BigDecimal.ZERO);
         simulacion.setOtroIngrSim(BigDecimal.ZERO);
         //simulacion.setTasaTeaSim(new BigDecimal(3));
+        totalAporteAnterior = BigDecimal.ZERO;
+        montoAnteriorPrestamo = BigDecimal.ZERO;
         totalAporte = BigDecimal.ZERO;
         tipoSocio = 1;
         segurosSimulacion = new ArrayList<>();
@@ -116,10 +120,14 @@ public class SimulacionController implements Serializable {
 
     public void calcular() {
         if (producto != null && socio != null) {
+            if(producto.getIdenProdPrd().compareTo(new BigDecimal(3))!=0){
+                totalAporteAnterior=BigDecimal.ZERO;
+                montoAnteriorPrestamo=BigDecimal.ZERO;
+            }            
             simulacion.setCapaMcuoSim(creditoService.calcularMaximaCuota(simulacion.getIngrBrtoSim(), porcDescuento,
                     simulacion.getDsctOficSim(), simulacion.getDsctPersSim(), simulacion.getIngrCombSim()));
             simulacion.setImpoMaxpSim(creditoService.calcularMaximoPrestamo(totalAporte,
-                    producto.getCantVecePrd(), simulacion.getDeudOtraSim(), producto.getMontDeudPrd(),simulacion.getOtroIngrSim()));
+                    producto.getCantVecePrd(), simulacion.getDeudOtraSim(), producto.getMontDeudPrd(),simulacion.getOtroIngrSim(),montoAnteriorPrestamo));
         }
     }
 
@@ -625,6 +633,34 @@ public class SimulacionController implements Serializable {
      */
     public void setGastosAdministrativos(BigDecimal gastosAdministrativos) {
         this.gastosAdministrativos = gastosAdministrativos;
+    }
+
+    /**
+     * @return the totalAporteAnterior
+     */
+    public BigDecimal getTotalAporteAnterior() {
+        return totalAporteAnterior;
+    }
+
+    /**
+     * @param totalAporteAnterior the totalAporteAnterior to set
+     */
+    public void setTotalAporteAnterior(BigDecimal totalAporteAnterior) {
+        this.totalAporteAnterior = totalAporteAnterior;
+    }
+
+    /**
+     * @return the montoAnteriorPrestamo
+     */
+    public BigDecimal getMontoAnteriorPrestamo() {
+        return montoAnteriorPrestamo;
+    }
+
+    /**
+     * @param montoAnteriorPrestamo the montoAnteriorPrestamo to set
+     */
+    public void setMontoAnteriorPrestamo(BigDecimal montoAnteriorPrestamo) {
+        this.montoAnteriorPrestamo = montoAnteriorPrestamo;
     }
 
 }

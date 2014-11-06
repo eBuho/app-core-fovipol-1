@@ -51,9 +51,9 @@ import pe.gob.fovipol.sifo.model.tramite.TrmMovimiento;
     @NamedQuery(name = "MaeArea.findByNombSopeAud", query = "SELECT m FROM MaeArea m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeArea.findByFlagEstaAre", query = "SELECT m FROM MaeArea m WHERE m.flagEstaAre = :flagEstaAre")})
 public class MaeArea implements Serializable {
-    @OneToMany(mappedBy = "areaOrigMvm")
-    private List<TrmMovimiento> trmMovimientoList;
     @OneToMany(mappedBy = "areaDestMvm")
+    private List<TrmMovimiento> trmMovimientoList;
+    @OneToMany(mappedBy = "areaOrigMvm")
     private List<TrmMovimiento> trmMovimientoList1;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation

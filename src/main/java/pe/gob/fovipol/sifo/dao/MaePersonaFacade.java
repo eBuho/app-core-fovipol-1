@@ -7,6 +7,7 @@ package pe.gob.fovipol.sifo.dao;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,5 +41,14 @@ public class MaePersonaFacade extends AbstractFacade<MaePersona> {
         else
             id=id.add(new BigDecimal(1));
         return id;
+    }
+    
+    public List<MaePersona> findFamilia(MaePersona padre) {
+        List<MaePersona> lista = null;
+        String sql = "select d from MaePersona d where d.codiPerpPer.codiPersPer = :codiPerpPer";
+        Query q = em.createQuery(sql);
+        q.setParameter("codiPerpPer", padre.getCodiPersPer());
+        lista = q.getResultList();
+        return lista;
     }
 }

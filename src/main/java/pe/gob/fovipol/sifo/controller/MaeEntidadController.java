@@ -97,10 +97,11 @@ public class MaeEntidadController implements Serializable {
     public void preparaCrear() {
         detalleNuevo = new MaeEntidaddet();        
         detalleNuevo.setIdenEntiDet(ejbFacadeDetalle.obtenerCorrelativo());
+        detalleNuevo.setFlagEstaDet(new Short("1"));
         detalleNuevo.setCodiEntiEnt(selected);
     }
 
-    public void create() {
+    public void create() {        
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidadCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

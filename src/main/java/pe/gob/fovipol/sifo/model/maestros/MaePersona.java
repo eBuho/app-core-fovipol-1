@@ -28,6 +28,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import pe.gob.fovipol.sifo.model.seguridad.AdmUsuario;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
@@ -77,6 +78,8 @@ import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 public class MaePersona implements Serializable {
     @Column(name = "TIPO_IDEN_PER")
     private BigDecimal tipoIdenPer;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "maePersona")
+    private AdmUsuario admUsuario;
     @OneToMany(mappedBy = "codiPersTrm")
     private List<TrmTramite> trmTramiteList;
     private static final long serialVersionUID = 1L;
@@ -536,6 +539,13 @@ public class MaePersona implements Serializable {
         return "pe.gob.fovipol.model.MaePersona[ codiPersPer=" + codiPersPer + " ]";
     }
 
+    public AdmUsuario getAdmUsuario() {
+        return admUsuario;
+    }
+
+    public void setAdmUsuario(AdmUsuario admUsuario) {
+        this.admUsuario = admUsuario;
+    }
     @XmlTransient
     @JsonIgnore
     public List<TrmTramite> getTrmTramiteList() {

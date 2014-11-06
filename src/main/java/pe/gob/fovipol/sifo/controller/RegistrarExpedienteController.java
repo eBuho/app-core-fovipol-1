@@ -17,7 +17,6 @@ import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
 import pe.gob.fovipol.sifo.dao.MaeInmuebleFacade;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
 import pe.gob.fovipol.sifo.dao.MaeRequisitoFacade;
-import pe.gob.fovipol.sifo.dao.MaeSocioFacade;
 import pe.gob.fovipol.sifo.dao.TrmDocumentoFacade;
 import pe.gob.fovipol.sifo.dao.TrmTramiteFacade;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
@@ -32,6 +31,7 @@ import pe.gob.fovipol.sifo.model.tramite.TrmDocumento;
 import pe.gob.fovipol.sifo.model.tramite.TrmDocumentoPK;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 import pe.gob.fovipol.sifo.service.CreditoService;
+import pe.gob.fovipol.sifo.service.TramiteService;
 
 @ManagedBean(name = "registrarExpedienteController")
 @ViewScoped
@@ -53,6 +53,8 @@ public class RegistrarExpedienteController implements Serializable {
     private MaeInmuebleFacade ejbInmuebleFacade;
     @EJB
     private CreditoService creditoService;
+    @EJB
+    private TramiteService tramiteService;
     private MaeSocio socio;
     private TrmTramite tramite;
     private List<MaeProducto> productos;
@@ -81,6 +83,11 @@ public class RegistrarExpedienteController implements Serializable {
                 tramite.setIdenSimuSim(new CrdSimulacion());
             } else {
                 setSocio(tramite.getCodiPersTrm().getMaeSocio());
+                if (tramite.getIdenSimuSim() != null) {
+                    simulacion = tramite.getIdenSimuSim().getIdenSimuSim();
+                    producto = tramite.getIdenSimuSim().getIdenProdPrd();
+                    cargarRequisitos();
+                }
             }
         } else {
             tramite = new TrmTramite();
@@ -89,13 +96,13 @@ public class RegistrarExpedienteController implements Serializable {
         productos = ejbProductoFacade.findAll();
         inmueble = new MaeInmueble();
         gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("GRADPAREPER"));
-        beneficiaria=false;
+        beneficiaria = false;
     }
 
     public void nuevoTramite() {
         tramite = new TrmTramite();
         tramite.setIdenSimuSim(new CrdSimulacion());
-        socio=null;
+        socio = null;
     }
 
     public void mostrarSimulacion() {
@@ -104,25 +111,40 @@ public class RegistrarExpedienteController implements Serializable {
 
     public void cargarRequisitos() {
         if (producto != null) {
-            List<MaeRequisito> reqs = ejbRequisitoFacade.findByProcesoActivo(producto.getIdenProcPrc().getCodiProcPrc());
             if (socio != null) {
                 simulaciones = ejbSimulacionFacade.findBySocioProducto(socio.getCodiPersPer(), producto.getIdenProdPrd());
             }
-            documentos = new ArrayList<>();
-            int i = 1;
-            for (MaeRequisito aux : reqs) {
-                TrmDocumento doc = new TrmDocumento();
-                doc.setTrmDocumentoPK(new TrmDocumentoPK());
-                doc.getTrmDocumentoPK().setSecuDocuDoc(i);
-                doc.setMaeRequisito(aux);
-                i++;
-                doc.setDescNombDoc(aux.getNombRequReq());
-                doc.setFlagEstaDoc(new Short("1"));
-                documentos.add(doc);
+            if (tramite.getIdenExpeTrm()!= null) {
+                documentos=ejbDocumentoFacade.findByTramite(tramite);
+            } else {
+                List<MaeRequisito> reqs = ejbRequisitoFacade.findByProcesoActivo(producto.getIdenProcPrc().getCodiProcPrc());
+                documentos = new ArrayList<>();
+                int i = 1;
+                for (MaeRequisito aux : reqs) {
+                    TrmDocumento doc = new TrmDocumento();
+                    doc.setTrmDocumentoPK(new TrmDocumentoPK());
+                    doc.getTrmDocumentoPK().setSecuDocuDoc(i);
+                    doc.setMaeRequisito(aux);
+                    i++;
+                    doc.setDescNombDoc(aux.getNombRequReq());
+                    doc.setFlagEstaDoc(new Short("1"));
+                    documentos.add(doc);
+                }
             }
         }
     }
-
+    
+    public void darViabilidad(){        
+        boolean validarCampos=tramiteService.darViabilidadExpediente(tramite, documentos);        
+        if(validarCampos)
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con éxito", ""));        
+        else
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "No tiene todos los requisitos", ""));
+    }
+    
+    public void rechazar(){
+        System.out.println("Rechazado");
+    }
     public void registrar() {
         if (socio == null) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -149,15 +171,22 @@ public class RegistrarExpedienteController implements Serializable {
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el Asunto del Expediente", ""));
             return;
         }
-        tramite.setIdenExpeTrm(ejbTramiteFacade.obtenerCorrelativo());
+        if (tramite.getIdenExpeTrm() == null) {
+            tramite.setIdenExpeTrm(ejbTramiteFacade.obtenerCorrelativo());
+            tramite.setFechCreaAud(new Date());
+            tramite.setFlagEstaTrm(new Short("1"));
+        } else {
+            tramite.setFechModiAud(new Date());
+        }
         tramite.setCodiPersTrm(socio.getMaePersona());
-        ejbTramiteFacade.create(tramite);
-        for(TrmDocumento doc:documentos){
+        tramite.setMaeProceso(producto.getIdenProcPrc());
+        ejbTramiteFacade.edit(tramite);
+        for (TrmDocumento doc : documentos) {
             doc.getTrmDocumentoPK().setIdenExpeTrm(tramite.getIdenExpeTrm().toBigInteger());
-            ejbDocumentoFacade.create(doc);
+            ejbDocumentoFacade.edit(doc);
         }
         FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
         /*inmueble.setIdenInmuImb(ejbInmuebleFacade.obtenerCorrelativo());
          inmueble.setFlagEstaImb(new Short("1"));
          ejbInmuebleFacade.create(inmueble);*/
@@ -175,23 +204,23 @@ public class RegistrarExpedienteController implements Serializable {
      */
     public void setSocio(MaeSocio socio) {
         this.socio = socio;
-        if(this.socio!=null){
-            edad=creditoService.calcularEdad(socio.getMaePersona().getFechNaciPer(), new Date());
-            if(this.socio.getMaePersona().getCodiPerpPer()!=null){
-                MaePersona aux=this.socio.getMaePersona().getCodiPerpPer();
-                if(aux.getFechFallPer()!=null){
-                    if(this.socio.getMaePersona().getGradParePer()==1){
-                        beneficiaria=true;
-                        pareja=this.socio.getMaePersona().getCodiPerpPer();
-                        edad=creditoService.calcularEdad(pareja.getFechNaciPer(), new Date());
+        if (this.socio != null) {
+            edad = creditoService.calcularEdad(socio.getMaePersona().getFechNaciPer(), new Date());
+            if (this.socio.getMaePersona().getCodiPerpPer() != null) {
+                MaePersona aux = this.socio.getMaePersona().getCodiPerpPer();
+                if (aux.getFechFallPer() != null) {
+                    if (this.socio.getMaePersona().getGradParePer() == 1) {
+                        beneficiaria = true;
+                        pareja = this.socio.getMaePersona().getCodiPerpPer();
+                        edad = creditoService.calcularEdad(pareja.getFechNaciPer(), new Date());
                     }
+                } else {
+                    beneficiaria = false;
                 }
-                else
-                    beneficiaria=false; 
+            } else {
+                beneficiaria = false;
             }
-            else
-                beneficiaria=false;
-            
+
         }
     }
 
