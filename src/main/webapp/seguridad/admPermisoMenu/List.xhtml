@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="AdmPermisoMenuListForm">
+                <p:panel header="#{seguridad.ListAdmPermisoMenuTitle}">
+                    <p:dataTable id="datalist" value="#{admPermisoMenuController.items}" var="item"
+                                 selectionMode="single" selection="#{admPermisoMenuController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idenPermPmn}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron registros"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle_idenPermPmn}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idenPermPmn}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle_nombPermPmn}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombPermPmn}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle_nombPercPmn}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombPercPmn}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle_tipoVisuPmn}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoVisuPmn}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle_usuaCreaAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuaCreaAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle_fechCreaAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechCreaAud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle_usuaModiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuaModiAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle_fechModiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechModiAud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle_nombEquiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombEquiAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle_nombSopeAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombSopeAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle_flagEstaPmn}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flagEstaPmn}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmPermisoMenuTitle_idenMenuPmn}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idenMenuPmn}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{seguridad.Create}" actionListener="#{admPermisoMenuController.prepareCreate}" update=":AdmPermisoMenuCreateForm" oncomplete="PF('AdmPermisoMenuCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{seguridad.View}" update=":AdmPermisoMenuViewForm" oncomplete="PF('AdmPermisoMenuViewDialog').show()" disabled="#{empty admPermisoMenuController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{seguridad.Edit}" update=":AdmPermisoMenuEditForm" oncomplete="PF('AdmPermisoMenuEditDialog').show()" disabled="#{empty admPermisoMenuController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{seguridad.Delete}" actionListener="#{admPermisoMenuController.destroy}" update=":growl,datalist" disabled="#{empty admPermisoMenuController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

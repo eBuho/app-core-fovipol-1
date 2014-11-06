@@ -55,7 +55,7 @@
                                            itemValue="#{trmTramiteItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{trmMovimientoController.create}" value="#{tramite.Save}" update="display,:TrmMovimientoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TrmMovimientoCreateDialog');"/>
+                    <p:commandButton actionListener="#{trmMovimientoController.create}" value="#{tramite.Save}" update="display,:TrmMovimientoListForm:tabVista:datalist,:growl" oncomplete="handleSubmit(args,'TrmMovimientoCreateDialog');"/>
                     <p:commandButton value="#{tramite.Cancel}" onclick="TrmMovimientoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

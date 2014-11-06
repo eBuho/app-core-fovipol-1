@@ -22,6 +22,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 @ManagedBean(name = "maeAreaController")
 @ViewScoped
@@ -150,7 +151,7 @@ public class MaeAreaController implements Serializable {
      */
     public List<MaeEntidaddet> getTiposArea() {
         if(tiposArea==null)
-            tiposArea=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("TipoAreaAre"));
+            tiposArea=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_TIPO_AREA));
         return tiposArea;
     }
 

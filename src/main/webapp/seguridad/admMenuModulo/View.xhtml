@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmMenuModuloViewDlg" widgetVar="AdmMenuModuloViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.ViewAdmMenuModuloTitle}">
+            <h:form id="AdmMenuModuloViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admMenuModuloController.selected != null}">
+                        <h:outputText value="#{seguridad.ViewAdmMenuModuloLabel_idenMemoMmd}"/>
+                        <h:outputText value="#{admMenuModuloController.selected.idenMemoMmd}" title="#{seguridad.ViewAdmMenuModuloTitle_idenMemoMmd}"/>
+                        <h:outputText value="#{seguridad.ViewAdmMenuModuloLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{admMenuModuloController.selected.usuaCreaAud}" title="#{seguridad.ViewAdmMenuModuloTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmMenuModuloLabel_fechCreaAud}"/>
+                        <h:outputText value="#{admMenuModuloController.selected.fechCreaAud}" title="#{seguridad.ViewAdmMenuModuloTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmMenuModuloLabel_usuaModiAud}"/>
+                        <h:outputText value="#{admMenuModuloController.selected.usuaModiAud}" title="#{seguridad.ViewAdmMenuModuloTitle_usuaModiAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmMenuModuloLabel_fechModiAud}"/>
+                        <h:outputText value="#{admMenuModuloController.selected.fechModiAud}" title="#{seguridad.ViewAdmMenuModuloTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmMenuModuloLabel_nombEquiAud}"/>
+                        <h:outputText value="#{admMenuModuloController.selected.nombEquiAud}" title="#{seguridad.ViewAdmMenuModuloTitle_nombEquiAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmMenuModuloLabel_nombSopeAud}"/>
+                        <h:outputText value="#{admMenuModuloController.selected.nombSopeAud}" title="#{seguridad.ViewAdmMenuModuloTitle_nombSopeAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmMenuModuloLabel_flagEstaMmd}"/>
+                        <h:outputText value="#{admMenuModuloController.selected.flagEstaMmd}" title="#{seguridad.ViewAdmMenuModuloTitle_flagEstaMmd}"/>
+                        <h:outputText value="#{seguridad.ViewAdmMenuModuloLabel_idenMenuMnu}"/>
+                        <h:outputText value="#{admMenuModuloController.selected.idenMenuMnu}" title="#{seguridad.ViewAdmMenuModuloTitle_idenMenuMnu}"/>
+                        <h:outputText value="#{seguridad.ViewAdmMenuModuloLabel_idenModuMod}"/>
+                        <h:outputText value="#{admMenuModuloController.selected.idenModuMod}" title="#{seguridad.ViewAdmMenuModuloTitle_idenModuMod}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{seguridad.Close}" onclick="AdmMenuModuloViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

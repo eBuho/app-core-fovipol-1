@@ -63,12 +63,15 @@ import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
     @NamedQuery(name = "TrmTramite.findByNombSopeAud", query = "SELECT t FROM TrmTramite t WHERE t.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "TrmTramite.findByFlagEstaTrm", query = "SELECT t FROM TrmTramite t WHERE t.flagEstaTrm = :flagEstaTrm")})
 public class TrmTramite implements Serializable {
-    @JoinColumn(name = "CODI_PERS_TRM", referencedColumnName = "IDEN_PERS_PER")
-    @ManyToOne
-    private MaePersona codiPersTrm;
     @JoinColumn(name = "IDEN_SIMU_SIM", referencedColumnName = "IDEN_SIMU_SIM")
     @ManyToOne
     private CrdSimulacion idenSimuSim;
+    @JoinColumn(name = "CODI_PERS_TRM", referencedColumnName = "IDEN_PERS_PER")
+    @ManyToOne
+    private MaePersona codiPersTrm;
+    @JoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC")
+    @ManyToOne
+    private MaeProceso idenProcPrc;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id

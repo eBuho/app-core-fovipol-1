@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmModuloExcepcionViewDlg" widgetVar="AdmModuloExcepcionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.ViewAdmModuloExcepcionTitle}">
+            <h:form id="AdmModuloExcepcionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admModuloExcepcionController.selected != null}">
+                        <h:outputText value="#{seguridad.ViewAdmModuloExcepcionLabel_idenModuMde}"/>
+                        <h:outputText value="#{admModuloExcepcionController.selected.idenModuMde}" title="#{seguridad.ViewAdmModuloExcepcionTitle_idenModuMde}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloExcepcionLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{admModuloExcepcionController.selected.usuaCreaAud}" title="#{seguridad.ViewAdmModuloExcepcionTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloExcepcionLabel_fechCreaAud}"/>
+                        <h:outputText value="#{admModuloExcepcionController.selected.fechCreaAud}" title="#{seguridad.ViewAdmModuloExcepcionTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmModuloExcepcionLabel_usuaModiAud}"/>
+                        <h:outputText value="#{admModuloExcepcionController.selected.usuaModiAud}" title="#{seguridad.ViewAdmModuloExcepcionTitle_usuaModiAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloExcepcionLabel_fechModiAud}"/>
+                        <h:outputText value="#{admModuloExcepcionController.selected.fechModiAud}" title="#{seguridad.ViewAdmModuloExcepcionTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmModuloExcepcionLabel_nombEquiAud}"/>
+                        <h:outputText value="#{admModuloExcepcionController.selected.nombEquiAud}" title="#{seguridad.ViewAdmModuloExcepcionTitle_nombEquiAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloExcepcionLabel_nombSopeAud}"/>
+                        <h:outputText value="#{admModuloExcepcionController.selected.nombSopeAud}" title="#{seguridad.ViewAdmModuloExcepcionTitle_nombSopeAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloExcepcionLabel_flagEstaMde}"/>
+                        <h:outputText value="#{admModuloExcepcionController.selected.flagEstaMde}" title="#{seguridad.ViewAdmModuloExcepcionTitle_flagEstaMde}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloExcepcionLabel_idenMemoMmd}"/>
+                        <h:outputText value="#{admModuloExcepcionController.selected.idenMemoMmd}" title="#{seguridad.ViewAdmModuloExcepcionTitle_idenMemoMmd}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloExcepcionLabel_idenMoroMdr}"/>
+                        <h:outputText value="#{admModuloExcepcionController.selected.idenMoroMdr}" title="#{seguridad.ViewAdmModuloExcepcionTitle_idenMoroMdr}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{seguridad.Close}" onclick="AdmModuloExcepcionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

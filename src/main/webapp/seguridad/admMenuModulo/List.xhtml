@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{seguridad.ListAdmMenuModuloTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="AdmMenuModuloListForm">
+                <p:panel header="#{seguridad.ListAdmMenuModuloTitle}">
+                    <p:dataTable id="datalist" value="#{admMenuModuloController.items}" var="item"
+                                 selectionMode="single" selection="#{admMenuModuloController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idenMemoMmd}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron registros"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_idenMemoMmd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idenMemoMmd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_usuaCreaAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuaCreaAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_fechCreaAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechCreaAud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_usuaModiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuaModiAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_fechModiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechModiAud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_nombEquiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombEquiAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_nombSopeAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombSopeAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_flagEstaMmd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flagEstaMmd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_idenMenuMnu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idenMenuMnu}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_idenModuMod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idenModuMod}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{seguridad.Create}" actionListener="#{admMenuModuloController.prepareCreate}" update=":AdmMenuModuloCreateForm" oncomplete="PF('AdmMenuModuloCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{seguridad.View}" update=":AdmMenuModuloViewForm" oncomplete="PF('AdmMenuModuloViewDialog').show()" disabled="#{empty admMenuModuloController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{seguridad.Edit}" update=":AdmMenuModuloEditForm" oncomplete="PF('AdmMenuModuloEditDialog').show()" disabled="#{empty admMenuModuloController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{seguridad.Delete}" actionListener="#{admMenuModuloController.destroy}" update=":growl,datalist" disabled="#{empty admMenuModuloController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

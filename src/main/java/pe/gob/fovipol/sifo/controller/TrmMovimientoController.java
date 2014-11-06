@@ -13,12 +13,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
+import pe.gob.fovipol.sifo.model.general.Tramite;
 
 @ManagedBean(name = "trmMovimientoController")
 @SessionScoped
@@ -27,7 +31,9 @@ public class TrmMovimientoController implements Serializable {
     @EJB
     private pe.gob.fovipol.sifo.dao.TrmMovimientoFacade ejbFacade;
     private List<TrmMovimiento> items = null;
+    private List<TrmMovimiento> itemsHistoricos = null;
     private TrmMovimiento selected;
+    private TrmMovimiento selectedHistorico;
 
     public TrmMovimientoController() {
     }
@@ -39,30 +45,49 @@ public class TrmMovimientoController implements Serializable {
     public void setSelected(TrmMovimiento selected) {
         this.selected = selected;
     }
+    /*
+    public void onRowSelect(SelectEvent event) {
+        TrmMovimiento movimiento = (TrmMovimiento) event.getObject();
 
+        FacesMessage msg = new FacesMessage("Movimiento de Tramite Seleccionado",
+                " " + movimiento.getTrmMovimientoPK().getIdenExpeTrm() + 
+                " " + movimiento.getTrmMovimientoPK().getSecuMoviMvm());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesContext.getCurrentInstance().
+                getExternalContext().getRequestMap().
+                put("idTramite", movimiento.getTrmTramite().getIdenExpeTrm());
+    }
+
+    public void onRowUnselect(UnselectEvent event) {
+        Tramite tramite = (Tramite) event.getObject();
+        FacesMessage msg = new FacesMessage("Tramite Deseleccionado",
+                "" + tramite.getId() + " " + tramite.getDescripcion());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    */
     protected void setEmbeddableKeys() {
-        BigInteger id = selected.getTrmTramite().getIdenExpeTrm().toBigInteger();
-        selected.getTrmMovimientoPK().setIdenExpeTrm(id);
+        BigInteger id = getSelected().getTrmTramite().getIdenExpeTrm().toBigInteger();
+        getSelected().getTrmMovimientoPK().setIdenExpeTrm(id);
     }
 
     protected void initializeEmbeddableKey() {
-        selected.setTrmMovimientoPK(new pe.gob.fovipol.sifo.model.tramite.TrmMovimientoPK());
+        getSelected().setTrmMovimientoPK(new pe.gob.fovipol.sifo.model.tramite.TrmMovimientoPK());
     }
 
     private TrmMovimientoFacade getFacade() {
-        return ejbFacade;
+        return getEjbFacade();
     }
 
     public TrmMovimiento prepareCreate() {
-        selected = new TrmMovimiento();
+        setSelected(new TrmMovimiento());
         initializeEmbeddableKey();
-        return selected;
+        return getSelected();
     }
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Tramite").getString("TrmMovimientoCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+            setItems(null);    // Invalidate list of items to trigger re-query.
         }
     }
 
@@ -73,26 +98,33 @@ public class TrmMovimientoController implements Serializable {
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Tramite").getString("TrmMovimientoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+            setSelected(null); // Remove selection
+            setItems(null);    // Invalidate list of items to trigger re-query.
         }
     }
 
     public List<TrmMovimiento> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().findItemsActivos(); //findAll();
         }
         return items;
     }
+    
+    public List<TrmMovimiento> getItemsActivos() {
+        if (getItems() == null) {
+            setItems(getFacade().findItemsActivos());
+        }
+        return getItems();
+    }
 
     private void persist(PersistAction persistAction, String successMessage) {
-        if (selected != null) {
+        if (getSelected() != null) {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    getFacade().edit(getSelected());
                 } else {
-                    getFacade().remove(selected);
+                    getFacade().remove(getSelected());
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
@@ -119,6 +151,58 @@ public class TrmMovimientoController implements Serializable {
 
     public List<TrmMovimiento> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    /**
+     * @return the ejbFacade
+     */
+    public pe.gob.fovipol.sifo.dao.TrmMovimientoFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    /**
+     * @param ejbFacade the ejbFacade to set
+     */
+    public void setEjbFacade(pe.gob.fovipol.sifo.dao.TrmMovimientoFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    /**
+     * @param items the items to set
+     */
+    public void setItems(List<TrmMovimiento> items) {
+        this.items = items;
+    }
+
+    /**
+     * @return the itemsHistoricos
+     */
+    public List<TrmMovimiento> getItemsHistoricos() {
+        if (itemsHistoricos == null) {
+            setItems(getFacade().findItemsHistoricos()); //findAll();
+        }
+        return itemsHistoricos;
+    }
+
+    /**
+     * @param itemsHistoricos the itemsHistoricos to set
+     */
+    public void setItemsHistoricos(List<TrmMovimiento> itemsHistoricos) {
+        this.itemsHistoricos = itemsHistoricos;
+    }
+
+    /**
+     * @return the selectedHistorico
+     */
+    public TrmMovimiento getSelectedHistorico() {
+        return selectedHistorico;
+    }
+
+    /**
+     * @param selectedHistorico the selectedHistorico to set
+     */
+    public void setSelectedHistorico(TrmMovimiento selectedHistorico) {
+        this.selectedHistorico = selectedHistorico;
     }
 
     @FacesConverter(forClass = TrmMovimiento.class)

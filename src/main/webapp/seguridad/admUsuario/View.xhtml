@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmUsuarioViewDlg" widgetVar="AdmUsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.ViewAdmUsuarioTitle}">
+            <h:form id="AdmUsuarioViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admUsuarioController.selected != null}">
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_idenPersPer}"/>
+                        <h:outputText value="#{admUsuarioController.selected.idenPersPer}" title="#{seguridad.ViewAdmUsuarioTitle_idenPersPer}"/>
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_codiUsuaUsr}"/>
+                        <h:outputText value="#{admUsuarioController.selected.codiUsuaUsr}" title="#{seguridad.ViewAdmUsuarioTitle_codiUsuaUsr}"/>
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_clavUsuaUsr}"/>
+                        <h:outputText value="#{admUsuarioController.selected.clavUsuaUsr}" title="#{seguridad.ViewAdmUsuarioTitle_clavUsuaUsr}"/>
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_corrRecuUsr}"/>
+                        <h:outputText value="#{admUsuarioController.selected.corrRecuUsr}" title="#{seguridad.ViewAdmUsuarioTitle_corrRecuUsr}"/>
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_fechExpiUsr}"/>
+                        <h:outputText value="#{admUsuarioController.selected.fechExpiUsr}" title="#{seguridad.ViewAdmUsuarioTitle_fechExpiUsr}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{admUsuarioController.selected.usuaCreaAud}" title="#{seguridad.ViewAdmUsuarioTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_fechCreaAud}"/>
+                        <h:outputText value="#{admUsuarioController.selected.fechCreaAud}" title="#{seguridad.ViewAdmUsuarioTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_usuaModiAud}"/>
+                        <h:outputText value="#{admUsuarioController.selected.usuaModiAud}" title="#{seguridad.ViewAdmUsuarioTitle_usuaModiAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_fechModiAud}"/>
+                        <h:outputText value="#{admUsuarioController.selected.fechModiAud}" title="#{seguridad.ViewAdmUsuarioTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_nombEquiAud}"/>
+                        <h:outputText value="#{admUsuarioController.selected.nombEquiAud}" title="#{seguridad.ViewAdmUsuarioTitle_nombEquiAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_nombSopeAud}"/>
+                        <h:outputText value="#{admUsuarioController.selected.nombSopeAud}" title="#{seguridad.ViewAdmUsuarioTitle_nombSopeAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_flagEstaUsr}"/>
+                        <h:outputText value="#{admUsuarioController.selected.flagEstaUsr}" title="#{seguridad.ViewAdmUsuarioTitle_flagEstaUsr}"/>
+                        <h:outputText value="#{seguridad.ViewAdmUsuarioLabel_maePersona}"/>
+                        <h:outputText value="#{admUsuarioController.selected.maePersona}" title="#{seguridad.ViewAdmUsuarioTitle_maePersona}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{seguridad.Close}" onclick="AdmUsuarioViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaeSocioCreateDlg" widgetVar="MaeSocioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.CreateMaeSocioTitle}">
+            <h:form id="MaeSocioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maeSocioController.selected != null}">
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_codiPersPer}" for="codiPersPer" />
+                        <p:inputText id="codiPersPer" value="#{maeSocioController.selected.codiPersPer}" title="#{seguridad.CreateMaeSocioTitle_codiPersPer}" required="true" requiredMessage="#{seguridad.CreateMaeSocioRequiredMessage_codiPersPer}"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_codiMigrSoc}" for="codiMigrSoc" />
+                        <p:inputText id="codiMigrSoc" value="#{maeSocioController.selected.codiMigrSoc}" title="#{seguridad.CreateMaeSocioTitle_codiMigrSoc}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_tipoPoliSoc}" for="tipoPoliSoc" />
+                        <p:inputText id="tipoPoliSoc" value="#{maeSocioController.selected.tipoPoliSoc}" title="#{seguridad.CreateMaeSocioTitle_tipoPoliSoc}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_codiCcipSoc}" for="codiCcipSoc" />
+                        <p:inputText id="codiCcipSoc" value="#{maeSocioController.selected.codiCcipSoc}" title="#{seguridad.CreateMaeSocioTitle_codiCcipSoc}" required="true" requiredMessage="#{seguridad.CreateMaeSocioRequiredMessage_codiCcipSoc}"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_codiCdfiSoc}" for="codiCdfiSoc" />
+                        <p:inputText id="codiCdfiSoc" value="#{maeSocioController.selected.codiCdfiSoc}" title="#{seguridad.CreateMaeSocioTitle_codiCdfiSoc}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_codiCajaSoc}" for="codiCajaSoc" />
+                        <p:inputText id="codiCajaSoc" value="#{maeSocioController.selected.codiCajaSoc}" title="#{seguridad.CreateMaeSocioTitle_codiCajaSoc}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_codiMpolSoc}" for="codiMpolSoc" />
+                        <p:inputText id="codiMpolSoc" value="#{maeSocioController.selected.codiMpolSoc}" title="#{seguridad.CreateMaeSocioTitle_codiMpolSoc}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_fechAfilSoc}" for="fechAfilSoc" />
+                        <p:calendar id="fechAfilSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechAfilSoc}" title="#{seguridad.EditMaeSocioTitle_fechAfilSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_fechDesaSoc}" for="fechDesaSoc" />
+                        <p:calendar id="fechDesaSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechDesaSoc}" title="#{seguridad.EditMaeSocioTitle_fechDesaSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_codiGradSoc}" for="codiGradSoc" />
+                        <p:inputText id="codiGradSoc" value="#{maeSocioController.selected.codiGradSoc}" title="#{seguridad.CreateMaeSocioTitle_codiGradSoc}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_codiEspeSoc}" for="codiEspeSoc" />
+                        <p:inputText id="codiEspeSoc" value="#{maeSocioController.selected.codiEspeSoc}" title="#{seguridad.CreateMaeSocioTitle_codiEspeSoc}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_fechIescSoc}" for="fechIescSoc" />
+                        <p:calendar id="fechIescSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechIescSoc}" title="#{seguridad.EditMaeSocioTitle_fechIescSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_fechEescSoc}" for="fechEescSoc" />
+                        <p:calendar id="fechEescSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechEescSoc}" title="#{seguridad.EditMaeSocioTitle_fechEescSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_fechBajaSoc}" for="fechBajaSoc" />
+                        <p:calendar id="fechBajaSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechBajaSoc}" title="#{seguridad.EditMaeSocioTitle_fechBajaSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_unidTrabSoc}" for="unidTrabSoc" />
+                        <p:inputText id="unidTrabSoc" value="#{maeSocioController.selected.unidTrabSoc}" title="#{seguridad.CreateMaeSocioTitle_unidTrabSoc}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_entiPagoSoc}" for="entiPagoSoc" />
+                        <p:inputText id="entiPagoSoc" value="#{maeSocioController.selected.entiPagoSoc}" title="#{seguridad.CreateMaeSocioTitle_entiPagoSoc}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_fechReinSoc}" for="fechReinSoc" />
+                        <p:calendar id="fechReinSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechReinSoc}" title="#{seguridad.EditMaeSocioTitle_fechReinSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_flagRenuSoc}" for="flagRenuSoc" />
+                        <p:inputText id="flagRenuSoc" value="#{maeSocioController.selected.flagRenuSoc}" title="#{seguridad.CreateMaeSocioTitle_flagRenuSoc}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_fechRenuSoc}" for="fechRenuSoc" />
+                        <p:calendar id="fechRenuSoc" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechRenuSoc}" title="#{seguridad.EditMaeSocioTitle_fechRenuSoc}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{maeSocioController.selected.usuaCreaAud}" title="#{seguridad.CreateMaeSocioTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechCreaAud}" title="#{seguridad.EditMaeSocioTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{maeSocioController.selected.usuaModiAud}" title="#{seguridad.CreateMaeSocioTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeSocioController.selected.fechModiAud}" title="#{seguridad.EditMaeSocioTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{maeSocioController.selected.nombEquiAud}" title="#{seguridad.CreateMaeSocioTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{maeSocioController.selected.nombSopeAud}" title="#{seguridad.CreateMaeSocioTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_flagEstaSoc}" for="flagEstaSoc" />
+                        <p:inputText id="flagEstaSoc" value="#{maeSocioController.selected.flagEstaSoc}" title="#{seguridad.CreateMaeSocioTitle_flagEstaSoc}" />
+                        <p:outputLabel value="#{seguridad.CreateMaeSocioLabel_maePersona}" for="maePersona" />
+                        <p:selectOneMenu id="maePersona" value="#{maeSocioController.selected.maePersona}" required="true" requiredMessage="#{seguridad.EditMaeSocioRequiredMessage_maePersona}">
+                            <f:selectItems value="#{maePersonaController.itemsAvailableSelectOne}"
+                                           var="maePersonaItem"
+                                           itemValue="#{maePersonaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maeSocioController.create}" value="#{seguridad.Save}" update="display,:MaeSocioListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeSocioCreateDialog');"/>
+                    <p:commandButton value="#{seguridad.Cancel}" onclick="MaeSocioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

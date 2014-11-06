@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaePersonaEditDlg" widgetVar="MaePersonaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.EditMaePersonaTitle}">
+            <h:form id="MaePersonaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maePersonaController.selected != null}">
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_codiPersPer}" for="codiPersPer" />
+                        <p:inputText id="codiPersPer" value="#{maePersonaController.selected.codiPersPer}" title="#{seguridad.EditMaePersonaTitle_codiPersPer}" required="true" requiredMessage="#{seguridad.EditMaePersonaRequiredMessage_codiPersPer}"/>
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_apelPatePer}" for="apelPatePer" />
+                        <p:inputText id="apelPatePer" value="#{maePersonaController.selected.apelPatePer}" title="#{seguridad.EditMaePersonaTitle_apelPatePer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_apelMatePer}" for="apelMatePer" />
+                        <p:inputText id="apelMatePer" value="#{maePersonaController.selected.apelMatePer}" title="#{seguridad.EditMaePersonaTitle_apelMatePer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_nombPersPer}" for="nombPersPer" />
+                        <p:inputText id="nombPersPer" value="#{maePersonaController.selected.nombPersPer}" title="#{seguridad.EditMaePersonaTitle_nombPersPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_nombCompPer}" for="nombCompPer" />
+                        <p:inputText id="nombCompPer" value="#{maePersonaController.selected.nombCompPer}" title="#{seguridad.EditMaePersonaTitle_nombCompPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_tipoIdenPer}" for="tipoIdenPer" />
+                        <p:inputText id="tipoIdenPer" value="#{maePersonaController.selected.tipoIdenPer}" title="#{seguridad.EditMaePersonaTitle_tipoIdenPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_numeIdenPer}" for="numeIdenPer" />
+                        <p:inputText id="numeIdenPer" value="#{maePersonaController.selected.numeIdenPer}" title="#{seguridad.EditMaePersonaTitle_numeIdenPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_direPersPer}" for="direPersPer" />
+                        <p:inputText id="direPersPer" value="#{maePersonaController.selected.direPersPer}" title="#{seguridad.EditMaePersonaTitle_direPersPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_estaCiviPer}" for="estaCiviPer" />
+                        <p:inputText id="estaCiviPer" value="#{maePersonaController.selected.estaCiviPer}" title="#{seguridad.EditMaePersonaTitle_estaCiviPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_sexoPersPer}" for="sexoPersPer" />
+                        <p:inputText id="sexoPersPer" value="#{maePersonaController.selected.sexoPersPer}" title="#{seguridad.EditMaePersonaTitle_sexoPersPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_fechNaciPer}" for="fechNaciPer" />
+                        <p:calendar id="fechNaciPer" pattern="MM/dd/yyyy HH:mm:ss" value="#{maePersonaController.selected.fechNaciPer}" title="#{seguridad.EditMaePersonaTitle_fechNaciPer}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_numeTelcPer}" for="numeTelcPer" />
+                        <p:inputText id="numeTelcPer" value="#{maePersonaController.selected.numeTelcPer}" title="#{seguridad.EditMaePersonaTitle_numeTelcPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_numeTeltPer}" for="numeTeltPer" />
+                        <p:inputText id="numeTeltPer" value="#{maePersonaController.selected.numeTeltPer}" title="#{seguridad.EditMaePersonaTitle_numeTeltPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_corrElecPer}" for="corrElecPer" />
+                        <p:inputText id="corrElecPer" value="#{maePersonaController.selected.corrElecPer}" title="#{seguridad.EditMaePersonaTitle_corrElecPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_numeCeluPer}" for="numeCeluPer" />
+                        <p:inputText id="numeCeluPer" value="#{maePersonaController.selected.numeCeluPer}" title="#{seguridad.EditMaePersonaTitle_numeCeluPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_numeCel2Per}" for="numeCel2Per" />
+                        <p:inputText id="numeCel2Per" value="#{maePersonaController.selected.numeCel2Per}" title="#{seguridad.EditMaePersonaTitle_numeCel2Per}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_fechFallPer}" for="fechFallPer" />
+                        <p:calendar id="fechFallPer" pattern="MM/dd/yyyy HH:mm:ss" value="#{maePersonaController.selected.fechFallPer}" title="#{seguridad.EditMaePersonaTitle_fechFallPer}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_tipoProfPer}" for="tipoProfPer" />
+                        <p:inputText id="tipoProfPer" value="#{maePersonaController.selected.tipoProfPer}" title="#{seguridad.EditMaePersonaTitle_tipoProfPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_refeUbigPer}" for="refeUbigPer" />
+                        <p:inputText id="refeUbigPer" value="#{maePersonaController.selected.refeUbigPer}" title="#{seguridad.EditMaePersonaTitle_refeUbigPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_mediTallPer}" for="mediTallPer" />
+                        <p:inputText id="mediTallPer" value="#{maePersonaController.selected.mediTallPer}" title="#{seguridad.EditMaePersonaTitle_mediTallPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_rutaFotoPer}" for="rutaFotoPer" />
+                        <p:inputText id="rutaFotoPer" value="#{maePersonaController.selected.rutaFotoPer}" title="#{seguridad.EditMaePersonaTitle_rutaFotoPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_flagBloqPer}" for="flagBloqPer" />
+                        <p:inputText id="flagBloqPer" value="#{maePersonaController.selected.flagBloqPer}" title="#{seguridad.EditMaePersonaTitle_flagBloqPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_motiBloqPer}" for="motiBloqPer" />
+                        <p:inputText id="motiBloqPer" value="#{maePersonaController.selected.motiBloqPer}" title="#{seguridad.EditMaePersonaTitle_motiBloqPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_flagHomoPer}" for="flagHomoPer" />
+                        <p:inputText id="flagHomoPer" value="#{maePersonaController.selected.flagHomoPer}" title="#{seguridad.EditMaePersonaTitle_flagHomoPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_docuHomoPer}" for="docuHomoPer" />
+                        <p:inputText id="docuHomoPer" value="#{maePersonaController.selected.docuHomoPer}" title="#{seguridad.EditMaePersonaTitle_docuHomoPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_grpoSangPer}" for="grpoSangPer" />
+                        <p:inputText id="grpoSangPer" value="#{maePersonaController.selected.grpoSangPer}" title="#{seguridad.EditMaePersonaTitle_grpoSangPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_gradParePer}" for="gradParePer" />
+                        <p:inputText id="gradParePer" value="#{maePersonaController.selected.gradParePer}" title="#{seguridad.EditMaePersonaTitle_gradParePer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{maePersonaController.selected.usuaCreaAud}" title="#{seguridad.EditMaePersonaTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maePersonaController.selected.fechCreaAud}" title="#{seguridad.EditMaePersonaTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{maePersonaController.selected.usuaModiAud}" title="#{seguridad.EditMaePersonaTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{maePersonaController.selected.fechModiAud}" title="#{seguridad.EditMaePersonaTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{maePersonaController.selected.nombEquiAud}" title="#{seguridad.EditMaePersonaTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{maePersonaController.selected.nombSopeAud}" title="#{seguridad.EditMaePersonaTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_flagEstaPer}" for="flagEstaPer" />
+                        <p:inputText id="flagEstaPer" value="#{maePersonaController.selected.flagEstaPer}" title="#{seguridad.EditMaePersonaTitle_flagEstaPer}" />
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_codiPerpPer}" for="codiPerpPer" />
+                        <p:selectOneMenu id="codiPerpPer" value="#{maePersonaController.selected.codiPerpPer}" >
+                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
+                            <f:selectItems value="#{maePersonaController.itemsAvailableSelectOne}"
+                                           var="codiPerpPerItem"
+                                           itemValue="#{codiPerpPerItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_ubigNaciPer}" for="ubigNaciPer" />
+                        <p:selectOneMenu id="ubigNaciPer" value="#{maePersonaController.selected.ubigNaciPer}" >
+                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
+                            <f:selectItems value="#{maeUbigeoController.itemsAvailableSelectOne}"
+                                           var="ubigNaciPerItem"
+                                           itemValue="#{ubigNaciPerItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_ubigResiPer}" for="ubigResiPer" />
+                        <p:selectOneMenu id="ubigResiPer" value="#{maePersonaController.selected.ubigResiPer}" >
+                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
+                            <f:selectItems value="#{maeUbigeoController.itemsAvailableSelectOne}"
+                                           var="ubigResiPerItem"
+                                           itemValue="#{ubigResiPerItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_maeSocio}" for="maeSocio" />
+                        <p:selectOneMenu id="maeSocio" value="#{maePersonaController.selected.maeSocio}" >
+                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
+                            <f:selectItems value="#{maeSocioController.itemsAvailableSelectOne}"
+                                           var="maeSocioItem"
+                                           itemValue="#{maeSocioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{seguridad.EditMaePersonaLabel_admUsuario}" for="admUsuario" />
+                        <p:selectOneMenu id="admUsuario" value="#{maePersonaController.selected.admUsuario}" >
+                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
+                            <f:selectItems value="#{admUsuarioController.itemsAvailableSelectOne}"
+                                           var="admUsuarioItem"
+                                           itemValue="#{admUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maePersonaController.update}" value="#{seguridad.Save}" update="display,:MaePersonaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaePersonaEditDialog');"/>
+                    <p:commandButton value="#{seguridad.Cancel}" onclick="MaePersonaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

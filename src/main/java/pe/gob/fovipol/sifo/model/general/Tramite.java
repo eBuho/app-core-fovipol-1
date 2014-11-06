@@ -1,10 +1,14 @@
 package pe.gob.fovipol.sifo.model.general;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author ebuho 25/10/2014
@@ -12,18 +16,29 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Tramite implements Serializable{
     @Id
-    private int id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ID")
+    private Long id;
+    @Size(max = 255)
+    @Column(name = "DESCRIPCION")
+    private String descripcion;
+    @Size(max = 255)
+    @Column(name = "ESTADO")
+    private String estado;
+    @Size(max = 255)
+    @Column(name = "FECHA")
+    private String fecha;
+
     @JoinColumn(name = "TIPO", referencedColumnName = "ID")
     @ManyToOne
     private TipoTramite tipo;
-    private String descripcion;
-    private String fecha;
-    private String estado;
+
 
     public Tramite() {
     }
 
-    public Tramite(int id, TipoTramite tipo, String descripcion, String fecha, String estado) {
+    public Tramite(Long id, TipoTramite tipo, String descripcion, String fecha, String estado) {
         this.id = id;
         this.tipo = tipo;
         this.descripcion = descripcion;
@@ -39,14 +54,14 @@ public class Tramite implements Serializable{
     /**
      * @return the id
      */
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -104,6 +119,30 @@ public class Tramite implements Serializable{
      */
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Tramite(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Tramite)) {
+            return false;
+        }
+        Tramite other = (Tramite) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
     
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmModuloRolViewDlg" widgetVar="AdmModuloRolViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.ViewAdmModuloRolTitle}">
+            <h:form id="AdmModuloRolViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admModuloRolController.selected != null}">
+                        <h:outputText value="#{seguridad.ViewAdmModuloRolLabel_idenMoroMdr}"/>
+                        <h:outputText value="#{admModuloRolController.selected.idenMoroMdr}" title="#{seguridad.ViewAdmModuloRolTitle_idenMoroMdr}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloRolLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{admModuloRolController.selected.usuaCreaAud}" title="#{seguridad.ViewAdmModuloRolTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloRolLabel_fechCreaAud}"/>
+                        <h:outputText value="#{admModuloRolController.selected.fechCreaAud}" title="#{seguridad.ViewAdmModuloRolTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmModuloRolLabel_usuaModiAud}"/>
+                        <h:outputText value="#{admModuloRolController.selected.usuaModiAud}" title="#{seguridad.ViewAdmModuloRolTitle_usuaModiAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloRolLabel_fechModiAud}"/>
+                        <h:outputText value="#{admModuloRolController.selected.fechModiAud}" title="#{seguridad.ViewAdmModuloRolTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewAdmModuloRolLabel_nombEquiAud}"/>
+                        <h:outputText value="#{admModuloRolController.selected.nombEquiAud}" title="#{seguridad.ViewAdmModuloRolTitle_nombEquiAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloRolLabel_nombSopeAud}"/>
+                        <h:outputText value="#{admModuloRolController.selected.nombSopeAud}" title="#{seguridad.ViewAdmModuloRolTitle_nombSopeAud}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloRolLabel_flagEstaMdr}"/>
+                        <h:outputText value="#{admModuloRolController.selected.flagEstaMdr}" title="#{seguridad.ViewAdmModuloRolTitle_flagEstaMdr}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloRolLabel_idenModuMod}"/>
+                        <h:outputText value="#{admModuloRolController.selected.idenModuMod}" title="#{seguridad.ViewAdmModuloRolTitle_idenModuMod}"/>
+                        <h:outputText value="#{seguridad.ViewAdmModuloRolLabel_idenRoleRol}"/>
+                        <h:outputText value="#{admModuloRolController.selected.idenRoleRol}" title="#{seguridad.ViewAdmModuloRolTitle_idenRoleRol}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{seguridad.Close}" onclick="AdmModuloRolViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

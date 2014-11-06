@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaePersonaViewDlg" widgetVar="MaePersonaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.ViewMaePersonaTitle}">
+            <h:form id="MaePersonaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{maePersonaController.selected != null}">
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_codiPersPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.codiPersPer}" title="#{seguridad.ViewMaePersonaTitle_codiPersPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_apelPatePer}"/>
+                        <h:outputText value="#{maePersonaController.selected.apelPatePer}" title="#{seguridad.ViewMaePersonaTitle_apelPatePer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_apelMatePer}"/>
+                        <h:outputText value="#{maePersonaController.selected.apelMatePer}" title="#{seguridad.ViewMaePersonaTitle_apelMatePer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_nombPersPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.nombPersPer}" title="#{seguridad.ViewMaePersonaTitle_nombPersPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_nombCompPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.nombCompPer}" title="#{seguridad.ViewMaePersonaTitle_nombCompPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_tipoIdenPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.tipoIdenPer}" title="#{seguridad.ViewMaePersonaTitle_tipoIdenPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_numeIdenPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.numeIdenPer}" title="#{seguridad.ViewMaePersonaTitle_numeIdenPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_direPersPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.direPersPer}" title="#{seguridad.ViewMaePersonaTitle_direPersPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_estaCiviPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.estaCiviPer}" title="#{seguridad.ViewMaePersonaTitle_estaCiviPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_sexoPersPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.sexoPersPer}" title="#{seguridad.ViewMaePersonaTitle_sexoPersPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_fechNaciPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.fechNaciPer}" title="#{seguridad.ViewMaePersonaTitle_fechNaciPer}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_numeTelcPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.numeTelcPer}" title="#{seguridad.ViewMaePersonaTitle_numeTelcPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_numeTeltPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.numeTeltPer}" title="#{seguridad.ViewMaePersonaTitle_numeTeltPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_corrElecPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.corrElecPer}" title="#{seguridad.ViewMaePersonaTitle_corrElecPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_numeCeluPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.numeCeluPer}" title="#{seguridad.ViewMaePersonaTitle_numeCeluPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_numeCel2Per}"/>
+                        <h:outputText value="#{maePersonaController.selected.numeCel2Per}" title="#{seguridad.ViewMaePersonaTitle_numeCel2Per}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_fechFallPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.fechFallPer}" title="#{seguridad.ViewMaePersonaTitle_fechFallPer}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_tipoProfPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.tipoProfPer}" title="#{seguridad.ViewMaePersonaTitle_tipoProfPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_refeUbigPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.refeUbigPer}" title="#{seguridad.ViewMaePersonaTitle_refeUbigPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_mediTallPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.mediTallPer}" title="#{seguridad.ViewMaePersonaTitle_mediTallPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_rutaFotoPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.rutaFotoPer}" title="#{seguridad.ViewMaePersonaTitle_rutaFotoPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_flagBloqPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.flagBloqPer}" title="#{seguridad.ViewMaePersonaTitle_flagBloqPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_motiBloqPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.motiBloqPer}" title="#{seguridad.ViewMaePersonaTitle_motiBloqPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_flagHomoPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.flagHomoPer}" title="#{seguridad.ViewMaePersonaTitle_flagHomoPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_docuHomoPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.docuHomoPer}" title="#{seguridad.ViewMaePersonaTitle_docuHomoPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_grpoSangPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.grpoSangPer}" title="#{seguridad.ViewMaePersonaTitle_grpoSangPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_gradParePer}"/>
+                        <h:outputText value="#{maePersonaController.selected.gradParePer}" title="#{seguridad.ViewMaePersonaTitle_gradParePer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{maePersonaController.selected.usuaCreaAud}" title="#{seguridad.ViewMaePersonaTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_fechCreaAud}"/>
+                        <h:outputText value="#{maePersonaController.selected.fechCreaAud}" title="#{seguridad.ViewMaePersonaTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_usuaModiAud}"/>
+                        <h:outputText value="#{maePersonaController.selected.usuaModiAud}" title="#{seguridad.ViewMaePersonaTitle_usuaModiAud}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_fechModiAud}"/>
+                        <h:outputText value="#{maePersonaController.selected.fechModiAud}" title="#{seguridad.ViewMaePersonaTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_nombEquiAud}"/>
+                        <h:outputText value="#{maePersonaController.selected.nombEquiAud}" title="#{seguridad.ViewMaePersonaTitle_nombEquiAud}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_nombSopeAud}"/>
+                        <h:outputText value="#{maePersonaController.selected.nombSopeAud}" title="#{seguridad.ViewMaePersonaTitle_nombSopeAud}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_flagEstaPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.flagEstaPer}" title="#{seguridad.ViewMaePersonaTitle_flagEstaPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_codiPerpPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.codiPerpPer}" title="#{seguridad.ViewMaePersonaTitle_codiPerpPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_ubigNaciPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.ubigNaciPer}" title="#{seguridad.ViewMaePersonaTitle_ubigNaciPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_ubigResiPer}"/>
+                        <h:outputText value="#{maePersonaController.selected.ubigResiPer}" title="#{seguridad.ViewMaePersonaTitle_ubigResiPer}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_maeSocio}"/>
+                        <h:outputText value="#{maePersonaController.selected.maeSocio}" title="#{seguridad.ViewMaePersonaTitle_maeSocio}"/>
+                        <h:outputText value="#{seguridad.ViewMaePersonaLabel_admUsuario}"/>
+                        <h:outputText value="#{maePersonaController.selected.admUsuario}" title="#{seguridad.ViewMaePersonaTitle_admUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{seguridad.Close}" onclick="MaePersonaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

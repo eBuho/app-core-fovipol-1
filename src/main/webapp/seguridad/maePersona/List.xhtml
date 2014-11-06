@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{seguridad.ListMaePersonaTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="MaePersonaListForm">
+                <p:panel header="#{seguridad.ListMaePersonaTitle}">
+                    <p:dataTable id="datalist" value="#{maePersonaController.items}" var="item"
+                                 selectionMode="single" selection="#{maePersonaController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.codiPersPer}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron registros"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_codiPersPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codiPersPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_apelPatePer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apelPatePer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_apelMatePer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apelMatePer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_nombPersPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombPersPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_nombCompPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombCompPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_tipoIdenPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoIdenPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_numeIdenPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeIdenPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_direPersPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.direPersPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_estaCiviPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estaCiviPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_sexoPersPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sexoPersPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_fechNaciPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechNaciPer}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_numeTelcPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeTelcPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_numeTeltPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeTeltPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_corrElecPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.corrElecPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_numeCeluPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeCeluPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_numeCel2Per}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeCel2Per}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_fechFallPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechFallPer}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_tipoProfPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoProfPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_refeUbigPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.refeUbigPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_mediTallPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mediTallPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_rutaFotoPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rutaFotoPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_flagBloqPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flagBloqPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_motiBloqPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motiBloqPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_flagHomoPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flagHomoPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_docuHomoPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.docuHomoPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_grpoSangPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.grpoSangPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_gradParePer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gradParePer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_usuaCreaAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuaCreaAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_fechCreaAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechCreaAud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_usuaModiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuaModiAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_fechModiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechModiAud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_nombEquiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombEquiAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_nombSopeAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombSopeAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_flagEstaPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flagEstaPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_codiPerpPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codiPerpPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_ubigNaciPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ubigNaciPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_ubigResiPer}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ubigResiPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_maeSocio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.maeSocio}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListMaePersonaTitle_admUsuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.admUsuario}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{seguridad.Create}" actionListener="#{maePersonaController.prepareCreate}" update=":MaePersonaCreateForm" oncomplete="PF('MaePersonaCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{seguridad.View}" update=":MaePersonaViewForm" oncomplete="PF('MaePersonaViewDialog').show()" disabled="#{empty maePersonaController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{seguridad.Edit}" update=":MaePersonaEditForm" oncomplete="PF('MaePersonaEditDialog').show()" disabled="#{empty maePersonaController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{seguridad.Delete}" actionListener="#{maePersonaController.destroy}" update=":growl,datalist" disabled="#{empty maePersonaController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>
