@@ -24,6 +24,16 @@ public class CreditoServiceImpl implements CreditoService {
     @Override
     public BigDecimal calcularMaximaCuota(BigDecimal remuneracionConsolidada, BigDecimal descuentoMaximo, BigDecimal descuentoOficial, BigDecimal descuentoPersonal, BigDecimal combustible) {
         BigDecimal maximaCuota = BigDecimal.ZERO;
+        if(remuneracionConsolidada==null)
+            remuneracionConsolidada= BigDecimal.ZERO;
+        if(descuentoMaximo==null)
+            descuentoMaximo= BigDecimal.ZERO;
+        if(descuentoOficial==null)
+            descuentoOficial= BigDecimal.ZERO;
+        if(descuentoPersonal==null)
+            descuentoPersonal= BigDecimal.ZERO;
+        if(combustible==null)
+            combustible= BigDecimal.ZERO;
         maximaCuota = remuneracionConsolidada.multiply(descuentoMaximo).divide(new BigDecimal(100));
         maximaCuota = maximaCuota.add(descuentoOficial.negate());
         maximaCuota = maximaCuota.add(descuentoPersonal.negate()).add(combustible);
@@ -34,6 +44,18 @@ public class CreditoServiceImpl implements CreditoService {
     public BigDecimal calcularMaximoPrestamo(BigDecimal totalAporte, BigInteger maximoPorProducto,
             BigDecimal otrasDeudas, BigDecimal minimaDeuda,BigDecimal otrosIngresos,BigDecimal prestamoAnterior) {
         BigDecimal maximaPrestamo = BigDecimal.ZERO;
+        if(totalAporte==null)
+            totalAporte= BigDecimal.ZERO;
+        if(maximoPorProducto==null)
+            maximoPorProducto= BigInteger.ONE;
+        if(otrasDeudas==null)
+            otrasDeudas= BigDecimal.ZERO;
+        if(minimaDeuda==null)
+            minimaDeuda= BigDecimal.ZERO;
+        if(otrosIngresos==null)
+            otrosIngresos= BigDecimal.ZERO;
+        if(prestamoAnterior==null)
+            prestamoAnterior= BigDecimal.ZERO;
         maximaPrestamo = totalAporte.multiply(new BigDecimal(maximoPorProducto));
         maximaPrestamo=maximaPrestamo.add(prestamoAnterior.negate());
         if(otrosIngresos==null || otrosIngresos.compareTo(BigDecimal.ZERO)==0){

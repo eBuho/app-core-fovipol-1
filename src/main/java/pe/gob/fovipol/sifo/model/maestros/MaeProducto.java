@@ -124,6 +124,8 @@ public class MaeProducto implements Serializable {
     private MaeProceso idenProcPrc;
     @OneToMany(mappedBy = "idenProdPrd")
     private List<CrdSimulacion> crdSimulacionList;
+    @Column(name = "CODI_MONE_CRD")
+    private Integer codiMoneCrd;
 
     public MaeProducto() {
     }
@@ -345,6 +347,20 @@ public class MaeProducto implements Serializable {
 
     public void setMontCobdPrd(BigDecimal montCobdPrd) {
         this.montCobdPrd = montCobdPrd;
+    }
+
+    /**
+     * @return the codiMoneCrd
+     */
+    public Integer getCodiMoneCrd() {
+        return codiMoneCrd;
+    }
+
+    /**
+     * @param codiMoneCrd the codiMoneCrd to set
+     */
+    public void setCodiMoneCrd(Integer codiMoneCrd) {
+        this.codiMoneCrd = codiMoneCrd;
     }
     
 }

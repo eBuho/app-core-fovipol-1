@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.PersistenceException;
 import pe.gob.fovipol.sifo.dao.MaeProcesoFacade;
 import pe.gob.fovipol.sifo.dao.TrmDocumentoFacade;
 import pe.gob.fovipol.sifo.dao.TrmEstatramHisFacade;
@@ -91,7 +92,7 @@ public class TramiteServiceImpl implements TramiteService {
             estado.setCodiEstaHis(nombreEstado);
             ejbEstadoFacade.create(estado);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e) {            
             return false;
         }
     }
@@ -113,15 +114,23 @@ public class TramiteServiceImpl implements TramiteService {
                 doc.getTrmDocumentoPK().setIdenExpeTrm(tramite.getIdenExpeTrm().toBigInteger());
                 if (!crea) {
                     doc.setFechModiAud(new Date());
+                    ejbDocumentoFacade.edit(doc);
                 }
-                ejbDocumentoFacade.edit(doc);
+                else{
+                    doc.setFechEmisDoc(new Date());
+                    ejbDocumentoFacade.create(doc);
+                }                
             }
             if (crea) {
                 generarMovimiento(tramite);
                 cambiarEstadoExpediente(tramite, "REGISTRADO");
             }
             return true;
-        } catch (Exception e) {
+        } 
+        catch(PersistenceException  sicve){
+            return false;
+        }
+        catch (Exception e) {
             return false;
         }
     }

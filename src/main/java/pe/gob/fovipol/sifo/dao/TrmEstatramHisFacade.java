@@ -5,6 +5,7 @@
  */
 package pe.gob.fovipol.sifo.dao;
 
+import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,11 +32,11 @@ public class TrmEstatramHisFacade extends AbstractFacade<TrmEstatramHis> {
     }
     
     public int obtenerCorrelativo(TrmTramite tramite) {
-        int id;
-        Query q = em.createQuery("SELECT COUNT(a) FROM TrmEstatramHis a where a.trmEstatramHisPK.idenExpeTrm=:idenExpeTrm", Integer.class);
+        long id;
+        Query q = em.createQuery("SELECT COUNT(a) FROM TrmEstatramHis a where a.trmEstatramHisPK.idenExpeTrm=:idenExpeTrm", BigInteger.class);
         q.setParameter("idenExpeTrm", tramite.getIdenExpeTrm().toBigInteger());
-        id = (int) q.getSingleResult();
+        id = (long) q.getSingleResult();
         id++;
-        return id;
+        return (int) id;
     }
 }

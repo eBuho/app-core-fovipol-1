@@ -42,6 +42,11 @@
                         <p:inputTextarea style="resize: none"  autoResize="false" id="descRequPrd" value="#{maeProductoController.selected.descRequPrd}" title="#{bundle.CreateMaeProductoTitle_descRequPrd}" />
                         <p:outputLabel value="#{bundle.CreateMaeProductoLabel_formCalcPrd}" for="formCalcPrd" />
                         <p:inputText id="formCalcPrd" value="#{maeProductoController.selected.formCalcPrd}" title="#{bundle.CreateMaeProductoTitle_formCalcPrd}" />
+                        <p:outputLabel value="Moneda" for="codiMoneCrd" />
+                        <p:selectOneMenu value="#{maeProductoController.selected.codiMoneCrd}" id="codiMoneCrd">
+                            <f:selectItems value="#{maeProductoController.monedas}" var="moneda" 
+                                           itemValue="#{moneda.secuEntiDet}" itemLabel="#{moneda.valoCaduDet}"/>
+                        </p:selectOneMenu> 
                         <p:outputLabel value="#{bundle.CreateMaeProductoLabel_idenProcPrc}" for="idenProcPrc" />
                         <p:selectOneMenu id="idenProcPrc" value="#{maeProductoController.selected.idenProcPrc}" >
                             <f:selectItems value="#{maeProcesoController.itemsAvailableSelectOne}"

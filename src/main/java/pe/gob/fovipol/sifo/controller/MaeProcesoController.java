@@ -166,33 +166,41 @@ public class MaeProcesoController implements Serializable {
 
     public void destroy() {
         selected=selectedProceso;
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoDeleted"));
+        selected.setFechModiAud(new Date());
+        selected.setFlagEstaPrc(new Short("0"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoUpdated"));
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+            //selected = null; // Remove selection
+            //items = null;    // Invalidate list of items to trigger re-query.
         }
     }
     public void destroyRequisito() {
-        persistRequisito(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoDeleted"));
+        selectedRequisito.setFlagEstaReq(new Short("0"));
+        selectedRequisito.setFechModiAud(new Date());
+        persistRequisito(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoUpdated"));
         if (!JsfUtil.isValidationFailed()) {
-            selectedRequisito = null; // Remove selection
-            cargarSubProcesos();    // Invalidate list of items to trigger re-query.
+            //selectedRequisito = null; // Remove selection
+            //cargarSubProcesos();    // Invalidate list of items to trigger re-query.
         }
     }
     public void destroySubProceso() {
         selected=selectedSubProceso;
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoDeleted"));
+        selected.setFechModiAud(new Date());
+        selected.setFlagEstaPrc(new Short("0"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoUpdated"));
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            cargarSubProcesos();   // Invalidate list of items to trigger re-query.
+            //selected = null; // Remove selection
+            //cargarSubProcesos();   // Invalidate list of items to trigger re-query.
         }
     }
     public void destroyActividad() {
         selected=selectedActividad;
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeRequisitoDeleted"));
+        selected.setFechModiAud(new Date());
+        selected.setFlagEstaPrc(new Short("0"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeProcesoUpdated"));
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            cargarActividad();    // Invalidate list of items to trigger re-query.
+            //selected = null; // Remove selection
+            //cargarActividad();    // Invalidate list of items to trigger re-query.
         }
     }
 

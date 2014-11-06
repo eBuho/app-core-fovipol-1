@@ -44,7 +44,7 @@
                                         <h:outputText value="Remu. Consolidada (S/.)"/>
                                         <p:inputText label="Remu. Consolidada" value="#{simulacionController.simulacion.ingrBrtoSim}" disabled="#{simulacionController.producto.idenProdPrd==null}">
                                             <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
-                                            <p:ajax event="blur" update="ingresos" />
+                                           
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                         </p:inputText>
                                         <h:outputText value="% Desc. Máximo"/>
@@ -54,25 +54,25 @@
                                         <h:outputText value="Desc Oficiales (S/.)"/>
                                         <p:inputText label="Desc Oficiales" disabled="#{simulacionController.producto.idenProdPrd==null}" value="#{simulacionController.simulacion.dsctOficSim}" >
                                             <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
-                                            <p:ajax event="blur" update="ingresos" />
+                                            
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                         </p:inputText>
                                         <h:outputText value="Desc Personales (S/.)"/>
                                         <p:inputText label="Desc Personales" disabled="#{simulacionController.producto.idenProdPrd==null}" value="#{simulacionController.simulacion.dsctPersSim}">
                                             <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
-                                            <p:ajax event="blur" update="ingresos" />
+                                            
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                         </p:inputText>
                                         <h:outputText value="Combustible (S/.)"/>
                                         <p:inputText label="Combustible" disabled="#{simulacionController.tipoSocio!=2 or simulacionController.producto.idenProdPrd==null}" value="#{simulacionController.simulacion.ingrCombSim}">
                                             <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
-                                            <p:ajax event="blur" update="ingresos" />
+                                           
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                         </p:inputText>
                                         <h:outputText value="Otros ingresos (S/.)"/>
                                         <p:inputText label="Otros ingresos" disabled="#{simulacionController.producto.idenProdPrd==null}" value="#{simulacionController.simulacion.otroIngrSim}">
                                             <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
-                                            <p:ajax event="blur" update="ingresos" />
+                                            
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                         </p:inputText>
                                     </p:panelGrid>
@@ -84,34 +84,34 @@
                                         <h:outputText value="Total Aporte (S/.)"/>
                                         <p:inputText label="Total Aporte" disabled="#{simulacionController.producto.idenProdPrd==null}" value="#{simulacionController.totalAporte}">
                                             <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
-                                            <p:ajax event="blur" update="endeudamiento" />
+                                            
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                         </p:inputText>
                                         <h:outputText rendered="#{simulacionController.producto.idenProdPrd!=null and simulacionController.producto.idenProdPrd==3}" value="Total Aporte Anterior (S/.)"/>
                                         <p:inputText label="Total Aporte Anterior" rendered="#{simulacionController.producto.idenProdPrd!=null and simulacionController.producto.idenProdPrd==3}" value="#{simulacionController.totalAporteAnterior}">
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                             <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
-                                            <p:ajax event="blur" update="endeudamiento" />
+                                            
                                         </p:inputText>
                                         <h:outputText value="Máximo por Producto"/>
                                         <p:inputText label="Máximo por Producto" id="cantVeces" disabled="true" value="#{simulacionController.producto.cantVecePrd}"/>
                                         <h:outputText value="Otras deudas financieras (S/.)"/>
                                         <p:inputText label="Otras deudas financieras" disabled="#{simulacionController.producto.idenProdPrd==null}" value="#{simulacionController.simulacion.deudOtraSim}"> 
                                             <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
-                                            <p:ajax event="blur" update="endeudamiento" />
+                                            
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                         </p:inputText>
                                         <h:outputText rendered="#{simulacionController.producto.idenProdPrd!=null and simulacionController.producto.idenProdPrd==3}" value="Importe Préstamo Anterior (S/.)"/>
                                         <p:inputText label="Importe Préstamo Anterior" rendered="#{simulacionController.producto.idenProdPrd!=null and simulacionController.producto.idenProdPrd==3}" value="#{simulacionController.montoAnteriorPrestamo}">
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                             <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
-                                            <p:ajax event="blur" update="endeudamiento" />
+                                            
                                         </p:inputText>
                                         <h:outputText rendered="#{simulacionController.producto.idenProdPrd!=null and simulacionController.producto.idenProdPrd==3}" value="Saldo Préstamo Anterior (S/.)"/>
                                         <p:inputText label="Saldo Préstamo Anterior" rendered="#{simulacionController.producto.idenProdPrd!=null and simulacionController.producto.idenProdPrd==3}" value="#{simulacionController.saldoPagarAnteriorPrestamo}">
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                             <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
-                                            <p:ajax event="blur" update="endeudamiento" />
+                                            
                                         </p:inputText>
                                     </p:panelGrid>
                                 </p:fieldset>
@@ -122,11 +122,11 @@
                                 <p:fieldset legend="Capacidad de Crédito">
                                     <p:panelGrid columns="4" styleClass="tablaNoBorde" id="capacidadCredito">
                                         <h:outputText value="Máxima Cuota (S/.)"/>
-                                        <p:inputText label="Máxima Cuota" value="#{simulacionController.simulacion.capaMcuoSim}">
+                                        <p:inputText disabled="true" label="Máxima Cuota" value="#{simulacionController.simulacion.capaMcuoSim}">
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                         </p:inputText>
                                         <h:outputText value="Máximo Préstamo (S/.)"/>
-                                        <p:inputText label="Máximo Préstamo" value="#{simulacionController.simulacion.impoMaxpSim}">
+                                        <p:inputText disabled="true" label="Máximo Préstamo" value="#{simulacionController.simulacion.impoMaxpSim}">
                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                         </p:inputText>
                                     </p:panelGrid>
@@ -152,16 +152,15 @@
                                             </p:column>
                                             <p:column>
                                                 <p:inputText label="Monto" value="#{simulacionController.monto}">
-                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2" />
-                                                    <p:ajax event="blur" update="condiciones" />
-                                                    <p:ajax update="gastoAdministrativo" listener="#{simulacionController.calcularGastosAdministrativos()}" event="keyup" />
+                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2" />                                                    
+                                                    <p:ajax update="gastoAdministrativo,montoCheque" listener="#{simulacionController.calcularGastosAdministrativos()}" event="keyup" />
                                                 </p:inputText>
                                             </p:column>
                                             <p:column>
                                                 <h:outputText value="Monto a Entregar"/>
                                             </p:column>
                                             <p:column>
-                                                <p:inputText label="Monto a Entregar" value="#{simulacionController.montoCheque}"> 
+                                                <p:inputText disabled="true" id="montoCheque" label="Monto a Entregar" value="#{simulacionController.montoCheque}"> 
                                                     <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                                 </p:inputText>
                                             </p:column>
@@ -187,11 +186,11 @@
                                                 </p:selectOneMenu>
                                             </p:column>
                                             <p:column>
-                                                <h:outputText value="Plazo"/>
+                                                <h:outputText value="Plazo en Meses"/>
                                             </p:column>
                                             <p:column>
                                                 <p:inputText label="Plazo" value="#{simulacionController.simulacion.plazPresSim}">
-                                                    <f:convertNumber integerOnly="true"/>
+                                                    <f:convertNumber integerOnly="true" />
                                                 </p:inputText>
                                             </p:column>
                                             <p:column>
@@ -199,15 +198,14 @@
                                             </p:column>
                                             <p:column>
                                                 <p:inputText label="Cuota" value="#{simulacionController.cuota}">
-                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
-                                                    <p:ajax event="blur" update="condiciones" />
+                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2" />                                                    
                                                 </p:inputText>
                                             </p:column>
                                             <p:column>
                                                 <h:outputText value="TEA %"/>
                                             </p:column>
                                             <p:column>
-                                                <p:inputText label="TEA" value="#{simulacionController.producto.tasaIntePrd}">
+                                                <p:inputText disabled="true" label="TEA" value="#{simulacionController.producto.tasaIntePrd}">
                                                     <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                                 </p:inputText>
                                             </p:column>
@@ -227,7 +225,7 @@
                                                 <h:outputText value="Gastos Administrativos"/>
                                             </p:column>
                                             <p:column>
-                                                <p:inputText label="Gastos Administrativos" id="gastoAdministrativo" value="#{simulacionController.gastosAdministrativos}">
+                                                <p:inputText disabled="true" label="Gastos Administrativos" id="gastoAdministrativo" value="#{simulacionController.gastosAdministrativos}">
                                                     <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                                 </p:inputText>
                                             </p:column>

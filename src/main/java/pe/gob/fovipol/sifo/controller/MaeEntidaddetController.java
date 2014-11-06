@@ -77,6 +77,7 @@ public class MaeEntidaddetController implements Serializable {
     public void creaDetalle(MaeEntidaddet item) {
         selected = item;
         selected.setFechCreaDet(new Date());
+        selected.setFlagEstaDet(new Short("1"));
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -103,10 +104,12 @@ public class MaeEntidaddetController implements Serializable {
     
     public void destruir(MaeEntidaddet item) {        
         selected = item;
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetDeleted"));        
+        selected.setFechModiDet(new Date());
+        selected.setFlagEstaDet(new Short("0"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeEntidaddetUpdated"));        
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+            //selected = null; // Remove selection
+            //items = null;    // Invalidate list of items to trigger re-query.
         }
         
     }

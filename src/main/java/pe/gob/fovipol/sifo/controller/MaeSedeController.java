@@ -74,10 +74,12 @@ public class MaeSedeController implements Serializable {
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MaeSedeDeleted"));
+        selected.setFechModiAud(new Date());
+        selected.setFlagSedeSed(new Short("0"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeSedeUpdated"));
         if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+            //selected = null; // Remove selection
+            //items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
