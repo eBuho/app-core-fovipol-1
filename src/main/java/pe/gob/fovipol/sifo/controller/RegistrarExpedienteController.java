@@ -12,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import pe.gob.fovipol.sifo.dao.credito.CrdSimulacionFacade;
 import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
@@ -81,7 +82,6 @@ public class RegistrarExpedienteController implements Serializable {
     private List<CrdCanalcobra> canales;
     private List<CrdCanalcobra> canalesSeleccionados;
     private CrdCredito credito;
-
     @PostConstruct
     public void init() {
         String idTramite = (String) FacesContext.getCurrentInstance()
@@ -199,29 +199,35 @@ public class RegistrarExpedienteController implements Serializable {
     }
 
     public void registrar() {
+        RequestContext context = RequestContext.getCurrentInstance();
         if (socio == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Seleccione Socio", ""));
+            context.addCallbackParam("error", true);
             return;
         }
         if (tramite.getNombTramTrm() == null || tramite.getNombTramTrm().trim().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese nombre de Tramitante", ""));
+            context.addCallbackParam("error", true);
             return;
         }
         if (tramite.getNumeFolioTrm() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el número de folios", ""));
+            context.addCallbackParam("error", true);
             return;
         }
         if (tramite.getNumeFolioTrm().compareTo(BigInteger.ZERO) != 1) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "El número de folios debe ser Mayor que 0", ""));
+            context.addCallbackParam("error", true);
             return;
         }
         if (tramite.getDescAsunTrm() == null || tramite.getDescAsunTrm().trim().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el Asunto del Expediente", ""));
+            context.addCallbackParam("error", true);
             return;
         }
         tramite.setCodiPersTrm(socio.getMaePersona());
@@ -241,9 +247,11 @@ public class RegistrarExpedienteController implements Serializable {
         if (crea) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
+            context.addCallbackParam("error", false);
         } else {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo grabar el Trámite", ""));
+            context.addCallbackParam("error", true);
         }
     }
 
