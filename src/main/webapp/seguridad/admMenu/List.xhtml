@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
 
     <ui:composition template="/template.xhtml">
 
@@ -51,52 +52,12 @@
                                 <h:outputText value="#{seguridad.ListAdmMenuTitle_descPrmtMnu}"/>
                             </f:facet>
                             <h:outputText value="#{item.descPrmtMnu}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{seguridad.ListAdmMenuTitle_usuaCreaAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuaCreaAud}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{seguridad.ListAdmMenuTitle_fechCreaAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechCreaAud}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{seguridad.ListAdmMenuTitle_usuaModiAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuaModiAud}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{seguridad.ListAdmMenuTitle_fechModiAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechModiAud}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{seguridad.ListAdmMenuTitle_nombEquiAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombEquiAud}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{seguridad.ListAdmMenuTitle_nombSopeAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombSopeAud}"/>
-                        </p:column>
+                        </p:column>                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{seguridad.ListAdmMenuTitle_flagEstaMnu}"/>
                             </f:facet>
-                            <h:outputText value="#{item.flagEstaMnu}"/>
+                            <comp:activo value="#{item.flagEstaMnu}" />
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{seguridad.Create}" actionListener="#{admMenuController.prepareCreate}" update=":AdmMenuCreateForm" oncomplete="PF('AdmMenuCreateDialog').show()"/>

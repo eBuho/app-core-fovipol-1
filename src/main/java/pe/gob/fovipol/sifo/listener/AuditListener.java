@@ -30,7 +30,6 @@ public class AuditListener extends DescriptorEventAdapter implements SessionCust
     public AuditListener() {
     }
 
-    public static ThreadLocal currentUser = new ThreadLocal();
     private final static Logger logger = Logger.getLogger(AuditListener.class);    
 
     /**
