@@ -64,6 +64,14 @@ import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
     @NamedQuery(name = "TrmTramite.findByNombSopeAud", query = "SELECT t FROM TrmTramite t WHERE t.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "TrmTramite.findByFlagEstaTrm", query = "SELECT t FROM TrmTramite t WHERE t.flagEstaTrm = :flagEstaTrm")})
 public class TrmTramite implements Serializable {
+
+    public MaeProceso getIdenProcPrc() {
+        return idenProcPrc;
+    }
+
+    public void setIdenProcPrc(MaeProceso idenProcPrc) {
+        this.idenProcPrc = idenProcPrc;
+    }
     @PrimaryKeyJoinColumn(name = "IDEN_SIMU_SIM", referencedColumnName = "IDEN_SIMU_SIM")
     @ManyToOne
     private CrdSimulacion idenSimuSim;
