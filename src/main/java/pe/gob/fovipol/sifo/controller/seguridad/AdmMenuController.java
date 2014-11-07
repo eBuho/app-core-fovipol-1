@@ -25,7 +25,7 @@ import pe.gob.fovipol.sifo.util.Constantes;
 @SessionScoped
 public class AdmMenuController implements Serializable {
 
-
+private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(AdmMenuController.class);
     @EJB private pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade ejbFacade;
     private List<AdmMenu> items = null;
     private AdmMenu selected;
@@ -63,6 +63,7 @@ public class AdmMenuController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        items=ejbFacade.findAll();
     }
 
     public void update() {

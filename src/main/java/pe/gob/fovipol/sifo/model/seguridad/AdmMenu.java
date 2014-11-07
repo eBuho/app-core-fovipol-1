@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,12 +27,14 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.listener.AuditListener;
 
 /**
  *
  * @author eBuho
  */
 @Entity
+@EntityListeners(value = AuditListener.class)
 @Table(name = "ADM_MENU")
 @XmlRootElement
 @NamedQueries({
@@ -55,7 +58,7 @@ public class AdmMenu implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator="admMenuSeq") 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IDEN_MENU_MNU")
+    @Column(name = "IDEN_MENU_MNU",insertable=true, updatable=false)
     private long idenMenuMnu;
     @Size(max = 120)
     @Column(name = "NOMB_MENU_MNU")
@@ -67,15 +70,15 @@ public class AdmMenu implements Serializable {
     @Column(name = "DESC_PRMT_MNU")
     private String descPrmtMnu;
     @Size(max = 15)
-    @Column(name = "USUA_CREA_AUD")
+    @Column(name = "USUA_CREA_AUD",insertable=true, updatable=false)
     private String usuaCreaAud;
-    @Column(name = "FECH_CREA_AUD")
+    @Column(name = "FECH_CREA_AUD",insertable=false, updatable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechCreaAud;
     @Size(max = 15)
     @Column(name = "USUA_MODI_AUD")
     private String usuaModiAud;
-    @Column(name = "FECH_MODI_AUD")
+    @Column(name = "FECH_MODI_AUD", insertable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechModiAud;
     @Size(max = 40)

@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -63,13 +64,21 @@ import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
     @NamedQuery(name = "TrmTramite.findByNombSopeAud", query = "SELECT t FROM TrmTramite t WHERE t.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "TrmTramite.findByFlagEstaTrm", query = "SELECT t FROM TrmTramite t WHERE t.flagEstaTrm = :flagEstaTrm")})
 public class TrmTramite implements Serializable {
-    @JoinColumn(name = "IDEN_SIMU_SIM", referencedColumnName = "IDEN_SIMU_SIM")
+
+    public MaeProceso getIdenProcPrc() {
+        return idenProcPrc;
+    }
+
+    public void setIdenProcPrc(MaeProceso idenProcPrc) {
+        this.idenProcPrc = idenProcPrc;
+    }
+    @PrimaryKeyJoinColumn(name = "IDEN_SIMU_SIM", referencedColumnName = "IDEN_SIMU_SIM")
     @ManyToOne
     private CrdSimulacion idenSimuSim;
     @JoinColumn(name = "CODI_PERS_TRM", referencedColumnName = "IDEN_PERS_PER")
     @ManyToOne
     private MaePersona codiPersTrm;
-    @JoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC")
+    @PrimaryKeyJoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC")
     @ManyToOne
     private MaeProceso idenProcPrc;
     private static final long serialVersionUID = 1L;
