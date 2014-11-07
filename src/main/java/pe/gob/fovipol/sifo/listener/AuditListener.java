@@ -52,9 +52,9 @@ public class AuditListener extends DescriptorEventAdapter implements SessionCust
         Authentication user = SecurityContextHolder.getContext().getAuthentication();
         logger.info("aboutToUpdate");
         for (String table : (List<String>) event.getDescriptor().getTableNames()) {
-            event.getRecord().put(table + ".USUA_CREA_AUD", user.getName());
+            event.getRecord().put(table + ".USUA_CREA_AUD", user.getName().toUpperCase());
             event.getRecord().put(table + ".FECH_CREA_AUD", Calendar.getInstance());
-            event.getRecord().put(table + ".USUA_MODI_AUD", user.getName());
+            event.getRecord().put(table + ".USUA_MODI_AUD", user.getName().toUpperCase());
             event.getRecord().put(table + ".FECH_MODI_AUD", Calendar.getInstance());
             event.getRecord().put(table + ".NOMB_EQUI_AUD", obtenerIP());
         }
@@ -64,7 +64,7 @@ public class AuditListener extends DescriptorEventAdapter implements SessionCust
         logger.info("aboutToUpdate");
         Authentication user = SecurityContextHolder.getContext().getAuthentication();
         for (String table : (List<String>) event.getDescriptor().getTableNames()) {
-            event.getRecord().put(table + ".USUA_MODI_AUD", user.getName());
+            event.getRecord().put(table + ".USUA_MODI_AUD", user.getName().toUpperCase());
             event.getRecord().put(table + ".FECH_MODI_AUD", Calendar.getInstance());
             event.getRecord().put(table + ".NOMB_EQUI_AUD", obtenerIP());
         }
