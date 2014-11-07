@@ -439,19 +439,5 @@ public class TrmTramite implements Serializable {
     public void setIdenSimuSim(CrdSimulacion idenSimuSim) {
         this.idenSimuSim = idenSimuSim;
     }
-
-    /**
-     * @return the idenProcPrc
-     */
-    public MaeProceso getIdenProcPrc() {
-        return idenProcPrc;
-    }
-
-    /**
-     * @param idenProcPrc the idenProcPrc to set
-     */
-    public void setIdenProcPrc(MaeProceso idenProcPrc) {
-        this.idenProcPrc = idenProcPrc;
-    }
     
 }
