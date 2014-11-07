@@ -12,15 +12,17 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import pe.gob.fovipol.sifo.dao.CrdSimulacionFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdSimulacionFacade;
 import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
-import pe.gob.fovipol.sifo.dao.MaeInmuebleFacade;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
 import pe.gob.fovipol.sifo.dao.MaeRequisitoFacade;
 import pe.gob.fovipol.sifo.dao.TrmDocumentoFacade;
 import pe.gob.fovipol.sifo.dao.TrmTramiteFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdCanalcobraFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdCreditoFacade;
 import pe.gob.fovipol.sifo.model.credito.CrdCanalcobra;
 import pe.gob.fovipol.sifo.model.credito.CrdCanalcobraPK;
+import pe.gob.fovipol.sifo.model.credito.CrdCredito;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 import pe.gob.fovipol.sifo.model.maestros.MaeInmueble;
@@ -53,9 +55,11 @@ public class RegistrarExpedienteController implements Serializable {
     @EJB
     private CrdSimulacionFacade ejbSimulacionFacade;
     @EJB
-    private MaeInmuebleFacade ejbInmuebleFacade;
+    private CrdCreditoFacade ejbCreditoService;
     @EJB
     private CreditoService creditoService;
+    @EJB
+    CrdCanalcobraFacade ejbCanalFacade;
     @EJB
     private TramiteService tramiteService;
     private MaeSocio socio;
@@ -76,6 +80,7 @@ public class RegistrarExpedienteController implements Serializable {
     private boolean beneficiaria;
     private List<CrdCanalcobra> canales;
     private List<CrdCanalcobra> canalesSeleccionados;
+    private CrdCredito credito;
 
     @PostConstruct
     public void init() {
@@ -87,8 +92,17 @@ public class RegistrarExpedienteController implements Serializable {
             if (tramite == null) {
                 tramite = new TrmTramite();
                 tramite.setIdenSimuSim(new CrdSimulacion());
+                credito = new CrdCredito();
+                inmueble = new MaeInmueble();
             } else {
                 setSocio(tramite.getCodiPersTrm().getMaeSocio());
+                credito = ejbCreditoService.findByTramite(tramite);
+                if (credito == null) {
+                    credito = new CrdCredito();
+                    inmueble = new MaeInmueble();
+                } else {
+                    inmueble = credito.getIdenInmuImb();
+                }
                 if (tramite.getIdenSimuSim() != null) {
                     simulacion = tramite.getIdenSimuSim().getIdenSimuSim();
                     producto = tramite.getIdenSimuSim().getIdenProdPrd();
@@ -98,23 +112,33 @@ public class RegistrarExpedienteController implements Serializable {
         } else {
             tramite = new TrmTramite();
             tramite.setIdenSimuSim(new CrdSimulacion());
+            credito = new CrdCredito();
+            inmueble = new MaeInmueble();
         }
         productos = ejbProductoFacade.findAll();
-        inmueble = new MaeInmueble();
         gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_GRADO_PARENTESCO));
-        canalesCobranza=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA));
-        canales=new ArrayList<>();
-        short i=1;
-        for(MaeEntidaddet aux:canalesCobranza){
-            CrdCanalcobra c=new CrdCanalcobra();
-            c.setCrdCanalcobraPK(new CrdCanalcobraPK());
-            c.getCrdCanalcobraPK().setSecuCanaCdc(i);
-            c.setCodiCanaCob(aux.getSecuEntiDet());
-            c.setFlagEstaCdc(new Short("1"));
-            i++;
-            canales.add(c);
-        }
+        cargarCanalesCobranza();
         beneficiaria = false;
+    }
+
+    public void cargarCanalesCobranza() {
+        if (tramite.getIdenExpeTrm() == null) {
+            canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA));
+            canales = new ArrayList<>();
+            short i = 1;
+            for (MaeEntidaddet aux : canalesCobranza) {
+                CrdCanalcobra c = new CrdCanalcobra();
+                c.setCrdCanalcobraPK(new CrdCanalcobraPK());
+                c.getCrdCanalcobraPK().setSecuCanaCdc(i);
+                c.setCodiCanaCob(aux.getSecuEntiDet());
+                c.setFlagEstaCdc(Constantes.VALOR_ESTADO_ACTIVO);
+                i++;
+                canales.add(c);
+            }
+        }
+        else{
+            canales=ejbCanalFacade.findByCredito(credito);
+        }
     }
 
     public void nuevoTramite() {
@@ -132,8 +156,8 @@ public class RegistrarExpedienteController implements Serializable {
             if (socio != null) {
                 simulaciones = ejbSimulacionFacade.findBySocioProducto(socio.getCodiPersPer(), producto.getIdenProdPrd());
             }
-            if (tramite.getIdenExpeTrm()!= null) {
-                documentos=ejbDocumentoFacade.findByTramite(tramite);
+            if (tramite.getIdenExpeTrm() != null) {
+                documentos = ejbDocumentoFacade.findByTramite(tramite);
             } else {
                 List<MaeRequisito> reqs = ejbRequisitoFacade.findByProcesoActivo(producto.getIdenProcPrc().getCodiProcPrc());
                 documentos = new ArrayList<>();
@@ -145,28 +169,31 @@ public class RegistrarExpedienteController implements Serializable {
                     doc.setMaeRequisito(aux);
                     i++;
                     doc.setDescNombDoc(aux.getNombRequReq());
-                    doc.setFlagEstaDoc(new Short("1"));
+                    doc.setFlagEstaDoc(Constantes.VALOR_ESTADO_ACTIVO);
                     documentos.add(doc);
                 }
             }
         }
     }
-    
-    public void darViabilidad(){        
-        boolean validarCampos=tramiteService.darViabilidadExpediente(tramite, documentos);        
-        if(validarCampos)
-            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con éxito", ""));        
-        else
-            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "No tiene todos los requisitos", ""));
+
+    public void darViabilidad() {
+        boolean validarCampos = tramiteService.darViabilidadExpediente(tramite, documentos);
+        if (validarCampos) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con éxito", ""));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No tiene todos los requisitos", ""));
+        }
     }
-    
-    public void rechazar(){
-        boolean rechazar=tramiteService.cambiarEstadoExpediente(tramite, "RECHAZADO");
-        if(rechazar)
-            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Expediente Rechazado", ""));        
-        else
-            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo rechazar el Expediente", ""));
+
+    public void rechazar() {
+        boolean rechazar = tramiteService.cambiarEstadoExpediente(tramite, "RECHAZADO");
+        if (rechazar) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Expediente Rechazado", ""));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo rechazar el Expediente", ""));
+        }
     }
+
     public void registrar() {
         if (socio == null) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -192,19 +219,28 @@ public class RegistrarExpedienteController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el Asunto del Expediente", ""));
             return;
-        }               
+        }
         tramite.setCodiPersTrm(socio.getMaePersona());
         tramite.setMaeProceso(producto.getIdenProcPrc());
-        boolean crea=tramiteService.registrarExpediente(tramite, documentos);
-        if(crea)
+        credito.setIdenInmuImb(inmueble);
+        credito.setIdenExpeTrm(tramite);
+        CrdSimulacion simu = tramite.getIdenSimuSim();
+        credito.setPercSociCrd(simu.getIngrBrtoSim());
+        credito.setNumeCuotPrd(simu.getPlazPresSim());
+        credito.setTasaInteCrd(simu.getTasaTeaSim());
+        credito.setTasaGadmCrd(simu.getTasaGadmSim());
+        credito.setCodiMoneCrd(simu.getCodiMoneCrd());
+        credito.setAutoCdobCrd(simu.getAutoCdobSim());
+        credito.setPeriGracCrd(simu.getPeriGracSim());
+        boolean crea;
+        crea = tramiteService.registrarExpedienteCredito(tramite, documentos, credito, canales);
+        if (crea) {
             FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
-        else
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
+        } else {
             FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo grabar el Trámite", ""));
-        /*inmueble.setIdenInmuImb(ejbInmuebleFacade.obtenerCorrelativo());
-         inmueble.setFlagEstaImb(new Short("1"));
-         ejbInmuebleFacade.create(inmueble);*/
+                    new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo grabar el Trámite", ""));
+        }        
     }
 
     /**
@@ -483,5 +519,4 @@ public class RegistrarExpedienteController implements Serializable {
         this.canalesSeleccionados = canalesSeleccionados;
     }
 
-    
 }

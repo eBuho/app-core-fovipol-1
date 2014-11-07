@@ -16,10 +16,11 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import pe.gob.fovipol.sifo.controller.util.Cuota;
-import pe.gob.fovipol.sifo.dao.CrdSimulacionFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdSimulacionFacade;
 import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
-import pe.gob.fovipol.sifo.dao.MaeSeguroRangoFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdSimulaSeguroFacade;
+import pe.gob.fovipol.sifo.model.credito.CrdSimulaSeguro;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
@@ -27,6 +28,7 @@ import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
 import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 import pe.gob.fovipol.sifo.service.CreditoService;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 @ManagedBean(name = "simulacionController")
 @ViewScoped
@@ -75,7 +77,7 @@ public class SimulacionController implements Serializable {
     @EJB
     private CrdSimulacionFacade ejbSimulacionFacade;
     @EJB
-    private MaeSeguroRangoFacade ejbSeguroRangoFacade;
+    private CrdSimulaSeguroFacade ejbSimulaSeguroFacade;
 
     @PostConstruct
     public void init() {
@@ -86,7 +88,6 @@ public class SimulacionController implements Serializable {
         simulacion.setIngrCombSim(BigDecimal.ZERO);
         simulacion.setDeudOtraSim(BigDecimal.ZERO);
         simulacion.setOtroIngrSim(BigDecimal.ZERO);
-        //simulacion.setTasaTeaSim(new BigDecimal(3));
         totalAporteAnterior = BigDecimal.ZERO;
         montoAnteriorPrestamo = BigDecimal.ZERO;
         totalAporte = BigDecimal.ZERO;
@@ -144,7 +145,7 @@ public class SimulacionController implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese un monto a simular", ""));
                 context.addCallbackParam("error", true);
             } else {
-                if(simulacion.getPlazPresSim().compareTo(BigInteger.ONE)==-1){
+                if(simulacion.getPlazPresSim()==null || simulacion.getPlazPresSim().compareTo(BigInteger.ONE)==-1){
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese un número de cuotas mayor a 0", ""));
                     context.addCallbackParam("error", true);
                     return;
@@ -185,14 +186,29 @@ public class SimulacionController implements Serializable {
                             cuotasSimulacion = creditoService.calcularCuotas(segurosSimulacion, ciclica,
                                     simulacion.getTasaTeaSim(), monto, simulacion.getPlazPresSim(), cuotaPagar, socio.getMaePersona().getFechNaciPer());
                             if (cuotasSimulacion != null && !cuotasSimulacion.isEmpty()) {
-                                if(simulacion.getIdenSimuSim()==null)
+                                boolean crea=false;
+                                if(simulacion.getIdenSimuSim()==null){
                                     simulacion.setIdenSimuSim(ejbSimulacionFacade.obtenerCorrelativo());
+                                    crea=true;
+                                }
                                 simulacion.setFechCreaAud(new Date());
                                 simulacion.setFlagEstaSim(new Short("1"));
                                 simulacion.setIdenPersPer(socio);
                                 simulacion.setIdenProdPrd(producto);
                                 simulacion.setTasaGadmSim(producto.getTasaGadmPrd());
                                 ejbSimulacionFacade.edit(simulacion);
+                                int i=1;
+                                for(MaeSeguro seg:segurosSimulacion){
+                                    CrdSimulaSeguro simSeguro=new CrdSimulaSeguro(simulacion.getIdenSimuSim().toBigInteger(), i);
+                                    simSeguro.setIdenSeguSeg(seg);
+                                    simSeguro.setFlagEstaSsg(Constantes.VALOR_ESTADO_ACTIVO);
+                                    if(crea)
+                                        simSeguro.setFechCreaAud(new Date());
+                                    else
+                                        simSeguro.setFechModiAud(new Date());
+                                    ejbSimulaSeguroFacade.edit(simSeguro);
+                                    i++;
+                                }
                                 totalAmortizacion = cuotasSimulacion.get(0).getTotalAmortizacion();
                                 totalCuota = cuotasSimulacion.get(0).getTotalCuota();
                                 totalInteres = cuotasSimulacion.get(0).getTotalInteres();

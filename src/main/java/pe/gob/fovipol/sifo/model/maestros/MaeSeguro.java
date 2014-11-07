@@ -7,6 +7,7 @@ package pe.gob.fovipol.sifo.model.maestros;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -26,6 +27,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.model.credito.CrdSimulaSeguro;
 
 /**
  *
@@ -49,7 +52,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MaeSeguro.findByNombEquiAud", query = "SELECT m FROM MaeSeguro m WHERE m.nombEquiAud = :nombEquiAud"),
     @NamedQuery(name = "MaeSeguro.findByNombSopeAud", query = "SELECT m FROM MaeSeguro m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeSeguro.findByFlagEstaSeg", query = "SELECT m FROM MaeSeguro m WHERE m.flagEstaSeg = :flagEstaSeg")})
-public class MaeSeguro implements Serializable {
+public class MaeSeguro implements Serializable {    
+    @OneToMany(mappedBy = "idenSeguSeg")
+    private List<CrdSimulaSeguro> crdSimulaSeguroList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -248,6 +253,16 @@ public class MaeSeguro implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.maestros.MaeSeguro[ idenSeguSeg=" + idenSeguSeg + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<CrdSimulaSeguro> getCrdSimulaSeguroList() {
+        return crdSimulaSeguroList;
+    }
+
+    public void setCrdSimulaSeguroList(List<CrdSimulaSeguro> crdSimulaSeguroList) {
+        this.crdSimulaSeguroList = crdSimulaSeguroList;
     }
     
 }

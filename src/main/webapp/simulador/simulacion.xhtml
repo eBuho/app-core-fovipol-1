@@ -235,7 +235,7 @@
                                             <p:column colspan="3">
                                                 <p:inputText value="#{simulacionController.polizaNombre}" id="polizaNombre"/>
                                                 <p:commandButton id="polizaBtn" value="Póliza" type="button" disabled="#{simulacionController.producto.idenProdPrd==null}"/>
-                                                <p:overlayPanel dismissable="false" widgetVar="polizaPanel" id="polizaPanel" showCloseIcon="true" for="polizaBtn" hideEffect="fade" dynamic="true" style="width:200px">
+                                                <p:overlayPanel dismissable="false" widgetVar="polizaPanel" id="polizaPanel" showCloseIcon="true" for="polizaBtn" hideEffect="fade" style="width:200px">
                                                     <h:panelGroup id="display">
                                                         <h:outputText value="Póliza" />
                                                         <p:selectOneMenu value="#{simulacionController.seguro}">

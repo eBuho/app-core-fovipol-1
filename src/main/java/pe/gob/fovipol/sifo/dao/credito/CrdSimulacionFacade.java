@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.gob.fovipol.sifo.dao;
+package pe.gob.fovipol.sifo.dao.credito;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import pe.gob.fovipol.sifo.dao.AbstractFacade;
 import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 
 /**
