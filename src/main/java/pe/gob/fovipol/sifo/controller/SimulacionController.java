@@ -189,10 +189,12 @@ public class SimulacionController implements Serializable {
                                 boolean crea=false;
                                 if(simulacion.getIdenSimuSim()==null){
                                     simulacion.setIdenSimuSim(ejbSimulacionFacade.obtenerCorrelativo());
+                                    simulacion.setFechCreaAud(new Date());
+                                    simulacion.setFlagEstaSim(Constantes.VALOR_ESTADO_ACTIVO);
                                     crea=true;
                                 }
-                                simulacion.setFechCreaAud(new Date());
-                                simulacion.setFlagEstaSim(new Short("1"));
+                                else
+                                    simulacion.setFechModiAud(new Date());                                
                                 simulacion.setIdenPersPer(socio);
                                 simulacion.setIdenProdPrd(producto);
                                 simulacion.setTasaGadmSim(producto.getTasaGadmPrd());

@@ -123,21 +123,25 @@ public class RegistrarExpedienteController implements Serializable {
 
     public void cargarCanalesCobranza() {
         if (tramite.getIdenExpeTrm() == null) {
-            canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA));
-            canales = new ArrayList<>();
-            short i = 1;
-            for (MaeEntidaddet aux : canalesCobranza) {
-                CrdCanalcobra c = new CrdCanalcobra();
-                c.setCrdCanalcobraPK(new CrdCanalcobraPK());
-                c.getCrdCanalcobraPK().setSecuCanaCdc(i);
-                c.setCodiCanaCob(aux.getSecuEntiDet());
-                c.setFlagEstaCdc(Constantes.VALOR_ESTADO_ACTIVO);
-                i++;
-                canales.add(c);
+            if (socio != null) {
+                canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA));
+                canales = new ArrayList<>();
+                short i = 1;
+                for (MaeEntidaddet aux : canalesCobranza) {
+                    if(aux.getValoNumuDet()!=null && aux.getValoNumuDet().compareTo(new BigDecimal(socio.getEntiPagoSoc()).toBigInteger())==0){
+                        CrdCanalcobra c = new CrdCanalcobra();
+                        c.setCrdCanalcobraPK(new CrdCanalcobraPK());
+                        c.getCrdCanalcobraPK().setSecuCanaCdc(i);
+                        c.setCodiCanaCob(aux.getSecuEntiDet());
+                        c.setFlagEstaCdc(Constantes.VALOR_ESTADO_ACTIVO);
+                        i++;
+                        canales.add(c);
+                    }                    
+                }
             }
-        }
-        else{
-            canales=ejbCanalFacade.findByCredito(credito);
+        } else {
+            System.out.println("Buscando Canales de Cobranza");
+            canales = ejbCanalFacade.findByCredito(credito);
         }
     }
 
@@ -240,7 +244,7 @@ public class RegistrarExpedienteController implements Serializable {
         } else {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo grabar el Trámite", ""));
-        }        
+        }
     }
 
     /**
@@ -256,7 +260,7 @@ public class RegistrarExpedienteController implements Serializable {
     public void setSocio(MaeSocio socio) {
         this.socio = socio;
         if (this.socio != null) {
-            edad = creditoService.calcularEdad(socio.getMaePersona().getFechNaciPer(), new Date());
+            edad = creditoService.calcularEdad(socio.getMaePersona().getFechNaciPer(), new Date());            
             if (this.socio.getMaePersona().getCodiPerpPer() != null) {
                 MaePersona aux = this.socio.getMaePersona().getCodiPerpPer();
                 if (aux.getFechFallPer() != null) {
@@ -271,7 +275,7 @@ public class RegistrarExpedienteController implements Serializable {
             } else {
                 beneficiaria = false;
             }
-
+            cargarCanalesCobranza();
         }
     }
 
