@@ -19,6 +19,8 @@ import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
 import pe.gob.fovipol.sifo.dao.MaeRequisitoFacade;
 import pe.gob.fovipol.sifo.dao.TrmDocumentoFacade;
 import pe.gob.fovipol.sifo.dao.TrmTramiteFacade;
+import pe.gob.fovipol.sifo.model.credito.CrdCanalcobra;
+import pe.gob.fovipol.sifo.model.credito.CrdCanalcobraPK;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 import pe.gob.fovipol.sifo.model.maestros.MaeInmueble;
@@ -32,6 +34,7 @@ import pe.gob.fovipol.sifo.model.tramite.TrmDocumentoPK;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 import pe.gob.fovipol.sifo.service.CreditoService;
 import pe.gob.fovipol.sifo.service.TramiteService;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 @ManagedBean(name = "registrarExpedienteController")
 @ViewScoped
@@ -62,6 +65,7 @@ public class RegistrarExpedienteController implements Serializable {
     private List<MaeEntidaddet> tiposPrioridad;
     private List<MaeEntidaddet> modalidadesTramite;
     private List<MaeEntidaddet> gradosParentesco;
+    private List<MaeEntidaddet> canalesCobranza;
     private List<TrmDocumento> documentos;
     private List<CrdSimulacion> simulaciones;
     private MaeProducto producto;
@@ -70,6 +74,8 @@ public class RegistrarExpedienteController implements Serializable {
     private MaePersona pareja;
     private int edad;
     private boolean beneficiaria;
+    private List<CrdCanalcobra> canales;
+    private List<CrdCanalcobra> canalesSeleccionados;
 
     @PostConstruct
     public void init() {
@@ -95,7 +101,19 @@ public class RegistrarExpedienteController implements Serializable {
         }
         productos = ejbProductoFacade.findAll();
         inmueble = new MaeInmueble();
-        gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("GRADPAREPER"));
+        gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_GRADO_PARENTESCO));
+        canalesCobranza=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA));
+        canales=new ArrayList<>();
+        short i=1;
+        for(MaeEntidaddet aux:canalesCobranza){
+            CrdCanalcobra c=new CrdCanalcobra();
+            c.setCrdCanalcobraPK(new CrdCanalcobraPK());
+            c.getCrdCanalcobraPK().setSecuCanaCdc(i);
+            c.setCodiCanaCob(aux.getSecuEntiDet());
+            c.setFlagEstaCdc(new Short("1"));
+            i++;
+            canales.add(c);
+        }
         beneficiaria = false;
     }
 
@@ -240,7 +258,7 @@ public class RegistrarExpedienteController implements Serializable {
      */
     public List<MaeEntidaddet> getTiposTramite() {
         if (tiposTramite == null) {
-            tiposTramite = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("TIPOTRAMTRM"));
+            tiposTramite = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_TIPO_TRAMITE));
         }
         return tiposTramite;
     }
@@ -257,7 +275,7 @@ public class RegistrarExpedienteController implements Serializable {
      */
     public List<MaeEntidaddet> getModalidadesTramite() {
         if (modalidadesTramite == null) {
-            modalidadesTramite = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODIMODATRM"));
+            modalidadesTramite = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_MODALIDAD_TRAMITE));
         }
         return modalidadesTramite;
     }
@@ -274,7 +292,7 @@ public class RegistrarExpedienteController implements Serializable {
      */
     public List<MaeEntidaddet> getTiposPrioridad() {
         if (tiposPrioridad == null) {
-            tiposPrioridad = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODIPRIOTRM"));
+            tiposPrioridad = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_PRIORIDAD_TRAMITE));
         }
         return tiposPrioridad;
     }
@@ -422,4 +440,48 @@ public class RegistrarExpedienteController implements Serializable {
     public void setBeneficiaria(boolean beneficiaria) {
         this.beneficiaria = beneficiaria;
     }
+
+    /**
+     * @return the canalesCobranza
+     */
+    public List<MaeEntidaddet> getCanalesCobranza() {
+        return canalesCobranza;
+    }
+
+    /**
+     * @param canalesCobranza the canalesCobranza to set
+     */
+    public void setCanalesCobranza(List<MaeEntidaddet> canalesCobranza) {
+        this.canalesCobranza = canalesCobranza;
+    }
+
+    /**
+     * @return the canales
+     */
+    public List<CrdCanalcobra> getCanales() {
+        return canales;
+    }
+
+    /**
+     * @param canales the canales to set
+     */
+    public void setCanales(List<CrdCanalcobra> canales) {
+        this.canales = canales;
+    }
+
+    /**
+     * @return the canalesSeleccionados
+     */
+    public List<CrdCanalcobra> getCanalesSeleccionados() {
+        return canalesSeleccionados;
+    }
+
+    /**
+     * @param canalesSeleccionados the canalesSeleccionados to set
+     */
+    public void setCanalesSeleccionados(List<CrdCanalcobra> canalesSeleccionados) {
+        this.canalesSeleccionados = canalesSeleccionados;
+    }
+
+    
 }

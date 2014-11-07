@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MaeSede.findByUsuaModiAud", query = "SELECT m FROM MaeSede m WHERE m.usuaModiAud = :usuaModiAud"),
     @NamedQuery(name = "MaeSede.findByFechModiAud", query = "SELECT m FROM MaeSede m WHERE m.fechModiAud = :fechModiAud"),
     @NamedQuery(name = "MaeSede.findByFlagSedeSed", query = "SELECT m FROM MaeSede m WHERE m.flagSedeSed = :flagSedeSed")})
-public class MaeSede implements Serializable {
+public class MaeSede implements Serializable {    
     @JoinColumn(name = "IDEN_EMPR_EMP", referencedColumnName = "IDEN_EMPR_EMP")
     @ManyToOne
     private MaeEmpresa idenEmprEmp;
@@ -216,5 +216,6 @@ public class MaeSede implements Serializable {
     public void setIdenEmprEmp(MaeEmpresa idenEmprEmp) {
         this.idenEmprEmp = idenEmprEmp;
     }    
+
     
 }

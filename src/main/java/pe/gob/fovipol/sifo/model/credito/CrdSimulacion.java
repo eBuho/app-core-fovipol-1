@@ -66,7 +66,8 @@ import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
     @NamedQuery(name = "CrdSimulacion.findByNombEquiAud", query = "SELECT c FROM CrdSimulacion c WHERE c.nombEquiAud = :nombEquiAud"),
     @NamedQuery(name = "CrdSimulacion.findByNombSopeAud", query = "SELECT c FROM CrdSimulacion c WHERE c.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "CrdSimulacion.findByFlagEstaSim", query = "SELECT c FROM CrdSimulacion c WHERE c.flagEstaSim = :flagEstaSim")})
-public class CrdSimulacion implements Serializable {    
+public class CrdSimulacion implements Serializable {   
+   
     @OneToMany(mappedBy = "idenSimuSim")
     private List<TrmTramite> trmTramiteList;
     private static final long serialVersionUID = 1L;
