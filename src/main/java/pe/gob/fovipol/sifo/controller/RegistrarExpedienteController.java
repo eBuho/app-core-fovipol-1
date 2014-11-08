@@ -3,6 +3,7 @@ package pe.gob.fovipol.sifo.controller;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,13 +13,21 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import pe.gob.fovipol.sifo.dao.CrdSimulacionFacade;
+import org.primefaces.context.RequestContext;
+import pe.gob.fovipol.sifo.controller.util.Cuota;
+import pe.gob.fovipol.sifo.dao.credito.CrdSimulacionFacade;
 import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
-import pe.gob.fovipol.sifo.dao.MaeInmuebleFacade;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
 import pe.gob.fovipol.sifo.dao.MaeRequisitoFacade;
 import pe.gob.fovipol.sifo.dao.TrmDocumentoFacade;
 import pe.gob.fovipol.sifo.dao.TrmTramiteFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdCanalcobraFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdCreditoFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdSimulaSeguroFacade;
+import pe.gob.fovipol.sifo.model.credito.CrdCanalcobra;
+import pe.gob.fovipol.sifo.model.credito.CrdCanalcobraPK;
+import pe.gob.fovipol.sifo.model.credito.CrdCredito;
+import pe.gob.fovipol.sifo.model.credito.CrdSimulaSeguro;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 import pe.gob.fovipol.sifo.model.maestros.MaeInmueble;
@@ -27,11 +36,13 @@ import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 import pe.gob.fovipol.sifo.model.maestros.MaeRequisito;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
 import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
+import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
 import pe.gob.fovipol.sifo.model.tramite.TrmDocumento;
 import pe.gob.fovipol.sifo.model.tramite.TrmDocumentoPK;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 import pe.gob.fovipol.sifo.service.CreditoService;
 import pe.gob.fovipol.sifo.service.TramiteService;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 @ManagedBean(name = "registrarExpedienteController")
 @ViewScoped
@@ -50,9 +61,13 @@ public class RegistrarExpedienteController implements Serializable {
     @EJB
     private CrdSimulacionFacade ejbSimulacionFacade;
     @EJB
-    private MaeInmuebleFacade ejbInmuebleFacade;
+    private CrdCreditoFacade ejbCreditoService;
     @EJB
     private CreditoService creditoService;
+    @EJB
+    private CrdCanalcobraFacade ejbCanalFacade;
+    @EJB
+    private CrdSimulaSeguroFacade ejbSimulaSeguroFacade;
     @EJB
     private TramiteService tramiteService;
     private MaeSocio socio;
@@ -62,6 +77,7 @@ public class RegistrarExpedienteController implements Serializable {
     private List<MaeEntidaddet> tiposPrioridad;
     private List<MaeEntidaddet> modalidadesTramite;
     private List<MaeEntidaddet> gradosParentesco;
+    private List<MaeEntidaddet> canalesCobranza;
     private List<TrmDocumento> documentos;
     private List<CrdSimulacion> simulaciones;
     private MaeProducto producto;
@@ -70,9 +86,23 @@ public class RegistrarExpedienteController implements Serializable {
     private MaePersona pareja;
     private int edad;
     private boolean beneficiaria;
+    private List<CrdCanalcobra> canales;
+    private List<CrdCanalcobra> canalesSeleccionados;
+    private CrdCredito credito;
+    private BigDecimal netoGirar;
+    private String listaSeguros;
+    private BigDecimal totalPago;
+    private BigDecimal maximoDescuento;
+    private List<Cuota> cuotas;
+    private BigDecimal totalAmortizacion;
+    private BigDecimal totalInteres;
+    private BigDecimal totalSeguro;
+    private BigDecimal totalCuota;
+    private boolean esPrestamo;
 
     @PostConstruct
     public void init() {
+        esPrestamo=false;
         String idTramite = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap()
                 .get("idTramite");
@@ -81,22 +111,101 @@ public class RegistrarExpedienteController implements Serializable {
             if (tramite == null) {
                 tramite = new TrmTramite();
                 tramite.setIdenSimuSim(new CrdSimulacion());
+                credito = new CrdCredito();
+                inmueble = new MaeInmueble();
             } else {
                 setSocio(tramite.getCodiPersTrm().getMaeSocio());
+                credito = ejbCreditoService.findByTramite(tramite);
+                if (credito == null) {
+                    credito = new CrdCredito();
+                    inmueble = new MaeInmueble();
+                } else {
+                    inmueble = credito.getIdenInmuImb();
+                }
                 if (tramite.getIdenSimuSim() != null) {
                     simulacion = tramite.getIdenSimuSim().getIdenSimuSim();
                     producto = tramite.getIdenSimuSim().getIdenProdPrd();
+                    CrdSimulacion simu = tramite.getIdenSimuSim();
+                    cargarSeguros();
+                    netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
                     cargarRequisitos();
+                    esPrestamo=true;
                 }
+                else{                    
+                    cargarRequisitos();
+                }                    
             }
         } else {
             tramite = new TrmTramite();
             tramite.setIdenSimuSim(new CrdSimulacion());
+            credito = new CrdCredito();
+            inmueble = new MaeInmueble();
         }
         productos = ejbProductoFacade.findAll();
-        inmueble = new MaeInmueble();
-        gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("GRADPAREPER"));
+        gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_GRADO_PARENTESCO));
+        cargarCanalesCobranza();
         beneficiaria = false;
+    }
+
+    public void verSimulacion() {
+        List<MaeSeguro> listaSeguro = new ArrayList<>();
+        List<CrdSimulaSeguro> lista = ejbSimulaSeguroFacade.findBySimulacion(tramite.getIdenSimuSim());
+        for (CrdSimulaSeguro simula : lista) {
+            listaSeguro.add(simula.getIdenSeguSeg());
+        }
+        CrdSimulacion simu = tramite.getIdenSimuSim();
+        cuotas = creditoService.calcularCuotas(listaSeguro, simu.getPeriCiclSim().intValue(),
+                simu.getTasaTeaSim(), simu.getImpoSoliSim(),
+                simu.getPlazPresSim(), simu.getImpoCuotSim(), socio.getMaePersona().getFechNaciPer());
+        totalAmortizacion = cuotas.get(0).getTotalAmortizacion();
+        totalCuota = cuotas.get(0).getTotalCuota();
+        totalInteres = cuotas.get(0).getTotalInteres();
+        totalSeguro = cuotas.get(0).getTotalSeguro();
+    }
+
+    public void cargarSeguros() {
+        List<CrdSimulaSeguro> lista = ejbSimulaSeguroFacade.findBySimulacion(tramite.getIdenSimuSim());
+        listaSeguros = "";
+        for (CrdSimulaSeguro simula : lista) {
+            if (listaSeguros.equals("")) {
+                listaSeguros = listaSeguros + simula.getIdenSeguSeg().getDescNombSeg();
+            } else {
+                listaSeguros = listaSeguros + ", " + simula.getIdenSeguSeg().getDescNombSeg();
+            }
+        }
+    }
+
+    public void cargarCanalesCobranza() {
+        if (tramite.getIdenExpeTrm() == null) {
+
+            canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA));
+            canales = new ArrayList<>();
+            short i = 1;
+            for (MaeEntidaddet aux : canalesCobranza) {
+                //if(aux.getValoNumuDet()!=null && aux.getValoNumuDet().compareTo(new BigDecimal(socio.getEntiPagoSoc()).toBigInteger())==0){
+                CrdCanalcobra c = new CrdCanalcobra();
+                c.setCrdCanalcobraPK(new CrdCanalcobraPK());
+                c.getCrdCanalcobraPK().setSecuCanaCdc(i);
+                c.setCodiCanaCob(aux.getSecuEntiDet());
+                c.setFlagEstaCdc(Constantes.VALOR_ESTADO_ACTIVO);
+                i++;
+                canales.add(c);
+                //}                    
+            }
+
+        } else {
+            canales = ejbCanalFacade.findByCredito(credito);
+            contarCanalCobranza();
+        }
+    }
+
+    public void contarCanalCobranza() {
+        totalPago = BigDecimal.ZERO;
+        for (CrdCanalcobra ccobra : canales) {
+            if (ccobra.getImpoCobrCdc() != null) {
+                totalPago = totalPago.add(ccobra.getImpoCobrCdc());
+            }
+        }
     }
 
     public void nuevoTramite() {
@@ -107,6 +216,9 @@ public class RegistrarExpedienteController implements Serializable {
 
     public void mostrarSimulacion() {
         tramite.setIdenSimuSim(ejbSimulacionFacade.find(simulacion));
+        cargarSeguros();
+        CrdSimulacion simu = tramite.getIdenSimuSim();
+        netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
     }
 
     public void cargarRequisitos() {
@@ -114,8 +226,8 @@ public class RegistrarExpedienteController implements Serializable {
             if (socio != null) {
                 simulaciones = ejbSimulacionFacade.findBySocioProducto(socio.getCodiPersPer(), producto.getIdenProdPrd());
             }
-            if (tramite.getIdenExpeTrm()!= null) {
-                documentos=ejbDocumentoFacade.findByTramite(tramite);
+            if (tramite.getIdenExpeTrm() != null) {
+                documentos = ejbDocumentoFacade.findByTramite(tramite);
             } else {
                 List<MaeRequisito> reqs = ejbRequisitoFacade.findByProcesoActivo(producto.getIdenProcPrc().getCodiProcPrc());
                 documentos = new ArrayList<>();
@@ -127,68 +239,136 @@ public class RegistrarExpedienteController implements Serializable {
                     doc.setMaeRequisito(aux);
                     i++;
                     doc.setDescNombDoc(aux.getNombRequReq());
-                    doc.setFlagEstaDoc(new Short("1"));
+                    doc.setFlagEstaDoc(Constantes.VALOR_ESTADO_ACTIVO);
                     documentos.add(doc);
                 }
             }
         }
+        else{
+            if (tramite.getIdenExpeTrm() != null) {
+                documentos = ejbDocumentoFacade.findByTramite(tramite);
+            } else {
+                List<MaeRequisito> reqs = ejbRequisitoFacade.findByProcesoActivo(producto.getIdenProcPrc().getCodiProcPrc());
+                documentos = new ArrayList<>();
+                int i = 1;
+                for (MaeRequisito aux : reqs) {
+                    TrmDocumento doc = new TrmDocumento();
+                    doc.setTrmDocumentoPK(new TrmDocumentoPK());
+                    doc.getTrmDocumentoPK().setSecuDocuDoc(i);
+                    doc.setMaeRequisito(aux);
+                    i++;
+                    doc.setDescNombDoc(aux.getNombRequReq());
+                    doc.setFlagEstaDoc(Constantes.VALOR_ESTADO_ACTIVO);
+                    documentos.add(doc);
+                }
+            }
+        }  
     }
-    
-    public void darViabilidad(){        
-        boolean validarCampos=tramiteService.darViabilidadExpediente(tramite, documentos);        
-        if(validarCampos)
-            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con éxito", ""));        
-        else
-            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "No tiene todos los requisitos", ""));
+
+    public void darViabilidad() {
+        boolean validarCampos = tramiteService.darViabilidadExpediente(tramite, documentos);
+        if (validarCampos) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con éxito", ""));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No tiene todos los requisitos", ""));
+        }
     }
-    
-    public void rechazar(){
-        boolean rechazar=tramiteService.cambiarEstadoExpediente(tramite, "RECHAZADO");
-        if(rechazar)
-            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Expediente Rechazado", ""));        
-        else
-            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo rechazar el Expediente", ""));
+
+    public void rechazar() {
+        boolean rechazar = tramiteService.cambiarEstadoExpediente(tramite, "RECHAZADO");
+        if (rechazar) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Expediente Rechazado", ""));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo rechazar el Expediente", ""));
+        }
     }
+
     public void registrar() {
+        RequestContext context = RequestContext.getCurrentInstance();
         if (socio == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Seleccione Socio", ""));
+                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Seleccione un Socio", ""));
+            context.addCallbackParam("error", true);
             return;
         }
         if (tramite.getNombTramTrm() == null || tramite.getNombTramTrm().trim().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese nombre de Tramitante", ""));
+                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese nombre del Tramitante", ""));
+            context.addCallbackParam("error", true);
             return;
         }
         if (tramite.getNumeFolioTrm() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el número de folios", ""));
+            context.addCallbackParam("error", true);
             return;
         }
         if (tramite.getNumeFolioTrm().compareTo(BigInteger.ZERO) != 1) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "El número de folios debe ser Mayor que 0", ""));
+            context.addCallbackParam("error", true);
             return;
         }
         if (tramite.getDescAsunTrm() == null || tramite.getDescAsunTrm().trim().equals("")) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el Asunto del Expediente", ""));
+            context.addCallbackParam("error", true);
             return;
-        }               
+        }
+        if (tramite.getIdenExpeTrm()==null && producto== null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Seleccione Producto", ""));
+            context.addCallbackParam("error", true);
+            return;
+        }
+        if(esPrestamo){
+            contarCanalCobranza();
+            if (totalPago.compareTo(tramite.getIdenSimuSim().getImpoCuotSim()) != 0) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_WARN, "La Suma de los aportes a los Canales de Cobranza deben ser igual a las cuota " + tramite.getIdenSimuSim().getImpoCuotSim(), ""));
+                context.addCallbackParam("error", true);
+                return;
+            }
+        }        
         tramite.setCodiPersTrm(socio.getMaePersona());
-        tramite.setMaeProceso(producto.getIdenProcPrc());
-        boolean crea=tramiteService.registrarExpediente(tramite, documentos);
-        if(crea)
-            FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
+        if(tramite.getIdenExpeTrm()==null)
+            tramite.setMaeProceso(producto.getIdenProcPrc());
+        if(esPrestamo){
+            credito.setIdenInmuImb(inmueble);
+            credito.setIdenExpeTrm(tramite);
+            CrdSimulacion simu = tramite.getIdenSimuSim();
+            credito.setPercSociCrd(simu.getIngrBrtoSim());
+            credito.setNumeCuotPrd(simu.getPlazPresSim());
+            credito.setTasaInteCrd(simu.getTasaTeaSim());
+            credito.setTasaGadmCrd(simu.getTasaGadmSim());
+            credito.setCodiMoneCrd(simu.getCodiMoneCrd());
+            credito.setAutoCdobCrd(simu.getAutoCdobSim());
+            credito.setPeriGracCrd(simu.getPeriGracSim());
+        }
+        boolean crea;
+        if(esPrestamo)
+            crea = tramiteService.registrarExpedienteCredito(tramite, documentos, credito, canales);
         else
+            crea = tramiteService.registrarExpediente(tramite, documentos);
+        if (crea) {
             FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo grabar el Trámite", ""));
-        /*inmueble.setIdenInmuImb(ejbInmuebleFacade.obtenerCorrelativo());
-         inmueble.setFlagEstaImb(new Short("1"));
-         ejbInmuebleFacade.create(inmueble);*/
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
+            context.addCallbackParam("error", false);
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo grabar el Trámite", ""));
+            context.addCallbackParam("error", true);
+        }
     }
-
+    
+    public void verificarTipoTramite(){
+        MaeEntidaddet detalle=ejbEntidadDetalleFacade.findIdenEntiDet(tramite.getTipoTramTrm(),Constantes.ENTIDAD_TIPO_TRAMITE );
+        if(detalle.getValoNumuDet()!=null && detalle.getValoNumuDet().compareTo(BigInteger.ONE)==0){
+            esPrestamo=true;
+        }
+        else
+            esPrestamo=false;
+    }
     /**
      * @return the socio
      */
@@ -203,6 +383,12 @@ public class RegistrarExpedienteController implements Serializable {
         this.socio = socio;
         if (this.socio != null) {
             edad = creditoService.calcularEdad(socio.getMaePersona().getFechNaciPer(), new Date());
+            MaeEntidaddet detalle = ejbEntidadDetalleFacade.findIdenEntiDet(socio.getEntiPagoSoc(), Constantes.ENTIDAD_PAGOS_SOCIO);
+            if (detalle != null && detalle.getValoDecuDet() != null) {
+                maximoDescuento = detalle.getValoDecuDet();
+            } else {
+                maximoDescuento = BigDecimal.ZERO;
+            }
             if (this.socio.getMaePersona().getCodiPerpPer() != null) {
                 MaePersona aux = this.socio.getMaePersona().getCodiPerpPer();
                 if (aux.getFechFallPer() != null) {
@@ -217,7 +403,7 @@ public class RegistrarExpedienteController implements Serializable {
             } else {
                 beneficiaria = false;
             }
-
+            //cargarCanalesCobranza();
         }
     }
 
@@ -240,7 +426,7 @@ public class RegistrarExpedienteController implements Serializable {
      */
     public List<MaeEntidaddet> getTiposTramite() {
         if (tiposTramite == null) {
-            tiposTramite = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("TIPOTRAMTRM"));
+            tiposTramite = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_TIPO_TRAMITE));
         }
         return tiposTramite;
     }
@@ -257,7 +443,7 @@ public class RegistrarExpedienteController implements Serializable {
      */
     public List<MaeEntidaddet> getModalidadesTramite() {
         if (modalidadesTramite == null) {
-            modalidadesTramite = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODIMODATRM"));
+            modalidadesTramite = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_MODALIDAD_TRAMITE));
         }
         return modalidadesTramite;
     }
@@ -274,7 +460,7 @@ public class RegistrarExpedienteController implements Serializable {
      */
     public List<MaeEntidaddet> getTiposPrioridad() {
         if (tiposPrioridad == null) {
-            tiposPrioridad = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODIPRIOTRM"));
+            tiposPrioridad = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_PRIORIDAD_TRAMITE));
         }
         return tiposPrioridad;
     }
@@ -422,4 +608,187 @@ public class RegistrarExpedienteController implements Serializable {
     public void setBeneficiaria(boolean beneficiaria) {
         this.beneficiaria = beneficiaria;
     }
+
+    /**
+     * @return the canalesCobranza
+     */
+    public List<MaeEntidaddet> getCanalesCobranza() {
+        return canalesCobranza;
+    }
+
+    /**
+     * @param canalesCobranza the canalesCobranza to set
+     */
+    public void setCanalesCobranza(List<MaeEntidaddet> canalesCobranza) {
+        this.canalesCobranza = canalesCobranza;
+    }
+
+    /**
+     * @return the canales
+     */
+    public List<CrdCanalcobra> getCanales() {
+        return canales;
+    }
+
+    /**
+     * @param canales the canales to set
+     */
+    public void setCanales(List<CrdCanalcobra> canales) {
+        this.canales = canales;
+    }
+
+    /**
+     * @return the canalesSeleccionados
+     */
+    public List<CrdCanalcobra> getCanalesSeleccionados() {
+        return canalesSeleccionados;
+    }
+
+    /**
+     * @param canalesSeleccionados the canalesSeleccionados to set
+     */
+    public void setCanalesSeleccionados(List<CrdCanalcobra> canalesSeleccionados) {
+        this.canalesSeleccionados = canalesSeleccionados;
+    }
+
+    /**
+     * @return the netoGirar
+     */
+    public BigDecimal getNetoGirar() {
+        return netoGirar;
+    }
+
+    /**
+     * @param netoGirar the netoGirar to set
+     */
+    public void setNetoGirar(BigDecimal netoGirar) {
+        this.netoGirar = netoGirar;
+    }
+
+    /**
+     * @return the listaSeguros
+     */
+    public String getListaSeguros() {
+        return listaSeguros;
+    }
+
+    /**
+     * @param listaSeguros the listaSeguros to set
+     */
+    public void setListaSeguros(String listaSeguros) {
+        this.listaSeguros = listaSeguros;
+    }
+
+    /**
+     * @return the totalPago
+     */
+    public BigDecimal getTotalPago() {
+        return totalPago;
+    }
+
+    /**
+     * @param totalPago the totalPago to set
+     */
+    public void setTotalPago(BigDecimal totalPago) {
+        this.totalPago = totalPago;
+    }
+
+    /**
+     * @return the maximoDescuento
+     */
+    public BigDecimal getMaximoDescuento() {
+        return maximoDescuento;
+    }
+
+    /**
+     * @param maximoDescuento the maximoDescuento to set
+     */
+    public void setMaximoDescuento(BigDecimal maximoDescuento) {
+        this.maximoDescuento = maximoDescuento;
+    }
+
+    /**
+     * @return the cuotas
+     */
+    public List<Cuota> getCuotas() {
+        return cuotas;
+    }
+
+    /**
+     * @param cuotas the cuotas to set
+     */
+    public void setCuotas(List<Cuota> cuotas) {
+        this.cuotas = cuotas;
+    }
+
+    /**
+     * @return the totalAmortizacion
+     */
+    public BigDecimal getTotalAmortizacion() {
+        return totalAmortizacion;
+    }
+
+    /**
+     * @param totalAmortizacion the totalAmortizacion to set
+     */
+    public void setTotalAmortizacion(BigDecimal totalAmortizacion) {
+        this.totalAmortizacion = totalAmortizacion;
+    }
+
+    /**
+     * @return the totalInteres
+     */
+    public BigDecimal getTotalInteres() {
+        return totalInteres;
+    }
+
+    /**
+     * @param totalInteres the totalInteres to set
+     */
+    public void setTotalInteres(BigDecimal totalInteres) {
+        this.totalInteres = totalInteres;
+    }
+
+    /**
+     * @return the totalSeguro
+     */
+    public BigDecimal getTotalSeguro() {
+        return totalSeguro;
+    }
+
+    /**
+     * @param totalSeguro the totalSeguro to set
+     */
+    public void setTotalSeguro(BigDecimal totalSeguro) {
+        this.totalSeguro = totalSeguro;
+    }
+
+    /**
+     * @return the totalCuota
+     */
+    public BigDecimal getTotalCuota() {
+        return totalCuota;
+    }
+
+    /**
+     * @param totalCuota the totalCuota to set
+     */
+    public void setTotalCuota(BigDecimal totalCuota) {
+        this.totalCuota = totalCuota;
+    }
+
+    /**
+     * @return the esPrestamo
+     */
+    public boolean isEsPrestamo() {
+        return esPrestamo;
+    }
+
+    /**
+     * @param esPrestamo the esPrestamo to set
+     */
+    public void setEsPrestamo(boolean esPrestamo) {
+        this.esPrestamo = esPrestamo;
+    }
+
 }

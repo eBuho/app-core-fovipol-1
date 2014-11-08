@@ -13,8 +13,10 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,6 +31,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.listener.AuditListener;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
@@ -37,6 +40,7 @@ import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
  * @author probook
  */
 @Entity
+@EntityListeners(value = AuditListener.class)
 @Table(name = "CRD_SIMULACION")
 @XmlRootElement
 @NamedQueries({
@@ -66,7 +70,9 @@ import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
     @NamedQuery(name = "CrdSimulacion.findByNombEquiAud", query = "SELECT c FROM CrdSimulacion c WHERE c.nombEquiAud = :nombEquiAud"),
     @NamedQuery(name = "CrdSimulacion.findByNombSopeAud", query = "SELECT c FROM CrdSimulacion c WHERE c.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "CrdSimulacion.findByFlagEstaSim", query = "SELECT c FROM CrdSimulacion c WHERE c.flagEstaSim = :flagEstaSim")})
-public class CrdSimulacion implements Serializable {    
+public class CrdSimulacion implements Serializable { 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "crdSimulacion")
+    private List<CrdSimulaSeguro> crdSimulaSeguroList;
     @OneToMany(mappedBy = "idenSimuSim")
     private List<TrmTramite> trmTramiteList;
     private static final long serialVersionUID = 1L;
@@ -103,6 +109,12 @@ public class CrdSimulacion implements Serializable {
     private BigDecimal impoMaxpSim;
     @Column(name = "DEUD_OTRA_SIM")
     private BigDecimal deudOtraSim;
+    @Column(name = "IMPO_SOLI_SIM")
+    private BigDecimal impoSoliSim;
+    @Column(name = "IMPO_CUOT_SIM")
+    private BigDecimal impoCuotSim;
+    @Column(name = "PERI_CICL_SIM")
+    private BigInteger periCiclSim;
     @Column(name = "TASA_TEA_SIM")
     private BigDecimal tasaTeaSim;
     @Column(name = "PLAZ_PRES_SIM")
@@ -417,6 +429,58 @@ public class CrdSimulacion implements Serializable {
 
     public void setTrmTramiteList(List<TrmTramite> trmTramiteList) {
         this.trmTramiteList = trmTramiteList;
+    }
+    
+    @XmlTransient
+    @JsonIgnore
+    public List<CrdSimulaSeguro> getCrdSimulaSeguroList() {
+        return crdSimulaSeguroList;
+    }
+
+    public void setCrdSimulaSeguroList(List<CrdSimulaSeguro> crdSimulaSeguroList) {
+        this.crdSimulaSeguroList = crdSimulaSeguroList;
+    }
+
+    /**
+     * @return the impoSoliSim
+     */
+    public BigDecimal getImpoSoliSim() {
+        return impoSoliSim;
+    }
+
+    /**
+     * @param impoSoliSim the impoSoliSim to set
+     */
+    public void setImpoSoliSim(BigDecimal impoSoliSim) {
+        this.impoSoliSim = impoSoliSim;
+    }
+
+    /**
+     * @return the impoCuotSim
+     */
+    public BigDecimal getImpoCuotSim() {
+        return impoCuotSim;
+    }
+
+    /**
+     * @param impoCuotSim the impoCuotSim to set
+     */
+    public void setImpoCuotSim(BigDecimal impoCuotSim) {
+        this.impoCuotSim = impoCuotSim;
+    }
+
+    /**
+     * @return the periCiclSim
+     */
+    public BigInteger getPeriCiclSim() {
+        return periCiclSim;
+    }
+
+    /**
+     * @param periCiclSim the periCiclSim to set
+     */
+    public void setPeriCiclSim(BigInteger periCiclSim) {
+        this.periCiclSim = periCiclSim;
     }
 
 }

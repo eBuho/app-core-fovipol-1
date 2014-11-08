@@ -52,6 +52,7 @@ public class AdmMenuController implements Serializable {
 
     public AdmMenu prepareCreate() {
         selected = new AdmMenu();
+        selected.setFlagEstaMnu(Constantes.VALOR_ESTADO_ACTIVO);
         initializeEmbeddableKey();
         return selected;
     }

@@ -57,14 +57,12 @@ public class MaeProceso implements Serializable {
     @Column(name = "NIVE_PROC_PRC")
     private Short niveProcPrc;
     @Column(name = "ORDE_SECU_PRC")
-    private Integer ordeSecuPrc;
+    private int ordeSecuPrc;    
     @Size(max = 100)
     @Column(name = "PAGI_PROC_PRC")
     private String pagiProcPrc;
     @OneToMany(mappedBy = "idenProcPrc")
-    private List<TrmMovimiento> trmMovimientoList;
-    @OneToMany(mappedBy = "idenProcPrc")
-    private List<TrmTramite> trmTramiteList;
+    private List<TrmMovimiento> trmMovimientoList;    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "maeProceso")
     private List<MaeRequisito> maeRequisitoList;
     @Column(name = "TIPO_PROC_PRC")
@@ -314,16 +312,6 @@ public class MaeProceso implements Serializable {
 
     public void setTrmMovimientoList(List<TrmMovimiento> trmMovimientoList) {
         this.trmMovimientoList = trmMovimientoList;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<TrmTramite> getTrmTramiteList() {
-        return trmTramiteList;
-    }
-
-    public void setTrmTramiteList(List<TrmTramite> trmTramiteList) {
-        this.trmTramiteList = trmTramiteList;
     }
 
     

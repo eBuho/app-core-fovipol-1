@@ -16,10 +16,11 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import pe.gob.fovipol.sifo.controller.util.Cuota;
-import pe.gob.fovipol.sifo.dao.CrdSimulacionFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdSimulacionFacade;
 import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
-import pe.gob.fovipol.sifo.dao.MaeSeguroRangoFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdSimulaSeguroFacade;
+import pe.gob.fovipol.sifo.model.credito.CrdSimulaSeguro;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
@@ -27,6 +28,7 @@ import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
 import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 import pe.gob.fovipol.sifo.service.CreditoService;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 @ManagedBean(name = "simulacionController")
 @ViewScoped
@@ -43,7 +45,6 @@ public class SimulacionController implements Serializable {
     private BigDecimal montoAnteriorPrestamo;
     private BigDecimal saldoPagarAnteriorPrestamo;
     private MaeEntidaddet detalle;
-    private int ciclica;
     private int tipoSocio;
     private Date nacimiento;
     private int edad;
@@ -53,9 +54,7 @@ public class SimulacionController implements Serializable {
     private List<MaeSeguro> seguros;
     private List<MaeSeguro> segurosSimulacion;
     private MaeSeguro seguro;
-    private BigDecimal monto;
     private BigDecimal montoCheque;
-    private BigDecimal cuota;
     private BigDecimal degravamen;
     private List<CrdSimulacion> simulaciones;
     private List<Cuota> cuotasSimulacion;
@@ -75,7 +74,7 @@ public class SimulacionController implements Serializable {
     @EJB
     private CrdSimulacionFacade ejbSimulacionFacade;
     @EJB
-    private MaeSeguroRangoFacade ejbSeguroRangoFacade;
+    private CrdSimulaSeguroFacade ejbSimulaSeguroFacade;
 
     @PostConstruct
     public void init() {
@@ -86,7 +85,6 @@ public class SimulacionController implements Serializable {
         simulacion.setIngrCombSim(BigDecimal.ZERO);
         simulacion.setDeudOtraSim(BigDecimal.ZERO);
         simulacion.setOtroIngrSim(BigDecimal.ZERO);
-        //simulacion.setTasaTeaSim(new BigDecimal(3));
         totalAporteAnterior = BigDecimal.ZERO;
         montoAnteriorPrestamo = BigDecimal.ZERO;
         totalAporte = BigDecimal.ZERO;
@@ -97,9 +95,9 @@ public class SimulacionController implements Serializable {
     }
     
     public void calcularGastosAdministrativos(){
-        if(monto!=null && producto!=null && producto.getTasaGadmPrd()!=null && monto!=null){
-            gastosAdministrativos=monto.multiply(producto.getTasaGadmPrd()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
-            montoCheque=monto.add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
+        if(simulacion.getImpoSoliSim()!=null && producto!=null && producto.getTasaGadmPrd()!=null){
+            gastosAdministrativos=simulacion.getImpoSoliSim().multiply(producto.getTasaGadmPrd()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+            montoCheque=simulacion.getImpoSoliSim().add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
         }
     }
     public SimulacionController() {
@@ -140,16 +138,16 @@ public class SimulacionController implements Serializable {
     public void simular() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (segurosSimulacion != null && !segurosSimulacion.isEmpty()) {
-            if (monto == null) {
+            if (simulacion.getImpoSoliSim() == null) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese un monto a simular", ""));
                 context.addCallbackParam("error", true);
             } else {
-                if(simulacion.getPlazPresSim().compareTo(BigInteger.ONE)==-1){
+                if(simulacion.getPlazPresSim()==null || simulacion.getPlazPresSim().compareTo(BigInteger.ONE)==-1){
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese un número de cuotas mayor a 0", ""));
                     context.addCallbackParam("error", true);
                     return;
                 }
-                if (monto.compareTo(simulacion.getImpoMaxpSim()) == 1) {
+                if (simulacion.getImpoSoliSim().compareTo(simulacion.getImpoMaxpSim()) == 1) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El Monto es superior al Máximo Préstamo", ""));
                     context.addCallbackParam("error", true);
                     totalAmortizacion = BigDecimal.ZERO;
@@ -160,45 +158,59 @@ public class SimulacionController implements Serializable {
                 } else {
                     if (simulacion.getPlazPresSim() != null && simulacion.getPlazPresSim().compareTo(producto.getMaxiPeriPrd()) != 1) {
                         simulacion.setTasaTeaSim(producto.getTasaIntePrd());
-                        if (cuota != null) {
+                        if (simulacion.getImpoCuotSim() != null) {
                             if (simulacion.getPlazPresSim() != null) {
-                                cuotaPagar = cuota;
-                                monto = creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
-                                if (monto.compareTo(simulacion.getImpoMaxpSim()) == 1) {
+                                cuotaPagar = simulacion.getImpoCuotSim();
+                                simulacion.setImpoSoliSim(creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim()));
+                                if (simulacion.getImpoSoliSim().compareTo(simulacion.getImpoMaxpSim()) == 1) {
                                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La monto de préstamo es superior al Máximo préstamo posible", ""));
-                                    monto = simulacion.getImpoMaxpSim();
-                                    cuotaPagar = creditoService.calcularCuotaMontoMensual(monto, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
+                                    simulacion.setImpoSoliSim(simulacion.getImpoMaxpSim());
+                                    cuotaPagar = creditoService.calcularCuotaMontoMensual(simulacion.getImpoSoliSim(), simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
                                 }
                             }
                         } else {
-                            if (monto != null) {
-                                cuotaPagar = creditoService.calcularCuotaMontoMensual(monto, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
+                            if (simulacion.getImpoSoliSim() != null) {
+                                cuotaPagar = creditoService.calcularCuotaMontoMensual(simulacion.getImpoSoliSim(), simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
                                 if (cuotaPagar.compareTo(simulacion.getCapaMcuoSim()) == 1) {
                                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La Cuota es superior a la Máxima cuota posible", ""));
                                     cuotaPagar = simulacion.getCapaMcuoSim();
-                                    monto = creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
+                                    simulacion.setImpoSoliSim(creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim()));
                                 }
                             }
                         }
-                        gastosAdministrativos = monto.multiply(producto.getTasaGadmPrd()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
-                        if (creditoService.comprobarEdadFinPago(socio.getMaePersona().getFechNaciPer(), ciclica, simulacion.getPlazPresSim().intValue(), segurosSimulacion)) {
-                            cuotasSimulacion = creditoService.calcularCuotas(segurosSimulacion, ciclica,
-                                    simulacion.getTasaTeaSim(), monto, simulacion.getPlazPresSim(), cuotaPagar, socio.getMaePersona().getFechNaciPer());
+                        gastosAdministrativos = simulacion.getImpoSoliSim().multiply(producto.getTasaGadmPrd()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+                        if (creditoService.comprobarEdadFinPago(socio.getMaePersona().getFechNaciPer(), simulacion.getPeriCiclSim().intValue(), simulacion.getPlazPresSim().intValue(), segurosSimulacion)) {
+                            cuotasSimulacion = creditoService.calcularCuotas(segurosSimulacion, simulacion.getPeriCiclSim().intValue(),
+                                    simulacion.getTasaTeaSim(), simulacion.getImpoSoliSim(), simulacion.getPlazPresSim(), cuotaPagar, socio.getMaePersona().getFechNaciPer());
                             if (cuotasSimulacion != null && !cuotasSimulacion.isEmpty()) {
-                                if(simulacion.getIdenSimuSim()==null)
+                                boolean crea=false;
+                                if(simulacion.getIdenSimuSim()==null){
                                     simulacion.setIdenSimuSim(ejbSimulacionFacade.obtenerCorrelativo());
-                                simulacion.setFechCreaAud(new Date());
-                                simulacion.setFlagEstaSim(new Short("1"));
+                                    simulacion.setFlagEstaSim(Constantes.VALOR_ESTADO_ACTIVO);
+                                    crea=true;
+                                }                                                               
                                 simulacion.setIdenPersPer(socio);
                                 simulacion.setIdenProdPrd(producto);
                                 simulacion.setTasaGadmSim(producto.getTasaGadmPrd());
+                                simulacion.setImpoCuotSim(cuotaPagar);
                                 ejbSimulacionFacade.edit(simulacion);
+                                int i=1;
+                                for(MaeSeguro seg:segurosSimulacion){
+                                    CrdSimulaSeguro simSeguro=new CrdSimulaSeguro(simulacion.getIdenSimuSim().toBigInteger(), i);
+                                    simSeguro.setIdenSeguSeg(seg);
+                                    simSeguro.setFlagEstaSsg(Constantes.VALOR_ESTADO_ACTIVO);
+                                    if(crea)
+                                        simSeguro.setFechCreaAud(new Date());
+                                    else
+                                        simSeguro.setFechModiAud(new Date());
+                                    ejbSimulaSeguroFacade.edit(simSeguro);
+                                    i++;
+                                }
                                 totalAmortizacion = cuotasSimulacion.get(0).getTotalAmortizacion();
                                 totalCuota = cuotasSimulacion.get(0).getTotalCuota();
                                 totalInteres = cuotasSimulacion.get(0).getTotalInteres();
-                                totalSeguro = cuotasSimulacion.get(0).getTotalSeguro();
-                                cuota=cuotaPagar;
-                                montoCheque=monto.add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
+                                totalSeguro = cuotasSimulacion.get(0).getTotalSeguro();                                
+                                montoCheque=simulacion.getImpoSoliSim().add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
                                 context.addCallbackParam("error", false);
                             } else {
                                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudieron generar cuotas", ""));
@@ -250,7 +262,7 @@ public class SimulacionController implements Serializable {
         this.socio = socio;
         if (socio != null) {
             calcularEdad();
-            detalle = ejbEntidaddetFacade.findIdenEntiDet(socio.getEntiPagoSoc(), "ENTIPAGOSOC");
+            detalle = ejbEntidaddetFacade.findIdenEntiDet(socio.getEntiPagoSoc(), Constantes.ENTIDAD_PAGOS_SOCIO);
             porcDescuento = detalle.getValoDecuDet();
             if (detalle.getValoDecuDet().compareTo(new BigDecimal(30)) == 0) {
                 tipoSocio = 2;
@@ -412,20 +424,6 @@ public class SimulacionController implements Serializable {
     }
 
     /**
-     * @return the ciclica
-     */
-    public int getCiclica() {
-        return ciclica;
-    }
-
-    /**
-     * @param ciclica the ciclica to set
-     */
-    public void setCiclica(int ciclica) {
-        this.ciclica = ciclica;
-    }
-
-    /**
      * @return the nacimiento
      */
     public Date getNacimiento() {
@@ -480,38 +478,7 @@ public class SimulacionController implements Serializable {
     public void setSegurosSimulacion(List<MaeSeguro> segurosSimulacion) {
         this.segurosSimulacion = segurosSimulacion;
     }
-
-    /**
-     * @return the monto
-     */
-    public BigDecimal getMonto() {
-        return monto;
-    }
-
-    /**
-     * @param monto the monto to set
-     */
-    public void setMonto(BigDecimal monto) {
-        this.monto = monto;
-    }
-
-    
-
-    /**
-     * @return the cuota
-     */
-    public BigDecimal getCuota() {
-        return cuota;
-    }
-
-    /**
-     * @param cuota the cuota to set
-     */
-    public void setCuota(BigDecimal cuota) {
-        this.cuota = cuota;
-    }
-
-    /**
+     /**
      * @return the degravamen
      */
     public BigDecimal getDegravamen() {

@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pe.gob.fovipol.sifo.model.maestros.MaePersona;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
+import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
  *
@@ -62,4 +63,13 @@ public class MaeSocioFacade extends AbstractFacade<MaeSocio> {
         lista = q.getResultList();
         return lista;
     }
+    public List<TrmTramite> findTramitesSocio(MaeSocio socio) {
+        List<TrmTramite> lista = null;
+        String sql = "FROM TrmTramite t WHERE t.codiPersTrm =:persona";        
+        Query q = em.createQuery(sql);
+        q.setParameter("persona", socio.getMaePersona());
+        lista = q.getResultList();
+        return lista;
+    }
+    
 }
