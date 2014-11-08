@@ -113,6 +113,7 @@ public class TramiteServiceImpl implements TramiteService {
     public boolean registrarExpediente(TrmTramite tramite, List<TrmDocumento> documentos) {
         try {
             boolean crea = true;
+            tramite.setIdenSimuSim(null);
             if (tramite.getIdenExpeTrm() == null) {
                 tramite.setIdenExpeTrm(ejbTramiteFacade.obtenerCorrelativo());
                 tramite.setFechCreaAud(new Date());

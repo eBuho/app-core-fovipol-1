@@ -13,7 +13,15 @@
                 if (!args.error) {
                     actualiza();
                 }
-            }
+            } 
+            $(document).ready(function() {
+                $(window).keydown(function(event){
+                  if(event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                  }
+                });
+              });
         </script>
 
         <div class="col-lg-12">
@@ -229,9 +237,10 @@
                                 <h:outputText value="Tipo Trámite:"/>                                
                             </div>
                             <div class="col-lg-8">
-                                <p:selectOneMenu value="#{registrarExpedienteController.tramite.tipoTramTrm}" styleClass="inputLargo">
+                                <p:selectOneMenu disabled="#{registrarExpedienteController.tramite.idenExpeTrm!=null}" value="#{registrarExpedienteController.tramite.tipoTramTrm}" styleClass="inputLargo">
                                     <f:selectItems value="#{registrarExpedienteController.tiposTramite}"
                                                    itemValue="#{tipo.secuEntiDet}" var="tipo" itemLabel="#{tipo.valoCaduDet}"/>
+                                    <p:ajax update="formRegistroExpediente" listener="#{registrarExpedienteController.verificarTipoTramite}"/>
                                 </p:selectOneMenu>
                             </div>
                         </div>
@@ -289,15 +298,7 @@
                             <div class="col-lg-8">
                                 <p:calendar value="#{registrarExpedienteController.tramite.fechIngrTrm}" styleClass="inputLargo"/>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="col-lg-4">
-                                <h:outputText value="Fecha de Vencimiento"/>                                
-                            </div>
-                            <div class="col-lg-8">
-                                <p:calendar value="#{registrarExpedienteController.tramite.fechVencTrm}" styleClass="inputLargo"/>
-                            </div>
-                        </div>
+                        </div>                        
                         <div class="col-lg-4">
                             <div class="col-lg-4">
                                 <h:outputText value="N° Folios"/>                                
@@ -327,21 +328,21 @@
                                 </p:selectOneMenu>                                
                             </div>
                         </div>
+                        <div class="col-lg-4">
+                            Confidencial : 
+                            <comp:booleanCheckbox value="#{registrarExpedienteController.tramite.flagPrivTrm}"/>                      
+                        </div>
                     </div>
                     <div class="col-lg-12 margen">
                         <div class="col-lg-2">
                             <div class="col-lg-8">
-                                <h:outputText value="Descripción:"/>  
+                                <h:outputText value="Asunto:"/>  
                             </div>                                                              
                         </div>
                         <div class="col-lg-10">
                             <p:inputTextarea rows="4" autoResize="false" value="#{registrarExpedienteController.tramite.descAsunTrm}" styleClass="inputLargo"/>                                                                 
                         </div>
-                    </div>
-                    <div class="col-lg-12 margen">
-                        Confidencial : 
-                        <comp:booleanCheckbox value="#{registrarExpedienteController.tramite.flagPrivTrm}"/>                      
-                    </div>
+                    </div>                    
                     <div class="col-lg-12 margen">
                         <div class="col-lg-4">
                             <div class="col-lg-4">
@@ -452,10 +453,10 @@
                     <div class="col-lg-12 margen">
                         <div class="col-lg-4">
                             <div class="col-lg-4">
-                                <h:outputText value="N° Simulación"/>                                
+                                <h:outputText value="N° Simulación" rendered="#{registrarExpedienteController.esPrestamo}"/>                                
                             </div>
                             <div class="col-lg-8">
-                                <p:selectOneMenu disabled="#{registrarExpedienteController.tramite.idenExpeTrm!=null}" id="simulacion" value="#{registrarExpedienteController.simulacion}" >
+                                <p:selectOneMenu rendered="#{registrarExpedienteController.esPrestamo}" disabled="#{registrarExpedienteController.tramite.idenExpeTrm!=null}" id="simulacion" value="#{registrarExpedienteController.simulacion}" >
                                     <f:selectItem itemValue="" itemLabel="Seleccione una simulación"/>
                                     <f:selectItems value="#{registrarExpedienteController.simulaciones}" var="simu"
                                                    itemValue="#{simu.idenSimuSim}" /> 
@@ -464,13 +465,18 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <p:commandButton disabled="#{registrarExpedienteController.simulacion==null}" 
+                            <p:commandButton rendered="#{registrarExpedienteController.esPrestamo}" disabled="#{registrarExpedienteController.simulacion==null}" 
                                              oncomplete="PF('dialogSimulacion').show();"      value="Ver Simulación" actionListener="#{registrarExpedienteController.verSimulacion()}" id="verSimulacion"/>
                         </div>
                     </div>
+                    <div class="col-lg-12 margen sin-margen">
+                        <p:commandButton oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" actionListener="#{registrarExpedienteController.registrar()}" />
+                        <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Dar Viabilidad" actionListener="#{registrarExpedienteController.darViabilidad()}"/>
+                        <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Rechazar" actionListener="#{registrarExpedienteController.rechazar()}"/>
+                    </div>
                 </p:fieldset>
                 <p:spacer width="20"/>
-                <p:fieldset legend="Información General" styleClass="fieldSet" id="datosSimulacion">
+                <p:fieldset rendered="#{registrarExpedienteController.esPrestamo}" legend="Información General" styleClass="fieldSet" id="datosSimulacion">
                     <div class="col-lg-6 margen">
                         <p:fieldset legend="Datos de Crédito" styleClass="fieldSet" 
                                     rendered="#{registrarExpedienteController.tramite.idenSimuSim!=null}">
@@ -737,12 +743,7 @@
                                 </div> 
                             </p:fieldset>
                         </p:fieldset>
-                    </div>
-                    <div class="col-lg-12 margen sin-margen">
-                        <p:commandButton oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" actionListener="#{registrarExpedienteController.registrar()}" />
-                        <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Dar Viabilidad" actionListener="#{registrarExpedienteController.darViabilidad()}"/>
-                        <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Rechazar" actionListener="#{registrarExpedienteController.rechazar()}"/>
-                    </div>
+                    </div>                    
                 </p:fieldset>
             </div>
 
