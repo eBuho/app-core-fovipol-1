@@ -7,11 +7,16 @@ package pe.gob.fovipol.sifo.model.seguridad;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -19,13 +24,18 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import pe.gob.fovipol.sifo.listener.AuditListener;
 import pe.gob.fovipol.sifo.model.maestros.MaePersona;
 
 /**
@@ -33,6 +43,7 @@ import pe.gob.fovipol.sifo.model.maestros.MaePersona;
  * @author eBuho
  */
 @Entity
+@EntityListeners(AuditListener.class)
 @Table(name = "ADM_USUARIO")
 @XmlRootElement
 @NamedQueries({
@@ -49,13 +60,23 @@ import pe.gob.fovipol.sifo.model.maestros.MaePersona;
     @NamedQuery(name = "AdmUsuario.findByNombEquiAud", query = "SELECT a FROM AdmUsuario a WHERE a.nombEquiAud = :nombEquiAud"),
     @NamedQuery(name = "AdmUsuario.findByNombSopeAud", query = "SELECT a FROM AdmUsuario a WHERE a.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "AdmUsuario.findByFlagEstaUsr", query = "SELECT a FROM AdmUsuario a WHERE a.flagEstaUsr = :flagEstaUsr")})
-public class AdmUsuario implements Serializable {
+public class AdmUsuario implements UserDetails,Serializable {
     private static final long serialVersionUID = 1L;
+    protected static final Short INACTIVO = -1;
+    protected static final Short REGISTRADO = 0;
+    protected static final Short HABILITADO = 1;
+    protected static final Short CUENTA_EXPIRADA = 2;
+    protected static final Short CUENTA_BLOQUEDA = 3;
+    protected static final Short CLAVE_EXPIRADA = 4;
+    
+    protected static final int ESTADO_REGISTRADO = 0;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @TableGenerator(name = "secAdmUsuario",table = "SIFO.adm_secuencia",valueColumnName = "gene_val", pkColumnName = "iden_gene_tab",pkColumnValue = "ADM_USUARIO", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="secAdmUsuario")
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IDEN_PERS_PER")
+    @Column(name = "IDEN_PERS_PER", updatable=false)
     private BigDecimal idenPersPer;
     @Size(max = 15)
     @Column(name = "CODI_USUA_USR")
@@ -70,9 +91,9 @@ public class AdmUsuario implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechExpiUsr;
     @Size(max = 15)
-    @Column(name = "USUA_CREA_AUD")
+    @Column(name = "USUA_CREA_AUD", updatable=false)
     private String usuaCreaAud;
-    @Column(name = "FECH_CREA_AUD")
+    @Column(name = "FECH_CREA_AUD", updatable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechCreaAud;
     @Size(max = 15)
@@ -239,6 +260,45 @@ public class AdmUsuario implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.seguridad.AdmUsuario[ idenPersPer=" + idenPersPer + " ]";
+    }
+
+    @Override
+    @Transient
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        return authorities;
+    }
+
+    @Override
+    @Transient
+    public String getPassword() {
+        return getClavUsuaUsr();
+    }
+
+    @Override
+    @Transient
+    public String getUsername() {
+        return getCodiUsuaUsr();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return !flagEstaUsr.equals(CUENTA_EXPIRADA);
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !flagEstaUsr.equals(CUENTA_BLOQUEDA);
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return !flagEstaUsr.equals(CLAVE_EXPIRADA);
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return !flagEstaUsr.equals(HABILITADO);
     }
     
 }

@@ -12,19 +12,14 @@
             <h:form id="AdmMenuEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{admMenuController.selected != null}">
-                        <p:outputLabel value="#{seguridad.EditAdmMenuLabel_idenMenuMnu}" for="idenMenuMnu" />
-                        <p:inputText id="idenMenuMnu" value="#{admMenuController.selected.idenMenuMnu}" title="#{seguridad.EditAdmMenuTitle_idenMenuMnu}" required="true" requiredMessage="#{seguridad.EditAdmMenuRequiredMessage_idenMenuMnu}"/>
                         <p:outputLabel value="#{seguridad.EditAdmMenuLabel_nombMenuMnu}" for="nombMenuMnu" />
                         <p:inputText id="nombMenuMnu" value="#{admMenuController.selected.nombMenuMnu}" title="#{seguridad.EditAdmMenuTitle_nombMenuMnu}" />
                         <p:outputLabel value="#{seguridad.EditAdmMenuLabel_pagiMenuMnu}" for="pagiMenuMnu" />
                         <p:inputText id="pagiMenuMnu" value="#{admMenuController.selected.pagiMenuMnu}" title="#{seguridad.EditAdmMenuTitle_pagiMenuMnu}" />
                         <p:outputLabel value="#{seguridad.EditAdmMenuLabel_descPrmtMnu}" for="descPrmtMnu" />
-                        <p:inputText id="descPrmtMnu" value="#{admMenuController.selected.descPrmtMnu}" title="#{seguridad.EditAdmMenuTitle_descPrmtMnu}" />                        
+                        <p:inputText id="descPrmtMnu" value="#{admMenuController.selected.descPrmtMnu}" title="#{seguridad.EditAdmMenuTitle_descPrmtMnu}" />
                         <p:outputLabel value="#{seguridad.EditAdmMenuLabel_flagEstaMnu}" for="flagEstaMnu" />
-                        <p:selectOneMenu id="flagEstaMnu" value="#{admMenuController.selected.flagEstaMnu}">
-                            <f:selectItem itemLabel="Activo" itemValue="1"/>
-                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
-                        </p:selectOneMenu>
+                        <p:inputText id="flagEstaMnu" value="#{admMenuController.selected.flagEstaMnu}" title="#{seguridad.EditAdmMenuTitle_flagEstaMnu}" required="true" requiredMessage="#{seguridad.EditAdmMenuRequiredMessage_flagEstaMnu}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{admMenuController.update}" value="#{seguridad.Save}" update="display,:AdmMenuListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AdmMenuEditDialog');"/>
                     <p:commandButton value="#{seguridad.Cancel}" onclick="AdmMenuEditDialog.hide()"/>

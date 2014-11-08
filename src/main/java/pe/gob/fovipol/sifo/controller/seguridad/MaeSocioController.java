@@ -1,9 +1,9 @@
 package pe.gob.fovipol.sifo.controller.seguridad;
 
-import pe.gob.fovipol.sifo.model.seguridad.AdmMenu;
+import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
 import pe.gob.fovipol.sifo.controller.seguridad.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.seguridad.util.JsfUtil.PersistAction;
-import pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade;
+import pe.gob.fovipol.sifo.dao.seguridad.MaeSocioFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,24 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
-@Named("admMenuController")
+@Named("maeSocioController")
 @SessionScoped
-public class AdmMenuController implements Serializable {
+public class MaeSocioController implements Serializable {
 
+    @EJB
+    private pe.gob.fovipol.sifo.dao.seguridad.MaeSocioFacade ejbFacade;
+    private List<MaeSocio> items = null;
+    private MaeSocio selected;
 
-    @EJB private pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade ejbFacade;
-    private List<AdmMenu> items = null;
-    private AdmMenu selected;
-
-    public AdmMenuController() {
+    public MaeSocioController() {
     }
 
-    public AdmMenu getSelected() {
+    public MaeSocio getSelected() {
         return selected;
     }
 
-    public void setSelected(AdmMenu selected) {
+    public void setSelected(MaeSocio selected) {
         this.selected = selected;
     }
 
@@ -46,36 +45,36 @@ public class AdmMenuController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private AdmMenuFacade getFacade() {
+    private MaeSocioFacade getFacade() {
         return ejbFacade;
     }
 
-    public AdmMenu prepareCreate() {
-        selected = new AdmMenu();
+    public MaeSocio prepareCreate() {
+        selected = new MaeSocio();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Seguridad").getString("AdmMenuCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Seguridad").getString("MaeSocioCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Seguridad").getString("AdmMenuUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Seguridad").getString("MaeSocioUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Seguridad").getString("AdmMenuDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Seguridad").getString("MaeSocioDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<AdmMenu> getItems() {
+    public List<MaeSocio> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -110,29 +109,29 @@ public class AdmMenuController implements Serializable {
         }
     }
 
-    public AdmMenu getAdmMenu(java.math.BigDecimal id) {
+    public MaeSocio getMaeSocio(java.math.BigDecimal id) {
         return getFacade().find(id);
     }
 
-    public List<AdmMenu> getItemsAvailableSelectMany() {
+    public List<MaeSocio> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<AdmMenu> getItemsAvailableSelectOne() {
+    public List<MaeSocio> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=AdmMenu.class)
-    public static class AdmMenuControllerConverter implements Converter {
+    @FacesConverter(forClass = MaeSocio.class)
+    public static class MaeSocioControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AdmMenuController controller = (AdmMenuController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "admMenuController");
-            return controller.getAdmMenu(getKey(value));
+            MaeSocioController controller = (MaeSocioController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "maeSocioController");
+            return controller.getMaeSocio(getKey(value));
         }
 
         java.math.BigDecimal getKey(String value) {
@@ -152,11 +151,11 @@ public class AdmMenuController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof AdmMenu) {
-                AdmMenu o = (AdmMenu) object;
-                return getStringKey(o.getIdenMenuMnu());
+            if (object instanceof MaeSocio) {
+                MaeSocio o = (MaeSocio) object;
+                return getStringKey(o.getCodiPersPer());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), AdmMenu.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeSocio.class.getName()});
                 return null;
             }
         }

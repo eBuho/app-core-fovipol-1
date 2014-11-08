@@ -12,26 +12,12 @@
             <h:form id="AdmPermisoMenuEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{admPermisoMenuController.selected != null}">
-                        <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_idenPermPmn}" for="idenPermPmn" />
-                        <p:inputText id="idenPermPmn" value="#{admPermisoMenuController.selected.idenPermPmn}" title="#{seguridad.EditAdmPermisoMenuTitle_idenPermPmn}" required="true" requiredMessage="#{seguridad.EditAdmPermisoMenuRequiredMessage_idenPermPmn}"/>
                         <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_nombPermPmn}" for="nombPermPmn" />
                         <p:inputText id="nombPermPmn" value="#{admPermisoMenuController.selected.nombPermPmn}" title="#{seguridad.EditAdmPermisoMenuTitle_nombPermPmn}" />
                         <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_nombPercPmn}" for="nombPercPmn" />
                         <p:inputText id="nombPercPmn" value="#{admPermisoMenuController.selected.nombPercPmn}" title="#{seguridad.EditAdmPermisoMenuTitle_nombPercPmn}" />
                         <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_tipoVisuPmn}" for="tipoVisuPmn" />
                         <p:inputText id="tipoVisuPmn" value="#{admPermisoMenuController.selected.tipoVisuPmn}" title="#{seguridad.EditAdmPermisoMenuTitle_tipoVisuPmn}" />
-                        <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_usuaCreaAud}" for="usuaCreaAud" />
-                        <p:inputText id="usuaCreaAud" value="#{admPermisoMenuController.selected.usuaCreaAud}" title="#{seguridad.EditAdmPermisoMenuTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admPermisoMenuController.selected.fechCreaAud}" title="#{seguridad.EditAdmPermisoMenuTitle_fechCreaAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_usuaModiAud}" for="usuaModiAud" />
-                        <p:inputText id="usuaModiAud" value="#{admPermisoMenuController.selected.usuaModiAud}" title="#{seguridad.EditAdmPermisoMenuTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admPermisoMenuController.selected.fechModiAud}" title="#{seguridad.EditAdmPermisoMenuTitle_fechModiAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{admPermisoMenuController.selected.nombEquiAud}" title="#{seguridad.EditAdmPermisoMenuTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{admPermisoMenuController.selected.nombSopeAud}" title="#{seguridad.EditAdmPermisoMenuTitle_nombSopeAud}" />
                         <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_flagEstaPmn}" for="flagEstaPmn" />
                         <p:inputText id="flagEstaPmn" value="#{admPermisoMenuController.selected.flagEstaPmn}" title="#{seguridad.EditAdmPermisoMenuTitle_flagEstaPmn}" required="true" requiredMessage="#{seguridad.EditAdmPermisoMenuRequiredMessage_flagEstaPmn}"/>
                         <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_idenMenuPmn}" for="idenMenuPmn" />
@@ -39,7 +25,7 @@
                             <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
                             <f:selectItems value="#{admMenuController.itemsAvailableSelectOne}"
                                            var="idenMenuPmnItem"
-                                           itemValue="#{idenMenuPmnItem}"/>
+                                           itemValue="#{idenMenuPmnItem.nombMenuMnu}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{admPermisoMenuController.update}" value="#{seguridad.Save}" update="display,:AdmPermisoMenuListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AdmPermisoMenuEditDialog');"/>

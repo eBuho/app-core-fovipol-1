@@ -5,19 +5,26 @@
  */
 package pe.gob.fovipol.sifo.service.usuario;
 
+import javax.ejb.EJB;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import pe.gob.fovipol.sifo.dao.seguridad.AdmUsuarioFacade;
+import pe.gob.fovipol.sifo.model.seguridad.AdmUsuario;
 
 /**
  *
  * @author eBuho
  */
 public class AdmUsuarioService implements UserDetailsService{
-
+    @EJB
+    private AdmUsuarioFacade admUsuarioFacade; 
+    
     @Override
-    public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
-        return null;
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        AdmUsuario user = admUsuarioFacade.findByUsername(username);
+        
+        return user;
     }
     
     

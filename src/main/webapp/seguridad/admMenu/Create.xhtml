@@ -11,14 +11,16 @@
         <p:dialog id="AdmMenuCreateDlg" widgetVar="AdmMenuCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.CreateAdmMenuTitle}">
             <h:form id="AdmMenuCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{admMenuController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{admMenuController.selected != null}">
                         <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_nombMenuMnu}" for="nombMenuMnu" />
                         <p:inputText id="nombMenuMnu" value="#{admMenuController.selected.nombMenuMnu}" title="#{seguridad.CreateAdmMenuTitle_nombMenuMnu}" />
                         <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_pagiMenuMnu}" for="pagiMenuMnu" />
                         <p:inputText id="pagiMenuMnu" value="#{admMenuController.selected.pagiMenuMnu}" title="#{seguridad.CreateAdmMenuTitle_pagiMenuMnu}" />
                         <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_descPrmtMnu}" for="descPrmtMnu" />
-                        <p:inputText id="descPrmtMnu" value="#{admMenuController.selected.descPrmtMnu}" title="#{seguridad.CreateAdmMenuTitle_descPrmtMnu}" />                        
-                        </p:panelGrid>
+                        <p:inputText id="descPrmtMnu" value="#{admMenuController.selected.descPrmtMnu}" title="#{seguridad.CreateAdmMenuTitle_descPrmtMnu}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_flagEstaMnu}" for="flagEstaMnu" />
+                        <p:inputText id="flagEstaMnu" value="#{admMenuController.selected.flagEstaMnu}" title="#{seguridad.CreateAdmMenuTitle_flagEstaMnu}" required="true" requiredMessage="#{seguridad.CreateAdmMenuRequiredMessage_flagEstaMnu}"/>
+                    </p:panelGrid>
                     <p:commandButton actionListener="#{admMenuController.create}" value="#{seguridad.Save}" update="display,:AdmMenuListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdmMenuCreateDialog');"/>
                     <p:commandButton value="#{seguridad.Cancel}" onclick="AdmMenuCreateDialog.hide()"/>
                 </h:panelGroup>

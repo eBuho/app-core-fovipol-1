@@ -12,7 +12,7 @@ import pe.gob.fovipol.sifo.model.seguridad.AdmModulo;
 
 /**
  *
- * @author ebuho
+ * @author eBuho
  */
 @Stateless
 public class AdmModuloFacade extends AbstractFacade<AdmModulo> {

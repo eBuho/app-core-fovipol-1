@@ -12,8 +12,6 @@
             <h:form id="AdmUsuarioCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{admUsuarioController.selected != null}">
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioLabel_idenPersPer}" for="idenPersPer" />
-                        <p:inputText id="idenPersPer" value="#{admUsuarioController.selected.idenPersPer}" title="#{seguridad.CreateAdmUsuarioTitle_idenPersPer}" required="true" requiredMessage="#{seguridad.CreateAdmUsuarioRequiredMessage_idenPersPer}"/>
                         <p:outputLabel value="#{seguridad.CreateAdmUsuarioLabel_codiUsuaUsr}" for="codiUsuaUsr" />
                         <p:inputText id="codiUsuaUsr" value="#{admUsuarioController.selected.codiUsuaUsr}" title="#{seguridad.CreateAdmUsuarioTitle_codiUsuaUsr}" />
                         <p:outputLabel value="#{seguridad.CreateAdmUsuarioLabel_clavUsuaUsr}" for="clavUsuaUsr" />
@@ -22,18 +20,6 @@
                         <p:inputText id="corrRecuUsr" value="#{admUsuarioController.selected.corrRecuUsr}" title="#{seguridad.CreateAdmUsuarioTitle_corrRecuUsr}" />
                         <p:outputLabel value="#{seguridad.CreateAdmUsuarioLabel_fechExpiUsr}" for="fechExpiUsr" />
                         <p:calendar id="fechExpiUsr" pattern="MM/dd/yyyy HH:mm:ss" value="#{admUsuarioController.selected.fechExpiUsr}" title="#{seguridad.EditAdmUsuarioTitle_fechExpiUsr}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioLabel_usuaCreaAud}" for="usuaCreaAud" />
-                        <p:inputText id="usuaCreaAud" value="#{admUsuarioController.selected.usuaCreaAud}" title="#{seguridad.CreateAdmUsuarioTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admUsuarioController.selected.fechCreaAud}" title="#{seguridad.EditAdmUsuarioTitle_fechCreaAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioLabel_usuaModiAud}" for="usuaModiAud" />
-                        <p:inputText id="usuaModiAud" value="#{admUsuarioController.selected.usuaModiAud}" title="#{seguridad.CreateAdmUsuarioTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admUsuarioController.selected.fechModiAud}" title="#{seguridad.EditAdmUsuarioTitle_fechModiAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{admUsuarioController.selected.nombEquiAud}" title="#{seguridad.CreateAdmUsuarioTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{admUsuarioController.selected.nombSopeAud}" title="#{seguridad.CreateAdmUsuarioTitle_nombSopeAud}" />
                         <p:outputLabel value="#{seguridad.CreateAdmUsuarioLabel_flagEstaUsr}" for="flagEstaUsr" />
                         <p:inputText id="flagEstaUsr" value="#{admUsuarioController.selected.flagEstaUsr}" title="#{seguridad.CreateAdmUsuarioTitle_flagEstaUsr}" />
                         <p:outputLabel value="#{seguridad.CreateAdmUsuarioLabel_maePersona}" for="maePersona" />

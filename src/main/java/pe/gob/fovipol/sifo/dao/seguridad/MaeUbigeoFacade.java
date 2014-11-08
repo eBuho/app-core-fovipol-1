@@ -8,14 +8,14 @@ package pe.gob.fovipol.sifo.dao.seguridad;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pe.gob.fovipol.sifo.model.seguridad.AdmMenuModulo;
+import pe.gob.fovipol.sifo.model.maestros.MaeUbigeo;
 
 /**
  *
  * @author eBuho
  */
 @Stateless
-public class AdmMenuModuloFacade extends AbstractFacade<AdmMenuModulo> {
+public class MaeUbigeoFacade extends AbstractFacade<MaeUbigeo> {
     @PersistenceContext(unitName = "SIFOPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class AdmMenuModuloFacade extends AbstractFacade<AdmMenuModulo> {
         return em;
     }
 
-    public AdmMenuModuloFacade() {
-        super(AdmMenuModulo.class);
+    public MaeUbigeoFacade() {
+        super(MaeUbigeo.class);
     }
     
 }

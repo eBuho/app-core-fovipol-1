@@ -12,33 +12,19 @@
             <h:form id="AdmModuloRolCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{admModuloRolController.selected != null}">
-                        <p:outputLabel value="#{seguridad.CreateAdmModuloRolLabel_idenMoroMdr}" for="idenMoroMdr" />
-                        <p:inputText id="idenMoroMdr" value="#{admModuloRolController.selected.idenMoroMdr}" title="#{seguridad.CreateAdmModuloRolTitle_idenMoroMdr}" required="true" requiredMessage="#{seguridad.CreateAdmModuloRolRequiredMessage_idenMoroMdr}"/>
-                        <p:outputLabel value="#{seguridad.CreateAdmModuloRolLabel_usuaCreaAud}" for="usuaCreaAud" />
-                        <p:inputText id="usuaCreaAud" value="#{admModuloRolController.selected.usuaCreaAud}" title="#{seguridad.CreateAdmModuloRolTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmModuloRolLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admModuloRolController.selected.fechCreaAud}" title="#{seguridad.EditAdmModuloRolTitle_fechCreaAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.CreateAdmModuloRolLabel_usuaModiAud}" for="usuaModiAud" />
-                        <p:inputText id="usuaModiAud" value="#{admModuloRolController.selected.usuaModiAud}" title="#{seguridad.CreateAdmModuloRolTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmModuloRolLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admModuloRolController.selected.fechModiAud}" title="#{seguridad.EditAdmModuloRolTitle_fechModiAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.CreateAdmModuloRolLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{admModuloRolController.selected.nombEquiAud}" title="#{seguridad.CreateAdmModuloRolTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmModuloRolLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{admModuloRolController.selected.nombSopeAud}" title="#{seguridad.CreateAdmModuloRolTitle_nombSopeAud}" />
                         <p:outputLabel value="#{seguridad.CreateAdmModuloRolLabel_flagEstaMdr}" for="flagEstaMdr" />
                         <p:inputText id="flagEstaMdr" value="#{admModuloRolController.selected.flagEstaMdr}" title="#{seguridad.CreateAdmModuloRolTitle_flagEstaMdr}" required="true" requiredMessage="#{seguridad.CreateAdmModuloRolRequiredMessage_flagEstaMdr}"/>
                         <p:outputLabel value="#{seguridad.CreateAdmModuloRolLabel_idenModuMod}" for="idenModuMod" />
                         <p:selectOneMenu id="idenModuMod" value="#{admModuloRolController.selected.idenModuMod}" >
                             <f:selectItems value="#{admModuloController.itemsAvailableSelectOne}"
                                            var="idenModuModItem"
-                                           itemValue="#{idenModuModItem}"/>
+                                           itemValue="#{idenModuModItem.nombModuMod}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{seguridad.CreateAdmModuloRolLabel_idenRoleRol}" for="idenRoleRol" />
                         <p:selectOneMenu id="idenRoleRol" value="#{admModuloRolController.selected.idenRoleRol}" >
                             <f:selectItems value="#{admRolController.itemsAvailableSelectOne}"
                                            var="idenRoleRolItem"
-                                           itemValue="#{idenRoleRolItem}"/>
+                                           itemValue="#{idenRoleRolItem.nombRoleRol}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{admModuloRolController.create}" value="#{seguridad.Save}" update="display,:AdmModuloRolListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdmModuloRolCreateDialog');"/>

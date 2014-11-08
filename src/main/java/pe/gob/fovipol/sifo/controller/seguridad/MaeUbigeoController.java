@@ -1,9 +1,9 @@
 package pe.gob.fovipol.sifo.controller.seguridad;
 
-import pe.gob.fovipol.sifo.model.seguridad.AdmMenu;
+import pe.gob.fovipol.sifo.model.maestros.MaeUbigeo;
 import pe.gob.fovipol.sifo.controller.seguridad.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.seguridad.util.JsfUtil.PersistAction;
-import pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade;
+import pe.gob.fovipol.sifo.dao.seguridad.MaeUbigeoFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,24 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
-@Named("admMenuController")
+@Named("maeUbigeoController")
 @SessionScoped
-public class AdmMenuController implements Serializable {
+public class MaeUbigeoController implements Serializable {
 
+    @EJB
+    private pe.gob.fovipol.sifo.dao.seguridad.MaeUbigeoFacade ejbFacade;
+    private List<MaeUbigeo> items = null;
+    private MaeUbigeo selected;
 
-    @EJB private pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade ejbFacade;
-    private List<AdmMenu> items = null;
-    private AdmMenu selected;
-
-    public AdmMenuController() {
+    public MaeUbigeoController() {
     }
 
-    public AdmMenu getSelected() {
+    public MaeUbigeo getSelected() {
         return selected;
     }
 
-    public void setSelected(AdmMenu selected) {
+    public void setSelected(MaeUbigeo selected) {
         this.selected = selected;
     }
 
@@ -46,36 +45,36 @@ public class AdmMenuController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private AdmMenuFacade getFacade() {
+    private MaeUbigeoFacade getFacade() {
         return ejbFacade;
     }
 
-    public AdmMenu prepareCreate() {
-        selected = new AdmMenu();
+    public MaeUbigeo prepareCreate() {
+        selected = new MaeUbigeo();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Seguridad").getString("AdmMenuCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Seguridad").getString("MaeUbigeoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Seguridad").getString("AdmMenuUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Seguridad").getString("MaeUbigeoUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Seguridad").getString("AdmMenuDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Seguridad").getString("MaeUbigeoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<AdmMenu> getItems() {
+    public List<MaeUbigeo> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -110,38 +109,38 @@ public class AdmMenuController implements Serializable {
         }
     }
 
-    public AdmMenu getAdmMenu(java.math.BigDecimal id) {
+    public MaeUbigeo getMaeUbigeo(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<AdmMenu> getItemsAvailableSelectMany() {
+    public List<MaeUbigeo> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<AdmMenu> getItemsAvailableSelectOne() {
+    public List<MaeUbigeo> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=AdmMenu.class)
-    public static class AdmMenuControllerConverter implements Converter {
+    @FacesConverter(forClass = MaeUbigeo.class)
+    public static class MaeUbigeoControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AdmMenuController controller = (AdmMenuController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "admMenuController");
-            return controller.getAdmMenu(getKey(value));
+            MaeUbigeoController controller = (MaeUbigeoController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "maeUbigeoController");
+            return controller.getMaeUbigeo(getKey(value));
         }
 
-        java.math.BigDecimal getKey(String value) {
-            java.math.BigDecimal key;
-            key = new java.math.BigDecimal(value);
+        java.lang.String getKey(String value) {
+            java.lang.String key;
+            key = value;
             return key;
         }
 
-        String getStringKey(java.math.BigDecimal value) {
+        String getStringKey(java.lang.String value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -152,11 +151,11 @@ public class AdmMenuController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof AdmMenu) {
-                AdmMenu o = (AdmMenu) object;
-                return getStringKey(o.getIdenMenuMnu());
+            if (object instanceof MaeUbigeo) {
+                MaeUbigeo o = (MaeUbigeo) object;
+                return getStringKey(o.getIdenUbigUbi());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), AdmMenu.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MaeUbigeo.class.getName()});
                 return null;
             }
         }
