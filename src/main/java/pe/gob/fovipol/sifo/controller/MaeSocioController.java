@@ -18,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 @ManagedBean(name = "maeSocioController")
 @SessionScoped
@@ -26,7 +27,8 @@ public class MaeSocioController implements Serializable {
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeSocioFacade ejbFacade;
     private List<MaeSocio> items = null;
-    private MaeSocio selected;
+    private MaeSocio selected = new MaeSocio();
+    private List<TrmTramite> listaTramites;
 
     public MaeSocioController() {
     }
@@ -116,6 +118,21 @@ public class MaeSocioController implements Serializable {
 
     public List<MaeSocio> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    /**
+     * @return the listaTramites
+     */
+    public List<TrmTramite> getListaTramites() {
+        listaTramites = ejbFacade.findTramitesSocio(selected);
+        return listaTramites;
+    }
+
+    /**
+     * @param listaTramites the listaTramites to set
+     */
+    public void setListaTramites(List<TrmTramite> listaTramites) {
+        this.listaTramites = listaTramites;
     }
 
     @FacesConverter(forClass = MaeSocio.class)

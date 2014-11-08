@@ -6,17 +6,20 @@
 package pe.gob.fovipol.sifo.model.seguridad;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -24,12 +27,14 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.listener.AuditListener;
 
 /**
  *
  * @author eBuho
  */
 @Entity
+@EntityListeners(value = AuditListener.class)
 @Table(name = "ADM_MENU")
 @XmlRootElement
 @NamedQueries({
@@ -48,11 +53,13 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 public class AdmMenu implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
+    @Id 
+    @TableGenerator(name = "admMenuSeq",table = "SIFO.adm_secuencia",valueColumnName = "gene_val", pkColumnName = "iden_gene_tab",pkColumnValue = "ADM_MENU", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="admMenuSeq") 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IDEN_MENU_MNU")
-    private BigDecimal idenMenuMnu;
+    @Column(name = "IDEN_MENU_MNU",insertable=true, updatable=false)
+    private long idenMenuMnu;
     @Size(max = 120)
     @Column(name = "NOMB_MENU_MNU")
     private String nombMenuMnu;
@@ -63,21 +70,21 @@ public class AdmMenu implements Serializable {
     @Column(name = "DESC_PRMT_MNU")
     private String descPrmtMnu;
     @Size(max = 15)
-    @Column(name = "USUA_CREA_AUD")
+    @Column(name = "USUA_CREA_AUD",insertable=true, updatable=false)
     private String usuaCreaAud;
-    @Column(name = "FECH_CREA_AUD")
+    @Column(name = "FECH_CREA_AUD",insertable=false, updatable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechCreaAud;
     @Size(max = 15)
     @Column(name = "USUA_MODI_AUD")
     private String usuaModiAud;
-    @Column(name = "FECH_MODI_AUD")
+    @Column(name = "FECH_MODI_AUD", insertable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechModiAud;
     @Size(max = 40)
     @Column(name = "NOMB_EQUI_AUD")
     private String nombEquiAud;
-    @Size(max = 40)
+    @Size(max = 40)    
     @Column(name = "NOMB_SOPE_AUD")
     private String nombSopeAud;
     @Basic(optional = false)
@@ -92,20 +99,20 @@ public class AdmMenu implements Serializable {
     public AdmMenu() {
     }
 
-    public AdmMenu(BigDecimal idenMenuMnu) {
+    public AdmMenu(long idenMenuMnu) {
         this.idenMenuMnu = idenMenuMnu;
     }
 
-    public AdmMenu(BigDecimal idenMenuMnu, short flagEstaMnu) {
+    public AdmMenu(long idenMenuMnu, short flagEstaMnu) {
         this.idenMenuMnu = idenMenuMnu;
         this.flagEstaMnu = flagEstaMnu;
     }
 
-    public BigDecimal getIdenMenuMnu() {
+    public long getIdenMenuMnu() {
         return idenMenuMnu;
     }
 
-    public void setIdenMenuMnu(BigDecimal idenMenuMnu) {
+    public void setIdenMenuMnu(long idenMenuMnu) {
         this.idenMenuMnu = idenMenuMnu;
     }
 
@@ -212,23 +219,16 @@ public class AdmMenu implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idenMenuMnu != null ? idenMenuMnu.hashCode() : 0);
+        hash += idenMenuMnu;
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AdmMenu)) {
-            return false;
-        }
-        AdmMenu other = (AdmMenu) object;
-        if ((this.idenMenuMnu == null && other.idenMenuMnu != null) || (this.idenMenuMnu != null && !this.idenMenuMnu.equals(other.idenMenuMnu))) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object obj) {
+        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.seguridad.AdmMenu[ idenMenuMnu=" + idenMenuMnu + " ]";

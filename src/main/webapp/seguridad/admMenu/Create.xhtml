@@ -12,29 +12,13 @@
             <h:form id="AdmMenuCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{admMenuController.selected != null}">
-                        <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_idenMenuMnu}" for="idenMenuMnu" />
-                        <p:inputText id="idenMenuMnu" value="#{admMenuController.selected.idenMenuMnu}" title="#{seguridad.CreateAdmMenuTitle_idenMenuMnu}" required="true" requiredMessage="#{seguridad.CreateAdmMenuRequiredMessage_idenMenuMnu}"/>
                         <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_nombMenuMnu}" for="nombMenuMnu" />
                         <p:inputText id="nombMenuMnu" value="#{admMenuController.selected.nombMenuMnu}" title="#{seguridad.CreateAdmMenuTitle_nombMenuMnu}" />
                         <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_pagiMenuMnu}" for="pagiMenuMnu" />
                         <p:inputText id="pagiMenuMnu" value="#{admMenuController.selected.pagiMenuMnu}" title="#{seguridad.CreateAdmMenuTitle_pagiMenuMnu}" />
                         <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_descPrmtMnu}" for="descPrmtMnu" />
-                        <p:inputText id="descPrmtMnu" value="#{admMenuController.selected.descPrmtMnu}" title="#{seguridad.CreateAdmMenuTitle_descPrmtMnu}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_usuaCreaAud}" for="usuaCreaAud" />
-                        <p:inputText id="usuaCreaAud" value="#{admMenuController.selected.usuaCreaAud}" title="#{seguridad.CreateAdmMenuTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admMenuController.selected.fechCreaAud}" title="#{seguridad.EditAdmMenuTitle_fechCreaAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_usuaModiAud}" for="usuaModiAud" />
-                        <p:inputText id="usuaModiAud" value="#{admMenuController.selected.usuaModiAud}" title="#{seguridad.CreateAdmMenuTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admMenuController.selected.fechModiAud}" title="#{seguridad.EditAdmMenuTitle_fechModiAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{admMenuController.selected.nombEquiAud}" title="#{seguridad.CreateAdmMenuTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{admMenuController.selected.nombSopeAud}" title="#{seguridad.CreateAdmMenuTitle_nombSopeAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmMenuLabel_flagEstaMnu}" for="flagEstaMnu" />
-                        <p:inputText id="flagEstaMnu" value="#{admMenuController.selected.flagEstaMnu}" title="#{seguridad.CreateAdmMenuTitle_flagEstaMnu}" required="true" requiredMessage="#{seguridad.CreateAdmMenuRequiredMessage_flagEstaMnu}"/>
-                    </p:panelGrid>
+                        <p:inputText id="descPrmtMnu" value="#{admMenuController.selected.descPrmtMnu}" title="#{seguridad.CreateAdmMenuTitle_descPrmtMnu}" />                        
+                        </p:panelGrid>
                     <p:commandButton actionListener="#{admMenuController.create}" value="#{seguridad.Save}" update="display,:AdmMenuListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdmMenuCreateDialog');"/>
                     <p:commandButton value="#{seguridad.Cancel}" onclick="AdmMenuCreateDialog.hide()"/>
                 </h:panelGroup>

@@ -19,21 +19,12 @@
                         <p:outputLabel value="#{seguridad.EditAdmMenuLabel_pagiMenuMnu}" for="pagiMenuMnu" />
                         <p:inputText id="pagiMenuMnu" value="#{admMenuController.selected.pagiMenuMnu}" title="#{seguridad.EditAdmMenuTitle_pagiMenuMnu}" />
                         <p:outputLabel value="#{seguridad.EditAdmMenuLabel_descPrmtMnu}" for="descPrmtMnu" />
-                        <p:inputText id="descPrmtMnu" value="#{admMenuController.selected.descPrmtMnu}" title="#{seguridad.EditAdmMenuTitle_descPrmtMnu}" />
-                        <p:outputLabel value="#{seguridad.EditAdmMenuLabel_usuaCreaAud}" for="usuaCreaAud" />
-                        <p:inputText id="usuaCreaAud" value="#{admMenuController.selected.usuaCreaAud}" title="#{seguridad.EditAdmMenuTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmMenuLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admMenuController.selected.fechCreaAud}" title="#{seguridad.EditAdmMenuTitle_fechCreaAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmMenuLabel_usuaModiAud}" for="usuaModiAud" />
-                        <p:inputText id="usuaModiAud" value="#{admMenuController.selected.usuaModiAud}" title="#{seguridad.EditAdmMenuTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmMenuLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admMenuController.selected.fechModiAud}" title="#{seguridad.EditAdmMenuTitle_fechModiAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmMenuLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{admMenuController.selected.nombEquiAud}" title="#{seguridad.EditAdmMenuTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmMenuLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{admMenuController.selected.nombSopeAud}" title="#{seguridad.EditAdmMenuTitle_nombSopeAud}" />
+                        <p:inputText id="descPrmtMnu" value="#{admMenuController.selected.descPrmtMnu}" title="#{seguridad.EditAdmMenuTitle_descPrmtMnu}" />                        
                         <p:outputLabel value="#{seguridad.EditAdmMenuLabel_flagEstaMnu}" for="flagEstaMnu" />
-                        <p:inputText id="flagEstaMnu" value="#{admMenuController.selected.flagEstaMnu}" title="#{seguridad.EditAdmMenuTitle_flagEstaMnu}" required="true" requiredMessage="#{seguridad.EditAdmMenuRequiredMessage_flagEstaMnu}"/>
+                        <p:selectOneMenu id="flagEstaMnu" value="#{admMenuController.selected.flagEstaMnu}">
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{admMenuController.update}" value="#{seguridad.Save}" update="display,:AdmMenuListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AdmMenuEditDialog');"/>
                     <p:commandButton value="#{seguridad.Cancel}" onclick="AdmMenuEditDialog.hide()"/>

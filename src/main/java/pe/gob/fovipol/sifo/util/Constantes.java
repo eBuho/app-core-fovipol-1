@@ -25,8 +25,7 @@ public class Constantes implements Serializable {
     //Valor Estado Inactivo
     public static final Short VALOR_ESTADO_INACTIVO = 0;
     //Valor Estado Activo
-    public static final Short VALOR_ESTADO_ACTIVO = 1;
-
+    public static final Short VALOR_ESTADO_ACTIVO = 1;    
     /**
      * @return the ENTIDAD_TIPO_AREA
      */
@@ -98,4 +97,5 @@ public class Constantes implements Serializable {
     }
 
     
+
 }

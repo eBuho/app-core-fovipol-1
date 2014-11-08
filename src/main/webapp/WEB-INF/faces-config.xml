@@ -21,5 +21,13 @@
             <base-name>/Seguridad</base-name>
             <var>seguridad</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/Seguridad</base-name>
+            <var>seguridad</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Migracion</base-name>
+            <var>migracion</var>
+        </resource-bundle>
     </application>
 </faces-config>
