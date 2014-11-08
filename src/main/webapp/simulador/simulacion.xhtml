@@ -151,7 +151,7 @@
                                                 <h:outputText value="Monto"/>
                                             </p:column>
                                             <p:column>
-                                                <p:inputText label="Monto" value="#{simulacionController.monto}">
+                                                <p:inputText label="Monto" value="#{simulacionController.simulacion.impoSoliSim}">
                                                     <f:convertNumber groupingUsed="true" minFractionDigits="2" />                                                    
                                                     <p:ajax update="gastoAdministrativo,montoCheque" listener="#{simulacionController.calcularGastosAdministrativos()}" event="keyup" />
                                                 </p:inputText>
@@ -168,7 +168,7 @@
                                                 <h:outputText value="Cíclica"/>
                                             </p:column>
                                             <p:column>
-                                                <p:selectOneMenu value="#{simulacionController.ciclica}">
+                                                <p:selectOneMenu value="#{simulacionController.simulacion.periCiclSim}">
                                                     <f:selectItem itemLabel="5" itemValue="5"/>
                                                     <f:selectItem itemLabel="15" itemValue="15"/>
                                                     <f:selectItem itemLabel="25" itemValue="25"/>
@@ -197,7 +197,7 @@
                                                 <h:outputText value="Cuota"/>
                                             </p:column>
                                             <p:column>
-                                                <p:inputText label="Cuota" value="#{simulacionController.cuota}">
+                                                <p:inputText label="Cuota" value="#{simulacionController.simulacion.impoCuotSim}">
                                                     <f:convertNumber groupingUsed="true" minFractionDigits="2" />                                                    
                                                 </p:inputText>
                                             </p:column>
@@ -270,7 +270,7 @@
                                                 <h:outputText value="Moneda del Crédito:"/>
                                                 <comp:entidadDetalle entidad="CODIMONECRD" value="#{simulacionController.simulacion.codiMoneCrd}"/>
                                                 <h:outputText value="Monto a financiar"/>
-                                                <h:outputText value="#{simulacionController.monto}">
+                                                <h:outputText value="#{simulacionController.simulacion.impoSoliSim}">
                                                     <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
                                                 </h:outputText>
                                                 <h:outputText value="TEA (%)"/>
@@ -278,7 +278,7 @@
                                                     <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                                 </h:outputText>
                                                 <h:outputText value="Monto de cuota Ordinaria"/>
-                                                <h:outputText value="#{simulacionController.cuotaPagar}">
+                                                <h:outputText value="#{simulacionController.simulacion.impoCuotSim}">
                                                     <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                                 </h:outputText>
                                                 <h:outputText value="Plazo de Crédito"/>

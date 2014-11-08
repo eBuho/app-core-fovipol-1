@@ -13,7 +13,6 @@ import javax.persistence.Query;
 import pe.gob.fovipol.sifo.dao.AbstractFacade;
 import pe.gob.fovipol.sifo.model.credito.CrdCanalcobra;
 import pe.gob.fovipol.sifo.model.credito.CrdCredito;
-import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
  *

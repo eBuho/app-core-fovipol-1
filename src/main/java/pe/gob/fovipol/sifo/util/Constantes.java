@@ -10,6 +10,8 @@ public class Constantes implements Serializable {
     public static final String ENTIDAD_TIPO_AREA = "TipoAreaAre";
     //Entidad Grado Parentesco
     public static final String ENTIDAD_GRADO_PARENTESCO = "GRADPAREPER";
+    //Entidad Grado Parentesco
+    public static final String ENTIDAD_PAGOS_SOCIO = "ENTIPAGOSOC";
     //Entidad Prioridad Tramite
     public static final String ENTIDAD_PRIORIDAD_TRAMITE = "CODIPRIOTRM";
     //Entidad Modalidad Tramite

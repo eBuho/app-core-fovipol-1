@@ -20,7 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -71,12 +70,9 @@ public class TrmTramite implements Serializable {
     @JoinColumn(name = "IDEN_SIMU_SIM", referencedColumnName = "IDEN_SIMU_SIM")
     @ManyToOne
     private CrdSimulacion idenSimuSim;
-    @PrimaryKeyJoinColumn(name = "CODI_PERS_TRM", referencedColumnName = "IDEN_PERS_PER")
+    @JoinColumn(name = "CODI_PERS_TRM", referencedColumnName = "IDEN_PERS_PER")
     @ManyToOne
-    private MaePersona codiPersTrm; 
-    @PrimaryKeyJoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC")
-    @ManyToOne
-    private MaeProceso idenProcPrc;
+    private MaePersona codiPersTrm;    
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id

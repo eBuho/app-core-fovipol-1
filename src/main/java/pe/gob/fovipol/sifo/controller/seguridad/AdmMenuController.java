@@ -53,7 +53,7 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(A
 
     public AdmMenu prepareCreate() {
         selected = new AdmMenu();
-        selected.setFlagEstaMnu(Constantes.ESTADO_ACTIVO_SHORT);
+        selected.setFlagEstaMnu(Constantes.VALOR_ESTADO_ACTIVO);
         initializeEmbeddableKey();
         return selected;
     }
