@@ -25,7 +25,7 @@ import pe.gob.fovipol.sifo.util.Constantes;
 @SessionScoped
 public class AdmMenuController implements Serializable {
 
-private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(AdmMenuController.class);
+
     @EJB private pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade ejbFacade;
     private List<AdmMenu> items = null;
     private AdmMenu selected;
@@ -63,7 +63,6 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(A
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
-        items=ejbFacade.findAll();
     }
 
     public void update() {
@@ -113,7 +112,7 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(A
         }
     }
 
-    public AdmMenu getAdmMenu(long id) {
+    public AdmMenu getAdmMenu(java.math.BigDecimal id) {
         return getFacade().find(id);
     }
 
@@ -138,13 +137,13 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(A
             return controller.getAdmMenu(getKey(value));
         }
 
-        long getKey(String value) {
-            long key;
-            key = Long.parseLong(value);
+        java.math.BigDecimal getKey(String value) {
+            java.math.BigDecimal key;
+            key = new java.math.BigDecimal(value);
             return key;
         }
 
-        String getStringKey(long value) {
+        String getStringKey(java.math.BigDecimal value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();

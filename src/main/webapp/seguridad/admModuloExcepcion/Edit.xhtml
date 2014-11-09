@@ -12,20 +12,6 @@
             <h:form id="AdmModuloExcepcionEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{admModuloExcepcionController.selected != null}">
-                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_idenModuMde}" for="idenModuMde" />
-                        <p:inputText id="idenModuMde" value="#{admModuloExcepcionController.selected.idenModuMde}" title="#{seguridad.EditAdmModuloExcepcionTitle_idenModuMde}" required="true" requiredMessage="#{seguridad.EditAdmModuloExcepcionRequiredMessage_idenModuMde}"/>
-                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_usuaCreaAud}" for="usuaCreaAud" />
-                        <p:inputText id="usuaCreaAud" value="#{admModuloExcepcionController.selected.usuaCreaAud}" title="#{seguridad.EditAdmModuloExcepcionTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admModuloExcepcionController.selected.fechCreaAud}" title="#{seguridad.EditAdmModuloExcepcionTitle_fechCreaAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_usuaModiAud}" for="usuaModiAud" />
-                        <p:inputText id="usuaModiAud" value="#{admModuloExcepcionController.selected.usuaModiAud}" title="#{seguridad.EditAdmModuloExcepcionTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admModuloExcepcionController.selected.fechModiAud}" title="#{seguridad.EditAdmModuloExcepcionTitle_fechModiAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{admModuloExcepcionController.selected.nombEquiAud}" title="#{seguridad.EditAdmModuloExcepcionTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{admModuloExcepcionController.selected.nombSopeAud}" title="#{seguridad.EditAdmModuloExcepcionTitle_nombSopeAud}" />
                         <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_flagEstaMde}" for="flagEstaMde" />
                         <p:inputText id="flagEstaMde" value="#{admModuloExcepcionController.selected.flagEstaMde}" title="#{seguridad.EditAdmModuloExcepcionTitle_flagEstaMde}" required="true" requiredMessage="#{seguridad.EditAdmModuloExcepcionRequiredMessage_flagEstaMde}"/>
                         <p:outputLabel value="#{seguridad.EditAdmModuloExcepcionLabel_idenMemoMmd}" for="idenMemoMmd" />

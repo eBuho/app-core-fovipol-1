@@ -12,7 +12,7 @@ import pe.gob.fovipol.sifo.model.seguridad.AdmModuloExcepcion;
 
 /**
  *
- * @author ebuho
+ * @author eBuho
  */
 @Stateless
 public class AdmModuloExcepcionFacade extends AbstractFacade<AdmModuloExcepcion> {

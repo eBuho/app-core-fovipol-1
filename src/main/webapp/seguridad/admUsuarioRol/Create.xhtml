@@ -12,33 +12,19 @@
             <h:form id="AdmUsuarioRolCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{admUsuarioRolController.selected != null}">
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioRolLabel_idenUsuaUro}" for="idenUsuaUro" />
-                        <p:inputText id="idenUsuaUro" value="#{admUsuarioRolController.selected.idenUsuaUro}" title="#{seguridad.CreateAdmUsuarioRolTitle_idenUsuaUro}" required="true" requiredMessage="#{seguridad.CreateAdmUsuarioRolRequiredMessage_idenUsuaUro}"/>
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioRolLabel_usuaCreaAud}" for="usuaCreaAud" />
-                        <p:inputText id="usuaCreaAud" value="#{admUsuarioRolController.selected.usuaCreaAud}" title="#{seguridad.CreateAdmUsuarioRolTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioRolLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admUsuarioRolController.selected.fechCreaAud}" title="#{seguridad.EditAdmUsuarioRolTitle_fechCreaAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioRolLabel_usuaModiAud}" for="usuaModiAud" />
-                        <p:inputText id="usuaModiAud" value="#{admUsuarioRolController.selected.usuaModiAud}" title="#{seguridad.CreateAdmUsuarioRolTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioRolLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admUsuarioRolController.selected.fechModiAud}" title="#{seguridad.EditAdmUsuarioRolTitle_fechModiAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioRolLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{admUsuarioRolController.selected.nombEquiAud}" title="#{seguridad.CreateAdmUsuarioRolTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioRolLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{admUsuarioRolController.selected.nombSopeAud}" title="#{seguridad.CreateAdmUsuarioRolTitle_nombSopeAud}" />
                         <p:outputLabel value="#{seguridad.CreateAdmUsuarioRolLabel_flagEstaUro}" for="flagEstaUro" />
                         <p:inputText id="flagEstaUro" value="#{admUsuarioRolController.selected.flagEstaUro}" title="#{seguridad.CreateAdmUsuarioRolTitle_flagEstaUro}" required="true" requiredMessage="#{seguridad.CreateAdmUsuarioRolRequiredMessage_flagEstaUro}"/>
                         <p:outputLabel value="#{seguridad.CreateAdmUsuarioRolLabel_idenRoleRol}" for="idenRoleRol" />
                         <p:selectOneMenu id="idenRoleRol" value="#{admUsuarioRolController.selected.idenRoleRol}" >
                             <f:selectItems value="#{admRolController.itemsAvailableSelectOne}"
                                            var="idenRoleRolItem"
-                                           itemValue="#{idenRoleRolItem}"/>
+                                           itemValue="#{idenRoleRolItem.nombRoleRol}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{seguridad.CreateAdmUsuarioRolLabel_idenPersPer}" for="idenPersPer" />
                         <p:selectOneMenu id="idenPersPer" value="#{admUsuarioRolController.selected.idenPersPer}" >
                             <f:selectItems value="#{admUsuarioController.itemsAvailableSelectOne}"
                                            var="idenPersPerItem"
-                                           itemValue="#{idenPersPerItem}"/>
+                                           itemValue="#{idenPersPerItem.maePersona.apelPatePer} #{idenPersPerItem.maePersona.apelMatePer} #{idenPersPerItem.maePersona.nombPersPer}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{admUsuarioRolController.create}" value="#{seguridad.Save}" update="display,:AdmUsuarioRolListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdmUsuarioRolCreateDialog');"/>

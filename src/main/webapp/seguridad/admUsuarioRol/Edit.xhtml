@@ -12,20 +12,6 @@
             <h:form id="AdmUsuarioRolEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{admUsuarioRolController.selected != null}">
-                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_idenUsuaUro}" for="idenUsuaUro" />
-                        <p:inputText id="idenUsuaUro" value="#{admUsuarioRolController.selected.idenUsuaUro}" title="#{seguridad.EditAdmUsuarioRolTitle_idenUsuaUro}" required="true" requiredMessage="#{seguridad.EditAdmUsuarioRolRequiredMessage_idenUsuaUro}"/>
-                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_usuaCreaAud}" for="usuaCreaAud" />
-                        <p:inputText id="usuaCreaAud" value="#{admUsuarioRolController.selected.usuaCreaAud}" title="#{seguridad.EditAdmUsuarioRolTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admUsuarioRolController.selected.fechCreaAud}" title="#{seguridad.EditAdmUsuarioRolTitle_fechCreaAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_usuaModiAud}" for="usuaModiAud" />
-                        <p:inputText id="usuaModiAud" value="#{admUsuarioRolController.selected.usuaModiAud}" title="#{seguridad.EditAdmUsuarioRolTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admUsuarioRolController.selected.fechModiAud}" title="#{seguridad.EditAdmUsuarioRolTitle_fechModiAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{admUsuarioRolController.selected.nombEquiAud}" title="#{seguridad.EditAdmUsuarioRolTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{admUsuarioRolController.selected.nombSopeAud}" title="#{seguridad.EditAdmUsuarioRolTitle_nombSopeAud}" />
                         <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_flagEstaUro}" for="flagEstaUro" />
                         <p:inputText id="flagEstaUro" value="#{admUsuarioRolController.selected.flagEstaUro}" title="#{seguridad.EditAdmUsuarioRolTitle_flagEstaUro}" required="true" requiredMessage="#{seguridad.EditAdmUsuarioRolRequiredMessage_flagEstaUro}"/>
                         <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_idenRoleRol}" for="idenRoleRol" />

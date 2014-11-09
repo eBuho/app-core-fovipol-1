@@ -15,7 +15,7 @@ import pe.gob.fovipol.sifo.model.seguridad.AdmUsuario;
 
 /**
  *
- * @author ebuho
+ * @author eBuho
  */
 @Stateless
 public class AdmModuloFacade extends AbstractFacade<AdmModulo> {

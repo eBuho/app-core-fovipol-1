@@ -100,4 +100,6 @@ public class Constantes implements Serializable {
 
     
 
+    public static final Short ESTADO_ACTIVO_SHORT = new Short("1");
+            
 }
