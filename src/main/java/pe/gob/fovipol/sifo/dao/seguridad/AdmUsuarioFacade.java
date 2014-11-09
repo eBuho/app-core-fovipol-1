@@ -42,4 +42,18 @@ public class AdmUsuarioFacade extends AbstractFacade<AdmUsuario> {
         usuario = (AdmUsuario) q.getSingleResult();
         return usuario;
     }
+    public AdmUsuario findByUsuario(String nombre) {
+        AdmUsuario lista = null;
+        String sql = "select d from AdmUsuario d where d.codiUsuaUsr = :nombre "
+                + "and d.flagEstaUsr<>"+Constantes.VALOR_ESTADO_INACTIVO;
+        Query q = em.createQuery(sql);
+        q.setParameter("nombre", nombre);
+        try{
+            lista = (AdmUsuario) q.getSingleResult();
+            return lista;
+        }
+        catch(NoResultException nre){
+            return null;
+        }  
+    }
 }
