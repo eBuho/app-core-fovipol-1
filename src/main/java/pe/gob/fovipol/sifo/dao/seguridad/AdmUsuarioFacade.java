@@ -10,15 +10,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.springframework.stereotype.Component;
 import pe.gob.fovipol.sifo.model.seguridad.AdmUsuario;
 import pe.gob.fovipol.sifo.util.Constantes;
 
 /**
  *
- * @author ebuho
+ * @author eBuho
  */
 @Stateless
+@Component
 public class AdmUsuarioFacade extends AbstractFacade<AdmUsuario> {
+
     @PersistenceContext(unitName = "SIFOPU")
     private EntityManager em;
 
@@ -30,19 +33,13 @@ public class AdmUsuarioFacade extends AbstractFacade<AdmUsuario> {
     public AdmUsuarioFacade() {
         super(AdmUsuario.class);
     }
-    
-    public AdmUsuario findByUsuario(String nombre) {
-        AdmUsuario lista = null;
-        String sql = "select d from AdmUsuario d where d.codiUsuaUsr = :nombre "
-                + "and d.flagEstaUsr<>"+Constantes.VALOR_ESTADO_INACTIVO;
+
+    public AdmUsuario findByUsername(String username) {
+        AdmUsuario usuario = null;
+        String sql = "FROM AdmUsuario a WHERE a.codiUsuaUsr = :username";
         Query q = em.createQuery(sql);
-        q.setParameter("nombre", nombre);
-        try{
-            lista = (AdmUsuario) q.getSingleResult();
-            return lista;
-        }
-        catch(NoResultException nre){
-            return null;
-        }        
+        q.setParameter("username", username);
+        usuario = (AdmUsuario) q.getSingleResult();
+        return usuario;
     }
 }

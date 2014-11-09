@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pe.gob.fovipol.sifo.listener.AuditListener;
 import pe.gob.fovipol.sifo.model.maestros.MaePersona;
@@ -69,7 +70,6 @@ public class AdmUsuario implements UserDetails,Serializable {
     protected static final Short CUENTA_BLOQUEDA = 3;
     protected static final Short CLAVE_EXPIRADA = 4;
     
-    protected static final int ESTADO_REGISTRADO = 0;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @TableGenerator(name = "secAdmUsuario",table = "SIFO.adm_secuencia",valueColumnName = "gene_val", pkColumnName = "iden_gene_tab",pkColumnValue = "ADM_USUARIO", allocationSize = 1, initialValue = 1)
@@ -264,8 +264,15 @@ public class AdmUsuario implements UserDetails,Serializable {
 
     @Override
     @Transient
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+    public Collection<GrantedAuthority> getAuthorities() {
+        Collection authorities = new ArrayList();
+        for(AdmUsuarioRol rol: getAdmUsuarioRolList()){
+            for(AdmRolPermenu permiso: rol.getIdenRoleRol().getAdmRolPermenuList()){
+                String role_permission = "ROLE_"+permiso.getIdenPermPmn().getNombPercPmn().toUpperCase();
+                GrantedAuthority grantedAuthority= new SimpleGrantedAuthority(role_permission);
+                authorities.add(grantedAuthority);
+            }
+        }
         return authorities;
     }
 

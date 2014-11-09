@@ -22,9 +22,11 @@
                         <p:inputText id="flagEstaPmn" value="#{admPermisoMenuController.selected.flagEstaPmn}" title="#{seguridad.CreateAdmPermisoMenuTitle_flagEstaPmn}" required="true" requiredMessage="#{seguridad.CreateAdmPermisoMenuRequiredMessage_flagEstaPmn}"/>
                         <p:outputLabel value="#{seguridad.CreateAdmPermisoMenuLabel_idenMenuPmn}" for="idenMenuPmn" />
                         <p:selectOneMenu id="idenMenuPmn" value="#{admPermisoMenuController.selected.idenMenuPmn}" >
-                            <f:selectItems value="#{admMenuController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{admMenuController.itemsAvailableSelectOne}" 
                                            var="idenMenuPmnItem"
-                                           itemValue="#{idenMenuPmnItem.nombMenuMnu}"/>
+                                           itemLabel="#{idenMenuPmnItem.nombMenuMnu}"
+                                           itemDescription="#{idenMenuPmnItem.descPrmtMnu}"
+                                           itemValue="#{idenMenuPmnItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{admPermisoMenuController.create}" value="#{seguridad.Save}" update="display,:AdmPermisoMenuListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdmPermisoMenuCreateDialog');"/>

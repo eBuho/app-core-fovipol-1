@@ -18,13 +18,15 @@
                         <p:selectOneMenu id="idenModuMod" value="#{admModuloRolController.selected.idenModuMod}" >
                             <f:selectItems value="#{admModuloController.itemsAvailableSelectOne}"
                                            var="idenModuModItem"
-                                           itemValue="#{idenModuModItem.nombModuMod}"/>
+                                           itemValue="#{idenModuModItem}"
+                                           itemLabel="#{idenModuModItem.nombModuMod}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{seguridad.CreateAdmModuloRolLabel_idenRoleRol}" for="idenRoleRol" />
                         <p:selectOneMenu id="idenRoleRol" value="#{admModuloRolController.selected.idenRoleRol}" >
                             <f:selectItems value="#{admRolController.itemsAvailableSelectOne}"
                                            var="idenRoleRolItem"
-                                           itemValue="#{idenRoleRolItem.nombRoleRol}"/>
+                                           itemLabel="#{idenRoleRolItem.nombRoleRol}"
+                                           itemValue="#{idenRoleRolItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{admModuloRolController.create}" value="#{seguridad.Save}" update="display,:AdmModuloRolListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdmModuloRolCreateDialog');"/>

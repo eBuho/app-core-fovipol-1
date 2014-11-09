@@ -16,17 +16,17 @@
                         <p:inputText id="flagEstaRpm" value="#{admRolPermenuController.selected.flagEstaRpm}" title="#{seguridad.EditAdmRolPermenuTitle_flagEstaRpm}" required="true" requiredMessage="#{seguridad.EditAdmRolPermenuRequiredMessage_flagEstaRpm}"/>
                         <p:outputLabel value="#{seguridad.EditAdmRolPermenuLabel_idenPermPmn}" for="idenPermPmn" />
                         <p:selectOneMenu id="idenPermPmn" value="#{admRolPermenuController.selected.idenPermPmn}" >
-                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
                             <f:selectItems value="#{admPermisoMenuController.itemsAvailableSelectOne}"
                                            var="idenPermPmnItem"
-                                           itemValue="#{idenPermPmnItem.nombPermPmn}"/>
+                                           itemLabel="#{idenPermPmnItem.nombPermPmn}"
+                                           itemValue="#{idenPermPmnItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{seguridad.EditAdmRolPermenuLabel_idenRoleRol}" for="idenRoleRol" />
+                        <p:outputLabel value="#{seguridad.CreateAdmRolPermenuLabel_idenRoleRol}" for="idenRoleRol" />
                         <p:selectOneMenu id="idenRoleRol" value="#{admRolPermenuController.selected.idenRoleRol}" >
-                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
                             <f:selectItems value="#{admRolController.itemsAvailableSelectOne}"
                                            var="idenRoleRolItem"
-                                           itemValue="#{idenRoleRolItem.nombRoleRol}"/>
+                                           itemLabel="#{idenRoleRolItem.nombRoleRol}"
+                                           itemValue="#{idenRoleRolItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{admRolPermenuController.update}" value="#{seguridad.Save}" update="display,:AdmRolPermenuListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AdmRolPermenuEditDialog');"/>
