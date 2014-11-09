@@ -37,8 +37,17 @@
     <jpa:repositories base-package="pe.gob.fovipol.sifo.model.seguridad"/>
     -->
     <sec:http use-expressions="true" auto-config="true">		
+        <sec:intercept-url pattern="/login.xhtml" access="permitAll"/>
+        <sec:intercept-url pattern="/login" access="permitAll"/>
+        <sec:intercept-url pattern="/resources/**" access="permitAll"/>
         <sec:intercept-url pattern="/**" access="isAuthenticated()"/>
-        <sec:logout logout-url="/logout" logout-success-url="/index.xhtml"/>		
+        <sec:logout logout-url="/logout" logout-success-url="/index.xhtml"/>        
+        <sec:form-login login-page="/login.xhtml" 
+                    default-target-url="/index.xhtml"
+                    always-use-default-target="true"
+                    authentication-failure-url="/login.xhtml?error"
+                    username-parameter="username" 
+                    password-parameter="password"/>		
     </sec:http>
     
     <sec:authentication-manager alias="authenticationManager">
