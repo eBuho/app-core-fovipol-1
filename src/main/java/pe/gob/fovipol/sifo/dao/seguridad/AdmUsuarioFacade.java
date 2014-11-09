@@ -31,7 +31,7 @@ public class AdmUsuarioFacade extends AbstractFacade<AdmUsuario> {
         super(AdmUsuario.class);
     }
     
-    public AdmUsuario findByUsername(String nombre) {
+    public AdmUsuario findByUsuario(String nombre) {
         AdmUsuario lista = null;
         String sql = "select d from AdmUsuario d where d.codiUsuaUsr = :nombre "
                 + "and d.flagEstaUsr<>"+Constantes.VALOR_ESTADO_INACTIVO;
