@@ -28,4 +28,5 @@ public class AdmUsuarioFacade extends AbstractFacade<AdmUsuario> {
         super(AdmUsuario.class);
     }
     
+    
 }

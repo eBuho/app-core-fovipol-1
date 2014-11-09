@@ -8,13 +8,15 @@ package pe.gob.fovipol.sifo.service.usuario;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author eBuho
  */
+@Service("admUsuarioService")
 public class AdmUsuarioService implements UserDetailsService{
-
+    
     @Override
     public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
         return null;
