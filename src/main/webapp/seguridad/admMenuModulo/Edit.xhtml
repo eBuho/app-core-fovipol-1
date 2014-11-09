@@ -33,6 +33,7 @@
                             <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
                             <f:selectItems value="#{admMenuController.itemsAvailableSelectOne}"
                                            var="idenMenuMnuItem"
+                                           itemLabel="#{idenMenuMnuItem.nombMenuMnu}"
                                            itemValue="#{idenMenuMnuItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{seguridad.EditAdmMenuModuloLabel_idenModuMod}" for="idenModuMod" />
@@ -40,6 +41,7 @@
                             <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
                             <f:selectItems value="#{admModuloController.itemsAvailableSelectOne}"
                                            var="idenModuModItem"
+                                           itemLabel="#{idenModuModItem.nombModuMod}"
                                            itemValue="#{idenModuModItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>

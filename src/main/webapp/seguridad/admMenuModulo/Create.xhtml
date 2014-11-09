@@ -18,12 +18,14 @@
                         <p:selectOneMenu id="idenMenuMnu" value="#{admMenuModuloController.selected.idenMenuMnu}" >
                             <f:selectItems value="#{admMenuController.itemsAvailableSelectOne}"
                                            var="idenMenuMnuItem"
-                                           itemValue="#{idenMenuMnuItem.nombMenuMnu}"/>
+                                           itemLabel="#{idenMenuMnuItem.nombMenuMnu}"
+                                           itemValue="#{idenMenuMnuItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{seguridad.CreateAdmMenuModuloLabel_idenModuMod}" for="idenModuMod" />
                         <p:selectOneMenu id="idenModuMod" value="#{admMenuModuloController.selected.idenModuMod}" >
                             <f:selectItems value="#{admModuloController.itemsAvailableSelectOne}"
                                            var="idenModuModItem"
+                                           itemLabel="#{idenModuModItem.nombModuMod}"
                                            itemValue="#{idenModuModItem.nombModuMod}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>

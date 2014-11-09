@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.springframework.stereotype.Component;
 import pe.gob.fovipol.sifo.model.seguridad.AdmUsuario;
 
 /**
@@ -16,6 +17,7 @@ import pe.gob.fovipol.sifo.model.seguridad.AdmUsuario;
  * @author eBuho
  */
 @Stateless
+@Component
 public class AdmUsuarioFacade extends AbstractFacade<AdmUsuario> {
 
     @PersistenceContext(unitName = "SIFOPU")
@@ -32,9 +34,9 @@ public class AdmUsuarioFacade extends AbstractFacade<AdmUsuario> {
 
     public AdmUsuario findByUsername(String username) {
         AdmUsuario usuario = null;
-        String sql = "FROM AdmUsuario a WHERE a.admUsuario.codiUsuaUsr = :username";
+        String sql = "FROM AdmUsuario a WHERE a.codiUsuaUsr = :username";
         Query q = em.createQuery(sql);
-        q.setParameter("username", "%" + username + "%");
+        q.setParameter("username", username);
         usuario = (AdmUsuario) q.getSingleResult();
         return usuario;
     }

@@ -16,17 +16,17 @@
                         <p:inputText id="flagEstaUro" value="#{admUsuarioRolController.selected.flagEstaUro}" title="#{seguridad.EditAdmUsuarioRolTitle_flagEstaUro}" required="true" requiredMessage="#{seguridad.EditAdmUsuarioRolRequiredMessage_flagEstaUro}"/>
                         <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_idenRoleRol}" for="idenRoleRol" />
                         <p:selectOneMenu id="idenRoleRol" value="#{admUsuarioRolController.selected.idenRoleRol}" >
-                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
                             <f:selectItems value="#{admRolController.itemsAvailableSelectOne}"
                                            var="idenRoleRolItem"
+                                           itemLabel="#{idenRoleRolItem.nombRoleRol}"
                                            itemValue="#{idenRoleRolItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{seguridad.EditAdmUsuarioRolLabel_idenPersPer}" for="idenPersPer" />
+                        <p:outputLabel value="#{seguridad.CreateAdmUsuarioRolLabel_idenPersPer}" for="idenPersPer" />
                         <p:selectOneMenu id="idenPersPer" value="#{admUsuarioRolController.selected.idenPersPer}" >
-                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
                             <f:selectItems value="#{admUsuarioController.itemsAvailableSelectOne}"
                                            var="idenPersPerItem"
-                                           itemValue="#{idenPersPerItem}"/>
+                                           itemLabel="#{idenPersPerItem.maePersona.apelPatePer} #{idenPersPerItem.maePersona.apelMatePer} #{idenPersPerItem.maePersona.nombPersPer}"
+                                           itemValue="#{idenPersPerItem.maePersona}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{admUsuarioRolController.update}" value="#{seguridad.Save}" update="display,:AdmUsuarioRolListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AdmUsuarioRolEditDialog');"/>

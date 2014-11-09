@@ -22,10 +22,11 @@
                         <p:inputText id="flagEstaPmn" value="#{admPermisoMenuController.selected.flagEstaPmn}" title="#{seguridad.EditAdmPermisoMenuTitle_flagEstaPmn}" required="true" requiredMessage="#{seguridad.EditAdmPermisoMenuRequiredMessage_flagEstaPmn}"/>
                         <p:outputLabel value="#{seguridad.EditAdmPermisoMenuLabel_idenMenuPmn}" for="idenMenuPmn" />
                         <p:selectOneMenu id="idenMenuPmn" value="#{admPermisoMenuController.selected.idenMenuPmn}" >
-                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
-                            <f:selectItems value="#{admMenuController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{admMenuController.itemsAvailableSelectOne}" 
                                            var="idenMenuPmnItem"
-                                           itemValue="#{idenMenuPmnItem.nombMenuMnu}"/>
+                                           itemLabel="#{idenMenuPmnItem.nombMenuMnu}"
+                                           itemDescription="#{idenMenuPmnItem.descPrmtMnu}"
+                                           itemValue="#{idenMenuPmnItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{admPermisoMenuController.update}" value="#{seguridad.Save}" update="display,:AdmPermisoMenuListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AdmPermisoMenuEditDialog');"/>

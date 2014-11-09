@@ -18,13 +18,15 @@
                         <p:selectOneMenu id="idenRoleRol" value="#{admUsuarioRolController.selected.idenRoleRol}" >
                             <f:selectItems value="#{admRolController.itemsAvailableSelectOne}"
                                            var="idenRoleRolItem"
-                                           itemValue="#{idenRoleRolItem.nombRoleRol}"/>
+                                           itemLabel="#{idenRoleRolItem.nombRoleRol}"
+                                           itemValue="#{idenRoleRolItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{seguridad.CreateAdmUsuarioRolLabel_idenPersPer}" for="idenPersPer" />
                         <p:selectOneMenu id="idenPersPer" value="#{admUsuarioRolController.selected.idenPersPer}" >
                             <f:selectItems value="#{admUsuarioController.itemsAvailableSelectOne}"
                                            var="idenPersPerItem"
-                                           itemValue="#{idenPersPerItem.maePersona.apelPatePer} #{idenPersPerItem.maePersona.apelMatePer} #{idenPersPerItem.maePersona.nombPersPer}"/>
+                                           itemLabel="#{idenPersPerItem.maePersona.apelPatePer} #{idenPersPerItem.maePersona.apelMatePer} #{idenPersPerItem.maePersona.nombPersPer}"
+                                           itemValue="#{idenPersPerItem.maePersona}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{admUsuarioRolController.create}" value="#{seguridad.Save}" update="display,:AdmUsuarioRolListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdmUsuarioRolCreateDialog');"/>
