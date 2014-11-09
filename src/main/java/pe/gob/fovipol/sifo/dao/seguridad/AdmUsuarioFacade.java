@@ -7,8 +7,11 @@ package pe.gob.fovipol.sifo.dao.seguridad;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import pe.gob.fovipol.sifo.model.seguridad.AdmUsuario;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 /**
  *
@@ -28,5 +31,18 @@ public class AdmUsuarioFacade extends AbstractFacade<AdmUsuario> {
         super(AdmUsuario.class);
     }
     
-    
+    public AdmUsuario findByUsername(String nombre) {
+        AdmUsuario lista = null;
+        String sql = "select d from AdmUsuario d where d.codiUsuaUsr = :nombre "
+                + "and d.flagEstaUsr<>"+Constantes.VALOR_ESTADO_INACTIVO;
+        Query q = em.createQuery(sql);
+        q.setParameter("nombre", nombre);
+        try{
+            lista = (AdmUsuario) q.getSingleResult();
+            return lista;
+        }
+        catch(NoResultException nre){
+            return null;
+        }        
+    }
 }

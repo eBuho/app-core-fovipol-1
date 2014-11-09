@@ -1,0 +1,198 @@
+/* Mensajes*/
+.info, .success, .warning, .error, .validation {
+border: 1px solid;
+margin: 10px 0px;
+padding:15px 10px 15px 50px;
+background-repeat: no-repeat;
+background-position: 10px center;
+text-align: left;
+font-size: small;
+}
+.info {
+color: #00529B;
+background-color: #BDE5F8;
+background-image: url('images/info.png');
+}
+.success {
+color: #4F8A10;
+background-color: #DFF2BF;
+background-image:url('images/success.png');
+list-style:none;
+font-weight: bold;
+}
+.warning {
+color: #9F6000;
+background-color: #FEEFB3;
+background-image: url('images/warning.png');
+}
+.error {
+background-image: url('images/error.png');
+background-color: #f2dede;
+border-color: #ebccd1;
+color: #a94442;
+list-style:none;
+font-weight: bold;
+}
+.dialogTable{
+margin:0 auto; 
+width:100%;
+border-spacing: 10px !important;
+border-top-width: 20px !important;
+border-right-width: 20px !important;
+border-bottom-width: 20px !important;
+border-left-width: 20px !important;
+border-collapse: separate !important;
+}
+.botonTablaAzul{
+background: #4d90fe no-repeat !important; 
+padding: 0px !important;
+}
+.botonTablaRojo{
+background: #d84a38 no-repeat !important; 
+padding: 0px !important;
+font-weight: normal !important;
+}
+.inputLargo{
+width: 100% !important;
+}
+.ui-selectonemenu-label {
+width: 100% !important;
+}
+.ui-selectonemenu-trigger{
+width:24px !important;	
+}
+
+@media (max-width: 600px){
+	.header.navbar .navbar-brand{
+	color:#ffffff !important;
+	height: 68px !important;
+	}
+	.header.navbar a.logo1{
+	display: none;
+	}
+	.header.navbar a.logo2{
+	margin-left:-10px !important;
+	padding-left: 5px !important;
+	display: inline-block;
+	}
+	.dialogForm{
+		width: 70% !important;
+		top: 20% !important;
+	}
+	.dialogFormChico{
+		width: 40% !important;
+		top: 20% !important;
+	}
+	.dialogFormLargo{
+		width: 70% !important;
+		top: 10% !important;
+	}
+}
+.header.navbar a.logo1{
+	background: url("../images/plantilla/cab_cen.png") right no-repeat,
+	url("../images/plantilla/cab_izq.png") left repeat-x !important;
+}
+.header.navbar a.logo2{
+	background: url("../images/plantilla/cab_cen.png") right no-repeat,
+	url("../images/plantilla/cab_izq.png") left repeat-x !important;
+}
+@media (min-width: 601px){
+	.header.navbar .navbar-brand{
+	width:510px !important;
+	height: 68px !important;
+	color:#ffffff !important;
+	
+	}
+	.header.navbar a.logo2{
+	display: none;
+	}
+	.header.navbar a.logo1{
+	padding-left: 5px;
+	padding-right: 5px;
+	display: inline-block;
+	margin-top: 0px !important;
+	}
+	.dialogForm{
+		width: 40% !important;
+		min-width: 100px !important;
+		top: 20% !important;
+	}
+	.dialogFormChico{
+		width: 20% !important;
+		top: 20% !important;
+	}
+	.dialogFormLargo{
+		width: 40% !important;
+		min-width: 100px !important;
+		top: 10% !important;
+	}
+}
+.header.navbar.navbar-fixed-top{
+	background: url("../images/plantilla/cab_der.png") repeat-x !important;
+}
+.page-sidebar-menu > li.start > a {
+	background: url("../images/plantilla/menu_izquierdo.png") left no-repeat,
+	url("../images/plantilla/men_izq_sig.png") bottom 1px left 30px no-repeat !important;
+}
+.page-sidebar-menu > li.start > a:hover {
+	color: #5e9ece !important;
+	background: url("../images/plantilla/menu_izquierdo.png") left no-repeat,
+	url("../images/plantilla/men_izq_sig.png") bottom 1px left 30px no-repeat !important;
+}
+div.parte-alta{
+	/* height: 59px; */	
+	margin-top: 0px;
+	margin-left: -5px;
+	margin-right: -5px;
+	background: #a6b274 url("../images/plantilla/menu_derecho.png") left no-repeat;
+}
+li.con-borde{
+	margin-top: -1px;
+	border-right: solid;
+	border-right-color: #a6b274;
+}
+.header .navbar-nav .dropdown-toggle:hover , .header .navbar-nav .dropdown.open .dropdown-toggle{
+	background-color: #2e6e9e !important;
+	color: #fff !important;
+	/*font-weight: bold;*/
+}
+@media (max-width: 900px){
+	.header.navbar .navbar-nav > li > a{
+		color: #fff !important;
+		background-color: #a6b274;
+		height: 40px;
+		/*font-weight: bold;*/
+	}
+	.header.navbar .navbar-nav > li.dropdown.language{
+		height: 40px !important;
+	}
+	.languagePropio{
+		margin-top: 0px !important;
+	}
+	.languagePropio >a{
+		margin-top: 0px !important;
+	}
+}
+@media (min-width: 901px){
+	.header.navbar .navbar-nav > li > a{
+		color: #fff !important;
+		height: 50px;
+		/*font-weight: bold;*/
+	}
+	.header.navbar .navbar-nav > li.dropdown.language{
+		height: 50px !important;
+		margin-top: 5px;
+		color: #fff !important;
+	}
+	.languagePropio{
+		margin-top: -7px !important;
+	}
+	.languagePropio >a{
+		padding-top: 20px !important;
+	}
+}
+.nav>li>a:hover, .nav>li>a:focus{
+	color: #fff !important;
+	text-decoration: none;
+	background-color: #32742c;
+}

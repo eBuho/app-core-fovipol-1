@@ -1,0 +1,65 @@
+.login {
+    background-color: #fff !important;
+}
+#login-box{
+    position: absolute;
+    top: 300px;
+    right: 350px;
+}
+.form-div {
+    width: 980px !important;
+    height: 550px !important;
+    margin: 0 auto !important;  
+    background-image: url(../images/logeo-fovipol2.png);
+}
+.error {
+    width: 75% !important;
+}
+.success {
+    width: 75% !important;
+}
+.item-login {
+    width: 90%;
+    margin-top: -3px;
+}
+.div-login {
+    width: 100%;
+    color: 00c2e5;
+}
+.div-login2 {
+    width: 100%;
+    color: gray;
+    font-size: small;
+}
+.div-medio-login {
+    float: left;
+    width: 50%;
+    color: 00c2e5;
+    font-size: small;
+    margin-top: 10px;
+}
+.botonLogin {
+    background-image: url('../images/plantilla/boton_ingresar.png');
+    background-repeat: no-repeat;
+    height: 25px;
+    width: 75px;
+    background-position: center;
+    border: 0px;
+    background-color: fff;
+    color: fff;
+}
+.botonLogin2 {
+    background-image: url('../images/plantilla/boton_ingresar2.png');
+    background-repeat: no-repeat;
+    height: 25px;
+    width: 200px;
+    background-position: center;
+    border: 0px;
+    background-color: fff;
+    color: fff;
+    margin-top: 5px;
+}
+.linkLogin {
+    font-size: small;
+    color: gray;
+}

@@ -5,9 +5,18 @@
        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security-3.2.xsd">       
-    <http use-expressions="true" auto-config="true">		
+    <http use-expressions="true" auto-config="true">	
+        <intercept-url pattern="/login.xhtml" access="permitAll"/>
+        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/resources/**" access="permitAll"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
-        <logout logout-url="/logout" logout-success-url="/index.xhtml"/>		
+        <logout logout-url="/logout" logout-success-url="/index.xhtml"/>
+        <form-login login-page="/login.xhtml" 
+                    default-target-url="/index.xhtml"
+                    always-use-default-target="true"
+                    authentication-failure-url="/login.xhtml?error"
+                    username-parameter="username" 
+                    password-parameter="password"/>		
     </http>
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
@@ -18,6 +27,5 @@
         </authentication-provider>
         <authentication-provider user-service-ref='admUsuarioService'/>
     </authentication-manager>
-    
     <beans:bean id="admUsuarioService" class="pe.gob.fovipol.sifo.service.usuario.AdmUsuarioService"/>
 </beans:beans>
