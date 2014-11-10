@@ -47,7 +47,7 @@ public class SesionUsuario implements Serializable {
     public void actualizarSesion() {
         String nombre = SecurityContextHolder.getContext().getAuthentication().getName();
         if (nombre == null || !nombre.equals(usuario.getCodiUsuaUsr())) {
-            usuario = ejbAdmUsuarioFacade.findByUsuario(nombre);
+            usuario = ejbAdmUsuarioFacade.findByUsername(nombre);
             List<AdmModulo> modulos = ejbAdmModuloFacade.findByUsuario(usuario);
             for (AdmModulo modulo : modulos) {
                 Menu m = new Menu();
