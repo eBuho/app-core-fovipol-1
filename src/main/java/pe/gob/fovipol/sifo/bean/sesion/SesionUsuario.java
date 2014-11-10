@@ -31,6 +31,7 @@ public class SesionUsuario implements Serializable {
 
     private AdmUsuario usuario;
     private List<Menu> menus;
+    private List<AdmModulo> modulos;
     @EJB
     AdmUsuarioFacade ejbAdmUsuarioFacade;
     @EJB
@@ -48,7 +49,7 @@ public class SesionUsuario implements Serializable {
         String nombre = SecurityContextHolder.getContext().getAuthentication().getName();
         if (nombre == null || !nombre.equals(usuario.getCodiUsuaUsr())) {
             usuario = ejbAdmUsuarioFacade.findByUsuario(nombre);
-            List<AdmModulo> modulos = ejbAdmModuloFacade.findByUsuario(usuario);
+            modulos = ejbAdmModuloFacade.findByUsuario(usuario);
             for (AdmModulo modulo : modulos) {
                 Menu m = new Menu();
                 m.setModulo(modulo);
@@ -109,5 +110,19 @@ public class SesionUsuario implements Serializable {
      */
     public void setMenus(List<Menu> menus) {
         this.menus = menus;
+    }
+
+    /**
+     * @return the modulos
+     */
+    public List<AdmModulo> getModulos() {
+        return modulos;
+    }
+
+    /**
+     * @param modulos the modulos to set
+     */
+    public void setModulos(List<AdmModulo> modulos) {
+        this.modulos = modulos;
     }
 }

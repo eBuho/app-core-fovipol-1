@@ -10,13 +10,16 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import pe.gob.fovipol.sifo.controller.util.Cuota;
+import pe.gob.fovipol.sifo.model.credito.CrdCredito;
 import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
+import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
  *
  * @author probook
  */
 public interface CreditoService {
+    public boolean generarCuotas(TrmTramite tramite,CrdCredito credito,List<Cuota> cuotas);
     //Calcula la máxima cuota en una simulación
     public BigDecimal calcularMaximaCuota(BigDecimal remuneracionConsolidada,BigDecimal descuentoMaximo,BigDecimal descuentoOficial,
             BigDecimal descuentoPersonal,BigDecimal combustible);
@@ -29,6 +32,7 @@ public interface CreditoService {
     public BigDecimal calcularCuotaMontoMensual(BigDecimal monto,int numeroCuotas,BigDecimal interes);
     //Calcula el monto de prestamo a partir del monto mensual a pagar, el número de cuotas y el interes
     public BigDecimal calcularCuotaMontoTotal(BigDecimal montoMensual,int numeroCuotas,BigDecimal interes);
+    //Devuelve las cuotas
     public List<Cuota> calcularCuotas(List<MaeSeguro> seguros, int ciclica, BigDecimal interes, 
             BigDecimal montoPrestamo,BigInteger numeroCuotas,BigDecimal cuotaMensual,Date fechaNacimiento);
     public boolean comprobarEdadFinPago(Date fechaNacimiento,int ciclica,int numeroCuotas,List<MaeSeguro> seguros);

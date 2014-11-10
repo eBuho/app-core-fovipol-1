@@ -11,15 +11,26 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import pe.gob.fovipol.sifo.controller.util.Cuota;
 import pe.gob.fovipol.sifo.dao.MaeSeguroRangoFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdCreditoCuotaFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdCreditoFacade;
+import pe.gob.fovipol.sifo.model.credito.CrdCredito;
+import pe.gob.fovipol.sifo.model.credito.CrdCreditoCuota;
+import pe.gob.fovipol.sifo.model.credito.CrdCreditoCuotaPK;
 import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
 import pe.gob.fovipol.sifo.model.maestros.MaeSeguroRango;
+import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 import pe.gob.fovipol.sifo.service.CreditoService;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 @Stateless
 public class CreditoServiceImpl implements CreditoService {
 
     @EJB
     private MaeSeguroRangoFacade ejbSeguroRangoFacade;
+    @EJB
+    private CrdCreditoCuotaFacade ejbCreditoCuotaFacade;
+    @EJB
+    private CrdCreditoFacade ejbCreditoFacade;
 
     @Override
     public BigDecimal calcularMaximaCuota(BigDecimal remuneracionConsolidada, BigDecimal descuentoMaximo, BigDecimal descuentoOficial, BigDecimal descuentoPersonal, BigDecimal combustible) {
@@ -167,7 +178,7 @@ public class CreditoServiceImpl implements CreditoService {
         cuotasSimulacion.get(0).setTotalInteres(totalInteres);
         cuotasSimulacion.get(0).setTotalSeguro(totalSeguro);
         return cuotasSimulacion;
-    }
+    }    
 
     public boolean estaIncluido(int edad, BigDecimal rangoInferior, BigDecimal rangoSuperior) {
         BigDecimal auxBigDecimal = new BigDecimal(edad);
@@ -191,5 +202,38 @@ public class CreditoServiceImpl implements CreditoService {
                 estaOk=false;
         }
         return estaOk;
+    }
+
+    @Override
+    public boolean generarCuotas(TrmTramite tramite, CrdCredito credito,List<Cuota> cuotas) {
+        int i=1;
+        try{
+            if(cuotas==null || cuotas.isEmpty())
+                return false;
+            credito.setImpoGadmCrd(credito.getTasaGadmCrd().divide(new BigDecimal(100), 2, RoundingMode.HALF_UP).multiply(credito.getImpoSoliCrd()));
+            credito.setImpoInteCrd(cuotas.get(0).getTotalInteres());
+            for(Cuota cuota:cuotas){
+                CrdCreditoCuota creditoCuota=new CrdCreditoCuota();
+                creditoCuota.setCrdCreditoCuotaPK(new CrdCreditoCuotaPK(credito.getIdenCredCrd().toBigInteger(), i));
+                creditoCuota.setNumeCuotCuo(cuota.getNumero()+"");
+                creditoCuota.setSaldInicCuo(cuota.getSaldoInicial());
+                creditoCuota.setCapiMontCuo(cuota.getCuota().add(cuota.getInteres().negate()));
+                creditoCuota.setImpoSeguCuo(cuota.getDegravamen());
+                creditoCuota.setInteMontCuo(cuota.getInteres());
+                creditoCuota.setImpoCuotCuo(cuota.getCuota());
+                creditoCuota.setTasaPteaCuo(credito.getTasaInteCrd());
+                creditoCuota.setCodiSituCuo(1);
+                creditoCuota.setFlagEstaCuo(Constantes.VALOR_ESTADO_ACTIVO);
+                creditoCuota.setFechPagoCuo(cuota.getFechaPago());
+                creditoCuota.setFechUddpCuo(cuota.getFechaPago());
+                ejbCreditoCuotaFacade.edit(creditoCuota);
+                i++;
+            }
+            ejbCreditoFacade.edit(credito);
+        }
+        catch(Exception e){
+            return false;
+        }
+        return true;
     }
 }

@@ -73,8 +73,6 @@ import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 public class CrdSimulacion implements Serializable { 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "crdSimulacion")
     private List<CrdSimulaSeguro> crdSimulaSeguroList;
-    @OneToMany(mappedBy = "idenSimuSim")
-    private List<TrmTramite> trmTramiteList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -421,16 +419,6 @@ public class CrdSimulacion implements Serializable {
         this.codiMoneCrd = codiMoneCrd;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public List<TrmTramite> getTrmTramiteList() {
-        return trmTramiteList;
-    }
-
-    public void setTrmTramiteList(List<TrmTramite> trmTramiteList) {
-        this.trmTramiteList = trmTramiteList;
-    }
-    
     @XmlTransient
     @JsonIgnore
     public List<CrdSimulaSeguro> getCrdSimulaSeguroList() {

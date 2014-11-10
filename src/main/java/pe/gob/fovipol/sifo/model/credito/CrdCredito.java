@@ -63,6 +63,12 @@ import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
     @NamedQuery(name = "CrdCredito.findByNombSopeAud", query = "SELECT c FROM CrdCredito c WHERE c.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "CrdCredito.findByFlagEstaCrd", query = "SELECT c FROM CrdCredito c WHERE c.flagEstaCrd = :flagEstaCrd")})
 public class CrdCredito implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "crdCredito")
+    private List<CrdCreditoCuota> crdCreditoCuotaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "crdCredito")
+    private List<CrdEstacredHis> crdEstacredHisList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "crdCredito")
+    private List<CrdCreditoSeguro> crdCreditoSeguroList;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -361,6 +367,36 @@ public class CrdCredito implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.credito.CrdCredito[ idenCredCrd=" + idenCredCrd + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<CrdCreditoCuota> getCrdCreditoCuotaList() {
+        return crdCreditoCuotaList;
+    }
+
+    public void setCrdCreditoCuotaList(List<CrdCreditoCuota> crdCreditoCuotaList) {
+        this.crdCreditoCuotaList = crdCreditoCuotaList;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<CrdEstacredHis> getCrdEstacredHisList() {
+        return crdEstacredHisList;
+    }
+
+    public void setCrdEstacredHisList(List<CrdEstacredHis> crdEstacredHisList) {
+        this.crdEstacredHisList = crdEstacredHisList;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<CrdCreditoSeguro> getCrdCreditoSeguroList() {
+        return crdCreditoSeguroList;
+    }
+
+    public void setCrdCreditoSeguroList(List<CrdCreditoSeguro> crdCreditoSeguroList) {
+        this.crdCreditoSeguroList = crdCreditoSeguroList;
     }
     
 }

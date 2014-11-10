@@ -49,3 +49,33 @@
 .ui-state-disabled{
     opacity: .85 !important;
 }
+.btn.red{
+    background: #d84a38 !important;
+    border: none;
+    font-weight: normal !important;
+}
+.btn.yellow{
+    background: #ffb848 !important;
+    border: none;
+    font-weight: normal !important;
+}
+.btn.green{
+    background: #35aa47 !important;
+    border: none;
+    font-weight: normal !important;
+}
+.btn.blue{
+    background: #4d90fe !important;
+    border: none;
+    font-weight: normal !important;
+}
+#cambiarSimulacion .modal-dialog  {
+    width:1200px;
+}
+.ui-growl{
+    top: 100px !important;
+    position:fixed !important;
+}
+.texto-negrita{
+    font-weight: bold;
+}

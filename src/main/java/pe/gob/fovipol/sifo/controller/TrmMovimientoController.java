@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
@@ -20,9 +21,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
-import pe.gob.fovipol.sifo.model.general.Tramite;
 
 @ManagedBean(name = "trmMovimientoController")
 @SessionScoped
@@ -34,8 +32,10 @@ public class TrmMovimientoController implements Serializable {
     private List<TrmMovimiento> itemsHistoricos = null;
     private TrmMovimiento selected;
     private TrmMovimiento selectedHistorico;
-
-    public TrmMovimientoController() {
+    
+    @PostConstruct
+    public void init() {
+        items=ejbFacade.findItemsActivos();
     }
 
     public TrmMovimiento getSelected() {
@@ -103,10 +103,7 @@ public class TrmMovimientoController implements Serializable {
         }
     }
 
-    public List<TrmMovimiento> getItems() {
-        if (items == null) {
-            items = getFacade().findItemsActivos(); //findAll();
-        }
+    public List<TrmMovimiento> getItems() {        
         return items;
     }
     

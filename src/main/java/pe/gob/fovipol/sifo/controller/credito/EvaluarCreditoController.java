@@ -1,4 +1,4 @@
-package pe.gob.fovipol.sifo.controller;
+package pe.gob.fovipol.sifo.controller.credito;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -22,11 +22,13 @@ import pe.gob.fovipol.sifo.dao.MaeRequisitoFacade;
 import pe.gob.fovipol.sifo.dao.TrmDocumentoFacade;
 import pe.gob.fovipol.sifo.dao.TrmTramiteFacade;
 import pe.gob.fovipol.sifo.dao.credito.CrdCanalcobraFacade;
+import pe.gob.fovipol.sifo.dao.credito.CrdCreditoCuotaFacade;
 import pe.gob.fovipol.sifo.dao.credito.CrdCreditoFacade;
 import pe.gob.fovipol.sifo.dao.credito.CrdSimulaSeguroFacade;
 import pe.gob.fovipol.sifo.model.credito.CrdCanalcobra;
 import pe.gob.fovipol.sifo.model.credito.CrdCanalcobraPK;
 import pe.gob.fovipol.sifo.model.credito.CrdCredito;
+import pe.gob.fovipol.sifo.model.credito.CrdCreditoCuota;
 import pe.gob.fovipol.sifo.model.credito.CrdSimulaSeguro;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
@@ -44,9 +46,9 @@ import pe.gob.fovipol.sifo.service.CreditoService;
 import pe.gob.fovipol.sifo.service.TramiteService;
 import pe.gob.fovipol.sifo.util.Constantes;
 
-@ManagedBean(name = "registrarExpedienteController")
+@ManagedBean(name = "evaluarCreditoController")
 @ViewScoped
-public class RegistrarExpedienteController implements Serializable {
+public class EvaluarCreditoController implements Serializable {
 
     @EJB
     private TrmTramiteFacade ejbTramiteFacade;
@@ -66,6 +68,8 @@ public class RegistrarExpedienteController implements Serializable {
     private CreditoService creditoService;
     @EJB
     private CrdCanalcobraFacade ejbCanalFacade;
+    @EJB
+    private CrdCreditoCuotaFacade ejbCreditoCuotaFacade;
     @EJB
     private CrdSimulaSeguroFacade ejbSimulaSeguroFacade;
     @EJB
@@ -99,54 +103,51 @@ public class RegistrarExpedienteController implements Serializable {
     private BigDecimal totalSeguro;
     private BigDecimal totalCuota;
     private boolean esPrestamo;
+    private boolean verCronograma;
     private String codigoPoliza;
     private BigDecimal montoPoliza;
-
     @PostConstruct
     public void init() {
-        esPrestamo=false;
+        esPrestamo = false;
         String idTramite = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap()
                 .get("idTramite");
         if (idTramite != null && !idTramite.trim().equals("")) {
             tramite = ejbTramiteFacade.find(new BigDecimal(idTramite));
-            if (tramite == null) {
-                tramite = new TrmTramite();
-                tramite.setIdenSimuSim(new CrdSimulacion());
-                credito = new CrdCredito();
-                inmueble = new MaeInmueble();
-            } else {
-                setSocio(tramite.getCodiPersTrm().getMaeSocio());
-                credito = ejbCreditoService.findByTramite(tramite);
-                if (credito == null) {
-                    credito = new CrdCredito();
-                    inmueble = new MaeInmueble();
+            if (tramite != null) {
+                verificarTipoTramite();
+                if (esPrestamo) {
+                    setSocio(tramite.getCodiPersTrm().getMaeSocio());
+                    credito = ejbCreditoService.findByTramite(tramite);
+                    if (credito == null) {
+                        credito = new CrdCredito();
+                        inmueble = new MaeInmueble();
+                    } else {
+                        inmueble = credito.getIdenInmuImb();
+                    }
+                    if (tramite.getIdenSimuSim() != null) {
+                        simulacion = tramite.getIdenSimuSim().getIdenSimuSim();
+                        producto = tramite.getIdenSimuSim().getIdenProdPrd();
+                        CrdSimulacion simu = tramite.getIdenSimuSim();
+                        cargarSeguros();
+                        netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+                        cargarRequisitos();
+                        esPrestamo = true;
+                    } else {
+                        cargarRequisitos();
+                    }
                 } else {
-                    inmueble = credito.getIdenInmuImb();
+                    tramite = null;
                 }
-                if (tramite.getIdenSimuSim() != null) {
-                    simulacion = tramite.getIdenSimuSim().getIdenSimuSim();
-                    producto = tramite.getIdenSimuSim().getIdenProdPrd();
-                    CrdSimulacion simu = tramite.getIdenSimuSim();
-                    cargarSeguros();
-                    netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
-                    cargarRequisitos();
-                    esPrestamo=true;
-                }
-                else{                    
-                    cargarRequisitos();
-                }                    
             }
         } else {
-            tramite = new TrmTramite();
-            tramite.setIdenSimuSim(new CrdSimulacion());
-            credito = new CrdCredito();
-            inmueble = new MaeInmueble();
+            tramite = null;
         }
         productos = ejbProductoFacade.findAll();
         gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_GRADO_PARENTESCO));
         cargarCanalesCobranza();
-        beneficiaria = false;
+        //beneficiaria = false;
+        verCronograma=false;
     }
 
     public void verSimulacion() {
@@ -158,11 +159,12 @@ public class RegistrarExpedienteController implements Serializable {
         CrdSimulacion simu = tramite.getIdenSimuSim();
         cuotas = creditoService.calcularCuotas(listaSeguro, simu.getPeriCiclSim().intValue(),
                 simu.getTasaTeaSim(), simu.getImpoSoliSim(),
-                simu.getPlazPresSim(), simu.getImpoCuotSim(), socio.getMaePersona().getFechNaciPer());
+                simu.getPlazPresSim(), simu.getImpoCuotSim(), socio.getMaePersona().getFechNaciPer());        
         totalAmortizacion = cuotas.get(0).getTotalAmortizacion();
         totalCuota = cuotas.get(0).getTotalCuota();
         totalInteres = cuotas.get(0).getTotalInteres();
         totalSeguro = cuotas.get(0).getTotalSeguro();
+        verCronograma=true;
     }
 
     public void cargarSeguros() {
@@ -178,7 +180,7 @@ public class RegistrarExpedienteController implements Serializable {
     }
 
     public void cargarCanalesCobranza() {
-        if (tramite.getIdenExpeTrm() == null) {
+        if (tramite == null || tramite.getIdenExpeTrm() == null) {
 
             canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA));
             canales = new ArrayList<>();
@@ -223,6 +225,10 @@ public class RegistrarExpedienteController implements Serializable {
         netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
     }
 
+    public void actualizarSimulaciones() {
+        simulaciones = ejbSimulacionFacade.findBySocioProducto(socio.getCodiPersPer(), producto.getIdenProdPrd());
+    }
+
     public void cargarRequisitos() {
         if (producto != null) {
             if (socio != null) {
@@ -245,8 +251,7 @@ public class RegistrarExpedienteController implements Serializable {
                     documentos.add(doc);
                 }
             }
-        }
-        else{
+        } else {
             if (tramite.getIdenExpeTrm() != null) {
                 documentos = ejbDocumentoFacade.findByTramite(tramite);
             } else {
@@ -264,7 +269,7 @@ public class RegistrarExpedienteController implements Serializable {
                     documentos.add(doc);
                 }
             }
-        }  
+        }
     }
 
     public void darViabilidad() {
@@ -287,43 +292,7 @@ public class RegistrarExpedienteController implements Serializable {
 
     public void registrar() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (socio == null) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Seleccione un Socio", ""));
-            context.addCallbackParam("error", true);
-            return;
-        }
-        if (tramite.getNombTramTrm() == null || tramite.getNombTramTrm().trim().equals("")) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese nombre del Tramitante", ""));
-            context.addCallbackParam("error", true);
-            return;
-        }
-        if (tramite.getNumeFolioTrm() == null) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el número de folios", ""));
-            context.addCallbackParam("error", true);
-            return;
-        }
-        if (tramite.getNumeFolioTrm().compareTo(BigInteger.ZERO) != 1) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN, "El número de folios debe ser Mayor que 0", ""));
-            context.addCallbackParam("error", true);
-            return;
-        }
-        if (tramite.getDescAsunTrm() == null || tramite.getDescAsunTrm().trim().equals("")) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el Asunto del Expediente", ""));
-            context.addCallbackParam("error", true);
-            return;
-        }
-        if (tramite.getIdenExpeTrm()==null && producto== null) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Seleccione Producto", ""));
-            context.addCallbackParam("error", true);
-            return;
-        }
-        if(esPrestamo){
+        if (esPrestamo) {
             contarCanalCobranza();
             if (totalPago.compareTo(tramite.getIdenSimuSim().getImpoCuotSim()) != 0) {
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -331,47 +300,44 @@ public class RegistrarExpedienteController implements Serializable {
                 context.addCallbackParam("error", true);
                 return;
             }
-        }        
-        tramite.setCodiPersTrm(socio.getMaePersona());
-        if(tramite.getIdenExpeTrm()==null)
-            tramite.setMaeProceso(producto.getIdenProcPrc());
-        if(esPrestamo){
-            credito.setIdenInmuImb(inmueble);
-            credito.setIdenExpeTrm(tramite);
-            CrdSimulacion simu = tramite.getIdenSimuSim();
-            credito.setPercSociCrd(simu.getIngrBrtoSim());
-            credito.setNumeCuotPrd(simu.getPlazPresSim());
-            credito.setTasaInteCrd(simu.getTasaTeaSim());
-            credito.setTasaGadmCrd(simu.getTasaGadmSim());
-            credito.setCodiMoneCrd(simu.getCodiMoneCrd());
-            credito.setAutoCdobCrd(simu.getAutoCdobSim());
-            credito.setPeriGracCrd(simu.getPeriGracSim());
-            credito.setImpoSoliCrd(simu.getImpoSoliSim());
         }
-        boolean crea;
-        if(esPrestamo)
-            crea = tramiteService.registrarExpedienteCredito(tramite, documentos, credito, canales);
-        else
-            crea = tramiteService.registrarExpediente(tramite, documentos);
+        credito.setIdenInmuImb(inmueble);
+        credito.setIdenExpeTrm(tramite);
+        CrdSimulacion simu = tramite.getIdenSimuSim();
+        credito.setPercSociCrd(simu.getIngrBrtoSim());
+        credito.setNumeCuotPrd(simu.getPlazPresSim());
+        credito.setTasaInteCrd(simu.getTasaTeaSim());
+        credito.setTasaGadmCrd(simu.getTasaGadmSim());
+        credito.setCodiMoneCrd(simu.getCodiMoneCrd());
+        credito.setAutoCdobCrd(simu.getAutoCdobSim());
+        credito.setPeriGracCrd(simu.getPeriGracSim());
+        credito.setImpoSoliCrd(simu.getImpoSoliSim());
+        boolean crea;        
+        crea = tramiteService.registrarExpedienteCredito(tramite, documentos, credito, canales);
+        verSimulacion();
+        List<CrdCreditoCuota> listaCuotas=ejbCreditoCuotaFacade.findByCredito(credito);
+        if(listaCuotas==null || listaCuotas.isEmpty())
+            crea= creditoService.generarCuotas(tramite, credito, cuotas);
         if (crea) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Cuotas Generadas", ""));
             context.addCallbackParam("error", false);
         } else {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo grabar el Trámite", ""));
+                    new FacesMessage(FacesMessage.SEVERITY_WARN, "No se pudo generar las Cuotas", ""));
             context.addCallbackParam("error", true);
         }
     }
-    
-    public void verificarTipoTramite(){
-        MaeEntidaddet detalle=ejbEntidadDetalleFacade.findIdenEntiDet(tramite.getTipoTramTrm(),Constantes.ENTIDAD_TIPO_TRAMITE );
-        if(detalle.getValoNumuDet()!=null && detalle.getValoNumuDet().compareTo(BigInteger.ONE)==0){
-            esPrestamo=true;
+
+    public void verificarTipoTramite() {
+        MaeEntidaddet detalle = ejbEntidadDetalleFacade.findIdenEntiDet(tramite.getTipoTramTrm(), Constantes.ENTIDAD_TIPO_TRAMITE);
+        if (detalle.getValoNumuDet() != null && detalle.getValoNumuDet().compareTo(BigInteger.ONE) == 0) {
+            esPrestamo = true;
+        } else {
+            esPrestamo = false;
         }
-        else
-            esPrestamo=false;
     }
+
     /**
      * @return the socio
      */
@@ -792,6 +758,20 @@ public class RegistrarExpedienteController implements Serializable {
      */
     public void setEsPrestamo(boolean esPrestamo) {
         this.esPrestamo = esPrestamo;
+    }
+
+    /**
+     * @return the verCronograma
+     */
+    public boolean isVerCronograma() {
+        return verCronograma;
+    }
+
+    /**
+     * @param verCronograma the verCronograma to set
+     */
+    public void setVerCronograma(boolean verCronograma) {
+        this.verCronograma = verCronograma;
     }
 
     /**

@@ -57,7 +57,20 @@ public class MaeProceso implements Serializable {
     @Column(name = "NIVE_PROC_PRC")
     private Short niveProcPrc;
     @Column(name = "ORDE_SECU_PRC")
-    private int ordeSecuPrc;    
+    private Integer ordeSecuPrc;    
+    @Column(name = "SECU_ESTA_PRC")
+    private Integer secuEstaPrc;
+    @Column(name = "FLAG_ALER_PRC")
+    private Character flagAlerPrc;
+    @Size(max = 120)
+    @Column(name = "ASUN_EMAI_PRC")
+    private String asunEmaiPrc;
+    @Size(max = 500)
+    @Column(name = "CABE_EMAI_PRC")
+    private String cabeEmaiPrc;
+    @Size(max = 500)
+    @Column(name = "PIEP_EMAI_PRC")
+    private String piepEmaiPrc;    
     @Size(max = 100)
     @Column(name = "PAGI_PROC_PRC")
     private String pagiProcPrc;
@@ -314,5 +327,44 @@ public class MaeProceso implements Serializable {
         this.trmMovimientoList = trmMovimientoList;
     }
 
+    public Integer getSecuEstaPrc() {
+        return secuEstaPrc;
+    }
+
+    public void setSecuEstaPrc(Integer secuEstaPrc) {
+        this.secuEstaPrc = secuEstaPrc;
+    }
+
+    public Character getFlagAlerPrc() {
+        return flagAlerPrc;
+    }
+
+    public void setFlagAlerPrc(Character flagAlerPrc) {
+        this.flagAlerPrc = flagAlerPrc;
+    }
+
+    public String getAsunEmaiPrc() {
+        return asunEmaiPrc;
+    }
+
+    public void setAsunEmaiPrc(String asunEmaiPrc) {
+        this.asunEmaiPrc = asunEmaiPrc;
+    }
+
+    public String getCabeEmaiPrc() {
+        return cabeEmaiPrc;
+    }
+
+    public void setCabeEmaiPrc(String cabeEmaiPrc) {
+        this.cabeEmaiPrc = cabeEmaiPrc;
+    }
+
+    public String getPiepEmaiPrc() {
+        return piepEmaiPrc;
+    }
+
+    public void setPiepEmaiPrc(String piepEmaiPrc) {
+        this.piepEmaiPrc = piepEmaiPrc;
+    }
     
 }
