@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade;
 import pe.gob.fovipol.sifo.dao.seguridad.AdmModuloFacade;
 import pe.gob.fovipol.sifo.dao.seguridad.AdmUsuarioFacade;
+import pe.gob.fovipol.sifo.model.maestros.MaeArea;
 import pe.gob.fovipol.sifo.model.seguridad.AdmMenu;
 import pe.gob.fovipol.sifo.model.seguridad.AdmModulo;
 import pe.gob.fovipol.sifo.model.seguridad.AdmUsuario;
@@ -32,6 +33,7 @@ public class SesionUsuario implements Serializable {
     private AdmUsuario usuario;
     private List<Menu> menus;
     private List<AdmModulo> modulos;
+    private MaeArea area;
     @EJB
     AdmUsuarioFacade ejbAdmUsuarioFacade;
     @EJB
@@ -49,6 +51,12 @@ public class SesionUsuario implements Serializable {
         String nombre = SecurityContextHolder.getContext().getAuthentication().getName();
         if (nombre == null || !nombre.equals(usuario.getCodiUsuaUsr())) {
             usuario = ejbAdmUsuarioFacade.findByUsuario(nombre);
+            try{
+                area=usuario.getMaePersona().getMaeEmpleado().getIdenAreaAre();
+            }
+            catch(NullPointerException npe){
+                area=null;
+            }
             modulos = ejbAdmModuloFacade.findByUsuario(usuario);
             for (AdmModulo modulo : modulos) {
                 Menu m = new Menu();
@@ -124,5 +132,19 @@ public class SesionUsuario implements Serializable {
      */
     public void setModulos(List<AdmModulo> modulos) {
         this.modulos = modulos;
+    }
+
+    /**
+     * @return the area
+     */
+    public MaeArea getArea() {
+        return area;
+    }
+
+    /**
+     * @param area the area to set
+     */
+    public void setArea(MaeArea area) {
+        this.area = area;
     }
 }

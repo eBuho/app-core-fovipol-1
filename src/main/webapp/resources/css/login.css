@@ -2,9 +2,8 @@
     background-color: #fff !important;
 }
 #login-box{
-    position: fixed;
-    top: 270px;
-    right: 330px;
+    padding-top: 270px;
+    padding-left: 620px;
     width: 240px;
 }
 .form-div {
@@ -66,9 +65,11 @@
 }
 .margen-bajo{
     margin-bottom: 5px;
+    width: 200px;
 }
 .btn-ingresar{
     width: 96px;
     height: 31px;
-    //background-image: url(../images/boton-aceptar.png);
+    border: none;
+    background-image: url(../images/boton-aceptar.png);
 }

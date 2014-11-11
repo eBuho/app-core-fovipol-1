@@ -6,6 +6,7 @@ import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.TrmMovimientoFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -14,20 +15,24 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.TabChangeEvent;
+import pe.gob.fovipol.sifo.bean.sesion.SesionUsuario;
 
 @ManagedBean(name = "trmMovimientoController")
-@SessionScoped
+@ViewScoped
 public class TrmMovimientoController implements Serializable {
 
     @EJB
     private pe.gob.fovipol.sifo.dao.TrmMovimientoFacade ejbFacade;
+    @ManagedProperty(value="#{sesionUsuario}")
+    private SesionUsuario sesionUsuario;
     private List<TrmMovimiento> items = null;
     private List<TrmMovimiento> itemsHistoricos = null;
     private TrmMovimiento selected;
@@ -35,13 +40,19 @@ public class TrmMovimientoController implements Serializable {
     
     @PostConstruct
     public void init() {
-        items=ejbFacade.findItemsActivos();
+        items=ejbFacade.findItemsActivos(getSesionUsuario().getArea().getCodiAreaAre());
     }
 
     public TrmMovimiento getSelected() {
         return selected;
     }
-
+    
+    public void onTabChange(TabChangeEvent event) {
+        if(event.getTab().getTitle().equals("Bandeja de trabajo")){
+            items=ejbFacade.findItemsActivos(getSesionUsuario().getArea().getCodiAreaAre());
+        }        
+    }
+    
     public void setSelected(TrmMovimiento selected) {
         this.selected = selected;
     }
@@ -109,7 +120,7 @@ public class TrmMovimientoController implements Serializable {
     
     public List<TrmMovimiento> getItemsActivos() {
         if (getItems() == null) {
-            setItems(getFacade().findItemsActivos());
+            setItems(getFacade().findItemsActivos(getSesionUsuario().getArea().getCodiAreaAre()));
         }
         return getItems();
     }
@@ -200,6 +211,20 @@ public class TrmMovimientoController implements Serializable {
      */
     public void setSelectedHistorico(TrmMovimiento selectedHistorico) {
         this.selectedHistorico = selectedHistorico;
+    }
+
+    /**
+     * @return the sesionUsuario
+     */
+    public SesionUsuario getSesionUsuario() {
+        return sesionUsuario;
+    }
+
+    /**
+     * @param sesionUsuario the sesionUsuario to set
+     */
+    public void setSesionUsuario(SesionUsuario sesionUsuario) {
+        this.sesionUsuario = sesionUsuario;
     }
 
     @FacesConverter(forClass = TrmMovimiento.class)

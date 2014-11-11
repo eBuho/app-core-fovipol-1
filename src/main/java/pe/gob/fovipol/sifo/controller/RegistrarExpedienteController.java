@@ -101,10 +101,13 @@ public class RegistrarExpedienteController implements Serializable {
     private boolean esPrestamo;
     private String codigoPoliza;
     private BigDecimal montoPoliza;
+    private boolean enOtraArea;
 
     @PostConstruct
     public void init() {
         esPrestamo=false;
+        beneficiaria = false;
+        enOtraArea=false;
         String idTramite = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap()
                 .get("idTramite");
@@ -146,7 +149,7 @@ public class RegistrarExpedienteController implements Serializable {
         productos = ejbProductoFacade.findAll();
         gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_GRADO_PARENTESCO));
         cargarCanalesCobranza();
-        beneficiaria = false;
+        //beneficiaria = false;
     }
 
     public void verSimulacion() {
@@ -268,7 +271,8 @@ public class RegistrarExpedienteController implements Serializable {
     }
 
     public void darViabilidad() {
-        boolean validarCampos = tramiteService.darViabilidadExpediente(tramite, documentos);
+        boolean validarCampos = tramiteService.darViabilidadExpediente(tramite, documentos);        
+        enOtraArea=validarCampos;
         if (validarCampos) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con éxito", ""));
         } else {
@@ -820,6 +824,20 @@ public class RegistrarExpedienteController implements Serializable {
      */
     public void setMontoPoliza(BigDecimal montoPoliza) {
         this.montoPoliza = montoPoliza;
+    }
+
+    /**
+     * @return the enOtraArea
+     */
+    public boolean isEnOtraArea() {
+        return enOtraArea;
+    }
+
+    /**
+     * @param enOtraArea the enOtraArea to set
+     */
+    public void setEnOtraArea(boolean enOtraArea) {
+        this.enOtraArea = enOtraArea;
     }
 
 }

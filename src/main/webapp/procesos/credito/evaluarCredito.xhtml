@@ -879,13 +879,13 @@
                                 <p:spacer width="30"/>
                                 <div class="col-md-12">
                                     <div class="col-md-1">
-                                        <p:commandButton oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" actionListener="#{evaluarCreditoController.registrar()}" />
+                                        <p:commandButton disabled="#{evaluarCreditoController.enOtraArea}" oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" actionListener="#{evaluarCreditoController.registrar()}" />
                                     </div>
                                     <div class="col-md-2">
-                                        <p:commandButton disabled="#{evaluarCreditoController.tramite.idenExpeTrm==null}"  value="Dar Viabilidad" actionListener="#{evaluarCreditoController.darViabilidad()}"/>
+                                        <p:commandButton disabled="#{evaluarCreditoController.tramite.idenExpeTrm==null || evaluarCreditoController.enOtraArea}"  value="Dar Viabilidad" actionListener="#{evaluarCreditoController.darViabilidad()}"/>
                                     </div>
                                     <div class="col-md-1">
-                                        <p:commandButton disabled="#{evaluarCreditoController.tramite.idenExpeTrm==null}"  value="Rechazar" actionListener="#{evaluarCreditoController.rechazar()}"/>
+                                        <p:commandButton disabled="#{evaluarCreditoController.tramite.idenExpeTrm==null || evaluarCreditoController.enOtraArea}"  value="Rechazar" actionListener="#{evaluarCreditoController.rechazar()}"/>
                                     </div>
                                 </div>
                             </p:fieldset>

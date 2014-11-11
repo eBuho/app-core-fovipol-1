@@ -7,11 +7,13 @@ import pe.gob.fovipol.sifo.dao.MaeProcesoFacade;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -22,8 +24,10 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
+import pe.gob.fovipol.sifo.model.maestros.MaeProcesoestado;
 import pe.gob.fovipol.sifo.model.maestros.MaeRequisito;
 import pe.gob.fovipol.sifo.model.maestros.MaeRequisitoPK;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 @ManagedBean(name = "maeProcesoController")
 @ViewScoped
@@ -31,6 +35,8 @@ public class MaeProcesoController implements Serializable {
 
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeProcesoFacade ejbFacade;
+    @EJB
+    private pe.gob.fovipol.sifo.dao.MaeProcesoestadoFacade ejbEstadoFacade;
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeRequisitoFacade ejbRequisitoFacade;
     @EJB
@@ -48,7 +54,17 @@ public class MaeProcesoController implements Serializable {
     private List<MaeRequisito> requisitos;
     private MaeRequisito selectedRequisito;
     private List<MaeEntidaddet> tiposRequisito;
-
+    private List<MaeProcesoestado> procesoEstados;
+    @PostConstruct
+    public void init(){
+        
+    }
+    public void cargarEstados(){
+        if(selected.getCodiPropPrc()!=null)
+            procesoEstados=ejbEstadoFacade.findByProceso(selected.getCodiPropPrc());
+        else
+            procesoEstados=new ArrayList<>();
+    }
     public MaeProcesoController() {
     }
     
@@ -88,11 +104,12 @@ public class MaeProcesoController implements Serializable {
         return ejbFacade;
     }
 
-    public MaeProceso prepareCreate() {
+    public MaeProceso prepareCreate() {        
         selected = new MaeProceso();
         selected.setCodiProcPrc(new BigDecimal(ejbFacade.count()+1));
         selected.setNiveProcPrc(new Short("1"));
-        selected.setFlagEstaPrc(new Short("1"));
+        selected.setFlagEstaPrc(Constantes.VALOR_ESTADO_ACTIVO);
+        cargarEstados();
         initializeEmbeddableKey();
         return selected;
     }
@@ -103,15 +120,16 @@ public class MaeProcesoController implements Serializable {
         b.setSecuMaeReq(ejbRequisitoFacade.obtenerCorrelativo(selectedProceso.getCodiProcPrc()));
         selectedRequisito.setMaeProceso(selectedProceso);
         selectedRequisito.setMaeRequisitoPK(b);
-        selectedRequisito.setFlagEstaReq(new Short("1"));
+        selectedRequisito.setFlagEstaReq(Constantes.VALOR_ESTADO_ACTIVO);
         return selectedRequisito;
     }
     public MaeProceso prepareCreateSubProceso() {
         selected = new MaeProceso();
         selected.setCodiProcPrc(new BigDecimal(ejbFacade.count()+1));
         selected.setNiveProcPrc(new Short("2"));
-        selected.setFlagEstaPrc(new Short("1"));
+        selected.setFlagEstaPrc(Constantes.VALOR_ESTADO_ACTIVO);
         selected.setCodiPropPrc(selectedProceso);
+        cargarEstados();
         initializeEmbeddableKey();
         return selected;
     }
@@ -119,19 +137,23 @@ public class MaeProcesoController implements Serializable {
         selected = new MaeProceso();
         selected.setCodiProcPrc(new BigDecimal(ejbFacade.count()+1));
         selected.setNiveProcPrc(new Short("3"));
-        selected.setFlagEstaPrc(new Short("1"));
+        selected.setFlagEstaPrc(Constantes.VALOR_ESTADO_ACTIVO);
         selected.setCodiPropPrc(selectedSubProceso);
+        cargarEstados();
         initializeEmbeddableKey();
         return selected;
     }
     public void modificarProceso(){
         selected=selectedProceso;
+        cargarEstados();
     }
     public void modificarSubProceso(){
         selected=selectedSubProceso;
+        cargarEstados();
     }
     public void modificarActividad(){
         selected=selectedActividad;
+        cargarEstados();
     }
     public void create() {
         selected.setFechCreaAud(new Date());        
@@ -429,6 +451,20 @@ public class MaeProcesoController implements Serializable {
      */
     public void setTiposRequisito(List<MaeEntidaddet> tiposRequisito) {
         this.tiposRequisito = tiposRequisito;
+    }
+
+    /**
+     * @return the procesoEstados
+     */
+    public List<MaeProcesoestado> getProcesoEstados() {
+        return procesoEstados;
+    }
+
+    /**
+     * @param procesoEstados the procesoEstados to set
+     */
+    public void setProcesoEstados(List<MaeProcesoestado> procesoEstados) {
+        this.procesoEstados = procesoEstados;
     }
 
     @FacesConverter(forClass = MaeProceso.class)

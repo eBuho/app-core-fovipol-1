@@ -27,7 +27,7 @@
             <div class="portlet box green" style="border: none">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-cogs"></i>Registrar Expediente
+                        <i class="fa fa-cogs"></i>Registrar Expediente <h:outputText value="#{registrarExpedienteController.tramite.idenExpeTrm}" rendered="#{registrarExpedienteController.tramite.idenExpeTrm!=null}"/> 
                     </div>
                 </div>
                 <div class="portlet-body" > 
@@ -234,7 +234,7 @@
                                 </p:panel>
                             </p:fieldset>
                             <p:spacer width="20"/>
-                            <p:fieldset legend="Documento" styleClass="fieldSet" id="documento">
+                            <p:fieldset legend="Documento"  styleClass="fieldSet" id="documento">
                                 <div class="col-md-12 margen">
                                     <div class="col-md-4">
                                         <div class="col-md-4">
@@ -261,7 +261,7 @@
                                             <h:outputText value="N° Guía:"/>                                
                                         </div>
                                         <div class="col-md-8">
-                                            <p:inputText value="#{registrarExpedienteController.tramite.numeGuiaTrm}" styleClass="inputLargo"/>
+                                            <p:inputText  value="#{registrarExpedienteController.tramite.numeGuiaTrm}" styleClass="inputLargo"/>
                                         </div>
                                     </div>
                                 </div>
@@ -370,7 +370,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <p:dataTable id="tablaRequisito" value="#{registrarExpedienteController.documentos}"
-                                                     editMode="cell" editable="true"      var="requisito" emptyMessage="No hay requisitos">
+                                                     editMode="cell" editable="#{!registrarExpedienteController.enOtraArea}"      var="requisito" emptyMessage="No hay requisitos">
                                             <p:ajax event="cellEdit" update="tablaRequisito" />
                                             <p:column>
                                                 <f:facet name="header">
@@ -469,18 +469,13 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <p:commandButton rendered="#{registrarExpedienteController.esPrestamo}" disabled="#{registrarExpedienteController.simulacion==null}" 
+                                        <p:commandButton rendered="#{registrarExpedienteController.esPrestamo}" disabled="#{registrarExpedienteController.simulacion==null or registrarExpedienteController.enOtraArea}" 
                                                          oncomplete="PF('dialogSimulacion').show();"      value="Ver Simulación" actionListener="#{registrarExpedienteController.verSimulacion()}" id="verSimulacion"/>
                                     </div>
-                                </div>
-                                <div class="col-md-12 margen sin-margen">
-                                    <p:commandButton oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" actionListener="#{registrarExpedienteController.registrar()}" />
-                                    <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Dar Viabilidad" actionListener="#{registrarExpedienteController.darViabilidad()}"/>
-                                    <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Rechazar" actionListener="#{registrarExpedienteController.rechazar()}"/>
-                                </div>
+                                </div>                                
                             </p:fieldset>
                             <p:spacer width="20"/>
-                            <p:fieldset rendered="#{registrarExpedienteController.esPrestamo}" legend="Información General" styleClass="fieldSet" id="datosSimulacion">
+                            <p:fieldset toggleable="true" rendered="#{registrarExpedienteController.esPrestamo}" legend="Información General" styleClass="fieldSet" id="datosSimulacion">
                                 <div class="col-md-6 margen">
                                     <p:fieldset legend="Datos de Crédito" styleClass="fieldSet" 
                                                 rendered="#{registrarExpedienteController.tramite.idenSimuSim!=null}">
@@ -745,11 +740,26 @@
                                                                      rows="3"            value="#{registrarExpedienteController.inmueble.descDireImb}"/>
                                                 </div>
                                             </div> 
-                                        </p:fieldset>
+                                        </p:fieldset>                                        
                                     </p:fieldset>                                    
                                 </div>                    
                             </p:fieldset>
+                            <p:fieldset legend="Acciones" styleClass="fieldSet">
+                                <div class="col-md-12">
+                                    <div class="col-md-1">
+                                        <p:commandButton oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" disabled="#{registrarExpedienteController.enOtraArea}" actionListener="#{registrarExpedienteController.registrar()}" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null or registrarExpedienteController.enOtraArea}" update="formRegistroExpediente" value="Dar Viabilidad" actionListener="#{registrarExpedienteController.darViabilidad()}"/>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null or registrarExpedienteController.enOtraArea}" update="formRegistroExpediente" value="Rechazar" actionListener="#{registrarExpedienteController.rechazar()}"/>
+                                    </div>
+                                </div>
+                            </p:fieldset>
                         </div>
+                        
+
 
 
                         <p:dialog appendTo="@(body)" widgetVar="dialogSimulacion" dynamic="true" modal="true" resizable="false"

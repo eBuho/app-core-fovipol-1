@@ -58,6 +58,8 @@ public class MaeProceso implements Serializable {
     private Short niveProcPrc;
     @Column(name = "ORDE_SECU_PRC")
     private Integer ordeSecuPrc;    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "maeProceso")
+    private List<MaeProcesoestado> maeProcesoestadoList;
     @Column(name = "SECU_ESTA_PRC")
     private Integer secuEstaPrc;
     @Column(name = "FLAG_ALER_PRC")
@@ -365,6 +367,16 @@ public class MaeProceso implements Serializable {
 
     public void setPiepEmaiPrc(String piepEmaiPrc) {
         this.piepEmaiPrc = piepEmaiPrc;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<MaeProcesoestado> getMaeProcesoestadoList() {
+        return maeProcesoestadoList;
+    }
+
+    public void setMaeProcesoestadoList(List<MaeProcesoestado> maeProcesoestadoList) {
+        this.maeProcesoestadoList = maeProcesoestadoList;
     }
     
 }

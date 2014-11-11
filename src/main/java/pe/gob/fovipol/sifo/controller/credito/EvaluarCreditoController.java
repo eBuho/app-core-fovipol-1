@@ -106,9 +106,11 @@ public class EvaluarCreditoController implements Serializable {
     private boolean verCronograma;
     private String codigoPoliza;
     private BigDecimal montoPoliza;
+    private boolean enOtraArea;
     @PostConstruct
     public void init() {
         esPrestamo = false;
+        enOtraArea=false;
         String idTramite = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap()
                 .get("idTramite");
@@ -273,8 +275,8 @@ public class EvaluarCreditoController implements Serializable {
     }
 
     public void darViabilidad() {
-        boolean validarCampos = tramiteService.darViabilidadExpediente(tramite, documentos);
-        if (validarCampos) {
+        enOtraArea = tramiteService.darViabilidadExpediente(tramite, documentos);
+        if (enOtraArea) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con éxito", ""));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No tiene todos los requisitos", ""));
@@ -800,6 +802,20 @@ public class EvaluarCreditoController implements Serializable {
      */
     public void setMontoPoliza(BigDecimal montoPoliza) {
         this.montoPoliza = montoPoliza;
+    }
+
+    /**
+     * @return the enOtraArea
+     */
+    public boolean isEnOtraArea() {
+        return enOtraArea;
+    }
+
+    /**
+     * @param enOtraArea the enOtraArea to set
+     */
+    public void setEnOtraArea(boolean enOtraArea) {
+        this.enOtraArea = enOtraArea;
     }
 
 }
