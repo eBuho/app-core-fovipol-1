@@ -107,6 +107,7 @@ public class EvaluarCreditoController implements Serializable {
     private String codigoPoliza;
     private BigDecimal montoPoliza;
     private boolean enOtraArea;
+    private List<MaeSeguro> listaSeguro;
     @PostConstruct
     public void init() {
         esPrestamo = false;
@@ -153,7 +154,7 @@ public class EvaluarCreditoController implements Serializable {
     }
 
     public void verSimulacion() {
-        List<MaeSeguro> listaSeguro = new ArrayList<>();
+        listaSeguro = new ArrayList<>();
         List<CrdSimulaSeguro> lista = ejbSimulaSeguroFacade.findBySimulacion(tramite.getIdenSimuSim());
         for (CrdSimulaSeguro simula : lista) {
             listaSeguro.add(simula.getIdenSeguSeg());
@@ -318,8 +319,9 @@ public class EvaluarCreditoController implements Serializable {
         crea = tramiteService.registrarExpedienteCredito(tramite, documentos, credito, canales);
         verSimulacion();
         List<CrdCreditoCuota> listaCuotas=ejbCreditoCuotaFacade.findByCredito(credito);
-        if(listaCuotas==null || listaCuotas.isEmpty())
-            crea= creditoService.generarCuotas(tramite, credito, cuotas);
+        if(listaCuotas==null || listaCuotas.isEmpty()){
+            crea= creditoService.generarCuotas(tramite, credito, cuotas,listaSeguro);            
+        }
         if (crea) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Cuotas Generadas", ""));

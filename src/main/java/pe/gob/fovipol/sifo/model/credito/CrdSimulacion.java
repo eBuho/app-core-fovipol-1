@@ -71,6 +71,10 @@ import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
     @NamedQuery(name = "CrdSimulacion.findByNombSopeAud", query = "SELECT c FROM CrdSimulacion c WHERE c.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "CrdSimulacion.findByFlagEstaSim", query = "SELECT c FROM CrdSimulacion c WHERE c.flagEstaSim = :flagEstaSim")})
 public class CrdSimulacion implements Serializable { 
+    @Column(name = "PERI_CICL_SIM")
+    private BigInteger periCiclSim;
+    @OneToMany(mappedBy = "idenSimuSim")
+    private List<TrmTramite> trmTramiteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "crdSimulacion")
     private List<CrdSimulaSeguro> crdSimulaSeguroList;
     private static final long serialVersionUID = 1L;
@@ -111,8 +115,6 @@ public class CrdSimulacion implements Serializable {
     private BigDecimal impoSoliSim;
     @Column(name = "IMPO_CUOT_SIM")
     private BigDecimal impoCuotSim;
-    @Column(name = "PERI_CICL_SIM")
-    private BigInteger periCiclSim;
     @Column(name = "TASA_TEA_SIM")
     private BigDecimal tasaTeaSim;
     @Column(name = "PLAZ_PRES_SIM")
@@ -469,6 +471,16 @@ public class CrdSimulacion implements Serializable {
      */
     public void setPeriCiclSim(BigInteger periCiclSim) {
         this.periCiclSim = periCiclSim;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<TrmTramite> getTrmTramiteList() {
+        return trmTramiteList;
+    }
+
+    public void setTrmTramiteList(List<TrmTramite> trmTramiteList) {
+        this.trmTramiteList = trmTramiteList;
     }
 
 }

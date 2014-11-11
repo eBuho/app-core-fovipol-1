@@ -7,7 +7,6 @@ package pe.gob.fovipol.sifo.model.maestros;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -378,5 +377,5 @@ public class MaeProceso implements Serializable {
     public void setMaeProcesoestadoList(List<MaeProcesoestado> maeProcesoestadoList) {
         this.maeProcesoestadoList = maeProcesoestadoList;
     }
-    
+
 }

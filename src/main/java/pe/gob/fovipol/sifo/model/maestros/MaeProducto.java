@@ -59,6 +59,8 @@ import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
     @NamedQuery(name = "MaeProducto.findByNombSopeAud", query = "SELECT m FROM MaeProducto m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeProducto.findByFlagEstaPrd", query = "SELECT m FROM MaeProducto m WHERE m.flagEstaPrd = :flagEstaPrd")})
 public class MaeProducto implements Serializable {
+    @Column(name = "AUTO_CDOB_PRD")
+    private Short autoCdobPrd;
     @Column(name = "MONT_COBD_PRD")
     private BigDecimal montCobdPrd;
     private static final long serialVersionUID = 1L;
@@ -89,10 +91,6 @@ public class MaeProducto implements Serializable {
     private BigDecimal tasaGadmPrd;
     @Column(name = "MONT_DEUD_PRD")
     private BigDecimal montDeudPrd;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "AUTO_CDOB_PRD")
-    private short autoCdobPrd;
     @Size(max = 300)
     @Column(name = "DESC_REQU_PRD")
     private String descRequPrd;
@@ -217,14 +215,6 @@ public class MaeProducto implements Serializable {
 
     public void setMontDeudPrd(BigDecimal montDeudPrd) {
         this.montDeudPrd = montDeudPrd;
-    }
-
-    public short getAutoCdobPrd() {
-        return autoCdobPrd;
-    }
-
-    public void setAutoCdobPrd(short autoCdobPrd) {
-        this.autoCdobPrd = autoCdobPrd;
     }
 
     public String getDescRequPrd() {
@@ -361,6 +351,14 @@ public class MaeProducto implements Serializable {
      */
     public void setCodiMoneCrd(Integer codiMoneCrd) {
         this.codiMoneCrd = codiMoneCrd;
+    }
+
+    public Short getAutoCdobPrd() {
+        return autoCdobPrd;
+    }
+
+    public void setAutoCdobPrd(Short autoCdobPrd) {
+        this.autoCdobPrd = autoCdobPrd;
     }
     
 }

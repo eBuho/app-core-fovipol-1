@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pe.gob.fovipol.sifo.model.tramite.TrmMovimiento;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 /**
  *
@@ -35,10 +36,12 @@ public class TrmMovimientoFacade extends AbstractFacade<TrmMovimiento> {
     }
 
     public List<TrmMovimiento> findItemsActivos(BigDecimal idArea) {
-        String sql = "select m from TrmMovimiento m "
-                + "where m.flagSituMvm = 1 and m.areaDestMvm.codiAreaAre=:idArea order by m.fechReceMvm desc";
-        Query q = em.createQuery(sql);
-        q.setParameter("idArea", idArea);
+        String sql="SELECT * FROM TRM_MOVIMIENTO N  WHERE N.SECU_MOVI_MVM =(SELECT MAX(M.SECU_MOVI_MVM)"
+                + " FROM TRM_MOVIMIENTO M WHERE M.FLAG_SITU_MVM<>"+Constantes.VALOR_ESTADO_INACTIVO
+                + " AND N.IDEN_EXPE_TRM=M.IDEN_EXPE_TRM) AND N.AREA_DEST_MVM=? "
+                + " ORDER BY N.FECH_RECE_MVM";
+        Query q = em.createNativeQuery(sql,TrmMovimiento.class);
+        q.setParameter(1, idArea); 
         return q.getResultList();
     }
 

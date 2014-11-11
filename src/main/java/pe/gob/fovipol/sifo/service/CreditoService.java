@@ -19,7 +19,7 @@ import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
  * @author probook
  */
 public interface CreditoService {
-    public boolean generarCuotas(TrmTramite tramite,CrdCredito credito,List<Cuota> cuotas);
+    public boolean generarCuotas(TrmTramite tramite,CrdCredito credito,List<Cuota> cuotas,List<MaeSeguro> seguros);
     //Calcula la máxima cuota en una simulación
     public BigDecimal calcularMaximaCuota(BigDecimal remuneracionConsolidada,BigDecimal descuentoMaximo,BigDecimal descuentoOficial,
             BigDecimal descuentoPersonal,BigDecimal combustible);
