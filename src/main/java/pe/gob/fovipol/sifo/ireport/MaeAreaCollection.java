@@ -16,8 +16,8 @@ import pe.gob.fovipol.sifo.model.maestros.MaeArea;
  */
 public class MaeAreaCollection {
 
-    public static Collection getMaeAreaCollection() {
-        Collection areas = new ArrayList();
+    public static Collection<MaeArea> getMaeAreaCollection() {
+        Collection<MaeArea> areas = new ArrayList<MaeArea>();
         try {
             MaeArea area = new MaeArea();
             area.setCodiAreaAre(BigDecimal.ZERO);

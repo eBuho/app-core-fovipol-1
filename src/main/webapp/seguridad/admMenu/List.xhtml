@@ -4,8 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jr="http://jasperreportjsf.sf.net/tld/jasperreports-jsf-1_2.tld">
     <ui:composition template="/template.xhtml">
 
 
@@ -97,6 +97,14 @@
                                 <h:outputText value="#{seguridad.ListAdmMenuTitle_flagEstaMnu}"/>
                             </f:facet>
                             <h:outputText value="#{item.flagEstaMnu}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Reportes"/>
+                            </f:facet>
+                            <jr:reportLink id="reportLink" format="pdf" target="blank" source="#{admMenuController.areas2}" value="classpath:jasper/demo.jasper">
+                                <h:outputText value="View Report" />
+                            </jr:reportLink>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{seguridad.Create}" actionListener="#{admMenuController.prepareCreate}" update=":AdmMenuCreateForm" oncomplete="PF('AdmMenuCreateDialog').show()"/>

@@ -6,6 +6,7 @@ import pe.gob.fovipol.sifo.controller.seguridad.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +19,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import pe.gob.fovipol.sifo.ireport.MaeAreaCollection;
+import pe.gob.fovipol.sifo.model.maestros.MaeArea;
 import pe.gob.fovipol.sifo.util.Constantes;
 
 
@@ -29,7 +33,6 @@ public class AdmMenuController implements Serializable {
     @EJB private pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade ejbFacade;
     private List<AdmMenu> items = null;
     private AdmMenu selected;
-
     public AdmMenuController() {
     }
 
@@ -122,6 +125,12 @@ public class AdmMenuController implements Serializable {
 
     public List<AdmMenu> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    public Collection<MaeArea> getAreas(){
+        return MaeAreaCollection.getMaeAreaCollection();
+    }
+    public JRBeanCollectionDataSource getAreas2(){
+        return new JRBeanCollectionDataSource(getAreas());
     }
 
     @FacesConverter(forClass=AdmMenu.class)
