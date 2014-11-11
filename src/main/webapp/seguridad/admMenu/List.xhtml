@@ -6,6 +6,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:jr="http://jasperreportjsf.sf.net/tld/jasperreports-jsf-1_2.tld">
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
+
     <ui:composition template="/template.xhtml">
 
 
@@ -96,7 +98,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{seguridad.ListAdmMenuTitle_flagEstaMnu}"/>
                             </f:facet>
-                            <h:outputText value="#{item.flagEstaMnu}"/>
+                            <comp:activo value="#{item.flagEstaMnu}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

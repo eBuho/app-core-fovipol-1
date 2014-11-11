@@ -5,6 +5,7 @@
  */
 package pe.gob.fovipol.sifo.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -33,10 +34,11 @@ public class TrmMovimientoFacade extends AbstractFacade<TrmMovimiento> {
         super(TrmMovimiento.class);
     }
 
-    public List<TrmMovimiento> findItemsActivos() {
+    public List<TrmMovimiento> findItemsActivos(BigDecimal idArea) {
         String sql = "select m from TrmMovimiento m "
-                + "where m.flagSituMvm = 1 order by m.fechReceMvm desc";
+                + "where m.flagSituMvm = 1 and m.areaDestMvm.codiAreaAre=:idArea order by m.fechReceMvm desc";
         Query q = em.createQuery(sql);
+        q.setParameter("idArea", idArea);
         return q.getResultList();
     }
 

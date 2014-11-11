@@ -11,7 +11,7 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation> 
-        <h:outputText value="Activo" rendered="#{cc.attrs.value==1}"/>
-        <h:outputText value="Inactivo" rendered="#{cc.attrs.value==0}"/>        
+        <h:outputText value="#{constantes.ESTADO_ACTIVO}" rendered="#{cc.attrs.value==constantes.VALOR_ESTADO_ACTIVO}"/>
+        <h:outputText value="#{constantes.ESTADO_INACTIVO}" rendered="#{cc.attrs.value==constantes.VALOR_ESTADO_INACTIVO}"/>        
     </cc:implementation>
 </html>

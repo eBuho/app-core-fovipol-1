@@ -62,9 +62,7 @@ public class MaeEmpresa implements Serializable {
     @OneToMany(mappedBy = "idenEmprEmp")
     private List<MaeSeguro> maeSeguroList;
     @Column(name = "GIRO_NEGO_EMP")
-    private Integer giroNegoEmp;
-    @OneToMany(mappedBy = "idenEmprEmp")
-    private Collection<MaeSede> maeSedeCollection;
+    private Integer giroNegoEmp;    
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -321,14 +319,6 @@ public class MaeEmpresa implements Serializable {
         this.giroNegoEmp = giroNegoEmp;
     }
 
-    @XmlTransient
-    public Collection<MaeSede> getMaeSedeCollection() {
-        return maeSedeCollection;
-    }
-
-    public void setMaeSedeCollection(Collection<MaeSede> maeSedeCollection) {
-        this.maeSedeCollection = maeSedeCollection;
-    }
 
     @XmlTransient
     public List<MaeSeguro> getMaeSeguroList() {

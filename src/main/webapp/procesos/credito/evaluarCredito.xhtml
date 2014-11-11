@@ -1,0 +1,921 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition> 
+        <script type="text/javascript">
+            function manejarPeticionRegistro(xhr, status, args) {
+                if (!args.error) {
+                    actualiza();
+                }
+            }
+            $(document).ready(function () {
+                $(window).keydown(function (event) {
+                    if (event.keyCode == 13) {
+                        event.preventDefault();
+                        return false;
+                    }
+                });
+            });
+            function mostrarModalCambiar() {
+                $('#cambiarSimulacion').modal({
+                    backdrop: 'static'
+                })
+            }
+        </script>
+        <div class="col-md-12">
+            <div class="portlet box green" style="border: none">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-cogs"></i>Evaluar Crédito
+                    </div>
+                </div>
+                <div class="portlet-body" >                 
+                    <h:form id="formRegistroExpediente" rendered="#{evaluarCreditoController.tramite!=null}">
+                        <p:remoteCommand  name="actualiza" update="simulacion" actionListener="#{evaluarCreditoController.actualizarSimulaciones()}"/>                        
+                        <div class="col-md-12">                             
+                            <p:fieldset legend="Información Persona" styleClass="fieldSet" id="informacion" >
+                                <p:panel id="panelSocio" styleClass="panel" rendered="#{!evaluarCreditoController.beneficiaria}">
+                                    <div class="col-md-12 margen">
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Nombres:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.socio.maePersona.nombPersPer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Apellidos:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.socio.maePersona.apelPatePer}" rendered="#{evaluarCreditoController.socio!=null}"/><h:outputText value=" "/><h:outputText value="#{evaluarCreditoController.socio.maePersona.apelMatePer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Est. Civil:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <comp:entidadDetalle entidad="ESTACIVIPER" value="#{evaluarCreditoController.socio.maePersona.estaCiviPer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="CIP:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.socio.codiCcipSoc}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 margen">
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Sexo:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <comp:entidadDetalle entidad="SEXOPERSPER" value="#{evaluarCreditoController.socio.maePersona.sexoPersPer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="DNI:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.socio.maePersona.numeIdenPer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="CODOFIN:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.socio.codiCdfiSoc}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Situación:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <comp:activo value="#{evaluarCreditoController.socio.flagEstaSoc}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 margen">
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Grado:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <comp:entidadDetalle entidad="TIPOPOLISOC" value="#{evaluarCreditoController.socio.tipoPoliSoc}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Nacimiento:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.socio.maePersona.fechNaciPer}" rendered="#{evaluarCreditoController.socio!=null}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Edad:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.edad}" rendered="#{evaluarCreditoController.socio!=null}"/>                                    
+                                        </div>
+                                    </div>
+                                </p:panel>
+                                <p:panel id="panelSocioBeneficiario" styleClass="panel" rendered="#{evaluarCreditoController.beneficiaria}">
+                                    <div class="col-md-12 margen">
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Nombres:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.pareja.nombPersPer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Apellidos:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.pareja.apelPatePer}" rendered="#{evaluarCreditoController.socio!=null}"/><h:outputText value=" "/><h:outputText value="#{evaluarCreditoController.pareja.apelMatePer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Est. Civil:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <comp:entidadDetalle entidad="ESTACIVIPER" value="#{evaluarCreditoController.pareja.estaCiviPer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="CIP:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.pareja.maeSocio.codiCcipSoc}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 margen">
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Sexo:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <comp:entidadDetalle entidad="SEXOPERSPER" value="#{evaluarCreditoController.pareja.sexoPersPer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="DNI:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.pareja.numeIdenPer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="CODOFIN:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.pareja.maeSocio.codiCdfiSoc}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Situación:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <comp:activo value="#{evaluarCreditoController.pareja.maeSocio.flagEstaSoc}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 margen">
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Grado:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <comp:entidadDetalle entidad="TIPOPOLISOC" value="#{evaluarCreditoController.pareja.maeSocio.tipoPoliSoc}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Nacimiento:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.pareja.fechNaciPer}" rendered="#{evaluarCreditoController.socio!=null}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Edad:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.edad}" rendered="#{evaluarCreditoController.socio!=null}"/>                                    
+                                        </div>
+                                    </div>
+                                    <p:separator />
+                                    <div class="col-md-12 margen">
+                                        <h:outputText styleClass="texto-negrita" value="Beneficiario(a)" style="font-weight: bold"/>
+                                    </div>
+                                    <div class="col-md-12 margen">
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Nombres:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.socio.maePersona.nombPersPer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Apellidos:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.socio.maePersona.apelPatePer}" rendered="#{evaluarCreditoController.socio!=null}"/><h:outputText value=" "/><h:outputText value="#{evaluarCreditoController.socio.maePersona.apelMatePer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Est. Civil:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <comp:entidadDetalle entidad="ESTACIVIPER" value="#{evaluarCreditoController.socio.maePersona.estaCiviPer}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="CIP:"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{evaluarCreditoController.socio.codiCcipSoc}" rendered="#{evaluarCreditoController.socio!=null}"/>
+                                        </div>
+                                    </div>
+                                </p:panel>
+                            </p:fieldset>
+                            <p:spacer width="20"/>
+                            <p:fieldset legend="Documento" styleClass="fieldSet" id="documento">
+                                <div class="col-md-12 margen">
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="Tipo Trámite:"/>                                
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:selectOneMenu disabled="#{evaluarCreditoController.tramite.idenExpeTrm!=null}" value="#{evaluarCreditoController.tramite.tipoTramTrm}" styleClass="inputLargo">
+                                                <f:selectItems value="#{evaluarCreditoController.tiposTramite}"
+                                                               itemValue="#{tipo.secuEntiDet}" var="tipo" itemLabel="#{tipo.valoCaduDet}"/>
+
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="Agencia:"/>                                
+                                        </div>
+                                        <div class="col-md-8">
+                                            <h:outputText value="010101 SEDE CENTRAL"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="N° Guía:"/>                                
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:inputText disabled="true" value="#{evaluarCreditoController.tramite.numeGuiaTrm}" styleClass="inputLargo"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 margen">
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="Modalidad Trámite:"/>                                
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:selectOneMenu disabled="true" value="#{evaluarCreditoController.tramite.codiModaTrm}" styleClass="inputLargo">
+                                                <f:selectItems value="#{evaluarCreditoController.modalidadesTramite}"
+                                                               itemValue="#{modalidad.secuEntiDet}" var="modalidad" itemLabel="#{modalidad.valoCaduDet}"/>
+                                            </p:selectOneMenu>                                
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="Nombre del Tramitante:"/>                                
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:inputText disabled="true" value="#{evaluarCreditoController.tramite.nombTramTrm}" styleClass="inputLargo"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="N° Iden. Documento"/>                                
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:inputText disabled="true" value="#{evaluarCreditoController.tramite.codiExpeTrm}" styleClass="inputLargo"/>                                    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 margen">
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="Fecha de Registro"/>                                
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:calendar disabled="true" value="#{evaluarCreditoController.tramite.fechIngrTrm}" styleClass="inputLargo"/>
+                                        </div>
+                                    </div>                        
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="N° Folios"/>                                
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:inputText disabled="true" value="#{evaluarCreditoController.tramite.numeFolioTrm}" styleClass="inputLargo"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 margen">
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="Documento Referencia"/>                                
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:inputText disabled="true" value="#{evaluarCreditoController.tramite.docuRefeTrm}" styleClass="inputLargo"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="Prioridad:"/>                                
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:selectOneMenu disabled="true" value="#{evaluarCreditoController.tramite.codiPrioTrm}" styleClass="inputLargo">
+                                                <f:selectItems value="#{evaluarCreditoController.tiposPrioridad}"
+                                                               itemValue="#{prioridad.secuEntiDet}" var="prioridad" itemLabel="#{prioridad.valoCaduDet}"/>
+                                            </p:selectOneMenu>                                
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        Confidencial : 
+                                        <comp:booleanCheckbox  value="#{evaluarCreditoController.tramite.flagPrivTrm}"/>                      
+                                    </div>
+                                </div>
+                                <div class="col-md-12 margen">
+                                    <div class="col-md-2">
+                                        <div class="col-md-8">
+                                            <h:outputText value="Asunto:"/>  
+                                        </div>                                                              
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p:inputTextarea disabled="true" rows="4" autoResize="false" value="#{evaluarCreditoController.tramite.descAsunTrm}" styleClass="inputLargo"/>                                                                 
+                                    </div>
+                                </div>                    
+                                <div class="col-md-12 margen">
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="Producto:"/>                                
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:selectOneMenu  disabled="true" value="#{evaluarCreditoController.producto}" styleClass="inputLargo">
+                                                <f:selectItem itemValue="" itemLabel="Seleccione un Producto"/>
+                                                <f:selectItems value="#{evaluarCreditoController.productos}"
+                                                               itemValue="#{tipo}" var="tipo" itemLabel="#{tipo.nombProdPrd}"/>
+                                                <p:ajax update="tablaRequisito,simulacion" listener="#{evaluarCreditoController.cargarRequisitos()}"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 margen">
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="Requisitos "/>                                
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p:dataTable id="tablaRequisito" value="#{evaluarCreditoController.documentos}"
+                                                     editMode="cell" editable="true"      var="requisito" emptyMessage="No hay requisitos">
+                                            <p:ajax event="cellEdit" update="tablaRequisito" />
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Item"/>
+                                                </f:facet>
+                                                <h:outputText value="#{requisito.trmDocumentoPK.secuDocuDoc}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Documento"/>
+                                                </f:facet>
+                                                <h:outputText value="#{requisito.descNombDoc}"/>
+                                            </p:column>
+                                            <p:column headerText="Recibido">
+                                                <p:cellEditor>
+                                                    <f:facet name="output">
+                                                        <h:outputText
+                                                            value="#{requisito.flagPertDoc=='S' ? 'SÍ' : 'NO'}" />
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        <p:selectOneMenu
+                                                            value="#{requisito.flagPertDoc}"
+                                                            styleClass="inputLargo">
+                                                            <f:selectItem itemValue="N" itemLabel="NO" />
+                                                            <f:selectItem itemValue="S" itemLabel="SÍ" />                                                    
+                                                        </p:selectOneMenu>
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column headerText="Digitalizado">
+                                                <p:cellEditor>
+                                                    <f:facet name="output">
+                                                        <h:outputText
+                                                            value="#{requisito.flagFisiDoc=='S' ? 'SÍ' : 'NO'}" />
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        <p:selectOneMenu
+                                                            value="#{requisito.flagFisiDoc}"
+                                                            styleClass="inputLargo">
+                                                            <f:selectItem itemValue="N" itemLabel="NO" />
+                                                            <f:selectItem itemValue="S" itemLabel="SÍ" />                                                    
+                                                        </p:selectOneMenu>
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column headerText="Observacion">
+                                                <p:cellEditor>
+                                                    <f:facet name="output">
+                                                        <h:outputText value="#{requisito.descObseDoc}"/>
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        <p:inputTextarea autoResize="false" rows="2"
+                                                                         value="#{requisito.descObseDoc}"
+                                                                         styleClass="inputLargo">                                                   
+                                                        </p:inputTextarea>
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column headerText="Fecha de Emisión">
+                                                <p:cellEditor>
+                                                    <f:facet name="output">
+                                                        <h:outputText value="#{requisito.fechEmisDoc}">
+                                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                        </h:outputText>
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        <p:calendar 
+                                                            value="#{requisito.fechEmisDoc}"
+                                                            pattern="dd/MM/yyyy">                                                   
+                                                        </p:calendar>
+                                                    </f:facet>
+                                                </p:cellEditor>                                        
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Estado"/>
+                                                </f:facet>
+                                                <comp:activo value="#{requisito.flagEstaDoc}"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12 margen">
+                                    <div class="col-md-4">
+                                        <div class="col-md-4">
+                                            <h:outputText value="N° Simulación" rendered="#{evaluarCreditoController.esPrestamo}"/>                                
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:selectOneMenu rendered="#{evaluarCreditoController.esPrestamo}"  id="simulacion" value="#{evaluarCreditoController.simulacion}" >
+                                                <f:selectItem itemValue="" itemLabel="Seleccione una simulación"/>
+                                                <f:selectItems value="#{evaluarCreditoController.simulaciones}" var="simu"
+                                                               itemValue="#{simu.idenSimuSim}" /> 
+                                                <p:ajax update="verSimulacion,datosSimulacion" listener="#{evaluarCreditoController.mostrarSimulacion()}"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div>                                    
+                                    <div class="col-md-2">
+                                        <p:commandButton oncomplete="mostrarModalCambiar();"  value="Cambiar Simulación"/>
+                                    </div>
+                                </div>
+
+                            </p:fieldset>
+                            <p:spacer width="20"/>
+                            <p:fieldset toggleable="true" rendered="#{evaluarCreditoController.esPrestamo}" legend="Información General" styleClass="fieldSet" id="datosSimulacion">
+                                <div class="col-md-12 margen">
+                                    <div class="col-md-6 margen" style="height: 100%;">
+                                        <p:fieldset legend="Datos de Crédito" styleClass="fieldSet" 
+                                                    rendered="#{evaluarCreditoController.tramite.idenSimuSim!=null}">
+                                            <div class="col-md-12 margen">
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Producto: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.idenProdPrd.nombProdPrd}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Centro de Costo: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="1546"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 margen">
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Plazo: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.plazPresSim} meses"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Moneda: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <comp:entidadDetalle entidad="CODIMONECRD" value="#{evaluarCreditoController.tramite.idenSimuSim.codiMoneCrd}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 margen">                                    
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Tipo de Cuota: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="CUOTA DOBLE" rendered="#{evaluarCreditoController.tramite.idenSimuSim.autoCdobSim=='S'}"/>
+                                                        <h:outputText value="CUOTA SIMPLE" rendered="#{evaluarCreditoController.tramite.idenSimuSim.autoCdobSim=='N'}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Seguro(s): "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{evaluarCreditoController.listaSeguros}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 margen">
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="TEA: (%)"/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.tasaTeaSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Monto Solicitado: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.impoSoliSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 margen">
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Gastos Administrativos: (%)"/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.tasaGadmSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Neto a girar: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{evaluarCreditoController.netoGirar}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                            </div>                            
+                                        </p:fieldset>                            
+                                    </div>                    
+                                    <div class="col-md-6 margen">
+                                        <p:fieldset legend="Capacidad de Endeudamiento" styleClass="fieldSet" 
+                                                    rendered="#{evaluarCreditoController.tramite.idenSimuSim!=null}">
+                                            <div class="col-md-6 sin-margen margen">
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <h:outputText value="Ingresos" style="font-weight: bold" />
+                                                </div>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Ingreso Bruto:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.ingrBrtoSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Desc. Máximo (%):"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{evaluarCreditoController.maximoDescuento}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Desc. Oficiales:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.dsctOficSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Desc. personales:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.dsctPersSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Combustible:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.ingrCombSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Capacidad Máxima Cuota:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.capaMcuoSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 sin-margen margen">
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <h:outputText value="Nivel de Endeudamiento" style="font-weight: bold"/>
+                                                </div>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Total Aportes:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.ingrBrtoSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="# Veces total Aporte:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.ingrBrtoSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Monto Máximo:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.impoMaxpSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p:fieldset>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 margen">
+                                    <p:fieldset legend="Canales de Cobranza" styleClass="fieldSet" 
+                                                rendered="#{evaluarCreditoController.tramite.idenSimuSim!=null}">
+                                        <div class="col-md-12 margen">
+                                            <p:dataTable id="canalesCobranza" editable="true" editMode="cell" var="canal" value="#{evaluarCreditoController.canales}" 
+                                                         emptyMessage="No hay canales de cobranza" >
+                                                <p:column headerText="Canal">
+                                                    <comp:entidadDetalle value="#{canal.codiCanaCob}" entidad="#{constantes.ENTIDAD_CANAL_COBRANZA}"/>
+                                                </p:column>                                    
+                                                <p:column headerText="Monto">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText
+                                                                value="#{canal.impoCobrCdc}" >
+                                                                <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                            </h:outputText>
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText
+                                                                value="#{canal.impoCobrCdc}"
+                                                                styleClass="inputLargo"> 
+                                                                <f:convertNumber minFractionDigits="2" groupingUsed="true"/> 
+                                                                <p:ajax update="canalesCobranza" listener="#{evaluarCreditoController.contarCanalCobranza}" />
+                                                            </p:inputText>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+                                                <p:columnGroup type="footer">
+                                                    <p:row>
+                                                        <p:column style="text-align:right" footerText="Total:" />
+                                                        <p:column style="text-align:left">
+                                                            <f:facet name="footer">
+                                                                <h:outputText value="#{evaluarCreditoController.totalPago}" style="text-align:left">
+                                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                                                </h:outputText>
+                                                            </f:facet>                                                        
+                                                        </p:column>                                            
+                                                    </p:row>
+                                                </p:columnGroup>
+                                            </p:dataTable>
+                                        </div>
+                                    </p:fieldset>                            
+                                </div>
+                                <div class="col-md-6 margen">
+                                    <p:fieldset legend="Anexos" styleClass="fieldSet" 
+                                                rendered="#{evaluarCreditoController.tramite.idenSimuSim!=null}">
+                                        <p:fieldset legend="Unidad Inmobiliaria" styleClass="fieldSet">
+                                            <div class="col-md-12 margen sin-margen">
+                                                <comp:ubigeo value="#{evaluarCreditoController.inmueble.idenUbigUbi}"/>
+                                            </div>
+                                            <div class="col-md-12 margen sin-margen">
+                                                <div class="col-md-2 margen sin-margen">
+                                                    <h:outputText value="Dirección"/>
+                                                </div>
+                                                <div class="col-md-10 margen sin-margen">
+                                                    <p:inputTextarea autoResize="false" styleClass="inputLargo"
+                                                                     rows="3"            value="#{evaluarCreditoController.inmueble.descDireImb}"/>
+                                                </div>
+                                            </div> 
+                                        </p:fieldset>
+                                        <p:fieldset legend="Póliza" styleClass="fieldSet">
+                                            <div class="col-md-3">
+                                                <h:outputText value="Código"/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <h:inputText value="#{evaluarCreditoController.codigoPoliza}"/>
+                                            </div>                                            
+                                        </p:fieldset>
+                                    </p:fieldset>
+                                </div>                    
+                            </p:fieldset>
+                            <p:spacer width="20"/>
+                            <p:fieldset legend="Cronograma" styleClass="fieldSet">
+                                <div class="col-md-12">
+                                    <div class="col-md-2">
+                                        <p:commandButton disabled="#{evaluarCreditoController.simulacion==null}" 
+                                                         update="resultadoSimulacionCambiar"  value="Generar Cronograma" actionListener="#{evaluarCreditoController.verSimulacion()}" id="verSimulacion"/>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p:commandButton value="Imprimir" type="button" icon="ui-icon-print" style="display:block;margin-top: 20px;margin-bottom: 20px;margin-left: 5px;">
+                                            <p:printer target="resultadoSimulacionCambiar" />
+                                        </p:commandButton>                    
+                                        <h:panelGroup id="resultadoSimulacionCambiar" > 
+                                            <p:panelGrid rendered="#{evaluarCreditoController.verCronograma}" columns="2" styleClass="tablaNoBorde" style="font-weight: bold;">
+                                                <h:outputText value="Producto:"/>
+                                                <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.idenProdPrd.nombProdPrd}"/>
+                                                <h:outputText value="Moneda del Crédito:"/>
+                                                <comp:entidadDetalle entidad="CODIMONECRD" value="#{evaluarCreditoController.tramite.idenSimuSim.codiMoneCrd}"/>
+                                                <h:outputText value="Monto a financiar"/>
+                                                <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.impoSoliSim}">
+                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                                </h:outputText>
+                                                <h:outputText value="TEA (%)"/>
+                                                <h:outputText  value="#{evaluarCreditoController.tramite.idenSimuSim.tasaTeaSim}">
+                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                                </h:outputText>
+                                                <h:outputText value="Monto de cuota Ordinaria"/>
+                                                <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.impoCuotSim}">
+                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                                </h:outputText>
+                                                <h:outputText value="Plazo de Crédito"/>
+                                                <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.plazPresSim}"/>                                                                                  
+                                            </p:panelGrid>
+                                            <p:spacer width="20"/>
+                                            <p:dataTable rendered="#{evaluarCreditoController.verCronograma}" emptyMessage="No hay resultados" paginator="true" rows="10"
+                                                         value="#{evaluarCreditoController.cuotas}" var="simu">
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="No Cuota"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{simu.numero}"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Fecha vencimiento"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{simu.fechaPago}">
+                                                        <f:convertDateTime locale="es" type="date" pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Saldo Inicial"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{simu.saldoInicial}">
+                                                        <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Amortización"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{simu.amortizado}">
+                                                        <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Interés"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{simu.interes}">
+                                                        <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                                    </h:outputText>
+                                                </p:column>                                                
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Cuota"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{simu.cuota}">
+                                                        <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                                    </h:outputText>
+                                                </p:column>                                                
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Seguro"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{simu.degravamen}">
+                                                        <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Estado"/>
+                                                    </f:facet>
+                                                    <h:outputText value="Pendiente"/>
+                                                </p:column> 
+                                                <p:columnGroup type="footer">
+                                                    <p:row>
+                                                        <p:column colspan="3" style="text-align:right" footerText="Totales:" />
+                                                        <p:column style="text-align:left">
+                                                            <f:facet name="footer">
+                                                                <h:outputText value="#{evaluarCreditoController.totalAmortizacion}" >
+                                                                    <f:convertNumber minFractionDigits="2"/>
+                                                                </h:outputText>
+                                                            </f:facet>                                                        
+                                                        </p:column>
+                                                        <p:column style="text-align:left">
+                                                            <f:facet name="footer">
+                                                                <h:outputText value="#{evaluarCreditoController.totalInteres}" style="text-align:left">
+                                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                                                </h:outputText>
+                                                            </f:facet>                                                        
+                                                        </p:column>                                                        
+                                                        <p:column style="text-align:left">
+                                                            <f:facet name="footer">
+                                                                <h:outputText value="#{evaluarCreditoController.totalCuota}" style="text-align:left">
+                                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                                                </h:outputText>
+                                                            </f:facet>                                                        
+                                                        </p:column>
+                                                        <p:column style="text-align:left">
+                                                            <f:facet name="footer">
+                                                                <h:outputText value="#{evaluarCreditoController.totalSeguro}" style="text-align:left">
+                                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                                                </h:outputText>
+                                                            </f:facet>                                                        
+                                                        </p:column>
+                                                    </p:row>
+                                                </p:columnGroup>
+                                            </p:dataTable>
+                                        </h:panelGroup>
+                                    </div>    
+                                </div>
+                                <p:spacer width="30"/>
+                                <div class="col-md-12">
+                                    <div class="col-md-1">
+                                        <p:commandButton disabled="#{evaluarCreditoController.enOtraArea}" oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" actionListener="#{evaluarCreditoController.registrar()}" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p:commandButton disabled="#{evaluarCreditoController.tramite.idenExpeTrm==null || evaluarCreditoController.enOtraArea}"  value="Dar Viabilidad" actionListener="#{evaluarCreditoController.darViabilidad()}"/>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p:commandButton disabled="#{evaluarCreditoController.tramite.idenExpeTrm==null || evaluarCreditoController.enOtraArea}"  value="Rechazar" actionListener="#{evaluarCreditoController.rechazar()}"/>
+                                    </div>
+                                </div>
+                            </p:fieldset>
+                        </div>
+
+
+
+                    </h:form>
+                    <div id="cambiarSimulacion" class="modal fade bs-modal-lg" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">                                
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                    <h4 class="modal-title">
+                                        Cambiar Simulación
+                                    </h4>
+                                </div>
+                                <div class="modal-body form-body">
+                                    <ui:include src="../credito/simulacion.xhtml"/>											
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" data-dismiss="modal"
+                                            class="btn default" onclick="actualiza()">Aceptar</button>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:composition>
+
+</html>

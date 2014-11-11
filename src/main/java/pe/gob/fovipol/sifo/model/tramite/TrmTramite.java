@@ -14,6 +14,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,6 +29,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.listener.AuditListener;
 import pe.gob.fovipol.sifo.model.credito.CrdCredito;
 import pe.gob.fovipol.sifo.model.maestros.MaePersona;
 import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
@@ -40,6 +42,7 @@ import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 @Entity
 @Table(name = "TRM_TRAMITE")
 @XmlRootElement
+@EntityListeners(value = AuditListener.class)
 @NamedQueries({
     @NamedQuery(name = "TrmTramite.findAll", query = "SELECT t FROM TrmTramite t"),
     @NamedQuery(name = "TrmTramite.findByIdenExpeTrm", query = "SELECT t FROM TrmTramite t WHERE t.idenExpeTrm = :idenExpeTrm"),
@@ -441,5 +444,5 @@ public class TrmTramite implements Serializable {
     public void setCrdCreditoList(List<CrdCredito> crdCreditoList) {
         this.crdCreditoList = crdCreditoList;
     }
-    
+
 }

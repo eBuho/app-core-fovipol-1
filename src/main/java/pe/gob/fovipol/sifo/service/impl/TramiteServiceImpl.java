@@ -5,9 +5,12 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.bean.ManagedProperty;
 import javax.persistence.PersistenceException;
+import pe.gob.fovipol.sifo.bean.sesion.SesionUsuario;
 import pe.gob.fovipol.sifo.dao.MaeInmuebleFacade;
 import pe.gob.fovipol.sifo.dao.MaeProcesoFacade;
+import pe.gob.fovipol.sifo.dao.MaeProcesoestadoFacade;
 import pe.gob.fovipol.sifo.dao.TrmDocumentoFacade;
 import pe.gob.fovipol.sifo.dao.TrmEstatramHisFacade;
 import pe.gob.fovipol.sifo.dao.TrmMovimientoFacade;
@@ -18,6 +21,8 @@ import pe.gob.fovipol.sifo.model.credito.CrdCanalcobra;
 import pe.gob.fovipol.sifo.model.credito.CrdCredito;
 import pe.gob.fovipol.sifo.model.maestros.MaeArea;
 import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
+import pe.gob.fovipol.sifo.model.maestros.MaeProcesoestado;
+import pe.gob.fovipol.sifo.model.maestros.MaeProcesoestadoPK;
 import pe.gob.fovipol.sifo.model.tramite.TrmDocumento;
 import pe.gob.fovipol.sifo.model.tramite.TrmEstatramHis;
 import pe.gob.fovipol.sifo.model.tramite.TrmEstatramHisPK;
@@ -41,11 +46,15 @@ public class TramiteServiceImpl implements TramiteService {
     @EJB
     MaeProcesoFacade ejbProcesoFacade;
     @EJB
+    MaeProcesoestadoFacade ejbProcesoEstadoFacade;
+    @EJB
     MaeInmuebleFacade ejbInmuebleFacade;
     @EJB
     TrmEstatramHisFacade ejbEstadoFacade;
     @EJB
-    private TrmDocumentoFacade ejbDocumentoFacade;
+    TrmDocumentoFacade ejbDocumentoFacade;
+    @ManagedProperty(value="#{sesionUsuario}")
+    private SesionUsuario sesionUsuario;
 
     @Override
     public boolean darViabilidadExpediente(TrmTramite tramite, List<TrmDocumento> documentos) {
@@ -72,6 +81,7 @@ public class TramiteServiceImpl implements TramiteService {
             if (movimiento == null) {
                 movimientoNuevo = new TrmMovimiento(new TrmMovimientoPK(tramite.getIdenExpeTrm().toBigInteger(), 1));
                 siguiente = ejbProcesoFacade.buscarSiguienteProceso(tramite.getMaeProceso());
+                //Area Inicial
                 movimientoNuevo.setAreaOrigMvm(new MaeArea(BigDecimal.ONE));
             } else {
                 movimientoNuevo = new TrmMovimiento(new TrmMovimientoPK(tramite.getIdenExpeTrm().toBigInteger(), movimiento.getTrmMovimientoPK().getSecuMoviMvm() + 1));
@@ -79,11 +89,19 @@ public class TramiteServiceImpl implements TramiteService {
                 movimientoNuevo.setAreaOrigMvm(movimiento.getAreaDestMvm());
             }
             if (siguiente != null) {
-                movimientoNuevo.setFechCreaAud(new Date());
-                movimientoNuevo.setFlagSituMvm(new Short("1"));
+                if(movimiento!=null){
+                    movimiento.setFechEnviMvm(new Date());
+                    if(sesionUsuario!=null)
+                        movimiento.setUsuaEnviMvm(sesionUsuario.getUsuario().getCodiUsuaUsr());
+                    ejbMovimientoFacade.edit(movimiento);
+                    MaeProcesoestado estado=ejbProcesoEstadoFacade.findByProcesoSecuencia(movimiento.getIdenProcPrc());
+                    cambiarEstadoExpediente(tramite, estado.getNombEstaPre());
+                }
+                movimientoNuevo.setFlagSituMvm(Constantes.VALOR_ESTADO_ACTIVO);
                 movimientoNuevo.setTrmTramite(tramite);
                 movimientoNuevo.setIdenProcPrc(siguiente);
                 movimientoNuevo.setAreaDestMvm(siguiente.getCodiAreaAre());
+                movimientoNuevo.setFechReceMvm(new Date());
                 ejbMovimientoFacade.create(movimientoNuevo);
                 return true;
             } else {
@@ -99,8 +117,7 @@ public class TramiteServiceImpl implements TramiteService {
         try {
             int idEstado = ejbEstadoFacade.obtenerCorrelativo(tramite);
             TrmEstatramHis estado = new TrmEstatramHis(new TrmEstatramHisPK(tramite.getIdenExpeTrm().toBigInteger(), idEstado));
-            estado.setFlagEstaHis(new Short("1"));
-            estado.setFechCreaAud(new Date());
+            estado.setFlagEstaHis(Constantes.VALOR_ESTADO_ACTIVO);
             estado.setCodiEstaHis(nombreEstado);
             ejbEstadoFacade.create(estado);
             return true;
@@ -117,7 +134,7 @@ public class TramiteServiceImpl implements TramiteService {
             if (tramite.getIdenExpeTrm() == null) {
                 tramite.setIdenExpeTrm(ejbTramiteFacade.obtenerCorrelativo());
                 tramite.setFechCreaAud(new Date());
-                tramite.setFlagEstaTrm(new Short("1"));
+                tramite.setFlagEstaTrm(Constantes.VALOR_ESTADO_ACTIVO);
             } else {
                 crea = false;
                 tramite.setFechModiAud(new Date());
@@ -135,8 +152,7 @@ public class TramiteServiceImpl implements TramiteService {
                 }                
             }
             if (crea) {
-                generarMovimiento(tramite);
-                cambiarEstadoExpediente(tramite, "REGISTRADO");
+                generarMovimiento(tramite);                
             }
             return true;
         } 
@@ -174,7 +190,6 @@ public class TramiteServiceImpl implements TramiteService {
             }
             if (crea) {                
                 generarMovimiento(tramite);
-                cambiarEstadoExpediente(tramite, "REGISTRADO");
                 credito.getIdenInmuImb().setIdenInmuImb(ejbInmuebleFacade.obtenerCorrelativo());
                 credito.getIdenInmuImb().setFlagEstaImb(Constantes.VALOR_ESTADO_ACTIVO);
                 credito.setIdenCredCrd(new BigDecimal(ejbCreditoFacade.count()+1));
@@ -210,6 +225,20 @@ public class TramiteServiceImpl implements TramiteService {
         catch (Exception e) {
             return false;
         }
+    }
+
+    /**
+     * @return the sesionUsuario
+     */
+    public SesionUsuario getSesionUsuario() {
+        return sesionUsuario;
+    }
+
+    /**
+     * @param sesionUsuario the sesionUsuario to set
+     */
+    public void setSesionUsuario(SesionUsuario sesionUsuario) {
+        this.sesionUsuario = sesionUsuario;
     }
 
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
+
+    <ui:composition>
+
+        <p:dialog id="MaeProcesoestadoViewDlg" widgetVar="MaeProcesoestadoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.ViewMaeProcesoestadoTitle}">
+            <h:form id="MaeProcesoestadoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{maeProcesoestadoController.selected != null}">
+                        <h:outputText value="#{bundle3.ViewMaeProcesoestadoLabel_maeProceso}"/>
+                        <h:outputText value="#{maeProcesoestadoController.selected.maeProceso.nombProcPrc}" title="#{bundle3.ViewMaeProcesoestadoTitle_maeProceso}"/>
+                        <h:outputText value="#{bundle3.ViewMaeProcesoestadoLabel_maeProcesoestadoPK_secuEstaPre}"/>
+                        <h:outputText value="#{maeProcesoestadoController.selected.maeProcesoestadoPK.secuEstaPre}" title="#{bundle3.ViewMaeProcesoestadoTitle_maeProcesoestadoPK_secuEstaPre}"/>
+                        <h:outputText value="#{bundle3.ViewMaeProcesoestadoLabel_nombEstaPre}"/>
+                        <h:outputText value="#{maeProcesoestadoController.selected.nombEstaPre}" title="#{bundle3.ViewMaeProcesoestadoTitle_nombEstaPre}"/>
+                        <h:outputText value="#{bundle3.ViewMaeProcesoestadoLabel_rutaIconPre}"/>
+                        <h:outputText value="#{maeProcesoestadoController.selected.rutaIconPre}" title="#{bundle3.ViewMaeProcesoestadoTitle_rutaIconPre}"/>
+                        <h:outputText value="#{bundle3.ViewMaeProcesoestadoLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{maeProcesoestadoController.selected.usuaCreaAud}" title="#{bundle3.ViewMaeProcesoestadoTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{bundle3.ViewMaeProcesoestadoLabel_fechCreaAud}"/>
+                        <h:outputText value="#{maeProcesoestadoController.selected.fechCreaAud}" title="#{bundle3.ViewMaeProcesoestadoTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle3.ViewMaeProcesoestadoLabel_usuaModiAud}"/>
+                        <h:outputText value="#{maeProcesoestadoController.selected.usuaModiAud}" title="#{bundle3.ViewMaeProcesoestadoTitle_usuaModiAud}"/>
+                        <h:outputText value="#{bundle3.ViewMaeProcesoestadoLabel_fechModiAud}"/>
+                        <h:outputText value="#{maeProcesoestadoController.selected.fechModiAud}" title="#{bundle3.ViewMaeProcesoestadoTitle_fechModiAud}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle3.ViewMaeProcesoestadoLabel_nombEquiAud}"/>
+                        <h:outputText value="#{maeProcesoestadoController.selected.nombEquiAud}" title="#{bundle3.ViewMaeProcesoestadoTitle_nombEquiAud}"/>
+                        <h:outputText value="#{bundle3.ViewMaeProcesoestadoLabel_nombSopeAud}"/>
+                        <h:outputText value="#{maeProcesoestadoController.selected.nombSopeAud}" title="#{bundle3.ViewMaeProcesoestadoTitle_nombSopeAud}"/>
+                        <h:outputText value="#{bundle3.ViewMaeProcesoestadoLabel_flagEstaPrc}"/>
+                        <comp:activo value="#{maeProcesoestadoController.selected.flagEstaPrc}"/>
+                        
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle3.Close}" onclick="MaeProcesoestadoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

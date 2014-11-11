@@ -215,7 +215,6 @@ public class MaeSede implements Serializable {
 
     public void setIdenEmprEmp(MaeEmpresa idenEmprEmp) {
         this.idenEmprEmp = idenEmprEmp;
-    }    
-
+    }  
     
 }

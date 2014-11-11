@@ -13,25 +13,25 @@
                 if (!args.error) {
                     actualiza();
                 }
-                }
+            }
             $(document).ready(function () {
                 $(window).keydown(function (event) {
-                    if (event.keyCode  == 13) {
+                    if (event.keyCode == 13) {
                         event.preventDefault();
                         return false;
                     }
                 });
             });
-       </script>
+        </script>
         <div class="col-md-12">
             <div class="portlet box green" style="border: none">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-cogs"></i>Registrar Expediente
+                        <i class="fa fa-cogs"></i>Registrar Expediente <h:outputText value="#{registrarExpedienteController.tramite.idenExpeTrm}" rendered="#{registrarExpedienteController.tramite.idenExpeTrm!=null}"/> 
                     </div>
                 </div>
-                <div class="portlet-body" >                 
-                    <h:form id="formRegistroExpediente">
+                <div class="portlet-body" > 
+                    <h:form id="formRegistroExpediente">                         
                         <p:remoteCommand  name="actualiza" update="formRegistroExpediente"/>
                         <div class="col-md-12" style="margin-bottom: 10px;">
                             <p:commandButton icon="ui-icon-plus" rendered="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Nuevo" actionListener="#{registrarExpedienteController.nuevoTramite}">
@@ -53,25 +53,25 @@
                                 <p:panel id="panelSocio" styleClass="panel" rendered="#{!registrarExpedienteController.beneficiaria}">
                                     <div class="col-md-12 margen">
                                         <div class="col-md-1">
-                                            <h:outputText value="Nombres:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Nombres:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.socio.maePersona.nombPersPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="Apellidos:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Apellidos:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.socio.maePersona.apelPatePer}" rendered="#{registrarExpedienteController.socio!=null}"/><h:outputText value=" "/><h:outputText value="#{registrarExpedienteController.socio.maePersona.apelMatePer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="Est. Civil:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Est. Civil:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <comp:entidadDetalle entidad="ESTACIVIPER" value="#{registrarExpedienteController.socio.maePersona.estaCiviPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="CIP:"/>
+                                            <h:outputText styleClass="texto-negrita" value="CIP:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.socio.codiCcipSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
@@ -79,25 +79,25 @@
                                     </div>
                                     <div class="col-md-12 margen">
                                         <div class="col-md-1">
-                                            <h:outputText value="Sexo:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Sexo:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <comp:entidadDetalle entidad="SEXOPERSPER" value="#{registrarExpedienteController.socio.maePersona.sexoPersPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="DNI:"/>
+                                            <h:outputText styleClass="texto-negrita" value="DNI:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.socio.maePersona.numeIdenPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="CODOFIN:"/>
+                                            <h:outputText styleClass="texto-negrita" value="CODOFIN:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.socio.codiCdfiSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="Situación:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Situación:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <comp:activo value="#{registrarExpedienteController.socio.flagEstaSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
@@ -105,13 +105,13 @@
                                     </div>
                                     <div class="col-md-12 margen">
                                         <div class="col-md-1">
-                                            <h:outputText value="Grado:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Grado:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <comp:entidadDetalle entidad="TIPOPOLISOC" value="#{registrarExpedienteController.socio.tipoPoliSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="Nacimiento:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Nacimiento:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.socio.maePersona.fechNaciPer}" rendered="#{registrarExpedienteController.socio!=null}">
@@ -119,7 +119,7 @@
                                             </h:outputText>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="Edad:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Edad:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.edad}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
@@ -129,25 +129,25 @@
                                 <p:panel id="panelSocioBeneficiario" styleClass="panel" rendered="#{registrarExpedienteController.beneficiaria}">
                                     <div class="col-md-12 margen">
                                         <div class="col-md-1">
-                                            <h:outputText value="Nombres:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Nombres:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.pareja.nombPersPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="Apellidos:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Apellidos:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.pareja.apelPatePer}" rendered="#{registrarExpedienteController.socio!=null}"/><h:outputText value=" "/><h:outputText value="#{registrarExpedienteController.pareja.apelMatePer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="Est. Civil:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Est. Civil:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <comp:entidadDetalle entidad="ESTACIVIPER" value="#{registrarExpedienteController.pareja.estaCiviPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="CIP:"/>
+                                            <h:outputText styleClass="texto-negrita" value="CIP:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.pareja.maeSocio.codiCcipSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
@@ -155,25 +155,25 @@
                                     </div>
                                     <div class="col-md-12 margen">
                                         <div class="col-md-1">
-                                            <h:outputText value="Sexo:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Sexo:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <comp:entidadDetalle entidad="SEXOPERSPER" value="#{registrarExpedienteController.pareja.sexoPersPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="DNI:"/>
+                                            <h:outputText styleClass="texto-negrita" value="DNI:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.pareja.numeIdenPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="CODOFIN:"/>
+                                            <h:outputText styleClass="texto-negrita" value="CODOFIN:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.pareja.maeSocio.codiCdfiSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="Situación:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Situación:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <comp:activo value="#{registrarExpedienteController.pareja.maeSocio.flagEstaSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
@@ -181,13 +181,13 @@
                                     </div>
                                     <div class="col-md-12 margen">
                                         <div class="col-md-1">
-                                            <h:outputText value="Grado:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Grado:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <comp:entidadDetalle entidad="TIPOPOLISOC" value="#{registrarExpedienteController.pareja.maeSocio.tipoPoliSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="Nacimiento:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Nacimiento:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.pareja.fechNaciPer}" rendered="#{registrarExpedienteController.socio!=null}">
@@ -195,7 +195,7 @@
                                             </h:outputText>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="Edad:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Edad:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.edad}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
@@ -203,29 +203,29 @@
                                     </div>
                                     <p:separator />
                                     <div class="col-md-12 margen">
-                                        <h:outputText value="Beneficiario(a)" style="font-weight: bold"/>
+                                        <h:outputText styleClass="texto-negrita" value="Beneficiario(a)" style="font-weight: bold"/>
                                     </div>
                                     <div class="col-md-12 margen">
                                         <div class="col-md-1">
-                                            <h:outputText value="Nombres:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Nombres:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.socio.maePersona.nombPersPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="Apellidos:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Apellidos:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.socio.maePersona.apelPatePer}" rendered="#{registrarExpedienteController.socio!=null}"/><h:outputText value=" "/><h:outputText value="#{registrarExpedienteController.socio.maePersona.apelMatePer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="Est. Civil:"/>
+                                            <h:outputText styleClass="texto-negrita" value="Est. Civil:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <comp:entidadDetalle entidad="ESTACIVIPER" value="#{registrarExpedienteController.socio.maePersona.estaCiviPer}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                         <div class="col-md-1">
-                                            <h:outputText value="CIP:"/>
+                                            <h:outputText styleClass="texto-negrita" value="CIP:"/>
                                         </div>
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.socio.codiCcipSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
@@ -234,7 +234,7 @@
                                 </p:panel>
                             </p:fieldset>
                             <p:spacer width="20"/>
-                            <p:fieldset legend="Documento" styleClass="fieldSet" id="documento">
+                            <p:fieldset legend="Documento"  styleClass="fieldSet" id="documento">
                                 <div class="col-md-12 margen">
                                     <div class="col-md-4">
                                         <div class="col-md-4">
@@ -261,7 +261,7 @@
                                             <h:outputText value="N° Guía:"/>                                
                                         </div>
                                         <div class="col-md-8">
-                                            <p:inputText value="#{registrarExpedienteController.tramite.numeGuiaTrm}" styleClass="inputLargo"/>
+                                            <p:inputText  value="#{registrarExpedienteController.tramite.numeGuiaTrm}" styleClass="inputLargo"/>
                                         </div>
                                     </div>
                                 </div>
@@ -370,7 +370,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <p:dataTable id="tablaRequisito" value="#{registrarExpedienteController.documentos}"
-                                                     editMode="cell" editable="true"      var="requisito" emptyMessage="No hay requisitos">
+                                                     editMode="cell" editable="#{!registrarExpedienteController.enOtraArea}"      var="requisito" emptyMessage="No hay requisitos">
                                             <p:ajax event="cellEdit" update="tablaRequisito" />
                                             <p:column>
                                                 <f:facet name="header">
@@ -469,18 +469,13 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <p:commandButton rendered="#{registrarExpedienteController.esPrestamo}" disabled="#{registrarExpedienteController.simulacion==null}" 
+                                        <p:commandButton rendered="#{registrarExpedienteController.esPrestamo}" disabled="#{registrarExpedienteController.simulacion==null or registrarExpedienteController.enOtraArea}" 
                                                          oncomplete="PF('dialogSimulacion').show();"      value="Ver Simulación" actionListener="#{registrarExpedienteController.verSimulacion()}" id="verSimulacion"/>
                                     </div>
-                                </div>
-                                <div class="col-md-12 margen sin-margen">
-                                    <p:commandButton oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" actionListener="#{registrarExpedienteController.registrar()}" />
-                                    <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Dar Viabilidad" actionListener="#{registrarExpedienteController.darViabilidad()}"/>
-                                    <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Rechazar" actionListener="#{registrarExpedienteController.rechazar()}"/>
-                                </div>
+                                </div>                                
                             </p:fieldset>
                             <p:spacer width="20"/>
-                            <p:fieldset rendered="#{registrarExpedienteController.esPrestamo}" legend="Información General" styleClass="fieldSet" id="datosSimulacion">
+                            <p:fieldset toggleable="true" rendered="#{registrarExpedienteController.esPrestamo}" legend="Información General" styleClass="fieldSet" id="datosSimulacion">
                                 <div class="col-md-6 margen">
                                     <p:fieldset legend="Datos de Crédito" styleClass="fieldSet" 
                                                 rendered="#{registrarExpedienteController.tramite.idenSimuSim!=null}">
@@ -745,11 +740,26 @@
                                                                      rows="3"            value="#{registrarExpedienteController.inmueble.descDireImb}"/>
                                                 </div>
                                             </div> 
-                                        </p:fieldset>
-                                    </p:fieldset>
+                                        </p:fieldset>                                        
+                                    </p:fieldset>                                    
                                 </div>                    
                             </p:fieldset>
+                            <p:fieldset legend="Acciones" styleClass="fieldSet">
+                                <div class="col-md-12">
+                                    <div class="col-md-1">
+                                        <p:commandButton oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" disabled="#{registrarExpedienteController.enOtraArea}" actionListener="#{registrarExpedienteController.registrar()}" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null or registrarExpedienteController.enOtraArea}" update="formRegistroExpediente" value="Dar Viabilidad" actionListener="#{registrarExpedienteController.darViabilidad()}"/>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null or registrarExpedienteController.enOtraArea}" update="formRegistroExpediente" value="Rechazar" actionListener="#{registrarExpedienteController.rechazar()}"/>
+                                    </div>
+                                </div>
+                            </p:fieldset>
                         </div>
+                        
+
 
 
                         <p:dialog appendTo="@(body)" widgetVar="dialogSimulacion" dynamic="true" modal="true" resizable="false"

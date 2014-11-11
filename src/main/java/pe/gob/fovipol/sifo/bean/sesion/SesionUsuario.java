@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade;
 import pe.gob.fovipol.sifo.dao.seguridad.AdmModuloFacade;
 import pe.gob.fovipol.sifo.dao.seguridad.AdmUsuarioFacade;
+import pe.gob.fovipol.sifo.model.maestros.MaeArea;
 import pe.gob.fovipol.sifo.model.seguridad.AdmMenu;
 import pe.gob.fovipol.sifo.model.seguridad.AdmModulo;
 import pe.gob.fovipol.sifo.model.seguridad.AdmUsuario;
@@ -31,6 +32,8 @@ public class SesionUsuario implements Serializable {
 
     private AdmUsuario usuario;
     private List<Menu> menus;
+    private List<AdmModulo> modulos;
+    private MaeArea area;
     @EJB
     AdmUsuarioFacade ejbAdmUsuarioFacade;
     @EJB
@@ -47,8 +50,14 @@ public class SesionUsuario implements Serializable {
     public void actualizarSesion() {
         String nombre = SecurityContextHolder.getContext().getAuthentication().getName();
         if (nombre == null || !nombre.equals(usuario.getCodiUsuaUsr())) {
-            usuario = ejbAdmUsuarioFacade.findByUsername(nombre);
-            List<AdmModulo> modulos = ejbAdmModuloFacade.findByUsuario(usuario);
+            usuario = ejbAdmUsuarioFacade.findByUsuario(nombre);
+            try{
+                area=usuario.getMaePersona().getMaeEmpleado().getIdenAreaAre();
+            }
+            catch(NullPointerException npe){
+                area=null;
+            }
+            modulos = ejbAdmModuloFacade.findByUsuario(usuario);
             for (AdmModulo modulo : modulos) {
                 Menu m = new Menu();
                 m.setModulo(modulo);
@@ -109,5 +118,33 @@ public class SesionUsuario implements Serializable {
      */
     public void setMenus(List<Menu> menus) {
         this.menus = menus;
+    }
+
+    /**
+     * @return the modulos
+     */
+    public List<AdmModulo> getModulos() {
+        return modulos;
+    }
+
+    /**
+     * @param modulos the modulos to set
+     */
+    public void setModulos(List<AdmModulo> modulos) {
+        this.modulos = modulos;
+    }
+
+    /**
+     * @return the area
+     */
+    public MaeArea getArea() {
+        return area;
+    }
+
+    /**
+     * @param area the area to set
+     */
+    public void setArea(MaeArea area) {
+        this.area = area;
     }
 }

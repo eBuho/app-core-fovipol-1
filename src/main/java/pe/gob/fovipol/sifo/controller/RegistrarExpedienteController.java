@@ -99,10 +99,15 @@ public class RegistrarExpedienteController implements Serializable {
     private BigDecimal totalSeguro;
     private BigDecimal totalCuota;
     private boolean esPrestamo;
+    private String codigoPoliza;
+    private BigDecimal montoPoliza;
+    private boolean enOtraArea;
 
     @PostConstruct
     public void init() {
         esPrestamo=false;
+        beneficiaria = false;
+        enOtraArea=false;
         String idTramite = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap()
                 .get("idTramite");
@@ -144,7 +149,7 @@ public class RegistrarExpedienteController implements Serializable {
         productos = ejbProductoFacade.findAll();
         gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_GRADO_PARENTESCO));
         cargarCanalesCobranza();
-        beneficiaria = false;
+        //beneficiaria = false;
     }
 
     public void verSimulacion() {
@@ -266,7 +271,8 @@ public class RegistrarExpedienteController implements Serializable {
     }
 
     public void darViabilidad() {
-        boolean validarCampos = tramiteService.darViabilidadExpediente(tramite, documentos);
+        boolean validarCampos = tramiteService.darViabilidadExpediente(tramite, documentos);        
+        enOtraArea=validarCampos;
         if (validarCampos) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con éxito", ""));
         } else {
@@ -344,6 +350,7 @@ public class RegistrarExpedienteController implements Serializable {
             credito.setCodiMoneCrd(simu.getCodiMoneCrd());
             credito.setAutoCdobCrd(simu.getAutoCdobSim());
             credito.setPeriGracCrd(simu.getPeriGracSim());
+            credito.setImpoSoliCrd(simu.getImpoSoliSim());
         }
         boolean crea;
         if(esPrestamo)
@@ -789,6 +796,48 @@ public class RegistrarExpedienteController implements Serializable {
      */
     public void setEsPrestamo(boolean esPrestamo) {
         this.esPrestamo = esPrestamo;
+    }
+
+    /**
+     * @return the codigoPoliza
+     */
+    public String getCodigoPoliza() {
+        return codigoPoliza;
+    }
+
+    /**
+     * @param codigoPoliza the codigoPoliza to set
+     */
+    public void setCodigoPoliza(String codigoPoliza) {
+        this.codigoPoliza = codigoPoliza;
+    }
+
+    /**
+     * @return the montoPoliza
+     */
+    public BigDecimal getMontoPoliza() {
+        return montoPoliza;
+    }
+
+    /**
+     * @param montoPoliza the montoPoliza to set
+     */
+    public void setMontoPoliza(BigDecimal montoPoliza) {
+        this.montoPoliza = montoPoliza;
+    }
+
+    /**
+     * @return the enOtraArea
+     */
+    public boolean isEnOtraArea() {
+        return enOtraArea;
+    }
+
+    /**
+     * @param enOtraArea the enOtraArea to set
+     */
+    public void setEnOtraArea(boolean enOtraArea) {
+        this.enOtraArea = enOtraArea;
     }
 
 }

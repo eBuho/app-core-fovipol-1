@@ -2,9 +2,9 @@
     background-color: #fff !important;
 }
 #login-box{
-    position: absolute;
-    top: 300px;
-    right: 350px;
+    padding-top: 270px;
+    padding-left: 620px;
+    width: 240px;
 }
 .form-div {
     width: 980px !important;
@@ -62,4 +62,14 @@
 .linkLogin {
     font-size: small;
     color: gray;
+}
+.margen-bajo{
+    margin-bottom: 5px;
+    width: 200px;
+}
+.btn-ingresar{
+    width: 96px;
+    height: 31px;
+    border: none;
+    background-image: url(../images/boton-aceptar.png);
 }

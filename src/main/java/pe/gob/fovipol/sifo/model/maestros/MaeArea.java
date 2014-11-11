@@ -54,6 +54,8 @@ import pe.gob.fovipol.sifo.model.tramite.TrmMovimiento;
     @NamedQuery(name = "MaeArea.findByNombSopeAud", query = "SELECT m FROM MaeArea m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeArea.findByFlagEstaAre", query = "SELECT m FROM MaeArea m WHERE m.flagEstaAre = :flagEstaAre")})
 public class MaeArea implements Serializable {
+    @OneToMany(mappedBy = "idenAreaAre")
+    private List<MaeEmpleado> maeEmpleadoList;
     @OneToMany(mappedBy = "areaDestMvm")
     private List<TrmMovimiento> trmMovimientoList;
     @OneToMany(mappedBy = "areaOrigMvm")
@@ -291,6 +293,16 @@ public class MaeArea implements Serializable {
 
     public void setTrmMovimientoList1(List<TrmMovimiento> trmMovimientoList1) {
         this.trmMovimientoList1 = trmMovimientoList1;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<MaeEmpleado> getMaeEmpleadoList() {
+        return maeEmpleadoList;
+    }
+
+    public void setMaeEmpleadoList(List<MaeEmpleado> maeEmpleadoList) {
+        this.maeEmpleadoList = maeEmpleadoList;
     }
     
 }

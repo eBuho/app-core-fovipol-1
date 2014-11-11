@@ -79,6 +79,8 @@ public class MaePersona implements Serializable {
     @Column(name = "TIPO_IDEN_PER")
     private BigDecimal tipoIdenPer;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "maePersona")
+    private MaeEmpleado maeEmpleado;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "maePersona")
     private AdmUsuario admUsuario;
     @OneToMany(mappedBy = "codiPersTrm")
     private List<TrmTramite> trmTramiteList;
@@ -554,6 +556,14 @@ public class MaePersona implements Serializable {
 
     public void setTrmTramiteList(List<TrmTramite> trmTramiteList) {
         this.trmTramiteList = trmTramiteList;
+    }
+
+    public MaeEmpleado getMaeEmpleado() {
+        return maeEmpleado;
+    }
+
+    public void setMaeEmpleado(MaeEmpleado maeEmpleado) {
+        this.maeEmpleado = maeEmpleado;
     }
 
 }

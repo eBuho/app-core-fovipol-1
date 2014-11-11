@@ -40,6 +40,7 @@
     </h:head>
     <!-- END HEAD -->
     <body class="page-header-fixed">
+        
         <!-- BEGIN HEADER -->
         <div class="header navbar navbar-fixed-top">
             <!-- BEGIN TOP NAVIGATION BAR -->
@@ -157,7 +158,7 @@
                             <ul class="page-breadcrumb breadcrumb">				
                                 <li>
                                     <i class="fa fa-home"></i> 
-                                    <a href="#{request.contextPath}/inicio.xhtml"> <h:outputText value="Inicio"/> </a>
+                                    <a href="#{request.contextPath}/index.xhtml"> <h:outputText value="Inicio"/> </a>
                                     <i class="fa fa-angle-right"></i>
                                 </li>
                                 <c:if test="#{mainPage.noMostrar}">
@@ -213,8 +214,8 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="row">
-                        <p:growl id="growl" life="6000" />
+                    <div class="row">                        
+                        <p:growl id="growl" life="8000" transient="true" autoUpdate="true"/>
                         <ui:insert name="body" />
                     </div>			
                 </div>
@@ -245,6 +246,7 @@
         <!-- END CORE PLUGINS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <script src="#{request.contextPath}/resources/metronic/scripts/core/app.js"></script>
+        <script src="#{request.contextPath}/resources/metronic/scripts/core/index.js"></script>
         <!-- END PAGE LEVEL SCRIPTS -->		
         <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.min.js"></script>
         <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.resize.min.js"></script>
@@ -259,6 +261,7 @@
         <script>
             jQuery(document).ready(function () {
                 App.init();
+                Index.init();
             });
         </script>
     </body>
