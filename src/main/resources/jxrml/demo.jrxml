@@ -45,7 +45,15 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="21"/>
+			<band height="21">
+				<textField>
+					<reportElement style="SubTitle" x="36" y="4" width="388" height="15" uuid="13c4ab06-18c3-42f6-bb2b-61f35554dfa0"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Hola mundo"]]></textFieldExpression>
+				</textField>
+			</band>
 		</groupFooter>
 	</group>
 	<group name="Group2">
@@ -131,6 +139,9 @@
 					<reportElement style="Detail" x="1" y="0" width="100" height="15" uuid="3b03ce49-941d-4d46-b9e3-4c470c65ab1b"/>
 					<textFieldExpression><![CDATA["Field"]]></textFieldExpression>
 				</textField>
+			</frame>
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="201" y="15" width="135" height="15" uuid="1b160a34-ea64-4ded-8010-427509a9afce"/>
 			</frame>
 		</band>
 	</detail>

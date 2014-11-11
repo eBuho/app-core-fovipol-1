@@ -13,6 +13,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.primefaces.context.RequestContext;
 import pe.gob.fovipol.sifo.controller.util.Cuota;
 import pe.gob.fovipol.sifo.dao.credito.CrdSimulacionFacade;
@@ -686,7 +687,10 @@ public class EvaluarCreditoController implements Serializable {
     public List<Cuota> getCuotas() {
         return cuotas;
     }
-
+    
+    public JRBeanCollectionDataSource getCuotasReporte(){
+        return new JRBeanCollectionDataSource(getCuotas());
+    }
     /**
      * @param cuotas the cuotas to set
      */
