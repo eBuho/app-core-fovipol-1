@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Consolidado / Producto</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:fieldset legend="Filtro por" style="margin-bottom:20px">
+                <p:panelGrid columns="7">
+                    <p:outputLabel value="F.Desde" for="fechaInicial"/>
+                    <p:calendar id="fechaInicial" mode="popup" showOn="button"
+                                pages="3" size="10"
+                                value="#{reporteController.fechaInicial}"/>
+                    <p:outputLabel value="F.Hasta" for="fechaFinal"/>
+                    <p:calendar id="fechaFinal" mode="popup" showOn="button"
+                                pages="3" size="10"
+                                value="#{reporteController.fechaFinal}"/>
+                    <p:outputLabel value="Moneda" for="monedaId"/>
+                    <p:selectOneMenu id="monedaId" value="#{reporteController.codiMoneCrd}">
+                        <f:selectItems value="#{reporteController.monedas}"
+                                       var="moneda" 
+                                       itemValue="#{moneda.secuEntiDet}" 
+                                       itemLabel="#{moneda.valoCaduDet}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton value="Imprimir" ajax="false"
+                                     actionListener="#{reporteController.imprimirConsolidadoProducto()}"/>
+                </p:panelGrid>
+               
+            </p:fieldset>
+        </h:form>
+
+    </h:body>
+
+</html>
+
+
+
+
