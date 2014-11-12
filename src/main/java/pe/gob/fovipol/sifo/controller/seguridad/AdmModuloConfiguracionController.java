@@ -1,6 +1,7 @@
 package pe.gob.fovipol.sifo.controller.seguridad;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -10,16 +11,16 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import org.primefaces.event.TransferEvent;
+import org.primefaces.model.DualListModel;
 import pe.gob.fovipol.sifo.controller.seguridad.util.JsfUtil;
+import pe.gob.fovipol.sifo.dao.seguridad.AdmMenuFacade;
 import pe.gob.fovipol.sifo.dao.seguridad.AdmMenuModuloFacade;
 import pe.gob.fovipol.sifo.dao.seguridad.AdmModuloFacade;
+import pe.gob.fovipol.sifo.model.seguridad.AdmMenu;
 import pe.gob.fovipol.sifo.model.seguridad.AdmMenuModulo;
 import pe.gob.fovipol.sifo.model.seguridad.AdmModulo;
-
+import pe.gob.fovipol.sifo.util.Constantes;
 
 @ManagedBean(name = "admModuloConfiguracionController")
 @ViewScoped
@@ -28,19 +29,23 @@ public class AdmModuloConfiguracionController implements Serializable {
     @EJB
     private AdmModuloFacade ejbFacade;
     @EJB
+    private AdmMenuFacade ejbMenuFacade;
+    @EJB
     private AdmMenuModuloFacade ejbMenuModuloFacade;
     private List<AdmModulo> items;
     private AdmModulo selected;
-    private List<AdmMenuModulo> menuModulos;
+    private DualListModel<AdmMenu> dualList;
 
     @PostConstruct
     public void init() {
         items = getFacade().findAll();
     }
-    
-    public void cargarMenus(){
-        menuModulos=ejbMenuModuloFacade.findAll();
+
+    public void cargarMenus() {
+        dualList = new DualListModel<>(ejbMenuFacade.findDisponibleByModulo(selected),
+                ejbMenuFacade.findByModulo(selected));
     }
+
     public AdmModulo getSelected() {
         return selected;
     }
@@ -129,58 +134,44 @@ public class AdmModuloConfiguracionController implements Serializable {
     }
 
     /**
-     * @return the menuModulos
+     * @return the dualList
      */
-    public List<AdmMenuModulo> getMenuModulos() {
-        return menuModulos;
+    public DualListModel<AdmMenu> getDualList() {
+        return dualList;
     }
 
     /**
-     * @param menuModulos the menuModulos to set
+     * @param dualList the dualList to set
      */
-    public void setMenuModulos(List<AdmMenuModulo> menuModulos) {
-        this.menuModulos = menuModulos;
+    public void setDualList(DualListModel<AdmMenu> dualList) {
+        this.dualList = dualList;
     }
 
-    @FacesConverter(forClass = AdmModulo.class)
-    public static class AdmModuloControllerConverter implements Converter {
+    public void onTransfer(TransferEvent event) {
+        if (event.isAdd()) {
+            try {
+                for (Object adm : event.getItems()) {
+                    AdmMenuModulo menuModulo = new AdmMenuModulo();
+                    menuModulo.setFlagEstaMmd(Constantes.VALOR_ESTADO_ACTIVO);
+                    menuModulo.setIdenMenuMnu(new AdmMenu(new BigDecimal(adm + "")));
+                    menuModulo.setIdenModuMod(selected);
+                    ejbMenuModuloFacade.edit(menuModulo);
+                }
+                JsfUtil.addSuccessMessage("Menús agregados con éxito");
+            } catch (Exception e) {
 
-        @Override
-        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-            if (value == null || value.length() == 0) {
-                return null;
-            }
-            AdmModuloController controller = (AdmModuloController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "admModuloController");
-            return controller.getAdmModulo(getKey(value));
-        }
-
-        java.math.BigDecimal getKey(String value) {
-            java.math.BigDecimal key;
-            key = new java.math.BigDecimal(value);
-            return key;
-        }
-
-        String getStringKey(java.math.BigDecimal value) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(value);
-            return sb.toString();
-        }
-
-        @Override
-        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-            if (object == null) {
-                return null;
-            }
-            if (object instanceof AdmModulo) {
-                AdmModulo o = (AdmModulo) object;
-                return getStringKey(o.getIdenModuMod());
-            } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), AdmModulo.class.getName()});
-                return null;
             }
         }
+        if (event.isRemove()) {
+            try {
+                for (Object adm : event.getItems()) {
+                    ejbMenuModuloFacade.updateByModuloMenu(selected,new BigDecimal(adm + ""));
+                }
+                JsfUtil.addSuccessMessage("Menús desactivados con éxito");
+            } catch (Exception e) {
 
+            }
+        }
+        cargarMenus();
     }
-
 }

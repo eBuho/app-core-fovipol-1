@@ -37,7 +37,7 @@
                                              >
 
                                     <p:ajax event="rowSelect" listener="#{admModuloConfiguracionController.cargarMenus()}"  
-                                            update=":formPickMenu:listaSeleccionable createButton viewButton editButton deleteButton"/>
+                                            update=":formPickMenu createButton viewButton editButton deleteButton"/>
                                     <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                                     <p:column>
@@ -148,16 +148,18 @@
                         <ui:include src="../admMenu/Edit.xhtml"/>
                         <ui:include src="../admMenu/View.xhtml"/>
                         <h:form id="formPickMenu">
-                            <p:pickList id="listaSeleccionable" value="#{admModuloConfiguracionController.menuModulos}" var="menuModulo" effect="bounce"
-                                        itemValue="#{menuModulo}" itemLabel="#{menuModulo.idenMenuMnu.nombMenuMnu}" showSourceControls="true" showTargetControls="true" showCheckbox="true"
+                            <p:spacer height="30"/>
+                            <p:pickList rendered="#{admModuloConfiguracionController.dualList!=null}" id="listaSeleccionable" 
+                                        value="#{admModuloConfiguracionController.dualList}" var="menu" effect="bounce"
+                                        itemValue="#{menu.idenMenuMnu}" itemLabel="#{menu.nombMenuMnu}"  showCheckbox="true"
                                         showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains">
 
                                 <f:facet name="sourceCaption">Disponibles</f:facet>
                                 <f:facet name="targetCaption">Usados</f:facet>
 
-                                
+                                <p:ajax update="listaSeleccionable" event="transfer" listener="#{admModuloConfiguracionController.onTransfer}" />
                                 <p:column>
-                                    <h:outputText value="#{menuModulo.idenMenuMnu.nombMenuMnu}" />
+                                    <h:outputText value="#{menu.nombMenuMnu}" />
                                 </p:column>
                             </p:pickList>
                         </h:form>
