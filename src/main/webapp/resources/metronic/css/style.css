@@ -1785,16 +1785,16 @@ Custom icon buttons
 
 .icon-btn div {
   font-family: 'Open Sans', sans-serif;
-  margin-left: 10%;
-  /*margin-top: 5px;
-  margin-bottom: 20px;*/
+  margin-left: 15%;
+  margin-top: 5px;
+  /*margin-bottom: 20px;*/
   height: 35px;
-  width: 120px;
+  width: 125px;
   float: left;
   /*border: 1px solid #ddd;*/
   color: #000;
   font-size: 12px;
-  font-weight: 300;
+  font-weight: bold;
   text-align: center;
 }
 

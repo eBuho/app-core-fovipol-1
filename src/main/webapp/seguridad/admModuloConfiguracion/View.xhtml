@@ -12,31 +12,31 @@
         <p:dialog id="AdmModuloViewDlg" widgetVar="AdmModuloViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.ViewAdmModuloTitle}">
             <h:form id="AdmModuloViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{admModuloController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{admModuloConfiguracionController.selected != null}">
                         <h:outputText value="#{seguridad.ViewAdmModuloLabel_idenModuMod}"/>
-                        <h:outputText value="#{admModuloController.selected.idenModuMod}" title="#{seguridad.ViewAdmModuloTitle_idenModuMod}"/>
+                        <h:outputText value="#{admModuloConfiguracionController.selected.idenModuMod}" title="#{seguridad.ViewAdmModuloTitle_idenModuMod}"/>
                         <h:outputText value="#{seguridad.ViewAdmModuloLabel_nombModuMod}"/>
-                        <h:outputText value="#{admModuloController.selected.nombModuMod}" title="#{seguridad.ViewAdmModuloTitle_nombModuMod}"/>
+                        <h:outputText value="#{admModuloConfiguracionController.selected.nombModuMod}" title="#{seguridad.ViewAdmModuloTitle_nombModuMod}"/>
                         <h:outputText value="#{seguridad.ViewAdmModuloLabel_rutaImagMod}"/>
-                        <h:outputText value="#{admModuloController.selected.rutaImagMod}" title="#{seguridad.ViewAdmModuloTitle_rutaImagMod}"/>
+                        <h:outputText value="#{admModuloConfiguracionController.selected.rutaImagMod}" title="#{seguridad.ViewAdmModuloTitle_rutaImagMod}"/>
                         <h:outputText value="#{seguridad.ViewAdmModuloLabel_usuaCreaAud}"/>
-                        <h:outputText value="#{admModuloController.selected.usuaCreaAud}" title="#{seguridad.ViewAdmModuloTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{admModuloConfiguracionController.selected.usuaCreaAud}" title="#{seguridad.ViewAdmModuloTitle_usuaCreaAud}"/>
                         <h:outputText value="#{seguridad.ViewAdmModuloLabel_fechCreaAud}"/>
-                        <h:outputText value="#{admModuloController.selected.fechCreaAud}" title="#{seguridad.ViewAdmModuloTitle_fechCreaAud}">
+                        <h:outputText value="#{admModuloConfiguracionController.selected.fechCreaAud}" title="#{seguridad.ViewAdmModuloTitle_fechCreaAud}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{seguridad.ViewAdmModuloLabel_usuaModiAud}"/>
-                        <h:outputText value="#{admModuloController.selected.usuaModiAud}" title="#{seguridad.ViewAdmModuloTitle_usuaModiAud}"/>
+                        <h:outputText value="#{admModuloConfiguracionController.selected.usuaModiAud}" title="#{seguridad.ViewAdmModuloTitle_usuaModiAud}"/>
                         <h:outputText value="#{seguridad.ViewAdmModuloLabel_fechModiAud}"/>
-                        <h:outputText value="#{admModuloController.selected.fechModiAud}" title="#{seguridad.ViewAdmModuloTitle_fechModiAud}">
+                        <h:outputText value="#{admModuloConfiguracionController.selected.fechModiAud}" title="#{seguridad.ViewAdmModuloTitle_fechModiAud}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{seguridad.ViewAdmModuloLabel_nombEquiAud}"/>
-                        <h:outputText value="#{admModuloController.selected.nombEquiAud}" title="#{seguridad.ViewAdmModuloTitle_nombEquiAud}"/>
+                        <h:outputText value="#{admModuloConfiguracionController.selected.nombEquiAud}" title="#{seguridad.ViewAdmModuloTitle_nombEquiAud}"/>
                         <h:outputText value="#{seguridad.ViewAdmModuloLabel_nombSopeAud}"/>
-                        <h:outputText value="#{admModuloController.selected.nombSopeAud}" title="#{seguridad.ViewAdmModuloTitle_nombSopeAud}"/>
+                        <h:outputText value="#{admModuloConfiguracionController.selected.nombSopeAud}" title="#{seguridad.ViewAdmModuloTitle_nombSopeAud}"/>
                         <h:outputText value="#{seguridad.ViewAdmModuloLabel_flagEstaMod}"/>
-                        <comp:activo value="#{admModuloController.selected.flagEstaMod}"/>
+                        <comp:activo value="#{admModuloConfiguracionController.selected.flagEstaMod}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{seguridad.Close}" onclick="AdmModuloViewDialog.hide()"/>
                 </h:panelGroup>

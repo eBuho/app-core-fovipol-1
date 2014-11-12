@@ -136,7 +136,7 @@ public class EvaluarCreditoController implements Serializable {
                         cargarSeguros();
                         netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
                         cargarRequisitos();
-                        esPrestamo = true;
+                        esPrestamo = true;                        
                     } else {
                         cargarRequisitos();
                     }
@@ -163,7 +163,7 @@ public class EvaluarCreditoController implements Serializable {
         CrdSimulacion simu = tramite.getIdenSimuSim();
         cuotas = creditoService.calcularCuotas(listaSeguro, simu.getPeriCiclSim().intValue(),
                 simu.getTasaTeaSim(), simu.getImpoSoliSim(),
-                simu.getPlazPresSim(), simu.getImpoCuotSim(), socio.getMaePersona().getFechNaciPer());        
+                simu.getPlazPresSim(), simu.getImpoCuotSim(), socio.getMaePersona().getFechNaciPer(),tramite.getIdenSimuSim());        
         totalAmortizacion = cuotas.get(0).getTotalAmortizacion();
         totalCuota = cuotas.get(0).getTotalCuota();
         totalInteres = cuotas.get(0).getTotalInteres();
@@ -689,6 +689,7 @@ public class EvaluarCreditoController implements Serializable {
     }
     
     public JRBeanCollectionDataSource getCuotasReporte(){
+        verSimulacion();
         return new JRBeanCollectionDataSource(getCuotas());
     }
     /**

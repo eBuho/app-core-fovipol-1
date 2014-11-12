@@ -22,6 +22,7 @@ import pe.gob.fovipol.sifo.model.credito.CrdCreditoSeguro;
 import pe.gob.fovipol.sifo.model.credito.CrdCreditoSeguroPK;
 import pe.gob.fovipol.sifo.model.credito.CrdCuotaSeguro;
 import pe.gob.fovipol.sifo.model.credito.CrdCuotaSeguroPK;
+import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
 import pe.gob.fovipol.sifo.model.maestros.MaeSeguroRango;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
@@ -134,7 +135,7 @@ public class CreditoServiceImpl implements CreditoService {
 
     @Override
     public List<Cuota> calcularCuotas(List<MaeSeguro> seguros, int ciclica, BigDecimal interes,
-            BigDecimal montoPrestamo, BigInteger numeroCuotas, BigDecimal cuotaMensual, Date fechaNacimiento) {
+            BigDecimal montoPrestamo, BigInteger numeroCuotas, BigDecimal cuotaMensual, Date fechaNacimiento,CrdSimulacion simulacion) {
         List<Cuota> cuotasSimulacion = new ArrayList<>();
         List<List<MaeSeguroRango>> rangos;
         rangos=new ArrayList<>();
@@ -157,6 +158,7 @@ public class CreditoServiceImpl implements CreditoService {
         BigDecimal totalInteres = BigDecimal.ZERO;
         for (int i = 0; i < numeroCuotas.intValue(); i++) {
             Cuota c = new Cuota();
+            c.setSimulacion(simulacion);
             mes = today.get(Calendar.MONTH);
             today.set(Calendar.MONTH, mes + 1);
             c.setSaldoInicial(montoaux);
