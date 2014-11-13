@@ -12,6 +12,8 @@ import java.util.List;
 import pe.gob.fovipol.sifo.controller.util.Cuota;
 import pe.gob.fovipol.sifo.model.credito.CrdCredito;
 import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
+import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
@@ -38,4 +40,19 @@ public interface CreditoService {
             BigDecimal montoPrestamo,BigInteger numeroCuotas,BigDecimal cuotaMensual,
             Date fechaNacimiento,CrdSimulacion simulacion);
     public boolean comprobarEdadFinPago(Date fechaNacimiento,int ciclica,int numeroCuotas,List<MaeSeguro> seguros);
+
+    /**
+     *
+     * @param fechaInicio
+     * @param fechaFinal
+     * @param monedaId
+     * @param estado
+     * @return
+     */
+    public List<CrdCredito> obtenerCreditos(Date fechaInicio, Date fechaFinal,
+            MaeEntidaddet moneda, Integer estado);
+    public List<CrdCredito> obtenerCreditosProductos(Date fechaInicio, Date fechaFinal,
+            MaeProducto producto, MaeEntidaddet moneda, Integer estado);
+    public List<CrdCredito> obtenerCreditosLineas(Date fechaInicial, Date fechaFinal, 
+            MaeEntidaddet linea, MaeEntidaddet moneda, int i);
 }

@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,7 @@ import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 import pe.gob.fovipol.sifo.util.Constantes;
+import pe.gob.fovipol.sifo.util.Funciones;
 
 /**
  * @author ebuho 09/11/2014 12:18pm
@@ -43,7 +45,7 @@ public class ReporteController implements Serializable {
     private List<MaeEntidaddet> monedas;
 
     public ReporteController() {
-        fechaInicial = new Date();
+        fechaInicial = Funciones.fechaInicioMes(new Date());
         fechaFinal = new Date();
     }
 

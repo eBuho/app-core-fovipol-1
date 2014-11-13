@@ -28,8 +28,10 @@ public class Constantes implements Serializable {
     public static final Short VALOR_ESTADO_INACTIVO = 0;
     //Valor Estado Activo
     public static final Short VALOR_ESTADO_ACTIVO = 1;    
-    //Valor Codigo Moneda
+    //Valores Codigos de Moneda
     public static final String CODI_MONE_CRD = "CODIMONECRD";
+    //Valores Codigos de Lineas de Productos
+    public static final String CODI_LINE_PRD = "CODILINEPRD";
     /**
      * @return the ENTIDAD_TIPO_AREA
      */
