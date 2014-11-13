@@ -6,6 +6,7 @@ import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.MaePersonaFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -62,6 +63,7 @@ public class MaePersonaController implements Serializable {
     public MaePersonaController() {  
         
     }
+    
     @PostConstruct
     public void init(){
         
@@ -608,7 +610,6 @@ public class MaePersonaController implements Serializable {
         this.parentescos = parentescos;
     }
 
-    
 
     @FacesConverter(forClass = MaePersona.class)
     public static class MaePersonaControllerConverter implements Converter {

@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -17,11 +19,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import pe.gob.fovipol.sifo.listener.AuditListener;
 
 /**
@@ -54,6 +59,8 @@ import pe.gob.fovipol.sifo.listener.AuditListener;
     @NamedQuery(name = "CrdCreditoCuota.findByNombSopeAud", query = "SELECT c FROM CrdCreditoCuota c WHERE c.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "CrdCreditoCuota.findByFlagEstaCuo", query = "SELECT c FROM CrdCreditoCuota c WHERE c.flagEstaCuo = :flagEstaCuo")})
 public class CrdCreditoCuota implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "crdCreditoCuota")
+    private List<CrdCuotaSeguro> crdCuotaSeguroList;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CrdCreditoCuotaPK crdCreditoCuotaPK;
@@ -302,6 +309,16 @@ public class CrdCreditoCuota implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.credito.CrdCreditoCuota[ crdCreditoCuotaPK=" + crdCreditoCuotaPK + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<CrdCuotaSeguro> getCrdCuotaSeguroList() {
+        return crdCuotaSeguroList;
+    }
+
+    public void setCrdCuotaSeguroList(List<CrdCuotaSeguro> crdCuotaSeguroList) {
+        this.crdCuotaSeguroList = crdCuotaSeguroList;
     }
     
 }

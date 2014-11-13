@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jr="http://jasperreportjsf.sf.net/tld/jasperreports-jsf-1_2.tld">
 
     <ui:composition> 
         <script type="text/javascript">
@@ -752,9 +753,10 @@
                                                          update="resultadoSimulacionCambiar"  value="Generar Cronograma" actionListener="#{evaluarCreditoController.verSimulacion()}" id="verSimulacion"/>
                                     </div>
                                     <div class="col-md-12">
-                                        <p:commandButton value="Imprimir" type="button" icon="ui-icon-print" style="display:block;margin-top: 20px;margin-bottom: 20px;margin-left: 5px;">
-                                            <p:printer target="resultadoSimulacionCambiar" />
-                                        </p:commandButton>                    
+                                        <p:spacer width="20"/>
+                                        <jr:reportLink styleClass="btn btn-sm green btnVerde"  format="pdf" target="blank" source="#{evaluarCreditoController.cuotasReporte}" value="classpath:jasper/simulacion.jasper">
+                                            <h:outputText value="Imprimir" />
+                                        </jr:reportLink>                                                           
                                         <h:panelGroup id="resultadoSimulacionCambiar" > 
                                             <p:panelGrid rendered="#{evaluarCreditoController.verCronograma}" columns="2" styleClass="tablaNoBorde" style="font-weight: bold;">
                                                 <h:outputText value="Producto:"/>

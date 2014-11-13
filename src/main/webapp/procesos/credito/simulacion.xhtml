@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jr="http://jasperreportjsf.sf.net/tld/jasperreports-jsf-1_2.tld">
 
     <ui:composition>
         <script type="text/javascript">
@@ -268,7 +269,7 @@
                                         </p:fieldset>
                                         <p:remoteCommand actionListener="#{simulacionController.agregarPoliza}" name="detalleActualiza" 
                                                          oncomplete="PF('polizaPanel').hide()"        update="polizaNombre"/>
-                                        
+
                                         <div id="verSimulacion" class="modal fade bs-modal-lg" tabindex="-1">
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">                                
@@ -278,10 +279,11 @@
                                                             Cronograma Simulación
                                                         </h4>
                                                     </div>
-                                                    <div class="modal-body form-body">
-                                                        <p:commandButton value="Imprimir" type="button" icon="ui-icon-print" style="display:block;margin-top: 20px;margin-bottom: 20px;margin-left: 5px;">
-                                                            <p:printer target="resultado" />
-                                                        </p:commandButton>                                                        
+                                                    <div class="modal-body form-body">                                                        
+                                                        
+                                                        <jr:reportLink styleClass="btn btn-sm green btnVerde"  format="pdf" target="blank" source="#{simulacionController.cuotasReporte}" value="classpath:jasper/simulacion.jasper">
+                                                            <h:outputText value="Imprimir" />
+                                                        </jr:reportLink> 
                                                         <h:panelGroup id="resultado" >                                                                                       
                                                             <p:panelGrid columns="2" styleClass="tablaNoBorde" style="font-weight: bold;">
                                                                 <h:outputText value="Código de Simulación:"/>

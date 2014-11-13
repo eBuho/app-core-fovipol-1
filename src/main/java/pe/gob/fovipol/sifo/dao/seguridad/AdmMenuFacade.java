@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pe.gob.fovipol.sifo.model.seguridad.AdmMenu;
+import pe.gob.fovipol.sifo.model.seguridad.AdmModulo;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 /**
  *
@@ -40,6 +42,26 @@ public class AdmMenuFacade extends AbstractFacade<AdmMenu> {
         Query q = em.createNativeQuery(sql,AdmMenu.class);
         //q.setParameter("idUsuario", idUsuario);
         q.setParameter(1, idModulo);
+        lista = q.getResultList();
+        return lista;
+    }
+    
+    public List<AdmMenu> findByModulo(AdmModulo modulo) {
+        List<AdmMenu> lista = null;
+        String sql = "select d.idenMenuMnu from AdmMenuModulo d where d.idenModuMod=:modulo AND d.flagEstaMmd<>"+Constantes.VALOR_ESTADO_INACTIVO;
+        Query q = em.createQuery(sql);
+        q.setParameter("modulo", modulo);
+        lista = q.getResultList();
+        return lista;
+    }
+    
+    public List<AdmMenu> findDisponibleByModulo(AdmModulo modulo) {
+        List<AdmMenu> lista = null;
+        String sql = "select d from AdmMenu d where d.idenMenuMnu not in ( "
+                + "SELECT e.idenMenuMnu.idenMenuMnu from AdmMenuModulo e WHERE e.idenModuMod=:modulo"
+                + " and e.flagEstaMmd<>"+Constantes.VALOR_ESTADO_INACTIVO+")";
+        Query q = em.createQuery(sql);
+        q.setParameter("modulo", modulo);
         lista = q.getResultList();
         return lista;
     }
