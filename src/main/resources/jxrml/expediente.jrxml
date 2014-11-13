@@ -33,6 +33,9 @@
 	<field name="moneda" class="pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet">
 		<fieldDescription><![CDATA[moneda]]></fieldDescription>
 	</field>
+	<field name="impoSoliCrd" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[impoSoliCrd]]></fieldDescription>
+	</field>
 	<background>
 		<band/>
 	</background>
@@ -195,7 +198,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="30">
+		<band height="21">
 			<textField isStretchWithOverflow="true">
 				<reportElement x="24" y="0" width="46" height="20" forecolor="#006600" uuid="a9e0937d-339c-4411-ad84-9cd31e698a82"/>
 				<textElement verticalAlignment="Middle">
@@ -229,7 +232,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{impoInteCrd}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{impoSoliCrd}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="392" y="0" width="46" height="20" forecolor="#006600" uuid="a711d344-6210-49ba-8f52-c521461a1278"/>
