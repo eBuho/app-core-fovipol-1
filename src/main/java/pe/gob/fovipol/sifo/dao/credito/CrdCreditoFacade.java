@@ -5,6 +5,7 @@
  */
 package pe.gob.fovipol.sifo.dao.credito;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -12,6 +13,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pe.gob.fovipol.sifo.dao.AbstractFacade;
 import pe.gob.fovipol.sifo.model.credito.CrdCredito;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
+import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
@@ -43,5 +46,62 @@ public class CrdCreditoFacade extends AbstractFacade<CrdCredito> {
             return null;
         else
             return lista.get(0);
+    }
+    
+    public List<CrdCredito> findByFiltros1(Date fechaInicio, Date fechaFinal,
+            MaeEntidaddet moneda, Integer estado) {
+        List<CrdCredito> lista = null;
+        boolean filtroMoneda = true;
+        if (moneda == null) filtroMoneda = false;
+        String sql = "select c from CrdCredito c "
+                + "where c.flagEstaCrd<>0 "
+                + "and c.fechAproCrd BETWEEN :fechaInicio AND :fechaFinal ";
+        if (filtroMoneda){
+                sql = sql + "and c.codiMoneCrd = :monedaId";        
+        }
+        Query q = em.createQuery(sql);
+        q.setParameter("fechaInicio", fechaInicio);
+        q.setParameter("fechaFinal", fechaFinal);
+        if (filtroMoneda){
+            q.setParameter("monedaId", moneda.getSecuEntiDet());
+        }
+        //q.setParameter("estado", estado);
+        lista = q.getResultList();
+        if(lista==null || lista.isEmpty())
+            return null;
+        else
+            return lista;
+    }
+
+    public List<CrdCredito> findByFiltros2(Date fechaInicio, Date fechaFinal, MaeProducto producto, MaeEntidaddet moneda, Integer estado) {
+        List<CrdCredito> lista = null;
+        boolean filtroProducto = true;
+        boolean filtroMoneda = true;
+        if (producto == null) filtroProducto = false;
+        if (moneda == null) filtroMoneda = false;
+        String sql = "select c from CrdCredito c "
+                + "where c.flagEstaCrd<>0 "
+                + "and c.fechAproCrd BETWEEN :fechaInicio AND :fechaFinal ";
+        if (filtroProducto){
+                sql = sql + "and c.idenExpeTrm.idenSimuSim.idenProdPrd = :productoId ";        
+        }
+        if (filtroMoneda){
+                sql = sql + "and c.codiMoneCrd = :monedaId";        
+        }
+        Query q = em.createQuery(sql);
+        q.setParameter("fechaInicio", fechaInicio);
+        q.setParameter("fechaFinal", fechaFinal);
+        if (filtroProducto){
+            q.setParameter("productoId", producto.getIdenProdPrd());
+        }
+        if (filtroMoneda){
+            q.setParameter("monedaId", moneda.getSecuEntiDet());
+        }
+        //q.setParameter("estado", estado);
+        lista = q.getResultList();
+        if(lista==null || lista.isEmpty())
+            return null;
+        else
+            return lista;
     }
 }

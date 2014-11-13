@@ -23,11 +23,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 import pe.gob.fovipol.sifo.model.maestros.MaeInmueble;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
@@ -134,6 +136,8 @@ public class CrdCredito implements Serializable {
     @JoinColumn(name = "IDEN_INMU_IMB", referencedColumnName = "IDEN_INMU_IMB")
     @ManyToOne
     private MaeInmueble idenInmuImb;
+    @Transient
+    private MaeEntidaddet moneda;
 
     public CrdCredito() {
     }
@@ -397,6 +401,20 @@ public class CrdCredito implements Serializable {
 
     public void setCrdCreditoSeguroList(List<CrdCreditoSeguro> crdCreditoSeguroList) {
         this.crdCreditoSeguroList = crdCreditoSeguroList;
+    }
+
+    /**
+     * @return the moneda
+     */
+    public MaeEntidaddet getMoneda() {
+        return moneda;
+    }
+
+    /**
+     * @param moneda the moneda to set
+     */
+    public void setMoneda(MaeEntidaddet moneda) {
+        this.moneda = moneda;
     }
     
 }

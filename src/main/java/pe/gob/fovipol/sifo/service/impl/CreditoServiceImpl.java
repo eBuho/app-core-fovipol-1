@@ -16,6 +16,8 @@ import pe.gob.fovipol.sifo.dao.credito.CrdCreditoFacade;
 import pe.gob.fovipol.sifo.model.credito.CrdCredito;
 import pe.gob.fovipol.sifo.model.credito.CrdCreditoCuota;
 import pe.gob.fovipol.sifo.model.credito.CrdCreditoCuotaPK;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
+import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
 import pe.gob.fovipol.sifo.model.maestros.MaeSeguroRango;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
@@ -236,4 +238,26 @@ public class CreditoServiceImpl implements CreditoService {
         }
         return true;
     }
+
+    @Override
+    public List<CrdCredito> obtenerCreditos(Date fechaInicio, Date fechaFinal,
+            MaeEntidaddet moneda, Integer estado) {
+        List<CrdCredito> lista = null;
+        lista = ejbCreditoFacade.findByFiltros1(fechaInicio, fechaFinal, moneda, estado);
+        if(lista==null || lista.isEmpty())
+            return null;
+        else
+            return lista;
+    }
+
+    @Override
+    public List<CrdCredito> obtenerCreditosProductos(Date fechaInicio, Date fechaFinal, MaeProducto producto, MaeEntidaddet moneda, Integer estado) {
+        List<CrdCredito> lista = null;
+        lista = ejbCreditoFacade.findByFiltros2(fechaInicio, fechaFinal, producto, moneda, estado);
+        if(lista==null || lista.isEmpty())
+            return null;
+        else
+            return lista;
+    }
+
 }

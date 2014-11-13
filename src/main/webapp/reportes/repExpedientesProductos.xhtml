@@ -4,12 +4,13 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jr="http://jasperreportjsf.sf.net/tld/jasperreports-jsf-1_2.tld"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Reporte</title>
     </h:head>
     <h:body>
-        <h:form>
+        <h:form id="form">
             <p:fieldset legend="Filtro por" style="margin-bottom:20px">
                 <p:panelGrid columns="5">
                     <p:outputLabel value="F.Desde" for="fechaInicial"/>
@@ -21,17 +22,112 @@
                                 pages="3" size="10"
                                 value="#{reporteController.fechaFinal}"/>
                     <p:outputLabel value="Moneda" for="monedaId"/>
-                    <p:selectOneMenu id="monedaId" value="#{reporteController.codiMoneCrd}">
-                        <f:selectItems value="#{reporteController.monedas}"
-                                       var="moneda" 
-                                       itemValue="#{moneda.secuEntiDet}" 
-                                       itemLabel="#{moneda.valoCaduDet}"/>
+                        <p:selectOneMenu id="monedaId" 
+                                         value="#{reporteCreditoController.moneda}">
+                            <f:selectItems value="#{reporteCreditoController.monedas}"
+                                           var="monedaItem" 
+                                           itemValue="#{monedaItem}" 
+                                           itemLabel="#{monedaItem.valoCaduDet}"/>
+                        </p:selectOneMenu>
+                    <p:outputLabel value="Producto" for="productoId"/>
+                    <p:selectOneMenu id="productoId" 
+                                     value="#{reporteCreditoController.producto}">
+                        <f:selectItems value="#{reporteCreditoController.productos}"
+                                       var="producto" 
+                                       itemValue="#{producto}" 
+                                       itemLabel="#{producto.nombProdPrd}"/>
                     </p:selectOneMenu>
-                    <p:commandButton value="Imprimir" ajax="false"
-                        
-                                     actionListener="#{reporteController.imprimirExpedientesProductos()}"/>
+                    <p:commandButton value="Filtrar"
+                                         actionListener="#{reporteCreditoController.filtrarExpedientesProductos()}"
+                                         update=":form:dataTable"/>
                 </p:panelGrid>
-               
+                
+                <p:panelGrid columns="1">
+                        
+                        <jr:reportLink id="reportLink" format="pdf" target="blank" 
+                                       source="#{reporteCreditoController.expedientes}" 
+                                       value="classpath:jasper/expediente.jasper">
+                            <f:param name="P_FechaInicial" 
+                                     value="#{reporteCreditoController.fechaInicial}"/>
+                            <f:param name="P_FechaFinal" 
+                                     value="#{reporteCreditoController.fechaFinal}"/>
+                            <f:param name="P_Producto" 
+                                     value="#{reporteCreditoController.producto.nombProdPrd}"/>
+                            <f:param name="P_Moneda" 
+                                     value="#{reporteCreditoController.moneda.valoCaduDet}"/>
+                            <h:outputText value="Ver Reporte" />
+                                
+                        </jr:reportLink>
+                        <f:view>
+                            <p:dataTable id="dataTable"
+                                value="#{reporteCreditoController.listaCreditos}" 
+                                var="item" 
+                                >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Expediente"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idenExpeTrm.codiExpeTrm}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Fecha"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.fechAproCrd}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="CIP"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idenExpeTrm.codiPersTrm.maeSocio.codiCcipSoc}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="A.Paterno"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idenExpeTrm.codiPersTrm.apelPatePer}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="A.Materno"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idenExpeTrm.codiPersTrm.apelMatePer}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Nombres"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idenExpeTrm.codiPersTrm.nombPersPer}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Moneda"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.moneda.valoCaduDet}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Monto solicitado"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.impoInteCrd}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Plazo"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.numeCuotPrd}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="TEA"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.tasaInteCrd}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </f:view>
+
+                    </p:panelGrid>
+                
             </p:fieldset>
         </h:form>
 
