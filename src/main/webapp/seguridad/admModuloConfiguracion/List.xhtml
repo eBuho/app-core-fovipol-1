@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{seguridad.ListAdmModuloTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <div class="col-md-12">
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>#{seguridad.ListAdmModuloTitle}
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+                        <h:form id="AdmModuloListForm" styleClass="form-horizontal">  
+                            <div class="table-scrollable">
+                                <p:dataTable id="datalist" value="#{admModuloConfiguracionController.items}" var="item"
+                                             selectionMode="single" selection="#{admModuloConfiguracionController.selected}"
+                                             paginator="true"
+                                             styleClass="table table-striped table-bordered table-hover"
+                                             rowKey="#{item.idenModuMod}"
+                                             rows="5"
+                                             rowsPerPageTemplate="5,10,20,30,40,50"
+                                             emptyMessage="No se encontraron registros"
+                                             >
+
+                                    <p:ajax event="rowSelect" listener="#{admModuloConfiguracionController.cargarMenus()}"  
+                                            update=":formPickMenu createButton viewButton editButton deleteButton"/>
+                                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{seguridad.ListAdmModuloTitle_idenModuMod}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idenModuMod}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{seguridad.ListAdmModuloTitle_nombModuMod}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nombModuMod}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{seguridad.ListAdmModuloTitle_rutaImagMod}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.rutaImagMod}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{seguridad.ListAdmModuloTitle_usuaCreaAud}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.usuaCreaAud}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{seguridad.ListAdmModuloTitle_fechCreaAud}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechCreaAud}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{seguridad.ListAdmModuloTitle_flagEstaMod}"/>
+                                        </f:facet>
+                                        <comp:activo value="#{item.flagEstaMod}"/>
+                                    </p:column>
+                                    <f:facet name="header">
+                                        MANTENIMIENTO DE MÓDULOS  
+                                        <p:spacer width="20"/>
+                                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{seguridad.Create}" actionListener="#{admModuloConfiguracionController.prepareCreate}" update=":AdmModuloCreateForm" oncomplete="PF('AdmModuloCreateDialog').show()"/>
+                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{seguridad.View}" update=":AdmModuloViewForm" oncomplete="PF('AdmModuloViewDialog').show()" disabled="#{empty admModuloConfiguracionController.selected}"/>
+                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{seguridad.Edit}" update=":AdmModuloEditForm" oncomplete="PF('AdmModuloEditDialog').show()" disabled="#{empty admModuloConfiguracionController.selected}"/>
+                                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{seguridad.Delete}" actionListener="#{admModuloConfiguracionController.destroy}" update=":growl,datalist" disabled="#{empty admModuloConfiguracionController.selected}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </div>
+                        </h:form>
+                        <p:spacer height="30"/>
+                        <h:form id="AdmMenuListForm">
+                            <p:dataTable id="datalist" value="#{admMenuController.items}" var="item"
+                                         selectionMode="single" selection="#{admMenuController.selected}"
+                                         paginator="true"
+                                         rowKey="#{item.idenMenuMnu}"
+                                         rows="5"
+                                         rowsPerPageTemplate="5,10,20,30,40,50"
+                                         emptyMessage="No se encontraron registros"
+                                         >
+
+                                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{seguridad.ListAdmMenuTitle_idenMenuMnu}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idenMenuMnu}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{seguridad.ListAdmMenuTitle_nombMenuMnu}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nombMenuMnu}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{seguridad.ListAdmMenuTitle_pagiMenuMnu}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.pagiMenuMnu}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{seguridad.ListAdmMenuTitle_descPrmtMnu}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.descPrmtMnu}"/>
+                                </p:column>                                    
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{seguridad.ListAdmMenuTitle_flagEstaMnu}"/>
+                                    </f:facet>
+                                    <comp:activo value="#{item.flagEstaMnu}"/>
+                                </p:column>                                    
+                                <f:facet name="header">
+                                    MANTENIMIENTO DE MENUS  
+                                    <p:spacer width="20"/>
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{seguridad.Create}" actionListener="#{admMenuController.prepareCreate}" update=":AdmMenuCreateForm" oncomplete="PF('AdmMenuCreateDialog').show()"/>
+                                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{seguridad.View}" update=":AdmMenuViewForm" oncomplete="PF('AdmMenuViewDialog').show()" disabled="#{empty admMenuController.selected}"/>
+                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{seguridad.Edit}" update=":AdmMenuEditForm" oncomplete="PF('AdmMenuEditDialog').show()" disabled="#{empty admMenuController.selected}"/>
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{seguridad.Delete}" actionListener="#{admMenuController.destroy}" update=":growl,datalist" disabled="#{empty admMenuController.selected}"/>                                        
+                                </f:facet>
+                            </p:dataTable>
+                        </h:form>
+
+                        <ui:include src="../admMenu/Create.xhtml"/>
+                        <ui:include src="../admMenu/Edit.xhtml"/>
+                        <ui:include src="../admMenu/View.xhtml"/>
+                        <h:form id="formPickMenu">
+                            <p:spacer height="30"/>
+                            <p:pickList rendered="#{admModuloConfiguracionController.dualList!=null}" id="listaSeleccionable" 
+                                        value="#{admModuloConfiguracionController.dualList}" var="menu" effect="bounce"
+                                        itemValue="#{menu.idenMenuMnu}" itemLabel="#{menu.nombMenuMnu}"  showCheckbox="true"
+                                        showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains">
+
+                                <f:facet name="sourceCaption">Disponibles</f:facet>
+                                <f:facet name="targetCaption">Usados</f:facet>
+
+                                <p:ajax update="listaSeleccionable" event="transfer" listener="#{admModuloConfiguracionController.onTransfer}" />
+                                <p:column>
+                                    <h:outputText value="#{menu.nombMenuMnu}" />
+                                </p:column>
+                            </p:pickList>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -13,6 +13,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.primefaces.context.RequestContext;
 import pe.gob.fovipol.sifo.controller.util.Cuota;
 import pe.gob.fovipol.sifo.dao.credito.CrdSimulacionFacade;
@@ -107,6 +108,7 @@ public class EvaluarCreditoController implements Serializable {
     private String codigoPoliza;
     private BigDecimal montoPoliza;
     private boolean enOtraArea;
+    private List<MaeSeguro> listaSeguro;
     @PostConstruct
     public void init() {
         esPrestamo = false;
@@ -134,7 +136,7 @@ public class EvaluarCreditoController implements Serializable {
                         cargarSeguros();
                         netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
                         cargarRequisitos();
-                        esPrestamo = true;
+                        esPrestamo = true;                        
                     } else {
                         cargarRequisitos();
                     }
@@ -153,7 +155,7 @@ public class EvaluarCreditoController implements Serializable {
     }
 
     public void verSimulacion() {
-        List<MaeSeguro> listaSeguro = new ArrayList<>();
+        listaSeguro = new ArrayList<>();
         List<CrdSimulaSeguro> lista = ejbSimulaSeguroFacade.findBySimulacion(tramite.getIdenSimuSim());
         for (CrdSimulaSeguro simula : lista) {
             listaSeguro.add(simula.getIdenSeguSeg());
@@ -161,7 +163,7 @@ public class EvaluarCreditoController implements Serializable {
         CrdSimulacion simu = tramite.getIdenSimuSim();
         cuotas = creditoService.calcularCuotas(listaSeguro, simu.getPeriCiclSim().intValue(),
                 simu.getTasaTeaSim(), simu.getImpoSoliSim(),
-                simu.getPlazPresSim(), simu.getImpoCuotSim(), socio.getMaePersona().getFechNaciPer());        
+                simu.getPlazPresSim(), simu.getImpoCuotSim(), socio.getMaePersona().getFechNaciPer(),tramite.getIdenSimuSim());        
         totalAmortizacion = cuotas.get(0).getTotalAmortizacion();
         totalCuota = cuotas.get(0).getTotalCuota();
         totalInteres = cuotas.get(0).getTotalInteres();
@@ -318,8 +320,9 @@ public class EvaluarCreditoController implements Serializable {
         crea = tramiteService.registrarExpedienteCredito(tramite, documentos, credito, canales);
         verSimulacion();
         List<CrdCreditoCuota> listaCuotas=ejbCreditoCuotaFacade.findByCredito(credito);
-        if(listaCuotas==null || listaCuotas.isEmpty())
-            crea= creditoService.generarCuotas(tramite, credito, cuotas);
+        if(listaCuotas==null || listaCuotas.isEmpty()){
+            crea= creditoService.generarCuotas(tramite, credito, cuotas,listaSeguro);            
+        }
         if (crea) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Cuotas Generadas", ""));
@@ -684,7 +687,11 @@ public class EvaluarCreditoController implements Serializable {
     public List<Cuota> getCuotas() {
         return cuotas;
     }
-
+    
+    public JRBeanCollectionDataSource getCuotasReporte(){
+        verSimulacion();
+        return new JRBeanCollectionDataSource(getCuotas());
+    }
     /**
      * @param cuotas the cuotas to set
      */

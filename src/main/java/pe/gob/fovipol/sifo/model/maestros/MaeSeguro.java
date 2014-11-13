@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import pe.gob.fovipol.sifo.model.credito.CrdCreditoSeguro;
+import pe.gob.fovipol.sifo.model.credito.CrdCuotaSeguro;
 import pe.gob.fovipol.sifo.model.credito.CrdSimulaSeguro;
 
 /**
@@ -54,6 +55,8 @@ import pe.gob.fovipol.sifo.model.credito.CrdSimulaSeguro;
     @NamedQuery(name = "MaeSeguro.findByNombSopeAud", query = "SELECT m FROM MaeSeguro m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeSeguro.findByFlagEstaSeg", query = "SELECT m FROM MaeSeguro m WHERE m.flagEstaSeg = :flagEstaSeg")})
 public class MaeSeguro implements Serializable {    
+    @OneToMany(mappedBy = "idenSeguSeg")
+    private List<CrdCuotaSeguro> crdCuotaSeguroList;
     @OneToMany(mappedBy = "idenSeguSeg")
     private List<CrdCreditoSeguro> crdCreditoSeguroList;
     @OneToMany(mappedBy = "idenSeguSeg")
@@ -276,6 +279,16 @@ public class MaeSeguro implements Serializable {
 
     public void setCrdCreditoSeguroList(List<CrdCreditoSeguro> crdCreditoSeguroList) {
         this.crdCreditoSeguroList = crdCreditoSeguroList;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<CrdCuotaSeguro> getCrdCuotaSeguroList() {
+        return crdCuotaSeguroList;
+    }
+
+    public void setCrdCuotaSeguroList(List<CrdCuotaSeguro> crdCuotaSeguroList) {
+        this.crdCuotaSeguroList = crdCuotaSeguroList;
     }
     
 }

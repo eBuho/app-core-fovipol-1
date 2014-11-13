@@ -87,7 +87,7 @@
                             </f:facet>
                             <h:outputText value="#{item.nombEquiAud}"/>
                         </p:column>
-                        <p:column>
+                        <p:column >
                             <f:facet name="header">
                                 <h:outputText value="#{seguridad.ListAdmMenuTitle_nombSopeAud}"/>
                             </f:facet>
@@ -99,11 +99,22 @@
                             </f:facet>
                             <comp:activo value="#{item.flagEstaMnu}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Reportes"/>
+                            </f:facet>
+                            <jr:reportLink id="reportLink" format="pdf" target="blank" source="#{admMenuController.areas2}" value="classpath:jasper/demo.jasper">
+                                <h:outputText value="Ver Reporte" />
+                            </jr:reportLink>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{seguridad.Create}" actionListener="#{admMenuController.prepareCreate}" update=":AdmMenuCreateForm" oncomplete="PF('AdmMenuCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{seguridad.View}" update=":AdmMenuViewForm" oncomplete="PF('AdmMenuViewDialog').show()" disabled="#{empty admMenuController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{seguridad.Edit}" update=":AdmMenuEditForm" oncomplete="PF('AdmMenuEditDialog').show()" disabled="#{empty admMenuController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{seguridad.Delete}" actionListener="#{admMenuController.destroy}" update=":growl,datalist" disabled="#{empty admMenuController.selected}"/>
+                            <jr:reportLink id="reportLink2" format="pdf" target="blank" source="#{admMenuController.areas2}" value="classpath:jasper/demo.jasper">
+                                <h:outputText value="Ver Reporte" />
+                            </jr:reportLink>
                         </f:facet>
                     </p:dataTable>
                     <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">

@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import pe.gob.fovipol.sifo.controller.util.Cuota;
 import pe.gob.fovipol.sifo.model.credito.CrdCredito;
+import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 import pe.gob.fovipol.sifo.model.maestros.MaeSeguro;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
@@ -19,7 +20,7 @@ import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
  * @author probook
  */
 public interface CreditoService {
-    public boolean generarCuotas(TrmTramite tramite,CrdCredito credito,List<Cuota> cuotas);
+    public boolean generarCuotas(TrmTramite tramite,CrdCredito credito,List<Cuota> cuotas,List<MaeSeguro> seguros);
     //Calcula la máxima cuota en una simulación
     public BigDecimal calcularMaximaCuota(BigDecimal remuneracionConsolidada,BigDecimal descuentoMaximo,BigDecimal descuentoOficial,
             BigDecimal descuentoPersonal,BigDecimal combustible);
@@ -34,6 +35,7 @@ public interface CreditoService {
     public BigDecimal calcularCuotaMontoTotal(BigDecimal montoMensual,int numeroCuotas,BigDecimal interes);
     //Devuelve las cuotas
     public List<Cuota> calcularCuotas(List<MaeSeguro> seguros, int ciclica, BigDecimal interes, 
-            BigDecimal montoPrestamo,BigInteger numeroCuotas,BigDecimal cuotaMensual,Date fechaNacimiento);
+            BigDecimal montoPrestamo,BigInteger numeroCuotas,BigDecimal cuotaMensual,
+            Date fechaNacimiento,CrdSimulacion simulacion);
     public boolean comprobarEdadFinPago(Date fechaNacimiento,int ciclica,int numeroCuotas,List<MaeSeguro> seguros);
 }

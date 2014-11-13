@@ -13,6 +13,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.primefaces.context.RequestContext;
 import pe.gob.fovipol.sifo.controller.util.Cuota;
 import pe.gob.fovipol.sifo.dao.credito.CrdSimulacionFacade;
@@ -161,7 +162,8 @@ public class RegistrarExpedienteController implements Serializable {
         CrdSimulacion simu = tramite.getIdenSimuSim();
         cuotas = creditoService.calcularCuotas(listaSeguro, simu.getPeriCiclSim().intValue(),
                 simu.getTasaTeaSim(), simu.getImpoSoliSim(),
-                simu.getPlazPresSim(), simu.getImpoCuotSim(), socio.getMaePersona().getFechNaciPer());
+                simu.getPlazPresSim(), simu.getImpoCuotSim(), socio.getMaePersona().getFechNaciPer(),
+                simu);
         totalAmortizacion = cuotas.get(0).getTotalAmortizacion();
         totalCuota = cuotas.get(0).getTotalCuota();
         totalInteres = cuotas.get(0).getTotalInteres();
@@ -839,5 +841,9 @@ public class RegistrarExpedienteController implements Serializable {
     public void setEnOtraArea(boolean enOtraArea) {
         this.enOtraArea = enOtraArea;
     }
-
+    
+    public JRBeanCollectionDataSource getCuotasReporte(){
+        verSimulacion();
+        return new JRBeanCollectionDataSource(getCuotas());
+    }
 }
