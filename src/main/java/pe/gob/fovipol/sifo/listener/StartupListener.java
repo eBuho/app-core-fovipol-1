@@ -5,10 +5,14 @@
  */
 package pe.gob.fovipol.sifo.listener;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import pe.gob.fovipol.sifo.dao.MaeEntidadFacade;
+import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
+import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 /**
  *
@@ -18,20 +22,20 @@ import pe.gob.fovipol.sifo.dao.MaeEntidadFacade;
 public class StartupListener implements ServletContextListener{
     
     @EJB
-    private MaeEntidadFacade ejbFacade;
+    private MaeEntidaddetFacade ejbMaeEntidaddetFacade;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("hola");
-        System.out.println(ejbFacade.toString());
-        
-        sce.getServletContext().setAttribute("Menu", "menu");
+        System.out.println("Cargando Lista de monedas");
+        List<MaeEntidaddet> listaMonedas;
+        listaMonedas = ejbMaeEntidaddetFacade.findDetalleActivo(new MaeEntidad(Constantes.CODI_MONE_CRD) );
+        sce.getServletContext().setAttribute("listaMonedas", listaMonedas);
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("hola");
-        sce.getServletContext().removeAttribute("Menu");
+        System.out.println("Destruyendo Lista de monedas");
+        sce.getServletContext().removeAttribute("listaMonedas");
         
     }
     
