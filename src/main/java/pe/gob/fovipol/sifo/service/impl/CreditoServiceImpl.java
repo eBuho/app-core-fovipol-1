@@ -298,4 +298,14 @@ public class CreditoServiceImpl implements CreditoService {
             return lista;
     }
 
+    @Override
+    public List<CrdCredito> obtenerCreditosLineas(Date fechaInicial, Date fechaFinal, MaeEntidaddet linea, MaeEntidaddet moneda, int estado) {
+        List<CrdCredito> lista = null;
+        lista = ejbCreditoFacade.findByFiltros3(fechaInicial, fechaFinal, linea, moneda, estado);
+        if(lista==null || lista.isEmpty())
+            return null;
+        else
+            return lista;
+    }
+
 }

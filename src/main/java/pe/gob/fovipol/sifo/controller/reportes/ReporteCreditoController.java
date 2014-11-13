@@ -77,11 +77,11 @@ public class ReporteCreditoController implements Serializable {
         producto = new MaeProducto(BigDecimal.ZERO);
         producto.setNombProdPrd("(Todos)");
         productos.add(0, producto);
-        lineas = ejbEntidaddetFacade.findDetalleActivo(new MaeEntidad(Constantes.CODI_LINE_PRD));
-        linea = new MaeEntidaddet(BigDecimal.ZERO, 0);
-        linea.setCodiEntiEnt(new MaeEntidad(Constantes.CODI_LINE_PRD));
-        linea.setValoCaduDet("(Todas)");
-        lineas.add(0, linea);
+        setLineas(ejbEntidaddetFacade.findDetalleActivo(new MaeEntidad(Constantes.CODI_LINE_PRD)));
+        setLinea(new MaeEntidaddet(BigDecimal.ZERO, 0));
+        getLinea().setCodiEntiEnt(new MaeEntidad(Constantes.CODI_LINE_PRD));
+        getLinea().setValoCaduDet("(Todas)");
+        getLineas().add(0, getLinea());
     }
          
     public void filtrarExpedientes(){
@@ -108,6 +108,22 @@ public class ReporteCreditoController implements Serializable {
         for (CrdCredito credito : listaCreditos) {
             MaeEntidaddet moneda = buscarMoneda(credito.getCodiMoneCrd());
             credito.setMoneda(moneda);
+        }
+    }
+    
+    public void filtrarExpedientesLineas(){
+        System.out.println("fechaInicial: "+fechaInicial);
+        System.out.println("fechaFinal: "+fechaFinal);
+        System.out.println("linea: "+getLinea());
+        System.out.println("moneda: "+moneda);
+        listaCreditos = serviceCreditos.obtenerCreditosLineas(fechaInicial, fechaFinal, linea, moneda, 1);
+        if (moneda == null) moneda = getTodas();
+        if (listaCreditos == null) return;
+        for (CrdCredito credito : listaCreditos) {
+            MaeEntidaddet moneda = buscarMoneda(credito.getCodiMoneCrd());
+            credito.setMoneda(moneda);
+            MaeEntidaddet linea = buscarLinea(credito.getIdenExpeTrm().getIdenSimuSim().getIdenProdPrd().getCodiLinePrd());
+            credito.setLinea(linea);
         }
     }
 
@@ -338,6 +354,47 @@ public class ReporteCreditoController implements Serializable {
      */
     public void setProductos(List<MaeProducto> productos) {
         this.productos = productos;
+    }
+
+    /**
+     * @return the linea
+     */
+    public MaeEntidaddet getLinea() {
+        return linea;
+    }
+
+    /**
+     * @param linea the linea to set
+     */
+    public void setLinea(MaeEntidaddet linea) {
+        this.linea = linea;
+    }
+
+    /**
+     * @return the lineas
+     */
+    public List<MaeEntidaddet> getLineas() {
+        return lineas;
+    }
+
+    /**
+     * @param lineas the lineas to set
+     */
+    public void setLineas(List<MaeEntidaddet> lineas) {
+        this.lineas = lineas;
+    }
+
+    private MaeEntidaddet buscarLinea(Integer codiLinePrd) {
+        MaeEntidaddet objeto = new MaeEntidaddet();
+        
+        for (MaeEntidaddet bean : lineas) {
+            if (bean.getSecuEntiDet()!= codiLinePrd){
+            } else {
+                objeto = bean;
+                break;
+            }
+        }
+        return objeto;
     }
    
 }

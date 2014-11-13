@@ -138,6 +138,8 @@ public class CrdCredito implements Serializable {
     private MaeInmueble idenInmuImb;
     @Transient
     private MaeEntidaddet moneda;
+    @Transient
+    private MaeEntidaddet linea;
 
     public CrdCredito() {
     }
@@ -415,6 +417,20 @@ public class CrdCredito implements Serializable {
      */
     public void setMoneda(MaeEntidaddet moneda) {
         this.moneda = moneda;
+    }
+
+    /**
+     * @return the linea
+     */
+    public MaeEntidaddet getLinea() {
+        return linea;
+    }
+
+    /**
+     * @param linea the linea to set
+     */
+    public void setLinea(MaeEntidaddet linea) {
+        this.linea = linea;
     }
     
 }

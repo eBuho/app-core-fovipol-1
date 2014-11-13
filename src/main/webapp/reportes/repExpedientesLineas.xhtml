@@ -12,7 +12,7 @@
     <ui:composition template="/template.xhtml">
 
         <ui:define name="title">
-            <h:outputText value="Reporte de Expedientes - Productos"></h:outputText>
+            <h:outputText value="Reporte de Expedientes - Lineas"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
@@ -35,16 +35,16 @@
                                            itemValue="#{monedaItem}" 
                                            itemLabel="#{monedaItem.valoCaduDet}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="Producto" for="productoId"/>
-                        <p:selectOneMenu id="productoId" 
-                                         value="#{reporteCreditoController.producto}">
-                            <f:selectItems value="#{reporteCreditoController.productos}"
-                                           var="producto" 
-                                           itemValue="#{producto}" 
-                                           itemLabel="#{producto.nombProdPrd}"/>
+                        <p:outputLabel value="Línea" for="lineaId"/>
+                        <p:selectOneMenu id="lineaId" 
+                                         value="#{reporteCreditoController.linea}">
+                            <f:selectItems value="#{reporteCreditoController.lineas}"
+                                           var="linea" 
+                                           itemValue="#{linea}" 
+                                           itemLabel="#{linea.valoCaduDet}"/>
                         </p:selectOneMenu>
                         <p:commandButton value="Filtrar"
-                                         actionListener="#{reporteCreditoController.filtrarExpedientesProductos()}"
+                                         actionListener="#{reporteCreditoController.filtrarExpedientesLineas()}"
                                          update=":form:dataTable"/>
                     </p:panelGrid>
 
@@ -52,7 +52,7 @@
 
                         <jr:reportLink id="reportLink" format="pdf" target="blank" 
                                        source="#{reporteCreditoController.expedientes}" 
-                                       value="classpath:jasper/expedienteProducto.jasper">
+                                       value="classpath:jasper/expedienteLinea.jasper">
                             <f:param name="P_FechaInicial" 
                                      value="#{reporteCreditoController.fechaInicial}"/>
                             <f:param name="P_FechaFinal" 

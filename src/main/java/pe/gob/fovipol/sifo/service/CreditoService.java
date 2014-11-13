@@ -53,4 +53,6 @@ public interface CreditoService {
             MaeEntidaddet moneda, Integer estado);
     public List<CrdCredito> obtenerCreditosProductos(Date fechaInicio, Date fechaFinal,
             MaeProducto producto, MaeEntidaddet moneda, Integer estado);
+    public List<CrdCredito> obtenerCreditosLineas(Date fechaInicial, Date fechaFinal, 
+            MaeEntidaddet linea, MaeEntidaddet moneda, int i);
 }
