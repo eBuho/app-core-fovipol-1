@@ -5,8 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:jr="http://jasperreportjsf.sf.net/tld/jasperreports-jsf-1_2.tld">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition> 
         <script type="text/javascript">
@@ -46,7 +45,7 @@
                         <div class="col-md-12"> 
                             <div class="col-md-12">
                                 <comp:consultaIntegralSocio rendered="#{registrarExpedienteController.tramite.idenExpeTrm==null}"
-                                                            actualizar=":formRegistroExpediente:informacion,:formRegistroExpediente:documento,:formRegistroExpediente:canalesCobranza" 
+                                                            actualizar=":formRegistroExpediente:informacion,:formRegistroExpediente:canalesCobranza,:formRegistroExpediente:comboProducto" 
                                                             socio="#{registrarExpedienteController.socio}"/>                            
                             </div>
                             <p:spacer width="10"/>
@@ -245,7 +244,7 @@
                                             <p:selectOneMenu disabled="#{registrarExpedienteController.tramite.idenExpeTrm!=null}" value="#{registrarExpedienteController.tramite.tipoTramTrm}" styleClass="inputLargo">
                                                 <f:selectItems value="#{registrarExpedienteController.tiposTramite}"
                                                                itemValue="#{tipo.secuEntiDet}" var="tipo" itemLabel="#{tipo.valoCaduDet}"/>
-                                                <p:ajax update="formRegistroExpediente" listener="#{registrarExpedienteController.verificarTipoTramite}"/>
+                                                <p:ajax update="datosSimulacion,panelSimulacion" listener="#{registrarExpedienteController.verificarTipoTramite}"/>
                                             </p:selectOneMenu>
                                         </div>
                                     </div>
@@ -354,7 +353,7 @@
                                             <h:outputText value="Producto:"/>                                
                                         </div>
                                         <div class="col-md-8">
-                                            <p:selectOneMenu disabled="#{registrarExpedienteController.socio==null or registrarExpedienteController.tramite.idenExpeTrm!=null}" value="#{registrarExpedienteController.producto}" styleClass="inputLargo">
+                                            <p:selectOneMenu id="comboProducto" disabled="#{registrarExpedienteController.socio==null or registrarExpedienteController.tramite.idenExpeTrm!=null}" value="#{registrarExpedienteController.producto}" styleClass="inputLargo">
                                                 <f:selectItem itemValue="" itemLabel="Seleccione un Producto"/>
                                                 <f:selectItems value="#{registrarExpedienteController.productos}"
                                                                itemValue="#{tipo}" var="tipo" itemLabel="#{tipo.nombProdPrd}"/>
@@ -456,34 +455,33 @@
 
                                 </div>
                                 <div class="col-md-12 margen">
-                                    <div class="col-md-4">
+                                    <p:panel id="panelSimulacion" styleClass="panel">
+                                        <div class="col-md-4">                                        
+                                            <div class="col-md-4">
+                                                <h:outputText value="N° Simulación" rendered="#{registrarExpedienteController.esPrestamo}"/>                                
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p:selectOneMenu rendered="#{registrarExpedienteController.esPrestamo}" disabled="#{registrarExpedienteController.tramite.idenExpeTrm!=null}" id="simulacion" value="#{registrarExpedienteController.simulacion}" >
+                                                    <f:selectItem itemValue="" itemLabel="Seleccione una simulación"/>
+                                                    <f:selectItems value="#{registrarExpedienteController.simulaciones}" var="simu"
+                                                                   itemValue="#{simu.idenSimuSim}" /> 
+                                                    <p:ajax update="verSimulacion,datosSimulacion,panelSimulacion" listener="#{registrarExpedienteController.mostrarSimulacion()}"/>
+                                                </p:selectOneMenu>
+                                            </div>                                        
+                                        </div>
                                         <div class="col-md-4">
-                                            <h:outputText value="N° Simulación" rendered="#{registrarExpedienteController.esPrestamo}"/>                                
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p:selectOneMenu rendered="#{registrarExpedienteController.esPrestamo}" disabled="#{registrarExpedienteController.tramite.idenExpeTrm!=null}" id="simulacion" value="#{registrarExpedienteController.simulacion}" >
-                                                <f:selectItem itemValue="" itemLabel="Seleccione una simulación"/>
-                                                <f:selectItems value="#{registrarExpedienteController.simulaciones}" var="simu"
-                                                               itemValue="#{simu.idenSimuSim}" /> 
-                                                <p:ajax update="verSimulacion,datosSimulacion" listener="#{registrarExpedienteController.mostrarSimulacion()}"/>
-                                            </p:selectOneMenu>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p:commandButton rendered="#{registrarExpedienteController.esPrestamo}" disabled="#{registrarExpedienteController.simulacion==null or registrarExpedienteController.enOtraArea}" 
-                                                         oncomplete="PF('dialogSimulacion').show();"      value="Ver Simulación" actionListener="#{registrarExpedienteController.verSimulacion()}" id="verSimulacion"/>
-                                        <jr:reportLink styleClass="btn btn-sm green btnVerde" id="registrarExpedienteSimulacion" format="pdf" target="blank" 
-                                                       source="#{registrarExpedienteController.cuotasReporte}" value="classpath:jasper/simulacion.jasper">
-                                            <h:outputText value="Imprimir" />
-                                        </jr:reportLink>
-                                    </div>                                                                        
+                                            <p:commandButton rendered="#{registrarExpedienteController.esPrestamo}" disabled="#{registrarExpedienteController.simulacion==null or registrarExpedienteController.enOtraArea}" 
+                                                             oncomplete="PF('dialogSimulacion').show();"      value="Ver Simulación" actionListener="#{registrarExpedienteController.verSimulacion()}" id="verSimulacion"/>
+                                            
+                                        </div> 
+                                    </p:panel>
                                 </div>                                
                             </p:fieldset>
                             <p:spacer width="20"/>
-                            <p:fieldset toggleable="true" rendered="#{registrarExpedienteController.esPrestamo}" legend="Información General" styleClass="fieldSet" id="datosSimulacion">
+                            <p:fieldset toggleable="true" legend="Información General" styleClass="fieldSet" id="datosSimulacion">
                                 <div class="col-md-6 margen">
                                     <p:fieldset legend="Datos de Crédito" styleClass="fieldSet" 
-                                                rendered="#{registrarExpedienteController.tramite.idenSimuSim!=null}">
+                                                rendered="#{registrarExpedienteController.esPrestamo}">
                                         <div class="col-md-12 margen">
                                             <div class="col-md-6 sin-margen margen">
                                                 <div class="col-md-6 sin-margen">
@@ -587,7 +585,7 @@
                                 </div>                    
                                 <div class="col-md-6 margen">
                                     <p:fieldset legend="Capacidad de Endeudamiento" styleClass="fieldSet" 
-                                                rendered="#{registrarExpedienteController.tramite.idenSimuSim!=null}">
+                                                rendered="#{registrarExpedienteController.esPrestamo}">
                                         <div class="col-md-6 sin-margen margen">
                                             <div class="col-md-12 sin-margen margen">
                                                 <h:outputText value="Ingresos" style="font-weight: bold" />
@@ -688,7 +686,7 @@
                                 </div>
                                 <div class="col-md-6 margen">
                                     <p:fieldset legend="Canales de Cobranza" styleClass="fieldSet" 
-                                                rendered="#{registrarExpedienteController.tramite.idenSimuSim!=null}">
+                                                rendered="#{registrarExpedienteController.esPrestamo}">
                                         <div class="col-md-12 margen">
                                             <p:dataTable id="canalesCobranza" editable="true" editMode="cell" var="canal" value="#{registrarExpedienteController.canales}" 
                                                          emptyMessage="No hay canales de cobranza" >
@@ -731,7 +729,7 @@
                                 </div>
                                 <div class="col-md-6 margen">
                                     <p:fieldset legend="Anexos" styleClass="fieldSet" 
-                                                rendered="#{registrarExpedienteController.tramite.idenSimuSim!=null}">
+                                                rendered="#{registrarExpedienteController.esPrestamo}">
                                         <p:fieldset legend="Unidad Inmobiliaria" styleClass="fieldSet">
                                             <div class="col-md-12 margen sin-margen">
                                                 <comp:ubigeo value="#{registrarExpedienteController.inmueble.idenUbigUbi}"/>

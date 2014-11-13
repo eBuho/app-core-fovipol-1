@@ -752,8 +752,7 @@
                                         <p:commandButton disabled="#{evaluarCreditoController.simulacion==null}" 
                                                          update="resultadoSimulacionCambiar"  value="Generar Cronograma" actionListener="#{evaluarCreditoController.verSimulacion()}" id="verSimulacion"/>
                                     </div>
-                                    <div class="col-md-12">
-                                        <p:spacer width="20"/>
+                                    <div class="col-md-12" style="margin-top: 20px;">                                        
                                         <jr:reportLink styleClass="btn btn-sm green btnVerde"  format="pdf" target="blank" source="#{evaluarCreditoController.cuotasReporte}" value="classpath:jasper/simulacion.jasper">
                                             <h:outputText value="Imprimir" />
                                         </jr:reportLink>                                                           

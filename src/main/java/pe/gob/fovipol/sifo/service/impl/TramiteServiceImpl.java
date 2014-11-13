@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedProperty;
 import javax.persistence.PersistenceException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import pe.gob.fovipol.sifo.bean.sesion.SesionUsuario;
 import pe.gob.fovipol.sifo.dao.MaeInmuebleFacade;
 import pe.gob.fovipol.sifo.dao.MaeProcesoFacade;
@@ -22,7 +23,6 @@ import pe.gob.fovipol.sifo.model.credito.CrdCredito;
 import pe.gob.fovipol.sifo.model.maestros.MaeArea;
 import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
 import pe.gob.fovipol.sifo.model.maestros.MaeProcesoestado;
-import pe.gob.fovipol.sifo.model.maestros.MaeProcesoestadoPK;
 import pe.gob.fovipol.sifo.model.tramite.TrmDocumento;
 import pe.gob.fovipol.sifo.model.tramite.TrmEstatramHis;
 import pe.gob.fovipol.sifo.model.tramite.TrmEstatramHisPK;
@@ -91,8 +91,7 @@ public class TramiteServiceImpl implements TramiteService {
             if (siguiente != null) {
                 if(movimiento!=null){
                     movimiento.setFechEnviMvm(new Date());
-                    if(sesionUsuario!=null)
-                        movimiento.setUsuaEnviMvm(sesionUsuario.getUsuario().getCodiUsuaUsr());
+                    movimiento.setUsuaEnviMvm(SecurityContextHolder.getContext().getAuthentication().getName());
                     ejbMovimientoFacade.edit(movimiento);
                     MaeProcesoestado estado=ejbProcesoEstadoFacade.findByProcesoSecuencia(movimiento.getIdenProcPrc());
                     cambiarEstadoExpediente(tramite, estado.getNombEstaPre());
