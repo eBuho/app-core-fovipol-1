@@ -53,10 +53,12 @@ public class ReporteCreditoController implements Serializable {
     private Date fechaFinal;
     private MaeEntidaddet moneda;
     private MaeProducto producto;
+    private MaeEntidaddet linea;
     private MaeEntidaddet todas;
 
     private List<MaeEntidaddet> monedas;
     private List<MaeProducto> productos;
+    private List<MaeEntidaddet> lineas;
     private List<CrdCredito> listaCreditos;
 
     public ReporteCreditoController() {
@@ -75,6 +77,11 @@ public class ReporteCreditoController implements Serializable {
         producto = new MaeProducto(BigDecimal.ZERO);
         producto.setNombProdPrd("(Todos)");
         productos.add(0, producto);
+        lineas = ejbEntidaddetFacade.findDetalleActivo(new MaeEntidad(Constantes.CODI_LINE_PRD));
+        linea = new MaeEntidaddet(BigDecimal.ZERO, 0);
+        linea.setCodiEntiEnt(new MaeEntidad(Constantes.CODI_LINE_PRD));
+        linea.setValoCaduDet("(Todas)");
+        lineas.add(0, linea);
     }
          
     public void filtrarExpedientes(){
