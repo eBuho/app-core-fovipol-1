@@ -59,6 +59,7 @@ public class CrdCreditoFacade extends AbstractFacade<CrdCredito> {
         if (filtroMoneda){
                 sql = sql + "and c.codiMoneCrd = :monedaId";        
         }
+        sql = sql + " ORDER BY c.fechAproCrd, c.codiMoneCrd";
         Query q = em.createQuery(sql);
         q.setParameter("fechaInicio", fechaInicio);
         q.setParameter("fechaFinal", fechaFinal);
@@ -86,13 +87,47 @@ public class CrdCreditoFacade extends AbstractFacade<CrdCredito> {
                 sql = sql + "and c.idenExpeTrm.idenSimuSim.idenProdPrd = :productoId ";        
         }
         if (filtroMoneda){
-                sql = sql + "and c.codiMoneCrd = :monedaId";        
+                sql = sql + "and c.codiMoneCrd = :monedaId ";        
         }
+        sql = sql + " ORDER BY c.idenExpeTrm.idenSimuSim.idenProdPrd, c.fechAproCrd";
         Query q = em.createQuery(sql);
         q.setParameter("fechaInicio", fechaInicio);
         q.setParameter("fechaFinal", fechaFinal);
         if (filtroProducto){
             q.setParameter("productoId", producto.getIdenProdPrd());
+        }
+        if (filtroMoneda){
+            q.setParameter("monedaId", moneda.getSecuEntiDet());
+        }
+        //q.setParameter("estado", estado);
+        lista = q.getResultList();
+        if(lista==null || lista.isEmpty())
+            return null;
+        else
+            return lista;
+    }
+
+    public List<CrdCredito> findByFiltros3(Date fechaInicial, Date fechaFinal, MaeEntidaddet linea, MaeEntidaddet moneda, int estado) {
+        List<CrdCredito> lista = null;
+        boolean filtroLinea = true;
+        boolean filtroMoneda = true;
+        if (linea == null) filtroLinea = false;
+        if (moneda == null) filtroMoneda = false;
+        String sql = "select c from CrdCredito c "
+                + "where c.flagEstaCrd<>0 "
+                + "and c.fechAproCrd BETWEEN :fechaInicial AND :fechaFinal ";
+        if (filtroLinea){
+                sql = sql + "and c.idenExpeTrm.idenSimuSim.idenProdPrd.codiLinePrd = :lineaId ";        
+        }
+        if (filtroMoneda){
+                sql = sql + "and c.codiMoneCrd = :monedaId";        
+        }
+        sql = sql + " ORDER BY c.idenExpeTrm.idenSimuSim.idenProdPrd.codiLinePrd, c.codiMoneCrd";
+        Query q = em.createQuery(sql);
+        q.setParameter("fechaInicial", fechaInicial);
+        q.setParameter("fechaFinal", fechaFinal);
+        if (filtroLinea){
+            q.setParameter("lineaId", linea.getSecuEntiDet());
         }
         if (filtroMoneda){
             q.setParameter("monedaId", moneda.getSecuEntiDet());
