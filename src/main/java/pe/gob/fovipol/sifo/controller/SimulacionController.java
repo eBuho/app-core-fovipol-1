@@ -304,8 +304,9 @@ public class SimulacionController implements Serializable {
      * @param socio the socio to set
      */
     public void setSocio(MaeSocio socio) {
-        this.socio = socio;
+        
         if (socio != null) {
+            this.socio = socio;
             calcularEdad();
             detalle = ejbEntidaddetFacade.findIdenEntiDet(socio.getEntiPagoSoc(), Constantes.ENTIDAD_PAGOS_SOCIO);
             porcDescuento = detalle.getValoDecuDet();

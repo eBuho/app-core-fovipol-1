@@ -1,12 +1,12 @@
 package pe.gob.fovipol.sifo.controller.util;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
 import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
@@ -14,7 +14,7 @@ import pe.gob.fovipol.sifo.model.maestros.MaeProducto;
 /* @author ebuho 14/11/2014, 10:21:09 AM */
 @ManagedBean(name = "visorProductos")
 @ViewScoped
-public class VisorProductos {
+public class VisorProductos implements Serializable{
     
     @EJB
     MaeProductoFacade ejbProducto;

@@ -6,7 +6,6 @@
 package pe.gob.fovipol.sifo.controller.util;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -17,8 +16,8 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.TabChangeEvent;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
-import pe.gob.fovipol.sifo.model.maestros.MaeUbigeo;
 
 @FacesComponent("inputConsultaIntegralSocio")
 public class InputConsultaIntegralSocio extends UIInput implements NamingContainer {
@@ -55,7 +54,7 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
      */
     @Override
     public Object getSubmittedValue() {
-        MaeUbigeo res = null;
+        MaeSocio res = getAttributeValue("socio", null);
 
         return res;
     }
@@ -67,7 +66,7 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
     protected Object getConvertedValue(FacesContext context, Object submittedValue) {
         return submittedValue;
     }
-
+    
     /**
      * Update the available days based on the selected month and year, if
      * necessary.

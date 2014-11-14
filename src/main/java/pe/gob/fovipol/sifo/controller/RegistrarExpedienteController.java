@@ -414,8 +414,8 @@ public class RegistrarExpedienteController implements Serializable {
      * @param socio the socio to set
      */
     public void setSocio(MaeSocio socio) {
-        this.socio = socio;
-        if (this.socio != null) {
+        if (socio != null) {
+            this.socio = socio;
             edad = creditoService.calcularEdad(socio.getMaePersona().getFechNaciPer(), new Date());
             MaeEntidaddet detalle = ejbEntidadDetalleFacade.findIdenEntiDet(socio.getEntiPagoSoc(), Constantes.ENTIDAD_PAGOS_SOCIO);
             if (detalle != null && detalle.getValoDecuDet() != null) {
