@@ -17,7 +17,7 @@
             }
             $(document).ready(function () {
                 $(window).keydown(function (event) {
-                    if (event.keyCode == 13) {
+                    if (event.keyCode === 13) {
                         event.preventDefault();
                         return false;
                     }
@@ -26,7 +26,7 @@
             function mostrarModalCambiar() {
                 $('#cambiarSimulacion').modal({
                     backdrop: 'static'
-                })
+                });
             }
         </script>
         <div class="col-md-12">
@@ -754,6 +754,7 @@
                                     </div>
                                     <div class="col-md-12" style="margin-top: 20px;">                                        
                                         <jr:reportLink styleClass="btn btn-sm green btnVerde"  format="pdf" target="blank" source="#{evaluarCreditoController.cuotasReporte}" value="classpath:jasper/simulacion.jasper">
+                                            <i class="fa fa-print"/>
                                             <h:outputText value="Imprimir" />
                                         </jr:reportLink>                                                           
                                         <h:panelGroup id="resultadoSimulacionCambiar" > 
@@ -880,7 +881,7 @@
                                 <p:spacer width="30"/>
                                 <div class="col-md-12">
                                     <div class="col-md-1">
-                                        <p:commandButton disabled="#{evaluarCreditoController.enOtraArea}" oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" actionListener="#{evaluarCreditoController.registrar()}" />
+                                        <p:commandButton disabled="#{evaluarCreditoController.enOtraArea or evaluarCreditoController.tieneCuotas}" oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" actionListener="#{evaluarCreditoController.registrar()}" />
                                     </div>
                                     <div class="col-md-2">
                                         <p:commandButton disabled="#{evaluarCreditoController.tramite.idenExpeTrm==null || evaluarCreditoController.enOtraArea}"  value="Dar Viabilidad" actionListener="#{evaluarCreditoController.darViabilidad()}"/>

@@ -207,11 +207,7 @@ public class CreditoServiceImpl implements CreditoService {
 
     public boolean estaIncluido(int edad, BigDecimal rangoInferior, BigDecimal rangoSuperior) {
         BigDecimal auxBigDecimal = new BigDecimal(edad);
-        if (rangoInferior.compareTo(auxBigDecimal) != 1 && auxBigDecimal.compareTo(rangoSuperior) != 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return rangoInferior.compareTo(auxBigDecimal) != 1 && auxBigDecimal.compareTo(rangoSuperior) != 1;
     }
 
     @Override
@@ -264,7 +260,6 @@ public class CreditoServiceImpl implements CreditoService {
                 ejbCreditoCuotaFacade.edit(creditoCuota);
                 for(CrdCuotaSeguro cuotaSeguro:cuota.getCuotasSeguro()){
                     cuotaSeguro.getCrdCuotaSeguroPK().setIdenCredCrd(credito.getIdenCredCrd().toBigInteger());
-                    System.out.println("CUOTA SEGURO --->>>> "+cuotaSeguro.getCrdCuotaSeguroPK());
                     ejbCuotaSeguroFacade.edit(cuotaSeguro);
                 }                
                 i++;

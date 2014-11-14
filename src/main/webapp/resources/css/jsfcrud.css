@@ -79,3 +79,12 @@
 .texto-negrita{
     font-weight: bold;
 }
+.espacio-div{
+    margin-bottom: 10px;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+.fa-prime{
+    text-indent: 0px;
+    background: inherit;
+}
