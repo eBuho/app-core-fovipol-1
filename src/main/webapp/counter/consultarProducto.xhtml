@@ -12,12 +12,12 @@
             <h:outputText value="Consulta de productos"></h:outputText>
         </ui:define>
 
-        <ui:define name="body">
-            <h:form id="form">
+        <ui:define name="body" >
+            <h:form id="form" styleClass="tablaNoBorde">
 
-                <p:panel>
-                    <p:panelGrid columns="1">
-                        <p:panelGrid columns="1" >
+                <p:panel styleClass="tablaNoBorde" header="Consulta de productos">
+                    <p:panelGrid columns="2" styleClass="tablaNoBorde">
+                        <p:panelGrid columns="1" styleClass="tablaNoBorde">
                             <f:facet name="header">
                                 Productos
                             </f:facet>
@@ -30,6 +30,14 @@
                                     title="#{image.nombre}" />
                             </p:galleria>
                         </p:panelGrid>
+                        
+                        <p:panel header="Generalidades" styleClass="tablaNoBorde">
+                            <p:inputTextarea 
+                                            value="#{visorProductos.generalidades}" rows="19"
+                                            cols="55" autoResize="true"
+                                            disabled="true" 
+                                            style=" font-family: monospace"/>
+                        </p:panel>
 
                         <!--p:panelGrid columns="1" >
                             <f:facet name="header">

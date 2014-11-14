@@ -21,6 +21,7 @@ public class VisorProductos implements Serializable{
 
     List<MaeProducto> lista;
     private List<Producto> listaProductos;
+    private String generalidades;
 
     @PostConstruct
     public void inicializa() {
@@ -33,6 +34,15 @@ public class VisorProductos implements Serializable{
                     bean.getDescRequPrd(), bean.getNombEquiAud());
             listaProductos.add(producto);
         }
+        
+        generalidades = 
+                "Monto del Préstamo             : De acuerdo a la capacidad de crédito.\n" +
+                "Plazo Máximo del Descuento     : Siete (07) años.\n" +
+                "Tasa de Interés Efectiva anual : 1%\n" +
+                "Tiempo de Servicios            : Diez (10) años.\n" +
+                "Desembolso                     : Una Armada.\n" +
+                "Garantía                       : Primera Hipoteca y Seguro de Desgravamen o "
+                + "Beneficios Sociales y Seguro de Desgravamen";
         
         /*
         Producto p1 = new Producto(1, "Compra a terceros", "Toda compra a Terceros debe ser con Hipoteca a favor del FOVIPOL", "producto01.jpg");
@@ -50,6 +60,20 @@ public class VisorProductos implements Serializable{
 
     public List<Producto> getListaProductos() {
         return listaProductos;
+    }
+
+    /**
+     * @return the generalidades
+     */
+    public String getGeneralidades() {
+        return generalidades;
+    }
+
+    /**
+     * @param generalidades the generalidades to set
+     */
+    public void setGeneralidades(String generalidades) {
+        this.generalidades = generalidades;
     }
 
     public static class Producto {
