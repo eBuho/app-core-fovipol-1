@@ -372,11 +372,7 @@ public class RegistrarExpedienteController implements Serializable {
     
     public void verificarTipoTramite(){
         MaeEntidaddet detalle=ejbEntidadDetalleFacade.findIdenEntiDet(tramite.getTipoTramTrm(),Constantes.ENTIDAD_TIPO_TRAMITE );
-        if(detalle.getValoNumuDet()!=null && detalle.getValoNumuDet().compareTo(BigInteger.ONE)==0){
-            esPrestamo=true;
-        }
-        else
-            esPrestamo=false;
+        esPrestamo = detalle.getValoNumuDet()!=null && detalle.getValoNumuDet().compareTo(BigInteger.ONE)==0;
     }
     /**
      * @return the socio

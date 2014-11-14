@@ -79,12 +79,6 @@
 	<variable name="amortizado_1" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{amortizado}]]></variableExpression>
 	</variable>
-	<group name="Group1">
-		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
-	</group>
-	<group name="Group2">
-		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
-	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -163,9 +157,9 @@
 				<textFieldExpression><![CDATA[$F{plazPresSim}+" meses"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Title" x="174" y="50" width="202" height="24" uuid="b544a59d-6b60-4a20-99d0-bff5df5d453a"/>
+				<reportElement style="Title" x="174" y="50" width="229" height="46" uuid="b544a59d-6b60-4a20-99d0-bff5df5d453a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="20" pdfFontName="Times-Roman"/>
+					<font fontName="SansSerif" size="20" pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[Simulación de Crédito]]></text>
 			</staticText>

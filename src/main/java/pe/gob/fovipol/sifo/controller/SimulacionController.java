@@ -237,11 +237,7 @@ public class SimulacionController implements Serializable {
 
     public boolean estaIncluido(int a, BigDecimal b, BigDecimal c) {
         BigDecimal auxBigDecimal = new BigDecimal(a);
-        if (auxBigDecimal.compareTo(b) != -1 && auxBigDecimal.compareTo(c) != 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return auxBigDecimal.compareTo(b) != -1 && auxBigDecimal.compareTo(c) != 1;
     }
 
     /**
@@ -657,7 +653,7 @@ public class SimulacionController implements Serializable {
         this.montoCheque = montoCheque;
     }
 
-    public JRBeanCollectionDataSource getCuotasReporte(){        
+    public JRBeanCollectionDataSource getCuotasReporte() {
         return new JRBeanCollectionDataSource(getCuotasSimulacion());
     }
 }

@@ -112,7 +112,7 @@
                         </li>		
                         <c:forEach var="im" items="#{sesionUsuario.menus}">
                             <li class="#{param.nivel1 == im.modulo.idenModuMod ? 'active' : ''} con-borde">					
-                                <h:link outcome="/index.xhtml">
+                                <h:link outcome="/main.xhtml">
                                     <i class="fa">
                                         <c:if test="#{im.modulo.rutaImagMod!=''}">
                                             <img  src="#{request.contextPath}/resources/images/plantilla/iconos/#{im.modulo.rutaImagMod}"/>
@@ -162,55 +162,24 @@
                                     <a href="#{request.contextPath}/index.xhtml"> <h:outputText value="Inicio"/> </a>
                                     <i class="fa fa-angle-right"></i>
                                 </li>
-                                <c:if test="#{mainPage.noMostrar}">
+                                <c:if test="#{mainPage2.mostrar}">
                                     <li>
-                                        <c:if test="#{mainPage.tituloSegundo==''}">
-                                            #{mainPage.tituloPrimero}
+                                        <c:if test="#{mainPage2.tituloSegundo==''}">
+                                            #{mainPage2.tituloPrimero}
                                         </c:if>
-                                        <c:if test="#{mainPage.tituloSegundo!=''}">
+                                        <c:if test="#{mainPage2.tituloSegundo!=''}">
                                             <h:link outcome="/main.xhtml">
-                                                #{mainPage.tituloPrimero}
+                                                #{mainPage2.tituloPrimero}
                                                 <f:param name="nivel1" value="#{param.nivel1}" />
                                             </h:link>
                                             <i class="fa fa-angle-right"></i>
                                         </c:if>
                                     </li>
-                                    <c:if test="#{mainPage.tituloSegundo!=''}">
+                                    <c:if test="#{mainPage2.tituloSegundo!=''}">
                                         <li>
-                                            <c:if test="#{mainPage.tituloTercero==''}">
-                                                #{mainPage.tituloSegundo}
-                                            </c:if>
-                                            <c:if test="#{mainPage.tituloTercero!=''}">
-                                                <h:link outcome="/main.xhtml">
-                                                    #{mainPage.tituloSegundo}
-                                                    <f:param name="nivel1" value="#{param.nivel1}" />
-                                                    <f:param name="nivel2" value="#{param.nivel2}" />
-                                                </h:link>	
-                                                <i class="fa fa-angle-right"></i>
-                                            </c:if>
+                                            #{mainPage2.tituloSegundo}                                            
                                         </li>
-                                    </c:if>
-                                    <c:if test="#{mainPage.tituloTercero!=''}">
-                                        <li>
-                                            <c:if test="#{mainPage.tituloCuarto==''}">
-                                                #{mainPage.tituloTercero}
-                                            </c:if>
-                                            <c:if test="#{mainPage.tituloCuarto!=''}">
-                                                <h:link outcome="/main.xhtml">
-                                                    #{mainPage.tituloTercero}
-                                                    <f:param name="nivel1" value="#{param.nivel1}" />
-                                                    <f:param name="nivel2" value="#{param.nivel2}" />
-                                                    <f:param name="nivel3" value="#{param.nivel3}" />
-                                                </h:link>						
-                                                <i class="fa fa-angle-right"></i>
-                                            </c:if>						
-                                        </li>
-                                    </c:if>	
-                                    <c:if test="#{mainPage.tituloCuarto!=''}">
-                                        <li>
-                                            #{mainPage.tituloCuarto}
-                                        </li>
-                                    </c:if>	
+                                    </c:if> 
                                 </c:if>			
                             </ul>
                         </div>
