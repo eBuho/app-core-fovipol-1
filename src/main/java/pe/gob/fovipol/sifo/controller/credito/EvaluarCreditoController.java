@@ -109,10 +109,12 @@ public class EvaluarCreditoController implements Serializable {
     private BigDecimal montoPoliza;
     private boolean enOtraArea;
     private List<MaeSeguro> listaSeguro;
+    private boolean tieneCuotas;
     @PostConstruct
     public void init() {
         esPrestamo = false;
         enOtraArea=false;
+        tieneCuotas=false;
         String idTramite = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap()
                 .get("idTramite");
@@ -128,6 +130,7 @@ public class EvaluarCreditoController implements Serializable {
                         inmueble = new MaeInmueble();
                     } else {
                         inmueble = credito.getIdenInmuImb();
+                        tieneCuotas();
                     }
                     if (tramite.getIdenSimuSim() != null) {
                         simulacion = tramite.getIdenSimuSim().getIdenSimuSim();
@@ -153,7 +156,11 @@ public class EvaluarCreditoController implements Serializable {
         //beneficiaria = false;
         verCronograma=false;
     }
-
+    
+    public void tieneCuotas(){
+        int numCuotas=ejbCreditoCuotaFacade.contarByCredito(credito);
+        tieneCuotas = numCuotas != 0;
+    }
     public void verSimulacion() {
         listaSeguro = new ArrayList<>();
         List<CrdSimulaSeguro> lista = ejbSimulaSeguroFacade.findBySimulacion(tramite.getIdenSimuSim());
@@ -823,6 +830,20 @@ public class EvaluarCreditoController implements Serializable {
      */
     public void setEnOtraArea(boolean enOtraArea) {
         this.enOtraArea = enOtraArea;
+    }
+
+    /**
+     * @return the tieneCuotas
+     */
+    public boolean isTieneCuotas() {
+        return tieneCuotas;
+    }
+
+    /**
+     * @param tieneCuotas the tieneCuotas to set
+     */
+    public void setTieneCuotas(boolean tieneCuotas) {
+        this.tieneCuotas = tieneCuotas;
     }
 
 }

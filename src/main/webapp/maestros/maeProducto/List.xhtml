@@ -93,13 +93,17 @@
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaeProductoTitle_tasaIntePrd}"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.tasaIntePrd}"/>
+                                    <h:outputText value="#{item.tasaIntePrd}">
+                                        <f:convertNumber minFractionDigits="2"/>
+                                    </h:outputText>
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaeProductoTitle_tasaGadmPrd}"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.tasaGadmPrd}"/>
+                                    <h:outputText value="#{item.tasaGadmPrd}">
+                                        <f:convertNumber minFractionDigits="2"/>
+                                    </h:outputText>
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">

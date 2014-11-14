@@ -72,7 +72,7 @@
                                         <h:outputText value="#{bundle.ListMaeUbigeoTitle_fechCreaUbi}"/>
                                     </f:facet>
                                     <h:outputText value="#{item.fechCreaUbi}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                                     </h:outputText>
                                 </p:column>
                                 <p:column rendered="false">
@@ -86,7 +86,7 @@
                                         <h:outputText value="#{bundle.ListMaeUbigeoTitle_fechModiUbi}"/>
                                     </f:facet>
                                     <h:outputText value="#{item.fechModiUbi}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                                     </h:outputText>
                                 </p:column>
                                 <p:column>
@@ -99,7 +99,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaeUbigeoTitle_idenUbipUbi}"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.idenUbipUbi}"/>
+                                    <h:outputText value="#{item.idenUbipUbi.nombUbigUbi}"/>
                                 </p:column>
                                 <f:facet name="footer">
                                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maeUbigeoController.prepareCreate}" update=":MaeUbigeoCreateForm" oncomplete="PF('MaeUbigeoCreateDialog').show()"/>

@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import pe.gob.fovipol.sifo.dao.AbstractFacade;
 import pe.gob.fovipol.sifo.model.credito.CrdCredito;
 import pe.gob.fovipol.sifo.model.credito.CrdCreditoCuota;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 /**
  *
@@ -34,11 +35,21 @@ public class CrdCreditoCuotaFacade extends AbstractFacade<CrdCreditoCuota> {
     
     public List<CrdCreditoCuota> findByCredito(CrdCredito credito) {
         List<CrdCreditoCuota> lista = null;
-        String sql = "select d from CrdCreditoCuota d where d.flagEstaCuo<>0 "
-                + "and d.crdCreditoCuotaPK.idenCredCrd =:credito";        
+        String sql = "select d from CrdCreditoCuota d where d.flagEstaCuo<>"+Constantes.VALOR_ESTADO_INACTIVO
+                + " and d.crdCreditoCuotaPK.idenCredCrd =:credito";        
         Query q = em.createQuery(sql);
         q.setParameter("credito", credito.getIdenCredCrd());
         lista = q.getResultList();
         return lista;
+    }
+    
+    public int contarByCredito(CrdCredito credito) {
+        Long lista;
+        String sql = "select count(d) from CrdCreditoCuota d where d.flagEstaCuo<>"+Constantes.VALOR_ESTADO_INACTIVO
+                + " and d.crdCreditoCuotaPK.idenCredCrd =:credito";        
+        Query q = em.createQuery(sql);
+        q.setParameter("credito", credito.getIdenCredCrd());
+        lista = (Long) q.getSingleResult();
+        return lista.intValue();
     }
 }

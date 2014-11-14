@@ -101,7 +101,29 @@ public class SimulacionController implements Serializable {
             montoCheque = simulacion.getImpoSoliSim().add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
         }
     }
-
+    
+    public void nuevaSimulacion(){
+        socio=null;
+        simulacion = new CrdSimulacion();
+        simulacion.setIngrBrtoSim(BigDecimal.ZERO);
+        simulacion.setDsctOficSim(BigDecimal.ZERO);
+        simulacion.setDsctPersSim(BigDecimal.ZERO);
+        simulacion.setIngrCombSim(BigDecimal.ZERO);
+        simulacion.setDeudOtraSim(BigDecimal.ZERO);
+        simulacion.setOtroIngrSim(BigDecimal.ZERO);
+        porcDescuento=BigDecimal.ZERO;
+        totalAporteAnterior = BigDecimal.ZERO;
+        montoAnteriorPrestamo = BigDecimal.ZERO;
+        totalAporte = BigDecimal.ZERO;
+        saldoPagarAnteriorPrestamo = BigDecimal.ZERO;
+        tipoSocio = 1;
+        segurosSimulacion = new ArrayList<>();
+        producto = new MaeProducto();
+        edad=0;
+        gastosAdministrativos=BigDecimal.ZERO;
+        montoCheque=BigDecimal.ZERO;
+        polizaNombre="";
+    }
     public SimulacionController() {
     }
 
@@ -136,103 +158,134 @@ public class SimulacionController implements Serializable {
                     producto.getCantVecePrd(), simulacion.getDeudOtraSim(), producto.getMontDeudPrd(), simulacion.getOtroIngrSim(), montoAnteriorPrestamo));
         }
     }
-
+    public boolean validarIndividual(BigDecimal valorSimulacion){
+        return !(valorSimulacion==null || valorSimulacion.compareTo(BigDecimal.ZERO)==-1);
+    }
+    
+    public boolean validarMontos(){
+        if(!validarIndividual(simulacion.getIngrBrtoSim()))
+            return false;
+        if(!validarIndividual(simulacion.getDsctOficSim()))
+            return false;
+        if(!validarIndividual(simulacion.getDsctPersSim()))
+            return false;
+        if(!validarIndividual(simulacion.getIngrCombSim()))
+            return false;
+        if(!validarIndividual(simulacion.getOtroIngrSim()))
+            return false;
+        if(!validarIndividual(totalAporte))
+            return false;
+        if(!validarIndividual(totalAporteAnterior))
+            return false;
+        if(!validarIndividual(simulacion.getDeudOtraSim()))
+            return false;
+        if(!validarIndividual(montoAnteriorPrestamo))
+            return false;
+        return validarIndividual(saldoPagarAnteriorPrestamo);
+    }
     public void simular() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (segurosSimulacion != null && !segurosSimulacion.isEmpty()) {
-            if (simulacion.getImpoSoliSim() == null) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese un monto a simular", ""));
+        if(!validarMontos()){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Los Montos ingresados deben ser positivos", ""));
+            context.addCallbackParam("error", true);
+            return;
+        }
+        if (simulacion.getImpoSoliSim() == null || simulacion.getImpoSoliSim().compareTo(BigDecimal.ZERO) == -1) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese un monto a simular", ""));
+            context.addCallbackParam("error", true);
+            return;
+        }
+        if (simulacion.getPlazPresSim() == null || simulacion.getPlazPresSim().compareTo(BigInteger.ONE) == -1) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese un número de cuotas mayor a 0", ""));
+            context.addCallbackParam("error", true);
+            return;
+        }
+        if (segurosSimulacion == null || segurosSimulacion.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese Póliza de seguro", ""));
+            context.addCallbackParam("error", true);
+            return;
+        }
+        if (simulacion.getImpoSoliSim().compareTo(simulacion.getImpoMaxpSim()) == 1) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El Monto es superior al Máximo Préstamo", ""));
+            context.addCallbackParam("error", true);
+            totalAmortizacion = BigDecimal.ZERO;
+            totalAporte = BigDecimal.ZERO;
+            totalCuota = BigDecimal.ZERO;
+            totalInteres = BigDecimal.ZERO;
+            cuotasSimulacion = new ArrayList<>();
+            return;
+        }
+        if (simulacion.getPlazPresSim() == null || simulacion.getPlazPresSim().compareTo(producto.getMaxiPeriPrd()) == 1) {
+            if (simulacion.getPlazPresSim() == null) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el número de cuotas o el monto mensual ", ""));
                 context.addCallbackParam("error", true);
             } else {
-                if (simulacion.getPlazPresSim() == null || simulacion.getPlazPresSim().compareTo(BigInteger.ONE) == -1) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese un número de cuotas mayor a 0", ""));
-                    context.addCallbackParam("error", true);
-                    return;
-                }
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El número de cuotas debe ser menor a " + producto.getMaxiPeriPrd(), ""));
+                context.addCallbackParam("error", true);
+            }
+            return;
+        }
+
+        simulacion.setTasaTeaSim(producto.getTasaIntePrd());
+        if (simulacion.getImpoCuotSim() != null) {
+            if (simulacion.getPlazPresSim() != null) {
+                cuotaPagar = simulacion.getImpoCuotSim();
+                simulacion.setImpoSoliSim(creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim()));
                 if (simulacion.getImpoSoliSim().compareTo(simulacion.getImpoMaxpSim()) == 1) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El Monto es superior al Máximo Préstamo", ""));
-                    context.addCallbackParam("error", true);
-                    totalAmortizacion = BigDecimal.ZERO;
-                    totalAporte = BigDecimal.ZERO;
-                    totalCuota = BigDecimal.ZERO;
-                    totalInteres = BigDecimal.ZERO;
-                    cuotasSimulacion = new ArrayList<>();
-                } else {
-                    if (simulacion.getPlazPresSim() != null && simulacion.getPlazPresSim().compareTo(producto.getMaxiPeriPrd()) != 1) {
-                        simulacion.setTasaTeaSim(producto.getTasaIntePrd());
-                        if (simulacion.getImpoCuotSim() != null) {
-                            if (simulacion.getPlazPresSim() != null) {
-                                cuotaPagar = simulacion.getImpoCuotSim();
-                                simulacion.setImpoSoliSim(creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim()));
-                                if (simulacion.getImpoSoliSim().compareTo(simulacion.getImpoMaxpSim()) == 1) {
-                                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La monto de préstamo es superior al Máximo préstamo posible", ""));
-                                    simulacion.setImpoSoliSim(simulacion.getImpoMaxpSim());
-                                    cuotaPagar = creditoService.calcularCuotaMontoMensual(simulacion.getImpoSoliSim(), simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
-                                }
-                            }
-                        } else {
-                            if (simulacion.getImpoSoliSim() != null) {
-                                cuotaPagar = creditoService.calcularCuotaMontoMensual(simulacion.getImpoSoliSim(), simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
-                                if (cuotaPagar.compareTo(simulacion.getCapaMcuoSim()) == 1) {
-                                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La Cuota es superior a la Máxima cuota posible", ""));
-                                    cuotaPagar = simulacion.getCapaMcuoSim();
-                                    simulacion.setImpoSoliSim(creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim()));
-                                }
-                            }
-                        }
-                        gastosAdministrativos = simulacion.getImpoSoliSim().multiply(producto.getTasaGadmPrd()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
-                        if (creditoService.comprobarEdadFinPago(socio.getMaePersona().getFechNaciPer(), simulacion.getPeriCiclSim().intValue(), simulacion.getPlazPresSim().intValue(), segurosSimulacion)) {
-                            simulacion.setIdenPersPer(socio);
-                            simulacion.setIdenProdPrd(producto);
-                            simulacion.setTasaGadmSim(producto.getTasaGadmPrd());
-                            simulacion.setImpoCuotSim(cuotaPagar);
-                            boolean crea = false;
-                            if (simulacion.getIdenSimuSim() == null) {
-                                simulacion.setIdenSimuSim(ejbSimulacionFacade.obtenerCorrelativo());
-                                simulacion.setFlagEstaSim(Constantes.VALOR_ESTADO_ACTIVO);
-                                crea = true;
-                            }
-                            cuotasSimulacion = creditoService.calcularCuotas(segurosSimulacion, simulacion.getPeriCiclSim().intValue(),
-                                    simulacion.getTasaTeaSim(), simulacion.getImpoSoliSim(), simulacion.getPlazPresSim(), cuotaPagar, socio.getMaePersona().getFechNaciPer(), simulacion);
-                            ejbSimulacionFacade.edit(simulacion);
-                            int i = 1;
-                            for (MaeSeguro seg : segurosSimulacion) {
-                                CrdSimulaSeguro simSeguro = new CrdSimulaSeguro(simulacion.getIdenSimuSim().toBigInteger(), i);
-                                simSeguro.setIdenSeguSeg(seg);
-                                simSeguro.setFlagEstaSsg(Constantes.VALOR_ESTADO_ACTIVO);
-                                if (crea) {
-                                    simSeguro.setFechCreaAud(new Date());
-                                } else {
-                                    simSeguro.setFechModiAud(new Date());
-                                }
-                                ejbSimulaSeguroFacade.edit(simSeguro);
-                                i++;
-                            }
-                            totalAmortizacion = cuotasSimulacion.get(0).getTotalAmortizacion();
-                            totalCuota = cuotasSimulacion.get(0).getTotalCuota();
-                            totalInteres = cuotasSimulacion.get(0).getTotalInteres();
-                            totalSeguro = cuotasSimulacion.get(0).getTotalSeguro();
-                            montoCheque = simulacion.getImpoSoliSim().add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
-                            context.addCallbackParam("error", false);
-                        } else {
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "En ese periodo de tiempo no se puede generar pues no alcanzan los seguros", ""));
-                            context.addCallbackParam("error", true);
-                        }
-                    } else {
-                        if (simulacion.getPlazPresSim() == null) {
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese el número de cuotas o el monto mensual ", ""));
-                            context.addCallbackParam("error", true);
-                        } else {
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El número de cuotas debe ser menor a " + producto.getMaxiPeriPrd(), ""));
-                            context.addCallbackParam("error", true);
-                        }
-                    }
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La monto de préstamo es superior al Máximo préstamo posible", ""));
+                    simulacion.setImpoSoliSim(simulacion.getImpoMaxpSim());
+                    cuotaPagar = creditoService.calcularCuotaMontoMensual(simulacion.getImpoSoliSim(), simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
                 }
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese Póliza de seguro", ""));
+            if (simulacion.getImpoSoliSim() != null) {
+                cuotaPagar = creditoService.calcularCuotaMontoMensual(simulacion.getImpoSoliSim(), simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
+                if (cuotaPagar.compareTo(simulacion.getCapaMcuoSim()) == 1) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La Cuota es superior a la Máxima cuota posible", ""));
+                    cuotaPagar = simulacion.getCapaMcuoSim();
+                    simulacion.setImpoSoliSim(creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim()));
+                }
+            }
+        }
+        gastosAdministrativos = simulacion.getImpoSoliSim().multiply(producto.getTasaGadmPrd()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+        if (creditoService.comprobarEdadFinPago(socio.getMaePersona().getFechNaciPer(), simulacion.getPeriCiclSim().intValue(), simulacion.getPlazPresSim().intValue(), segurosSimulacion)) {
+            simulacion.setIdenPersPer(socio);
+            simulacion.setIdenProdPrd(producto);
+            simulacion.setTasaGadmSim(producto.getTasaGadmPrd());
+            simulacion.setImpoCuotSim(cuotaPagar);
+            boolean crea = false;
+            if (simulacion.getIdenSimuSim() == null) {
+                simulacion.setIdenSimuSim(ejbSimulacionFacade.obtenerCorrelativo());
+                simulacion.setFlagEstaSim(Constantes.VALOR_ESTADO_ACTIVO);
+                crea = true;
+            }
+            cuotasSimulacion = creditoService.calcularCuotas(segurosSimulacion, simulacion.getPeriCiclSim().intValue(),
+                    simulacion.getTasaTeaSim(), simulacion.getImpoSoliSim(), simulacion.getPlazPresSim(), cuotaPagar, socio.getMaePersona().getFechNaciPer(), simulacion);
+            ejbSimulacionFacade.edit(simulacion);
+            int i = 1;
+            for (MaeSeguro seg : segurosSimulacion) {
+                CrdSimulaSeguro simSeguro = new CrdSimulaSeguro(simulacion.getIdenSimuSim().toBigInteger(), i);
+                simSeguro.setIdenSeguSeg(seg);
+                simSeguro.setFlagEstaSsg(Constantes.VALOR_ESTADO_ACTIVO);
+                if (crea) {
+                    simSeguro.setFechCreaAud(new Date());
+                } else {
+                    simSeguro.setFechModiAud(new Date());
+                }
+                ejbSimulaSeguroFacade.edit(simSeguro);
+                i++;
+            }
+            totalAmortizacion = cuotasSimulacion.get(0).getTotalAmortizacion();
+            totalCuota = cuotasSimulacion.get(0).getTotalCuota();
+            totalInteres = cuotasSimulacion.get(0).getTotalInteres();
+            totalSeguro = cuotasSimulacion.get(0).getTotalSeguro();
+            montoCheque = simulacion.getImpoSoliSim().add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
+            context.addCallbackParam("error", false);
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "En ese periodo de tiempo no se puede generar pues no alcanzan los seguros", ""));
             context.addCallbackParam("error", true);
         }
+
     }
 
     public boolean estaIncluido(int a, BigDecimal b, BigDecimal c) {
@@ -372,7 +425,7 @@ public class SimulacionController implements Serializable {
      */
     public List<MaeEntidaddet> getMonedas() {
         if (monedas == null) {
-            monedas = ejbEntidaddetFacade.findDetalleActivo(new MaeEntidad("CODIMONECRD"));
+            monedas = ejbEntidaddetFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_TIPO_MONEDA));
         }
         return monedas;
     }

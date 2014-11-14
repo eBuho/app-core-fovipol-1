@@ -1728,7 +1728,8 @@ Custom icon buttons
   height: 90px;
   min-width: 80px;
   margin: 5px 5px 5px 5px;
- /* border: 1px solid #ddd;*/
+ 
+  /* border: 1px solid #ddd; */
   padding: 12px 0px 0px 0px;
   /*background-color: #fafafa !important;*/
   background-image: none !important;

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -106,9 +107,9 @@ public class RegistrarExpedienteController implements Serializable {
 
     @PostConstruct
     public void init() {
-        esPrestamo=false;
+        esPrestamo = false;
         beneficiaria = false;
-        enOtraArea=false;
+        enOtraArea = false;
         String idTramite = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap()
                 .get("idTramite");
@@ -119,6 +120,8 @@ public class RegistrarExpedienteController implements Serializable {
                 tramite.setIdenSimuSim(new CrdSimulacion());
                 credito = new CrdCredito();
                 inmueble = new MaeInmueble();
+                tramite.setTipoTramTrm(4);
+                esPrestamo=true;
             } else {
                 setSocio(tramite.getCodiPersTrm().getMaeSocio());
                 credito = ejbCreditoService.findByTramite(tramite);
@@ -135,17 +138,18 @@ public class RegistrarExpedienteController implements Serializable {
                     cargarSeguros();
                     netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
                     cargarRequisitos();
-                    esPrestamo=true;
-                }
-                else{                    
+                    esPrestamo = true;
+                } else {
                     cargarRequisitos();
-                }                    
+                }
             }
         } else {
             tramite = new TrmTramite();
             tramite.setIdenSimuSim(new CrdSimulacion());
             credito = new CrdCredito();
             inmueble = new MaeInmueble();
+            tramite.setTipoTramTrm(4);
+            esPrestamo=true;
         }
         productos = ejbProductoFacade.findAll();
         gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_GRADO_PARENTESCO));
@@ -219,6 +223,16 @@ public class RegistrarExpedienteController implements Serializable {
         tramite = new TrmTramite();
         tramite.setIdenSimuSim(new CrdSimulacion());
         socio = null;
+        esPrestamo = false;
+        beneficiaria = false;
+        documentos = new ArrayList<>();
+        credito = new CrdCredito();
+        inmueble = new MaeInmueble();
+        producto=new MaeProducto();
+        simulacion=BigDecimal.ZERO;
+        inmueble=new MaeInmueble();
+        cargarCanalesCobranza();
+        simulaciones=new ArrayList<>();
     }
 
     public void mostrarSimulacion() {
@@ -250,8 +264,7 @@ public class RegistrarExpedienteController implements Serializable {
                     documentos.add(doc);
                 }
             }
-        }
-        else{
+        } else {
             if (tramite.getIdenExpeTrm() != null) {
                 documentos = ejbDocumentoFacade.findByTramite(tramite);
             } else {
@@ -269,12 +282,12 @@ public class RegistrarExpedienteController implements Serializable {
                     documentos.add(doc);
                 }
             }
-        }  
+        }
     }
 
     public void darViabilidad() {
-        boolean validarCampos = tramiteService.darViabilidadExpediente(tramite, documentos);        
-        enOtraArea=validarCampos;
+        boolean validarCampos = tramiteService.darViabilidadExpediente(tramite, documentos);
+        enOtraArea = validarCampos;
         if (validarCampos) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con éxito", ""));
         } else {
@@ -323,13 +336,20 @@ public class RegistrarExpedienteController implements Serializable {
             context.addCallbackParam("error", true);
             return;
         }
-        if (tramite.getIdenExpeTrm()==null && producto== null) {
+        if (tramite.getIdenExpeTrm() == null && producto == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Seleccione Producto", ""));
             context.addCallbackParam("error", true);
             return;
         }
-        if(esPrestamo){
+        if (esPrestamo) {
+            if(simulacion==null || simulacion.compareTo(BigDecimal.ZERO)==0){
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_WARN, 
+                                "Seleccione Simulación " , ""));
+                context.addCallbackParam("error", true);
+                return;
+            }
             contarCanalCobranza();
             if (totalPago.compareTo(tramite.getIdenSimuSim().getImpoCuotSim()) != 0) {
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -337,11 +357,18 @@ public class RegistrarExpedienteController implements Serializable {
                 context.addCallbackParam("error", true);
                 return;
             }
-        }        
+        }
         tramite.setCodiPersTrm(socio.getMaePersona());
-        if(tramite.getIdenExpeTrm()==null)
+        if (tramite.getIdenExpeTrm() == null) {
             tramite.setMaeProceso(producto.getIdenProcPrc());
-        if(esPrestamo){
+            tramite.setFechIngrTrm(new Date());
+            tramite.setNumeDiasTrm(producto.getIdenProcPrc().getTiemDemoPrc().toBigInteger());
+            Calendar nac = Calendar.getInstance();
+            nac.setTime(tramite.getFechIngrTrm());
+            nac.set(Calendar.DAY_OF_MONTH, nac.get(Calendar.DAY_OF_MONTH)+tramite.getNumeDiasTrm().intValue());
+            //tramite.setFechVencTrm(tramite.getFechIngrTrm().);
+        }
+        if (esPrestamo) {
             credito.setIdenInmuImb(inmueble);
             credito.setIdenExpeTrm(tramite);
             CrdSimulacion simu = tramite.getIdenSimuSim();
@@ -355,10 +382,11 @@ public class RegistrarExpedienteController implements Serializable {
             credito.setImpoSoliCrd(simu.getImpoSoliSim());
         }
         boolean crea;
-        if(esPrestamo)
+        if (esPrestamo) {
             crea = tramiteService.registrarExpedienteCredito(tramite, documentos, credito, canales);
-        else
+        } else {
             crea = tramiteService.registrarExpediente(tramite, documentos);
+        }
         if (crea) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
@@ -369,11 +397,12 @@ public class RegistrarExpedienteController implements Serializable {
             context.addCallbackParam("error", true);
         }
     }
-    
-    public void verificarTipoTramite(){
-        MaeEntidaddet detalle=ejbEntidadDetalleFacade.findIdenEntiDet(tramite.getTipoTramTrm(),Constantes.ENTIDAD_TIPO_TRAMITE );
-        esPrestamo = detalle.getValoNumuDet()!=null && detalle.getValoNumuDet().compareTo(BigInteger.ONE)==0;
+
+    public void verificarTipoTramite() {
+        MaeEntidaddet detalle = ejbEntidadDetalleFacade.findIdenEntiDet(tramite.getTipoTramTrm(), Constantes.ENTIDAD_TIPO_TRAMITE);
+        esPrestamo = detalle.getValoNumuDet() != null && detalle.getValoNumuDet().compareTo(BigInteger.ONE) == 0;
     }
+
     /**
      * @return the socio
      */
@@ -837,8 +866,8 @@ public class RegistrarExpedienteController implements Serializable {
     public void setEnOtraArea(boolean enOtraArea) {
         this.enOtraArea = enOtraArea;
     }
-    
-    public JRBeanCollectionDataSource getCuotasReporte(){
+
+    public JRBeanCollectionDataSource getCuotasReporte() {
         verSimulacion();
         return new JRBeanCollectionDataSource(getCuotas());
     }

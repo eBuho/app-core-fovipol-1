@@ -132,7 +132,7 @@
 				<textFieldExpression><![CDATA[$F{idenSimuSim}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="123" y="116" width="120" height="18" uuid="bc4d52d2-b673-4465-8c05-2d8d6c857f5e"/>
+				<reportElement x="123" y="116" width="362" height="18" uuid="bc4d52d2-b673-4465-8c05-2d8d6c857f5e"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nombProdPrd}]]></textFieldExpression>
 			</textField>

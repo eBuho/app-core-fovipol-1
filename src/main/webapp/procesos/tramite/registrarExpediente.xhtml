@@ -16,25 +16,26 @@
             }
             $(document).ready(function () {
                 $(window).keydown(function (event) {
-                    if (event.keyCode == 13) {
+                    if (event.keyCode === 13) {
                         event.preventDefault();
                         return false;
                     }
                 });
             });
         </script>
-        <div class="col-md-12">
-            <div class="portlet box green" style="border: none">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-cogs"></i>Registrar Expediente <h:outputText value="#{registrarExpedienteController.tramite.idenExpeTrm}" rendered="#{registrarExpedienteController.tramite.idenExpeTrm!=null}"/> 
+        <h:form id="formRegistroExpediente"> 
+            <div class="col-md-12">
+                <div class="portlet box green" style="border: none">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>Registrar Expediente <h:outputText id="numeroExpediente" value="#{registrarExpedienteController.tramite.idenExpeTrm}" rendered="#{registrarExpedienteController.tramite.idenExpeTrm!=null}"/> 
+                        </div>
                     </div>
-                </div>
-                <div class="portlet-body" > 
-                    <h:form id="formRegistroExpediente">                         
+                    <div class="portlet-body" > 
+
                         <p:remoteCommand  name="actualiza" update="formRegistroExpediente"/>
                         <div class="col-md-12" style="margin-bottom: 10px;">
-                            <p:commandButton icon="ui-icon-plus" rendered="#{registrarExpedienteController.tramite.idenExpeTrm==null}" update="formRegistroExpediente" value="Nuevo" actionListener="#{registrarExpedienteController.nuevoTramite}">
+                            <p:commandButton icon="ui-icon-plus" update="formRegistroExpediente" value="Nuevo" actionListener="#{registrarExpedienteController.nuevoTramite}">
                                 <p:confirm header="Confirmación" message="¿Esta seguro perderá los cambios que no guardo?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
@@ -294,15 +295,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 margen">
-                                    <div class="col-md-4">
-                                        <div class="col-md-4">
-                                            <h:outputText value="Fecha de Registro"/>                                
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p:calendar value="#{registrarExpedienteController.tramite.fechIngrTrm}" styleClass="inputLargo"/>
-                                        </div>
-                                    </div>                        
+                                <div class="col-md-12 margen">                                                           
                                     <div class="col-md-4">
                                         <div class="col-md-4">
                                             <h:outputText value="N° Folios"/>                                
@@ -311,8 +304,6 @@
                                             <p:inputText value="#{registrarExpedienteController.tramite.numeFolioTrm}" styleClass="inputLargo"/>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12 margen">
                                     <div class="col-md-4">
                                         <div class="col-md-4">
                                             <h:outputText value="Documento Referencia"/>                                
@@ -332,6 +323,8 @@
                                             </p:selectOneMenu>                                
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-12 margen">
                                     <div class="col-md-4">
                                         Confidencial : 
                                         <comp:booleanCheckbox value="#{registrarExpedienteController.tramite.flagPrivTrm}"/>                      
@@ -472,7 +465,7 @@
                                         <div class="col-md-4">
                                             <p:commandButton rendered="#{registrarExpedienteController.esPrestamo}" disabled="#{registrarExpedienteController.simulacion==null or registrarExpedienteController.enOtraArea}" 
                                                              oncomplete="PF('dialogSimulacion').show();"      value="Ver Simulación" actionListener="#{registrarExpedienteController.verSimulacion()}" id="verSimulacion"/>
-                                            
+
                                         </div> 
                                     </p:panel>
                                 </div>                                
@@ -747,6 +740,7 @@
                                     </p:fieldset>                                    
                                 </div>                    
                             </p:fieldset>
+                            <p:spacer width="20"/>
                             <p:fieldset legend="Acciones" styleClass="fieldSet">
                                 <div class="col-md-12">
                                     <div class="col-md-1">
@@ -891,10 +885,10 @@
                                 </h:panelGroup>
                             </p:scrollPanel>
                         </p:dialog>
-                    </h:form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </h:form>
     </ui:composition>
 
 </html>

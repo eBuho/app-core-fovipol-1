@@ -6,7 +6,6 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
-
     <cc:interface componentType="inputConsultaIntegralSocio">
         <cc:attribute name="socio" shortDescription="Campo donde se guardara el Socio encontrado" />
         <cc:attribute name="actualizar" shortDescription="Campo a actualizar despues de seleccionar"/>
@@ -14,104 +13,123 @@
     <cc:implementation>
         <p:tabView >
             <p:tab title="Búsqueda rápida">
-                <p:panelGrid columns="4" styleClass="tablaNoBorde" >
-                    <h:outputText value="Criterio de Busqueda:"/>
-                <p:column>
-                    <p:selectOneMenu id="day" binding="#{cc.criterioBusqueda}">
-                        <f:selectItem itemValue="0" itemLabel="Nombres y Apellidos" /> 
-                        <f:selectItem itemValue="1" itemLabel="DNI" />
-                        <f:selectItem itemValue="2" itemLabel="CIP" />
-                    </p:selectOneMenu>
-                </p:column>
-                    <p:inputText binding="#{cc.valorBusqueda}" id="valorBusqueda"/>
-                    <p:commandButton icon="ui-icon-search" value="Buscar" update="tablaSocio,mensajeValorBusqueda" actionListener="#{cc.buscarSocio}"/>
-                    <p:messages id="mensajeValorBusqueda" />
-        </p:panelGrid>
-                
-                <div style="height: 3px;"></div>
-                
-        <p:dataTable value="#{cc.socios}" id="tablaSocio" var="socio" 
-                     selectionMode="single" selection="#{cc.attrs.socio}"
-                     rowKey="#{socio.codiPersPer}" emptyMessage="No se encontraron socios con el criterio ingresado">
-            <p:ajax event="rowSelect" update="#{cc.attrs.actualizar}"/>
-            <p:ajax event="rowUnselect" update="#{cc.attrs.actualizar}"/>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Nombres y Apellidos"/>
-                </f:facet>
-                <h:outputText value="#{socio.maePersona.nombCompPer}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="DNI"/>
-                </f:facet>
-                <h:outputText value="#{socio.maePersona.numeIdenPer}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="CIP"/>
-                </f:facet>
-                <h:outputText value="#{socio.codiCcipSoc}"/>
-            </p:column>                
-        </p:dataTable> 
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <h:outputText value="Criterio de Busqueda:"/>
+                    </div>
+                    <div class="col-md-2">
+                        <p:selectOneMenu id="day" binding="#{cc.criterioBusqueda}" styleClass="inputLargo">
+                            <f:selectItem itemValue="2" itemLabel="CIP" />
+                            <f:selectItem itemValue="0" itemLabel="Nombres y Apellidos" /> 
+                            <f:selectItem itemValue="1" itemLabel="DNI" />                            
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="col-md-2">
+                        <p:inputText binding="#{cc.valorBusqueda}" id="valorBusqueda" styleClass="inputLargo"/>
+                    </div>
+                    <div class="col-md-2">
+                        <p:commandButton icon="ui-icon-search" value="Buscar" update="tablaSocio,mensajeValorBusqueda" actionListener="#{cc.buscarSocio}"/>
+                    </div>
+                    <div class="col-md-4">
+                        <p:messages id="mensajeValorBusqueda" />
+                    </div>
+                </div> 
+                <div class="table-scrollable">
+                    <p:dataTable value="#{cc.socios}" id="tablaSocio" var="socio" 
+                                 selectionMode="single" selection="#{cc.attrs.socio}"
+                                 rowKey="#{socio.codiPersPer}" emptyMessage="No se encontraron socios con el criterio ingresado">
+                        <p:ajax event="rowSelect" update="#{cc.attrs.actualizar}"/>
+                        <p:ajax event="rowUnselect" update="#{cc.attrs.actualizar}"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombres y Apellidos"/>
+                            </f:facet>
+                            <h:outputText value="#{socio.maePersona.nombCompPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="DNI"/>
+                            </f:facet>
+                            <h:outputText value="#{socio.maePersona.numeIdenPer}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="CIP"/>
+                            </f:facet>
+                            <h:outputText value="#{socio.codiCcipSoc}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Entidad de Pago"/>
+                            </f:facet>
+                            <comp:entidadDetalle value="#{socio.entiPagoSoc}" entidad="#{constantes.ENTIDAD_PAGOS_SOCIO}"/>
+                        </p:column> 
+                    </p:dataTable> 
+                </div>
             </p:tab>
             <p:tab title="Búsqueda avanzada">
-                <p:dataTable value="#{cc.listaSocios}" id="tablaListaSocio" var="socio" 
-                             selectionMode="single" selection="#{cc.attrs.socio}"
-                             rowKey="#{socio.codiPersPer}" emptyMessage="No se encontraron socios con el criterio ingresado">
-                    <p:ajax event="rowSelect" update="#{cc.attrs.actualizar}"/>
-                    <p:ajax event="rowUnselect" update="#{cc.attrs.actualizar}"/>
-                    <p:column filterBy="#{socio.maePersona.nombCompPer}"
-                              filterMatchMode="contains" 
-                              filterFunction="#{cc.filtroPorNombre}"
-                              sortBy="#{socio.maePersona.nombCompPer}">
-                        <f:facet name="header">
-                            <h:outputText value="Nombres y Apellidos"/>
-                        </f:facet>
-                        <h:outputText value="#{socio.maePersona.nombCompPer}"/>
-                    </p:column>
-                    <p:column filterBy="#{socio.maePersona.numeIdenPer}"
-                              filterMatchMode="contains"
-                              sortBy="#{socio.maePersona.numeIdenPer}">
-                        <f:facet name="header">
-                            <h:outputText value="DNI"/>
-                        </f:facet>
-                        <h:outputText value="#{socio.maePersona.numeIdenPer}"/>
-                    </p:column>
-                    <p:column filterBy="#{socio.codiCcipSoc}"
-                              filterMatchMode="contains"
-                              sortBy="#{socio.codiCcipSoc}">
-                        <f:facet name="header">
-                            <h:outputText value="CIP"/>
-                        </f:facet>
-                        <h:outputText value="#{socio.codiCcipSoc}"/>
-                    </p:column>    
-                    <p:column filterBy="#{socio.codiCdfiSoc}"
-                              filterMatchMode="contains"
-                              sortBy="#{socio.codiCdfiSoc}">
-                        <f:facet name="header">
-                            <h:outputText value="CodoFin"/>
-                        </f:facet>
-                        <h:outputText value="#{socio.codiCdfiSoc}"/>
-                    </p:column>
-                    <p:column filterBy="#{socio.codiCajaSoc}"
-                              filterMatchMode="contains"
-                              sortBy="#{socio.codiCajaSoc}">
-                        <f:facet name="header">
-                            <h:outputText value="Cód.Caja"/>
-                        </f:facet>
-                        <h:outputText value="#{socio.codiCajaSoc}"/>
-                    </p:column>
-                    <p:column sortBy="#{socio.flagEstaSoc}">
-                        <f:facet name="header">
-                            <h:outputText value="Estado"/>
-                        </f:facet>
-                        <comp:activo value="#{socio.flagEstaSoc}"/>
-                    </p:column>
-                </p:dataTable>
+                <div class="table-scrollable">
+                    <p:dataTable value="#{cc.listaSocios}" id="tablaListaSocio" var="socio" 
+                                 selectionMode="single" selection="#{cc.attrs.socio}"
+                                 rowKey="#{socio.codiPersPer}" emptyMessage="No se encontraron socios con el criterio ingresado">
+                        <p:ajax event="rowSelect" update="#{cc.attrs.actualizar}"/>
+                        <p:ajax event="rowUnselect" update="#{cc.attrs.actualizar}"/>
+                        <p:column filterBy="#{socio.maePersona.nombCompPer}"
+                                  filterMatchMode="contains" 
+                                  filterFunction="#{cc.filtroPorNombre}"
+                                  sortBy="#{socio.maePersona.nombCompPer}">
+                            <f:facet name="header">
+                                <h:outputText value="Nombres y Apellidos"/>
+                            </f:facet>
+                            <h:outputText value="#{socio.maePersona.nombCompPer}"/>
+                        </p:column>
+                        <p:column filterBy="#{socio.maePersona.numeIdenPer}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{socio.maePersona.numeIdenPer}">
+                            <f:facet name="header">
+                                <h:outputText value="DNI"/>
+                            </f:facet>
+                            <h:outputText value="#{socio.maePersona.numeIdenPer}"/>
+                        </p:column>
+                        <p:column filterBy="#{socio.codiCcipSoc}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{socio.codiCcipSoc}">
+                            <f:facet name="header">
+                                <h:outputText value="CIP"/>
+                            </f:facet>
+                            <h:outputText value="#{socio.codiCcipSoc}"/>
+                        </p:column>    
+                        <p:column filterBy="#{socio.codiCdfiSoc}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{socio.codiCdfiSoc}">
+                            <f:facet name="header">
+                                <h:outputText value="CodoFin"/>
+                            </f:facet>
+                            <h:outputText value="#{socio.codiCdfiSoc}"/>
+                        </p:column>
+                        <p:column filterBy="#{socio.codiCajaSoc}"
+                                  filterMatchMode="contains"
+                                  sortBy="#{socio.codiCajaSoc}">
+                            <f:facet name="header">
+                                <h:outputText value="Cód.Caja"/>
+                            </f:facet>
+                            <h:outputText value="#{socio.codiCajaSoc}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Entidad de Pago"/>
+                            </f:facet>
+                            <comp:entidadDetalle value="#{socio.entiPagoSoc}" entidad="#{constantes.ENTIDAD_PAGOS_SOCIO}"/>
+                        </p:column> 
+                        <p:column sortBy="#{socio.flagEstaSoc}">
+                            <f:facet name="header">
+                                <h:outputText value="Estado"/>
+                            </f:facet>
+                            <comp:activo value="#{socio.flagEstaSoc}"/>
+                        </p:column>
+                    </p:dataTable>
+                </div>
             </p:tab>
         </p:tabView>
-
-
     </cc:implementation>
 </html>

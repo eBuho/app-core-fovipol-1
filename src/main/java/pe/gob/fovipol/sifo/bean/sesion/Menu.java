@@ -1,11 +1,12 @@
 package pe.gob.fovipol.sifo.bean.sesion;
 
+import java.io.Serializable;
 import java.util.List;
 import pe.gob.fovipol.sifo.model.seguridad.AdmModulo;
 
 
 
-public class Menu {
+public class Menu implements Serializable {
 	private AdmModulo modulo;
 	private List<MenuDetalle> menuItems;
 	public AdmModulo getModulo() {

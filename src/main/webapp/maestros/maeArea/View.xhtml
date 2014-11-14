@@ -18,7 +18,7 @@
                         <h:outputText value="#{bundle.ViewMaeAreaLabel_descAreaAre}"/>
                         <h:outputText value="#{maeAreaController.selected.descAreaAre}" title="#{bundle.ViewMaeAreaTitle_descAreaAre}"/>
                         <h:outputText value="#{bundle.ViewMaeAreaLabel_tipoAreaAre}"/>
-                        <comp:entidadDetalle value="#{maeAreaController.selected.tipoAreaAre}" entidad="TipoAreaAre"/>                        
+                        <comp:entidadDetalle value="#{maeAreaController.selected.tipoAreaAre}" entidad="#{constantes.ENTIDAD_TIPO_AREA}"/>                        
                         <h:outputText value="#{bundle.ViewMaeAreaLabel_numeTeleAre}"/>
                         <h:outputText value="#{maeAreaController.selected.numeTeleAre}" title="#{bundle.ViewMaeAreaTitle_numeTeleAre}"/>
                         <h:outputText value="#{bundle.ViewMaeAreaLabel_numeAnexAre}"/>
@@ -27,13 +27,13 @@
                         <h:outputText value="#{maeAreaController.selected.usuaCreaAud}" title="#{bundle.ViewMaeAreaTitle_usuaCreaAud}"/>
                         <h:outputText value="#{bundle.ViewMaeAreaLabel_fechCreaAud}"/>
                         <h:outputText value="#{maeAreaController.selected.fechCreaAud}" title="#{bundle.ViewMaeAreaTitle_fechCreaAud}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewMaeAreaLabel_usuaModiAud}"/>
                         <h:outputText value="#{maeAreaController.selected.usuaModiAud}" title="#{bundle.ViewMaeAreaTitle_usuaModiAud}"/>
                         <h:outputText value="#{bundle.ViewMaeAreaLabel_fechModiAud}"/>
                         <h:outputText value="#{maeAreaController.selected.fechModiAud}" title="#{bundle.ViewMaeAreaTitle_fechModiAud}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewMaeAreaLabel_nombEquiAud}"/>
                         <h:outputText value="#{maeAreaController.selected.nombEquiAud}" title="#{bundle.ViewMaeAreaTitle_nombEquiAud}"/>

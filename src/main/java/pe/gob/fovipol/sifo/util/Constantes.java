@@ -7,9 +7,11 @@ import javax.faces.bean.ApplicationScoped;
 @ManagedBean(name = "constantes")
 @ApplicationScoped
 public class Constantes implements Serializable {
-    public static final String ENTIDAD_TIPO_AREA = "TipoAreaAre";
+    public static final String ENTIDAD_TIPO_AREA = "TIPOAREAARE";
     //Entidad Grado Parentesco
     public static final String ENTIDAD_GRADO_PARENTESCO = "GRADPAREPER";
+    //Entidad Tipo Moneda
+    public static final String ENTIDAD_TIPO_MONEDA = "CODIMONECRD";
     //Entidad Grado Parentesco
     public static final String ENTIDAD_PAGOS_SOCIO = "ENTIPAGOSOC";
     //Entidad Prioridad Tramite
@@ -32,6 +34,121 @@ public class Constantes implements Serializable {
     public static final String CODI_MONE_CRD = "CODIMONECRD";
     //Valores Codigos de Lineas de Productos
     public static final String CODI_LINE_PRD = "CODILINEPRD";
+    //Valor TIPO PROCESO='PROCESO'
+    public static final String PROCESO_PROCESO="Proceso";
+    public static final Short VALOR_PROCESO_PROCESO=1;
+    //Valor TIPO PROCESO='SUBPROCESO'
+    public static final String PROCESO_SUBPROCESO="Subproceso";
+    public static final Short VALOR_PROCESO_SUBPROCESO=2;
+    //Valor TIPO PROCESO='ACTIVIDAD'
+    public static final String PROCESO_ACTIVIDAD="Actividad"; 
+    public static final Short VALOR_PROCESO_ACTIVIDAD=3;
+    //Valor Nivel UBIGEO='DEPARTAMENTO'
+    public static final String NIVEL_UBIGEO_DEPARTAMENTO="Departamento"; 
+    public static final Short VALOR_NIVEL_UBIGEO_DEPARTAMENTO=1;
+    //Valor Nivel UBIGEO='PROVINCIA'
+    public static final String NIVEL_UBIGEO_PROVINCIA="Provincia"; 
+    public static final Short VALOR_NIVEL_UBIGEO_PROVINCIA=2;
+    //Valor Nivel UBIGEO='DISTRITO'
+    public static final String NIVEL_UBIGEO_DISTRITO="Distrito"; 
+    public static final Short VALOR_NIVEL_UBIGEO_DISTRITO=3;
+
+    /**
+     * @return the ENTIDAD_PAGOS_SOCIO
+     */
+    public String getENTIDAD_PAGOS_SOCIO() {
+        return ENTIDAD_PAGOS_SOCIO;
+    }
+
+    /**
+     * @return the ENTIDAD_TIPO_MONEDA
+     */
+    public String getENTIDAD_TIPO_MONEDA() {
+        return ENTIDAD_TIPO_MONEDA;
+    }
+
+    /**
+     * @return the NIVEL_UBIGEO_DEPARTAMENTO
+     */
+    public String getNIVEL_UBIGEO_DEPARTAMENTO() {
+        return NIVEL_UBIGEO_DEPARTAMENTO;
+    }
+
+    /**
+     * @return the VALOR_NIVEL_UBIGEO_DEPARTAMENTO
+     */
+    public Short getVALOR_NIVEL_UBIGEO_DEPARTAMENTO() {
+        return VALOR_NIVEL_UBIGEO_DEPARTAMENTO;
+    }
+
+    /**
+     * @return the NIVEL_UBIGEO_PROVINCIA
+     */
+    public String getNIVEL_UBIGEO_PROVINCIA() {
+        return NIVEL_UBIGEO_PROVINCIA;
+    }
+
+    /**
+     * @return the VALOR_NIVEL_UBIGEO_PROVINCIA
+     */
+    public Short getVALOR_NIVEL_UBIGEO_PROVINCIA() {
+        return VALOR_NIVEL_UBIGEO_PROVINCIA;
+    }
+
+    /**
+     * @return the NIVEL_UBIGEO_DISTRITO
+     */
+    public String getNIVEL_UBIGEO_DISTRITO() {
+        return NIVEL_UBIGEO_DISTRITO;
+    }
+
+    /**
+     * @return the VALOR_NIVEL_UBIGEO_DISTRITO
+     */
+    public Short getVALOR_NIVEL_UBIGEO_DISTRITO() {
+        return VALOR_NIVEL_UBIGEO_DISTRITO;
+    }
+    /**
+     * @return the PROCESO_PROCESO
+     */
+    public String getPROCESO_PROCESO() {
+        return PROCESO_PROCESO;
+    }
+
+    /**
+     * @return the VALOR_PROCESO_PROCESO
+     */
+    public Short getVALOR_PROCESO_PROCESO() {
+        return VALOR_PROCESO_PROCESO;
+    }
+
+    /**
+     * @return the PROCESO_SUBPROCESO
+     */
+    public String getPROCESO_SUBPROCESO() {
+        return PROCESO_SUBPROCESO;
+    }
+
+    /**
+     * @return the VALOR_PROCESO_SUBPROCESO
+     */
+    public Short getVALOR_PROCESO_SUBPROCESO() {
+        return VALOR_PROCESO_SUBPROCESO;
+    }
+
+    /**
+     * @return the PROCESO_ACTIVIDAD
+     */
+    public String getPROCESO_ACTIVIDAD() {
+        return PROCESO_ACTIVIDAD;
+    }
+
+    /**
+     * @return the VALOR_PROCESO_ACTIVIDAD
+     */
+    public Short getVALOR_PROCESO_ACTIVIDAD() {
+        return VALOR_PROCESO_ACTIVIDAD;
+    }
     /**
      * @return the ENTIDAD_TIPO_AREA
      */
@@ -104,6 +221,6 @@ public class Constantes implements Serializable {
 
     
 
-    public static final Short ESTADO_ACTIVO_SHORT = new Short("1");
+    public static final Short ESTADO_ACTIVO_SHORT = 1;
             
 }
