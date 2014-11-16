@@ -10,28 +10,39 @@
         </ui:define>	
         <ui:define name="body">
             <div class="col-md-12">
-                <div class="portlet box blue">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="fa fa-reorder"></i>#{mainPage.titulo}
+                <c:if test="#{empty mainPage.itemMenus}">
+                    <div class="col-md-1">                
+                    </div>
+                    <div class="col-md-4">
+                        <img src="resources/images/uc.png" class="img-responsive"/>
+                    </div>
+                    <div class="col-md-6">
+                        <h1 style="font-weight: bold">Esta página esta en Construcción, pero pronto estará disponible.</h1>
+                    </div>
+                </c:if>
+                <c:if test="#{!empty mainPage.itemMenus}">
+                    <div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-reorder"></i>#{mainPage.titulo}
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <c:forEach var="sis" items="#{mainPage.itemMenus}">
+                                <h:link
+                                    outcome="#{sis.pagiMenuMnu == null ? '/main.xhtml' : sis.pagiMenuMnu}"
+                                    styleClass="icon-btn" style="height: 90px !important;">
+                                    <i class="fa">
+                                        <img alt="" src="#{request.contextPath}/resources/images/plantilla/Clipboard.png" />
+                                    </i>
+                                    <div>#{sis.nombMenuMnu}</div>
+                                    <f:param name="nivel1" value="#{param.nivel1}" />
+                                    <f:param name="nivel2" value="#{sis.idenMenuMnu}" />
+                                </h:link>
+                            </c:forEach>                        
                         </div>
                     </div>
-                    <div class="portlet-body">
-                        <c:forEach var="sis" items="#{mainPage.itemMenus}">
-                            <h:link
-                                outcome="#{sis.pagiMenuMnu == null ? '/main.xhtml' : sis.pagiMenuMnu}"
-                                styleClass="icon-btn" style="height: 90px !important;">
-                                <i class="fa">
-                                    <img alt="" src="#{request.contextPath}/resources/images/plantilla/Clipboard.png" />
-                                </i>
-                                <div>#{sis.nombMenuMnu}</div>
-                                <f:param name="nivel1" value="#{param.nivel1}" />
-                                <f:param name="nivel2" value="#{sis.idenMenuMnu}" />
-                            </h:link>
-
-                        </c:forEach>
-                    </div>
-                </div>
+                </c:if>
             </div>
         </ui:define>
     </ui:composition>

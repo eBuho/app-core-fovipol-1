@@ -50,6 +50,16 @@ public class MaeEntidaddetFacade extends AbstractFacade<MaeEntidaddet> {
         lista = q.getResultList();
         return lista;
     }
+    public List<MaeEntidaddet> findDetalleActivoCaja(MaeEntidad padre,BigDecimal caja) {
+        List<MaeEntidaddet> lista = null;
+        String sql = "select d from MaeEntidaddet d where d.codiEntiEnt.codiEntiEnt = :codiEntiEnt and d.flagEstaDet<>"+
+                Constantes.VALOR_ESTADO_INACTIVO+" and d.valoNumuDet=:caja order by d.secuEntiDet";
+        Query q = em.createQuery(sql);
+        q.setParameter("codiEntiEnt", padre.getCodiEntiEnt());
+        q.setParameter("caja", caja);
+        lista = q.getResultList();
+        return lista;
+    }
     
     public BigDecimal obtenerCorrelativo() {
         BigDecimal id = new BigDecimal(0);

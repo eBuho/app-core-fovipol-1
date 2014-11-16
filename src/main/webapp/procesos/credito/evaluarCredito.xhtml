@@ -569,7 +569,19 @@
                                                         </h:outputText>
                                                     </div>
                                                 </div>
-                                            </div>                            
+                                            </div>
+                                            <div class="col-md-12 margen">
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Cuota :"/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.impoCuotSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>                                            
+                                            </div>  
                                         </p:fieldset>                            
                                     </div>                    
                                     <div class="col-md-6 margen">

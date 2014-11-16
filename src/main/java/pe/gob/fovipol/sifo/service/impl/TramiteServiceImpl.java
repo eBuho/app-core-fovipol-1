@@ -198,7 +198,7 @@ public class TramiteServiceImpl implements TramiteService {
                 ejbCreditoFacade.edit(credito);
                 short i=1;
                 for(CrdCanalcobra canal:canales){
-                    if(canal.getImpoCobrCdc()!=null){
+                    if(canal.getImpoCobrCdc()!=null && canal.getImpoCobrCdc().compareTo(BigDecimal.ZERO)==1){
                         canal.getCrdCanalcobraPK().setSecuCanaCdc(i);
                         canal.getCrdCanalcobraPK().setIdenCredCrd(credito.getIdenCredCrd().toBigInteger());
                         canal.setFechModiAud(new Date());

@@ -217,7 +217,7 @@ public class EvaluarCreditoController implements Serializable {
     public void contarCanalCobranza() {
         totalPago = BigDecimal.ZERO;
         for (CrdCanalcobra ccobra : canales) {
-            if (ccobra.getImpoCobrCdc() != null) {
+            if (ccobra.getImpoCobrCdc() != null && ccobra.getImpoCobrCdc().compareTo(BigDecimal.ZERO)==1) {
                 totalPago = totalPago.add(ccobra.getImpoCobrCdc());
             }
         }

@@ -153,7 +153,7 @@ public class RegistrarExpedienteController implements Serializable {
         }
         productos = ejbProductoFacade.findAll();
         gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_GRADO_PARENTESCO));
-        cargarCanalesCobranza();
+        //cargarCanalesCobranza();
         //beneficiaria = false;
     }
 
@@ -187,9 +187,12 @@ public class RegistrarExpedienteController implements Serializable {
     }
 
     public void cargarCanalesCobranza() {
+        System.out.println("Cargando canales de cobranza --->>>>>>");
         if (tramite.getIdenExpeTrm() == null) {
-
-            canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA));
+            if(socio!=null)
+                canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivoCaja(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA),maximoDescuento);
+            else
+                canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA));
             canales = new ArrayList<>();
             short i = 1;
             for (MaeEntidaddet aux : canalesCobranza) {
@@ -199,10 +202,12 @@ public class RegistrarExpedienteController implements Serializable {
                 c.getCrdCanalcobraPK().setSecuCanaCdc(i);
                 c.setCodiCanaCob(aux.getSecuEntiDet());
                 c.setFlagEstaCdc(Constantes.VALOR_ESTADO_ACTIVO);
+                c.setImpoCobrCdc(BigDecimal.ZERO);
                 i++;
                 canales.add(c);
                 //}                    
             }
+            totalPago=BigDecimal.ZERO;
 
         } else {
             canales = ejbCanalFacade.findByCredito(credito);
@@ -423,6 +428,7 @@ public class RegistrarExpedienteController implements Serializable {
             } else {
                 maximoDescuento = BigDecimal.ZERO;
             }
+            cargarCanalesCobranza();
             if (this.socio.getMaePersona().getCodiPerpPer() != null) {
                 MaePersona aux = this.socio.getMaePersona().getCodiPerpPer();
                 if (aux.getFechFallPer() != null) {
