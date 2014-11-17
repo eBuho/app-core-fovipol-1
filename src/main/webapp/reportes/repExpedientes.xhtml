@@ -42,7 +42,7 @@
                     </p:panelGrid>
 
                     <p:panelGrid columns="1">
-                        
+
                         <jr:reportLink id="reportLink" format="pdf" target="blank" 
                                        source="#{reporteCreditoController.expedientes}" 
                                        value="classpath:jasper/expediente.jasper">
@@ -53,13 +53,13 @@
                             <f:param name="P_Moneda" 
                                      value="#{reporteCreditoController.moneda.valoCaduDet}"/>
                             <h:outputText value="Ver Reporte" />
-                                
+
                         </jr:reportLink>
                         <f:view>
                             <p:dataTable id="dataTable"
-                                value="#{reporteCreditoController.listaCreditos}" 
-                                var="item" 
-                                >
+                                         value="#{reporteCreditoController.listaCreditos}" 
+                                         var="item" emptyMessage="No encontraron Registros"
+                                         >
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Expediente"/>
@@ -70,7 +70,9 @@
                                     <f:facet name="header">
                                         <h:outputText value="Fecha"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.fechAproCrd}"/>
+                                    <h:outputText value="#{item.fechAproCrd}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">
