@@ -36,7 +36,7 @@
                                         :MaeSocioListForm:pestanaProceso:datalist:viewButton :MaeSocioListForm:pestanaProceso:datalist:deleteButton
                                         :MaeSocioListForm:pestanaProceso:datalist,:MaeSocioListForm:pestanaProceso:datalistFamiliar"/>
                                 <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-                                <p:column>
+                                <p:column rendered="false">
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_codiPersPer}"/>
                                     </f:facet>
@@ -134,7 +134,7 @@
                                     </f:facet>
                                     <h:outputText value="#{item.numeCel2Per}"/>
                                 </p:column>
-                                <p:column>
+                                <p:column rendered="false">
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_fechFallPer}"/>
                                     </f:facet>
@@ -254,13 +254,13 @@
                                     </f:facet>
                                     <h:outputText value="#{item.codiPerpPer}"/>
                                 </p:column>
-                                <p:column>
+                                <p:column rendered="false">
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_ubigNaciPer}"/>
                                     </f:facet>
                                     <h:outputText value="#{item.ubigNaciPer.nombUbigUbi}"/>
                                 </p:column>
-                                <p:column>
+                                <p:column rendered="false">
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_ubigResiPer}"/>
                                     </f:facet>
