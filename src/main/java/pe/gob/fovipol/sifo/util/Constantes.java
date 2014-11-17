@@ -7,9 +7,26 @@ import javax.faces.bean.ApplicationScoped;
 @ManagedBean(name = "constantes")
 @ApplicationScoped
 public class Constantes implements Serializable {
+    //Entidad Tipo Área
+    public static final String ENTIDAD_CODIGO_TELEFONICO = "CODITELFIJO";
+    //Entidad Tipo Área
     public static final String ENTIDAD_TIPO_AREA = "TIPOAREAARE";
     //Entidad Grado Parentesco
     public static final String ENTIDAD_GRADO_PARENTESCO = "GRADPAREPER";
+    //Entidad Tipo Documento Identidad
+    public static final String ENTIDAD_TIPO_DOCUMENTO_IDENTIDAD = "TIPOIDENPER";
+    //Entidad Unidad Trabajo
+    public static final String ENTIDAD_UNIDAD_TRABAJO = "UNIDTRABSOC";
+    //Entidad Unidad Trabajo
+    public static final String ENTIDAD_ESTADO_CIVIL = "ESTACIVIPER";
+    //Entidad Sexo Persona
+    public static final String ENTIDAD_SEXO_PERSONA = "SEXOPERSPER";
+    //Entidad Motivo Bloqueo
+    public static final String ENTIDAD_MOTIVO_BLOQUEO = "MOTIBLOQPER";
+    //Entidad Tipo Profesión
+    public static final String ENTIDAD_TIPO_PROFESION = "TIPOPROFPER";
+    //Entidad Tipo Policía
+    public static final String ENTIDAD_TIPO_POLICIA = "TIPOPOLISOC";
     //Entidad Tipo Moneda
     public static final String ENTIDAD_TIPO_MONEDA = "CODIMONECRD";
     //Entidad Grado Parentesco
@@ -52,6 +69,59 @@ public class Constantes implements Serializable {
     //Valor Nivel UBIGEO='DISTRITO'
     public static final String NIVEL_UBIGEO_DISTRITO="Distrito"; 
     public static final Short VALOR_NIVEL_UBIGEO_DISTRITO=3;
+
+    /**
+     * @return the ENTIDAD_TIPO_DOCUMENTO_IDENTIDAD
+     */
+    public String getENTIDAD_TIPO_DOCUMENTO_IDENTIDAD() {
+        return ENTIDAD_TIPO_DOCUMENTO_IDENTIDAD;
+    }
+    
+    public String getENTIDAD_CODIGO_TELEFONICO() {
+        return ENTIDAD_CODIGO_TELEFONICO;
+    }
+
+    /**
+     * @return the ENTIDAD_UNIDAD_TRABAJO
+     */
+    public String getENTIDAD_UNIDAD_TRABAJO() {
+        return ENTIDAD_UNIDAD_TRABAJO;
+    }
+
+    /**
+     * @return the ENTIDAD_ESTADO_CIVIL
+     */
+    public String getENTIDAD_ESTADO_CIVIL() {
+        return ENTIDAD_ESTADO_CIVIL;
+    }
+
+    /**
+     * @return the ENTIDAD_SEXO_PERSONA
+     */
+    public String getENTIDAD_SEXO_PERSONA() {
+        return ENTIDAD_SEXO_PERSONA;
+    }
+
+    /**
+     * @return the ENTIDAD_MOTIVO_BLOQUEO
+     */
+    public String getENTIDAD_MOTIVO_BLOQUEO() {
+        return ENTIDAD_MOTIVO_BLOQUEO;
+    }
+
+    /**
+     * @return the ENTIDAD_TIPO_PROFESION
+     */
+    public String getENTIDAD_TIPO_PROFESION() {
+        return ENTIDAD_TIPO_PROFESION;
+    }
+
+    /**
+     * @return the ENTIDAD_TIPO_POLICIA
+     */
+    public String getENTIDAD_TIPO_POLICIA() {
+        return ENTIDAD_TIPO_POLICIA;
+    }
 
     /**
      * @return the ENTIDAD_PAGOS_SOCIO

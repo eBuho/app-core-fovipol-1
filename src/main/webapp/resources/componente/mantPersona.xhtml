@@ -2,17 +2,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
-
     <!-- INTERFACE -->
     <cc:interface>
         <cc:attribute name="value"/>
         <cc:attribute name="crear"/>
     </cc:interface>
-
     <!-- IMPLEMENTATION -->
     <cc:implementation> 
         <p:panelGrid columns="6" rendered="#{cc.attrs.value.selected != null}">
@@ -33,7 +30,7 @@
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeIdenPer}" for="numeIdenPer" />
             <p:inputText id="numeIdenPer" value="#{cc.attrs.value.selected.numeIdenPer}" title="#{bundle.CreateMaePersonaTitle_numeIdenPer}" />
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_direPersPer}" for="direPersPer" />
-            <p:inputText id="direPersPer" value="#{cc.attrs.value.selected.direPersPer}" title="#{bundle.CreateMaePersonaTitle_direPersPer}" />
+            <p:inputTextarea rows="3" styleClass="inputLargo" autoResize="false" id="direPersPer" value="#{cc.attrs.value.selected.direPersPer}" title="#{bundle.CreateMaePersonaTitle_direPersPer}" />
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_estaCiviPer}" for="estaCiviPer" />                        
             <p:selectOneMenu value="#{cc.attrs.value.selected.estaCiviPer}" id="estaCiviPer">
                 <f:selectItems value="#{cc.attrs.value.estadosCiviles}" var="doc" 
@@ -45,7 +42,7 @@
                                itemValue="#{sexo.secuEntiDet}" itemLabel="#{sexo.valoCaduDet}"/>
             </p:selectOneMenu>                        
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_fechNaciPer}" for="fechNaciPer" />
-            <p:calendar id="fechNaciPer" pattern="dd/MM/yyyy" value="#{cc.attrs.value.selected.fechNaciPer}" title="#{bundle.EditMaePersonaTitle_fechNaciPer}"  showOn="button"/>
+            <p:calendar size="15" lang="es" locale="es" id="fechNaciPer" pattern="dd/MM/yyyy" value="#{cc.attrs.value.selected.fechNaciPer}" title="#{bundle.EditMaePersonaTitle_fechNaciPer}"  showOn="button"/>
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeTelcPer}"/>
             <comp:telefono value="#{cc.attrs.value.selected.numeTelcPer}"/>            
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeTeltPer}" />

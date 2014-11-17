@@ -47,7 +47,10 @@ public class MaePersonaFacade extends AbstractFacade<MaePersona> {
         List<MaePersona> lista = null;
         String sql = "select d from MaePersona d where d.codiPerpPer.codiPersPer = :codiPerpPer";
         Query q = em.createQuery(sql);
-        q.setParameter("codiPerpPer", padre.getCodiPersPer());
+        if(padre!=null)
+            q.setParameter("codiPerpPer", padre.getCodiPersPer());
+        else
+            q.setParameter("codiPerpPer", null);
         lista = q.getResultList();
         return lista;
     }

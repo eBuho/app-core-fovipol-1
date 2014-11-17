@@ -17,6 +17,7 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 @FacesComponent("inputTelefono")
 public class InputTelefono extends UIInput implements NamingContainer {
@@ -51,7 +52,7 @@ public class InputTelefono extends UIInput implements NamingContainer {
             numero.setValue(split[1]);
             prefijo.setValue(split[0]);
         }
-        setPrefijos(ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("CODITELEFON")));        
+        setPrefijos(ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CODIGO_TELEFONICO)));        
         super.encodeBegin(context);
     }
 

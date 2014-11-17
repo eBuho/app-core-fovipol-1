@@ -3,24 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
-
     <ui:composition>
-
         <p:dialog id="MaePersonaCreateDlg" widgetVar="MaePersonaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMaePersonaTitle}">
             <h:form id="MaePersonaCreateForm">
-                <h:panelGroup id="display">
-                    
-                        <comp:mantPersona value="#{maePersonaController}" crear="true"/>
-                        
-                    
+                <h:panelGroup id="display">                    
+                    <comp:mantPersona value="#{maePersonaController}" crear="true"/>
                     <p:commandButton actionListener="#{maePersonaController.create}" value="#{bundle.Save}" update="display,:MaePersonaListForm:datalist,:MaeSocioListForm:pestanaProceso:datalistFamiliar,:growl" oncomplete="handleSubmit(args,'MaePersonaCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaePersonaCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
     </ui:composition>
 </html>
