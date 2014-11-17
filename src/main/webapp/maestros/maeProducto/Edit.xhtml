@@ -40,9 +40,16 @@
                         <p:inputText id="montDeudPrd" value="#{maeProductoController.selected.montDeudPrd}" title="#{bundle.EditMaeProductoTitle_montDeudPrd}" />
                         <p:outputLabel value="#{bundle.EditMaeProductoLabel_autoCdobPrd}" for="autoCdobPrd" />
                         <p:inputText id="autoCdobPrd" value="#{maeProductoController.selected.autoCdobPrd}" title="#{bundle.EditMaeProductoTitle_autoCdobPrd}" required="true" requiredMessage="#{bundle.EditMaeProductoRequiredMessage_autoCdobPrd}"/>
-                        <p:outputLabel value="#{bundle.EditMaeProductoLabel_descRequPrd}" for="descRequPrd" />
-                        <p:inputTextarea style="resize: none"  autoResize="false" id="descRequPrd" value="#{maeProductoController.selected.descRequPrd}" title="#{bundle.EditMaeProductoTitle_descRequPrd}"
-                                         cols="50"/>
+                        
+                        <p:outputLabel value="#{bundle.EditMaeProductoLabel_idenProcPrc}" for="idenProcPrc" />
+                        <p:selectOneMenu id="idenProcPrc" value="#{maeProductoController.selected.idenProcPrc}" 
+                                             style=" width: 450px">
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{maeProcesoController.itemsAvailableSelectOne}"
+                                               var="idenProcPrcItem" itemLabel="#{idenProcPrcItem.nombProcPrc}"
+                                               itemValue="#{idenProcPrcItem}"/>
+                            </p:selectOneMenu>
+                        
                         <p:outputLabel value="#{bundle.EditMaeProductoLabel_formCalcPrd}" for="formCalcPrd" />
                         <p:inputText id="formCalcPrd" value="#{maeProductoController.selected.formCalcPrd}" title="#{bundle.EditMaeProductoTitle_formCalcPrd}" />
                         <p:outputLabel value="#{bundle.EditMaeProductoLabel_flagEstaPrd}" for="flagEstaPrd" />
@@ -60,16 +67,11 @@
                     </p:panelGrid>
                     <p:panelGrid columns="6" rendered="#{maeProductoController.selected != null}">
                         <p:column>
-                            <p:outputLabel value="#{bundle.EditMaeProductoLabel_idenProcPrc}" for="idenProcPrc" />
+                            <p:outputLabel value="#{bundle.EditMaeProductoLabel_descRequPrd}" for="descRequPrd" />
                         </p:column>
                         <p:column colspan="5">
-                            <p:selectOneMenu id="idenProcPrc" value="#{maeProductoController.selected.idenProcPrc}" 
-                                             style=" width: 350px">
-                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                                <f:selectItems value="#{maeProcesoController.itemsAvailableSelectOne}"
-                                               var="idenProcPrcItem" itemLabel="#{idenProcPrcItem.nombProcPrc}"
-                                               itemValue="#{idenProcPrcItem}"/>
-                            </p:selectOneMenu>
+                            <p:inputTextarea style="resize: none"  autoResize="false" id="descRequPrd" value="#{maeProductoController.selected.descRequPrd}" title="#{bundle.EditMaeProductoTitle_descRequPrd}"
+                                         cols="100"/>
                         </p:column>
                     </p:panelGrid>     
                     
