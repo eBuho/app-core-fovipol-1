@@ -139,6 +139,7 @@ public class RegistrarExpedienteController implements Serializable {
                     netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
                     cargarRequisitos();
                     esPrestamo = true;
+                    cargarCanalesCobranza();
                 } else {
                     cargarRequisitos();
                 }
@@ -153,7 +154,7 @@ public class RegistrarExpedienteController implements Serializable {
         }
         productos = ejbProductoFacade.findAll();
         gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_GRADO_PARENTESCO));
-        cargarCanalesCobranza();
+        //cargarCanalesCobranza();
         //beneficiaria = false;
     }
 
@@ -188,8 +189,15 @@ public class RegistrarExpedienteController implements Serializable {
 
     public void cargarCanalesCobranza() {
         if (tramite.getIdenExpeTrm() == null) {
-
-            canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA));
+            BigDecimal canalTipo;
+            if(maximoDescuento.compareTo(new BigDecimal(50))==0)
+                canalTipo=new BigDecimal(BigInteger.ONE);
+            else
+                canalTipo=new BigDecimal(new BigInteger("2"));
+            if(socio!=null)
+                canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivoCaja(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA),canalTipo);
+            else
+                canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA));
             canales = new ArrayList<>();
             short i = 1;
             for (MaeEntidaddet aux : canalesCobranza) {
@@ -199,11 +207,14 @@ public class RegistrarExpedienteController implements Serializable {
                 c.getCrdCanalcobraPK().setSecuCanaCdc(i);
                 c.setCodiCanaCob(aux.getSecuEntiDet());
                 c.setFlagEstaCdc(Constantes.VALOR_ESTADO_ACTIVO);
+                c.setImpoCobrCdc(BigDecimal.ZERO);
+                if(i==1)
+                   c.setImpoCobrCdc(tramite.getIdenSimuSim().getImpoCuotSim()); 
                 i++;
                 canales.add(c);
                 //}                    
-            }
-
+            }            
+            contarCanalCobranza();
         } else {
             canales = ejbCanalFacade.findByCredito(credito);
             contarCanalCobranza();
@@ -240,6 +251,7 @@ public class RegistrarExpedienteController implements Serializable {
         cargarSeguros();
         CrdSimulacion simu = tramite.getIdenSimuSim();
         netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+        cargarCanalesCobranza();
     }
 
     public void cargarRequisitos() {
@@ -424,6 +436,7 @@ public class RegistrarExpedienteController implements Serializable {
                 maximoDescuento = BigDecimal.ZERO;
             }
             if (this.socio.getMaePersona().getCodiPerpPer() != null) {
+                simulaciones=new ArrayList<>();
                 MaePersona aux = this.socio.getMaePersona().getCodiPerpPer();
                 if (aux.getFechFallPer() != null) {
                     if (this.socio.getMaePersona().getGradParePer() == 1) {

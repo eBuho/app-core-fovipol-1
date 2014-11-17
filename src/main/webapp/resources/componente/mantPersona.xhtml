@@ -54,10 +54,6 @@
             <p:inputText id="corrElecPer" value="#{cc.attrs.value.selected.corrElecPer}" title="#{bundle.CreateMaePersonaTitle_corrElecPer}" />
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeCeluPer}" for="numeCeluPer" />
             <p:inputText id="numeCeluPer" value="#{cc.attrs.value.selected.numeCeluPer}" title="#{bundle.CreateMaePersonaTitle_numeCeluPer}" />
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_numeCel2Per}" for="numeCel2Per" />
-            <p:inputText id="numeCel2Per" value="#{cc.attrs.value.selected.numeCel2Per}" title="#{bundle.CreateMaePersonaTitle_numeCel2Per}" />
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_fechFallPer}" for="fechFallPer" />
-            <p:calendar id="fechFallPer" pattern="dd/MM/yyyy" value="#{cc.attrs.value.selected.fechFallPer}" title="#{bundle.EditMaePersonaTitle_fechFallPer}"  showOn="button"/>
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_tipoProfPer}" for="tipoProfPer" />
             <p:selectOneMenu value="#{cc.attrs.value.selected.tipoProfPer}" id="tipoProfPer">
                 <f:selectItems value="#{cc.attrs.value.profesiones}" var="prof" 
@@ -67,21 +63,6 @@
             <p:inputText id="refeUbigPer" value="#{cc.attrs.value.selected.refeUbigPer}" title="#{bundle.CreateMaePersonaTitle_refeUbigPer}" />
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_mediTallPer}" for="mediTallPer" />
             <p:inputText id="mediTallPer" value="#{cc.attrs.value.selected.mediTallPer}" title="#{bundle.CreateMaePersonaTitle_mediTallPer}" />
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_rutaFotoPer}" for="rutaFotoPer" />
-            <p:inputText id="rutaFotoPer" value="#{cc.attrs.value.selected.rutaFotoPer}" title="#{bundle.CreateMaePersonaTitle_rutaFotoPer}" />
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_flagBloqPer}" for="flagBloqPer" />
-            <p:inputText id="flagBloqPer" value="#{cc.attrs.value.selected.flagBloqPer}" title="#{bundle.CreateMaePersonaTitle_flagBloqPer}" />
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_motiBloqPer}" for="motiBloqPer" />
-            <p:selectOneMenu value="#{cc.attrs.value.selected.motiBloqPer}" id="motiBloqPer">
-                <f:selectItems value="#{cc.attrs.value.bloqueos}" var="bloq" 
-                               itemValue="#{bloq.secuEntiDet}" itemLabel="#{bloq.valoCaduDet}"/>
-            </p:selectOneMenu>                        
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_flagHomoPer}" for="flagHomoPer" />
-            <p:inputText id="flagHomoPer" value="#{cc.attrs.value.selected.flagHomoPer}" title="#{bundle.CreateMaePersonaTitle_flagHomoPer}" />
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_docuHomoPer}" for="docuHomoPer" />
-            <p:inputText id="docuHomoPer" value="#{cc.attrs.value.selected.docuHomoPer}" title="#{bundle.CreateMaePersonaTitle_docuHomoPer}" />
-            <p:outputLabel value="#{bundle.CreateMaePersonaLabel_grpoSangPer}" for="grpoSangPer" />
-            <p:inputText id="grpoSangPer" value="#{cc.attrs.value.selected.grpoSangPer}" title="#{bundle.CreateMaePersonaTitle_grpoSangPer}" />
             <p:outputLabel value="#{bundle.CreateMaePersonaLabel_gradParePer}" for="gradParePer" />
             <p:selectOneMenu value="#{cc.attrs.value.selected.gradParePer}" id="gradParePer" disabled="#{cc.attrs.value.selected.codiPerpPer==null}">
                 <f:selectItem itemValue="" itemLabel="Seleccione Parentesco"/>
@@ -94,9 +75,9 @@
                 <f:selectItem itemLabel="Inactivo" itemValue="0"/>
             </p:selectOneMenu>            
             <p:outputLabel value="Ubigeo de Nacimiento"  />
-            <comp:ubigeo value="#{cc.attrs.value.selected.ubigNaciPer}" />
+            <comp:ubigeo value="#{cc.attrs.value.selected.ubigNaciPer}" ancho="6" />
             <p:outputLabel value="Ubigeo de Residencia"  />
-            <comp:ubigeo value="#{cc.attrs.value.selected.ubigResiPer}" />
+            <comp:ubigeo value="#{cc.attrs.value.selected.ubigResiPer}" ancho="6"/>
         </p:panelGrid>        
     </cc:implementation>
 </html>

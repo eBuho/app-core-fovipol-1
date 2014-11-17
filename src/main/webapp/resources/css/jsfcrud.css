@@ -88,3 +88,6 @@
     text-indent: 0px;
     background: inherit;
 }
+.label-espacio{
+    margin-top: 5px !important;
+}

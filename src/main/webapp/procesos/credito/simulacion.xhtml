@@ -25,8 +25,16 @@
                     backdrop: 'static'
                 });
             }
+            $(document).ready(function () {
+                $(window).keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        event.preventDefault();
+                        return false;
+                    }
+                });
+            });
         </script>
-        <div class="col-md-12">
+        <div class="col-md-12  espacio-div">
             <div class="portlet box green" style="border: none">
                 <div class="portlet-title">
                     <div class="caption">
@@ -53,7 +61,7 @@
                         <div style="height: 20px;"></div>
                     </h:form>
                     <h:form id="formSimulacion"  > 
-                        <div class="col-md-12">
+                        <div class="col-md-12  espacio-div">
                             <p:panel id="panelInicio" styleClass="panel">
                                 <div class="col-md-12">
                                     <h:outputText value="Simulador de créditos"/> 
@@ -64,7 +72,7 @@
                                     <h:outputText value="Productos: "/>
                                 </div>
                                 <div class="col-md-12">
-                                    <h:selectOneMenu id="comboProducto" styleClass="form-control"  style="width: 200px;" value="#{simulacionController.producto}">
+                                    <h:selectOneMenu id="comboProducto" styleClass="form-control"  style="width: 250px;" value="#{simulacionController.producto}">
                                         <f:selectItem itemValue="" itemLabel="Seleccione un Producto"/>
                                         <f:selectItems value="#{simulacionController.productos}" var="producto"
                                                        itemLabel="#{producto.nombProdPrd}" itemValue="#{producto}"/>
@@ -74,13 +82,13 @@
                             </p:panel>
                         </div>
                         <br/>
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <p:fieldset  id="ingresosF" legend="Ingresos" styleClass="fieldSet" style="margin-right: 10px;margin-top: 10px;">
+                        <div class="col-md-12  espacio-div">
+                            <div class="col-md-6  espacio-div">
+                                <p:fieldset  id="ingresosF" legend="Ingresos" styleClass="fieldSet  espacio-div">
                                     <div class="col-md-12">
-                                        <p:panel id="ingresos" styleClass="panel">
-                                            <div class="col-md-6 espacio-div">
-                                                <h:outputText value="Remu. Consolidada (S/.)"/>
+                                        <p:panel id="ingresos" styleClass="panel  espacio-div">
+                                            <div class="col-md-6 espacio-div" style="margin-top: 5px;">
+                                                <h:outputText value="Remu. Consolidada (S/.)" />
                                             </div>
                                             <div class="col-md-6 espacio-div">
                                                 <p:inputText label="Remu. Consolidada" value="#{simulacionController.simulacion.ingrBrtoSim}" disabled="#{simulacionController.producto.idenProdPrd==null}">
@@ -140,10 +148,10 @@
                                     </div>
                                 </p:fieldset>
                             </div>
-                            <div class="col-md-6">
-                                <p:fieldset id="endeudamientoF" styleClass="fieldSet" legend="Nivel de Endeudamiento" style="margin-right: 10px;margin-top: 10px;">
-                                    <div class="col-md-12">
-                                        <p:panel id="endeudamiento" styleClass="panel">
+                            <div class="col-md-6 espacio-div">
+                                <p:fieldset id="endeudamientoF" styleClass="fieldSet espacio-div" legend="Nivel de Endeudamiento">
+                                    <div class="col-md-12  espacio-div">
+                                        <p:panel id="endeudamiento" styleClass="panel  espacio-div">
                                             <div class="col-md-6 espacio-div">
                                                 <h:outputText value="Total Aporte (S/.)"/>
                                             </div>
@@ -203,10 +211,10 @@
                                     </div>
                                 </p:fieldset>
                             </div>
-                            <div class="col-md-12">
-                                <p:fieldset styleClass="fieldSet" legend="Capacidad de Crédito" style="margin-right: 10px;margin-top: 10px;">
-                                    <div class="col-md-12">
-                                        <p:panel id="capacidadCredito" styleClass="panel">
+                            <div class="col-md-12  espacio-div">
+                                <p:fieldset styleClass="fieldSet  espacio-div" legend="Capacidad de Crédito">
+                                    <div class="col-md-12  espacio-div">
+                                        <p:panel id="capacidadCredito" styleClass="panel  espacio-div">
                                             <div class="col-md-3 espacio-div">
                                                 <h:outputText value="Máxima Cuota (S/.)"/>
                                             </div>
@@ -227,9 +235,9 @@
                                     </div>
                                 </p:fieldset>
                             </div>
-                            <div class="col-md-12">
-                                <p:fieldset  styleClass="fieldSet" legend="Condiciones" style="margin-right: 10px;margin-top: 10px;">
-                                    <div class="col-md-12">
+                            <div class="col-md-12 espacio-div">
+                                <p:fieldset  styleClass="fieldSet espacio-div" legend="Condiciones">
+                                    <div class="col-md-12 espacio-div">
                                         <p:panel styleClass="panel" id="condiciones">
                                             <div class="col-md-12 espacio-div">
                                                 <div class="col-md-6 espacio-div">
@@ -314,10 +322,12 @@
                                             </div>
                                             <div class="col-md-12 espacio-div">
                                                 <div class="col-md-6 espacio-div">
-                                                    <div class="col-md-6 espacio-div">
+                                                    <div class="col-md-3 espacio-div">
                                                         <h:outputText value="Nacimiento " />
-                                                        <p:inputText disabled="true" value="#{simulacionController.edad}" id="edad" size="3" style="width: 40px;"/>
-                                                        <p:calendar disabled="true" size="15" value="#{simulacionController.socio.maePersona.fechNaciPer}" locale="es" lang="es" > 
+                                                        </div>
+                                                    <div class="col-md-3 espacio-div">
+                                                        <p:inputText disabled="true" value="#{simulacionController.edad}" id="edad" size="2" style="width: 30px;"/>
+                                                        <p:calendar disabled="true" size="10" value="#{simulacionController.socio.maePersona.fechNaciPer}" locale="es" lang="es" > 
                                                             <p:ajax update="edad" event="dateSelect" listener="#{simulacionController.calcularEdad}"/>
                                                             <p:ajax update="edad" event="change" listener="#{simulacionController.calcularEdad}"/>
                                                         </p:calendar>
@@ -384,25 +394,25 @@
                                             </div>
                                             <p:panel id="resultado" styleClass="panel">                                                                                       
                                                 <div class="col-md-12" style="font-weight: bold;">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <h:outputText value="Código de Simulación:"/>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h:outputText value="#{simulacionController.simulacion.idenSimuSim}"/>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <h:outputText value="Producto:"/>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h:outputText value="#{simulacionController.simulacion.idenProdPrd.nombProdPrd}"/>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <h:outputText value="Moneda del Crédito:"/>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <comp:entidadDetalle entidad="#{constantes.ENTIDAD_TIPO_MONEDA}" value="#{simulacionController.simulacion.codiMoneCrd}"/>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <h:outputText value="Monto a financiar"/>
                                                     </div>
                                                     <div class="col-md-6">
@@ -410,7 +420,7 @@
                                                             <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
                                                         </h:outputText>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <h:outputText value="TEA (%)"/>
                                                     </div>
                                                     <div class="col-md-6">
@@ -418,7 +428,7 @@
                                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                                         </h:outputText>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <h:outputText value="Monto de cuota Ordinaria"/>
                                                     </div>
                                                     <div class="col-md-6">
@@ -426,13 +436,13 @@
                                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                                         </h:outputText>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <h:outputText value="Plazo de Crédito"/>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h:outputText value="#{simulacionController.simulacion.plazPresSim}"/>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <h:outputText value="Gastos Administrativos"/>
                                                     </div>
                                                     <div class="col-md-6">
@@ -440,7 +450,7 @@
                                                             <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                                         </h:outputText>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <h:outputText value="Monto a entregar"/>
                                                     </div>
                                                     <div class="col-md-6">

@@ -33,7 +33,7 @@
                     </div>
                     <div class="portlet-body" > 
 
-                        <p:remoteCommand  name="actualiza" update="formRegistroExpediente"/>
+                        <p:remoteCommand  name="actualiza" update=":formRegistroExpediente:acciones"/>
                         <div class="col-md-12" style="margin-bottom: 10px;">
                             <p:commandButton icon="ui-icon-plus" update="formRegistroExpediente" value="Nuevo" actionListener="#{registrarExpedienteController.nuevoTramite}">
                                 <p:confirm header="Confirmación" message="¿Esta seguro perderá los cambios que no guardo?" icon="ui-icon-alert" />
@@ -46,8 +46,8 @@
                         <div class="col-md-12"> 
                             <div class="col-md-12">
                                 <comp:consultaIntegralSocio rendered="#{registrarExpedienteController.tramite.idenExpeTrm==null}"
-                                                            actualizar=":formRegistroExpediente:informacion,:formRegistroExpediente:canalesCobranza,:formRegistroExpediente:comboProducto" 
-                                                            socio="#{registrarExpedienteController.socio}"/>                            
+                                    actualizar=":formRegistroExpediente:informacion,:formRegistroExpediente:canalesCobranza,:formRegistroExpediente:comboProducto" 
+                                    socio="#{registrarExpedienteController.socio}"/>                            
                             </div>
                             <p:spacer width="10"/>
                             <p:fieldset legend="Información" styleClass="fieldSet" id="informacion" >
@@ -458,7 +458,7 @@
                                                     <f:selectItem itemValue="" itemLabel="Seleccione una simulación"/>
                                                     <f:selectItems value="#{registrarExpedienteController.simulaciones}" var="simu"
                                                                    itemValue="#{simu.idenSimuSim}" /> 
-                                                    <p:ajax update="verSimulacion,datosSimulacion,panelSimulacion" listener="#{registrarExpedienteController.mostrarSimulacion()}"/>
+                                                    <p:ajax update="verSimulacion,datosSimulacion,panelSimulacion,canalesCobranza" listener="#{registrarExpedienteController.mostrarSimulacion()}"/>
                                                 </p:selectOneMenu>
                                             </div>                                        
                                         </div>
@@ -573,7 +573,19 @@
                                                     </h:outputText>
                                                 </div>
                                             </div>
-                                        </div>                            
+                                        </div>
+                                        <div class="col-md-12 margen">
+                                            <div class="col-md-6 sin-margen margen">
+                                                <div class="col-md-6 sin-margen">
+                                                    <h:outputText value="Cuota :"/>
+                                                </div>
+                                                <div class="col-md-6 sin-margen">
+                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.impoCuotSim}">
+                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                    </h:outputText>
+                                                </div>
+                                            </div>                                            
+                                        </div>    
                                     </p:fieldset>                            
                                 </div>                    
                                 <div class="col-md-6 margen">
@@ -703,7 +715,7 @@
                                                             </p:inputText>
                                                         </f:facet>
                                                     </p:cellEditor>
-                                                </p:column>
+                                                </p:column>  
                                                 <p:columnGroup type="footer">
                                                     <p:row>
                                                         <p:column style="text-align:right" footerText="Total:" />
@@ -741,7 +753,7 @@
                                 </div>                    
                             </p:fieldset>
                             <p:spacer width="20"/>
-                            <p:fieldset legend="Acciones" styleClass="fieldSet">
+                            <p:fieldset id="acciones" legend="Acciones" styleClass="fieldSet">
                                 <div class="col-md-12">
                                     <div class="col-md-1">
                                         <p:commandButton oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" disabled="#{registrarExpedienteController.enOtraArea}" actionListener="#{registrarExpedienteController.registrar()}" />
