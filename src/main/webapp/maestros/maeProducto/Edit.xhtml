@@ -63,11 +63,11 @@
                             <f:selectItems value="#{maeProductoController.monedas}" var="moneda" 
                                            itemValue="#{moneda.secuEntiDet}" itemLabel="#{moneda.valoCaduDet}"/>
                         </p:selectOneMenu> 
-
+                        
                     </p:panelGrid>
                     <p:panelGrid columns="6" rendered="#{maeProductoController.selected != null}">
                         <p:column>
-                            <p:outputLabel value="#{bundle.EditMaeProductoLabel_descRequPrd}" for="descRequPrd" />
+                            <p:outputLabel value="#{bundle.EditMaeProductoLabel_descRequPrd}" for="descRequPrd"/>
                         </p:column>
                         <p:column colspan="5">
                             <p:inputTextarea style="resize: none"  autoResize="false" id="descRequPrd" value="#{maeProductoController.selected.descRequPrd}" title="#{bundle.EditMaeProductoTitle_descRequPrd}"
