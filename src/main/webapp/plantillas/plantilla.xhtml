@@ -5,237 +5,238 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
     <!-- BEGIN HEAD -->
-    <h:head>
-        <script src="#{request.contextPath}/resources/metronic/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
-        <title><ui:insert name="title"/></title>
-        <ui:insert name="cabecera" />
+    <f:view locale="es-CR">
+        <h:head>
+            <script src="#{request.contextPath}/resources/metronic/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+            <title><ui:insert name="title"/></title>
+            <ui:insert name="cabecera" />
 
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <link
-            href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700Andsubset=all"
-            rel="stylesheet" type="text/css" />
-        <link
-            href="#{request.contextPath}/resources/metronic/plugins/font-awesome/css/font-awesome.min.css"
-            rel="stylesheet" type="text/css" />
-        <link href="#{request.contextPath}/resources/metronic/plugins/bootstrap/css/bootstrap.min.css"
-              rel="stylesheet" type="text/css" />
-        <link href="#{request.contextPath}/resources/metronic/plugins/bootstrap-select/bootstrap-select.css"
-              rel="stylesheet" type="text/css" />
-        <link href="#{request.contextPath}/resources/metronic/css/style-metronic.css" rel="stylesheet"
-              type="text/css" />
-        <link href="#{request.contextPath}/resources/metronic/css/style.css" rel="stylesheet"
-              type="text/css" />
-        <link href="#{request.contextPath}/resources/metronic/css/style-responsive.css"
-              rel="stylesheet" type="text/css" />
-        <link href="#{request.contextPath}/resources/metronic/css/plugins.css" rel="stylesheet"
-              type="text/css" />
-        <link href="#{request.contextPath}/resources/metronic/css/themes/default.css" rel="stylesheet"
-              type="text/css" id="style_color" />
-        <link href="#{request.contextPath}/resources/css/caja.css"
-              rel="stylesheet" type="text/css" />
-        <link href="#{request.contextPath}/resources/css/jsfcrud.css"
-              rel="stylesheet" type="text/css" />
-        <script src="#{request.contextPath}/resources/js/calendar_es.js"></script>
-        <link href='#{request.contextPath}/resources/metronic/plugins/bootstrap-datepicker/css/datepicker.css' rel='stylesheet' />
-        <link href='#{request.contextPath}/resources/metronic/plugins/bootstrap-datepicker/css/datepicker3.css' rel='stylesheet' />
-        <!-- END THEME STYLES -->
-    </h:head>
-    <!-- END HEAD -->
-    <body class="page-header-fixed">
-        
-        <!-- BEGIN HEADER -->
-        <div class="header navbar navbar-fixed-top">
-            <!-- BEGIN TOP NAVIGATION BAR -->
-            <div class="header-inner">
-                <!-- BEGIN LOGO -->
-                <a class="navbar-brand logo2" href="#{request.contextPath}/index.xhtml">
-                    SIFO
-                </a>
-                <a class="navbar-brand logo1" href="#{request.contextPath}/index.xhtml">
-                    SISTEMA INTEGRADO FOVIPOL
-                </a>		
-                <!-- END LOGO -->
-                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-                <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <img src="#{request.contextPath}/resources/metronic/img/menu-toggler.png" alt=""/>
-                </a>
-                <!-- END RESPONSIVE MENU TOGGLER -->
-                <!-- BEGIN TOP NAVIGATION MENU -->
-                <ul class="nav navbar-nav pull-right nav-pills">
-                    <li>
-                        <a href="#{request.contextPath}/en_construccion.xhtml">
-                            Mis Datos					
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#{request.contextPath}/en_construccion.xhtml">
-                            Ayuda					
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#{request.contextPath}/logout">
-                            Salir					
-                        </a>
-                    </li>	
-                    <!-- BEGIN USER LOGIN DROPDOWN -->		
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+            <link
+                href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700Andsubset=all"
+                rel="stylesheet" type="text/css" />
+            <link
+                href="#{request.contextPath}/resources/metronic/plugins/font-awesome/css/font-awesome.min.css"
+                rel="stylesheet" type="text/css" />
+            <link href="#{request.contextPath}/resources/metronic/plugins/bootstrap/css/bootstrap.min.css"
+                  rel="stylesheet" type="text/css" />
+            <link href="#{request.contextPath}/resources/metronic/plugins/bootstrap-select/bootstrap-select.css"
+                  rel="stylesheet" type="text/css" />
+            <link href="#{request.contextPath}/resources/metronic/css/style-metronic.css" rel="stylesheet"
+                  type="text/css" />
+            <link href="#{request.contextPath}/resources/metronic/css/style.css" rel="stylesheet"
+                  type="text/css" />
+            <link href="#{request.contextPath}/resources/metronic/css/style-responsive.css"
+                  rel="stylesheet" type="text/css" />
+            <link href="#{request.contextPath}/resources/metronic/css/plugins.css" rel="stylesheet"
+                  type="text/css" />
+            <link href="#{request.contextPath}/resources/metronic/css/themes/default.css" rel="stylesheet"
+                  type="text/css" id="style_color" />
+            <link href="#{request.contextPath}/resources/css/caja.css"
+                  rel="stylesheet" type="text/css" />
+            <link href="#{request.contextPath}/resources/css/jsfcrud.css"
+                  rel="stylesheet" type="text/css" />
+            <script src="#{request.contextPath}/resources/js/calendar_es.js"></script>
+            <link href='#{request.contextPath}/resources/metronic/plugins/bootstrap-datepicker/css/datepicker.css' rel='stylesheet' />
+            <link href='#{request.contextPath}/resources/metronic/plugins/bootstrap-datepicker/css/datepicker3.css' rel='stylesheet' />
+            <!-- END THEME STYLES -->
+        </h:head>
+        <!-- END HEAD -->
+        <body class="page-header-fixed">
 
-                    <!-- END USER LOGIN DROPDOWN -->
-                </ul>
-                <!-- END TOP NAVIGATION MENU -->
-            </div>
-            <!-- END TOP NAVIGATION BAR -->
-        </div>
-        <!-- END HEADER -->
-        <div class="clearfix">
-        </div>
-        <!-- BEGIN CONTAINER -->
-        <div class="page-container">
-            <!-- BEGIN SIDEBAR -->
-            <div class="page-sidebar-wrapper">
-                <div class="page-sidebar navbar-collapse collapse">			
-                    <!-- BEGIN SIDEBAR MENU -->
-                    <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200" style="margin-top: 25px;">								
-                        <li class="start" >
-                            <a href="#{request.contextPath}/index.xhtml" class="boton-inicio">
-                                <i class="fa">
-                                    <img  src="#{request.contextPath}/resources/images/plantilla/iconos/inicio_ebusalud.png"/>
-                                </i>
-                                <span class="title">
-                                    <h:outputText value="Inicio"/>
-                                </span>
+            <!-- BEGIN HEADER -->
+            <div class="header navbar navbar-fixed-top">
+                <!-- BEGIN TOP NAVIGATION BAR -->
+                <div class="header-inner">
+                    <!-- BEGIN LOGO -->
+                    <a class="navbar-brand logo2" href="#{request.contextPath}/index.xhtml">
+                        SIFO
+                    </a>
+                    <a class="navbar-brand logo1" href="#{request.contextPath}/index.xhtml">
+                        SISTEMA INTEGRADO FOVIPOL
+                    </a>		
+                    <!-- END LOGO -->
+                    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                    <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <img src="#{request.contextPath}/resources/metronic/img/menu-toggler.png" alt=""/>
+                    </a>
+                    <!-- END RESPONSIVE MENU TOGGLER -->
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <ul class="nav navbar-nav pull-right nav-pills">
+                        <li>
+                            <a href="#{request.contextPath}/en_construccion.xhtml">
+                                Mis Datos					
                             </a>
                         </li>
-                        <li class="sidebar-toggler-wrapper con-borde primerLi">
-                            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                            <div class="sidebar-toggler hidden-phone">
-                            </div>
-                            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                        </li>		
-                        <c:forEach var="im" items="#{sesionUsuario.menus}">
-                            <li class="#{param.nivel1 == im.modulo.idenModuMod ? 'active' : ''} con-borde">					
-                                <h:link outcome="/main.xhtml">
+                        <li>
+                            <a href="#{request.contextPath}/en_construccion.xhtml">
+                                Ayuda					
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#{request.contextPath}/logout">
+                                Salir					
+                            </a>
+                        </li>	
+                        <!-- BEGIN USER LOGIN DROPDOWN -->		
+
+                        <!-- END USER LOGIN DROPDOWN -->
+                    </ul>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END TOP NAVIGATION BAR -->
+            </div>
+            <!-- END HEADER -->
+            <div class="clearfix">
+            </div>
+            <!-- BEGIN CONTAINER -->
+            <div class="page-container">
+                <!-- BEGIN SIDEBAR -->
+                <div class="page-sidebar-wrapper">
+                    <div class="page-sidebar navbar-collapse collapse">			
+                        <!-- BEGIN SIDEBAR MENU -->
+                        <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200" style="margin-top: 25px;">								
+                            <li class="start" >
+                                <a href="#{request.contextPath}/index.xhtml" class="boton-inicio">
                                     <i class="fa">
-                                        <c:if test="#{im.modulo.rutaImagMod!=''}">
-                                            <img  src="#{request.contextPath}/resources/images/plantilla/iconos/#{im.modulo.rutaImagMod}"/>
-                                        </c:if>								
+                                        <img  src="#{request.contextPath}/resources/images/plantilla/iconos/inicio_ebusalud.png"/>
                                     </i>
                                     <span class="title">
-                                        #{im.modulo.nombModuMod}
-                                    </span>							
-                                    <span class="arrow open"/>
-                                    <f:param name="nivel1" value="#{im.modulo.idenModuMod}" />
-                                </h:link>
-                                <c:if test="#{param.nivel1!='' and param.nivel1==im.modulo.idenModuMod}">									
-                                    <ul class="sub-menu">
-                                        <c:forEach var="im2" items="#{im.menuItems}">
-                                            <li class="#{param.nivel2 == im2.menuItem.idenMenuMnu ? 'active' : ''}">                                                																					
-                                                <h:link outcome="#{im2.menuItem.pagiMenuMnu}">
-                                                    <i class="fa"/>
-                                                    <span class="title">
-                                                        #{im2.menuItem.nombMenuMnu}
-                                                    </span>							
-                                                    <span class="arrow"/>
-                                                    <f:param name="nivel1" value="#{im.modulo.idenModuMod}" />
-                                                    <f:param name="nivel2" value="#{im2.menuItem.idenMenuMnu}" />
-                                                </h:link>  
-                                            </li>
-                                        </c:forEach>
-                                    </ul>
-                                </c:if>	
+                                        <h:outputText value="Inicio"/>
+                                    </span>
+                                </a>
                             </li>
-                        </c:forEach>
-                    </ul>
-                    <!-- END SIDEBAR MENU -->
-                </div>
-            </div>
-            <!-- END SIDEBAR -->
-            <!-- BEGIN PAGE -->
-            <div class="page-content-wrapper">		
-                <div class="page-content">			
-                    <!-- BEGIN PAGE CONTENT-->
-                    <div class="row">                        		
-                        <div class="col-md-12 espacio-div">					
-                            <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-
-                            <ul class="page-breadcrumb breadcrumb">				
-                                <li>
-                                    <i class="fa fa-home"></i> 
-                                    <a href="#{request.contextPath}/index.xhtml"> <h:outputText value="Inicio"/> </a>
-                                    <i class="fa fa-angle-right"></i>
+                            <li class="sidebar-toggler-wrapper con-borde primerLi">
+                                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                                <div class="sidebar-toggler hidden-phone">
+                                </div>
+                                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                            </li>		
+                            <c:forEach var="im" items="#{sesionUsuario.menus}">
+                                <li class="#{param.nivel1 == im.modulo.idenModuMod ? 'active' : ''} con-borde">					
+                                    <h:link outcome="/main.xhtml">
+                                        <i class="fa">
+                                            <c:if test="#{im.modulo.rutaImagMod!=''}">
+                                                <img  src="#{request.contextPath}/resources/images/plantilla/iconos/#{im.modulo.rutaImagMod}"/>
+                                            </c:if>								
+                                        </i>
+                                        <span class="title">
+                                            #{im.modulo.nombModuMod}
+                                        </span>							
+                                        <span class="arrow open"/>
+                                        <f:param name="nivel1" value="#{im.modulo.idenModuMod}" />
+                                    </h:link>
+                                    <c:if test="#{param.nivel1!='' and param.nivel1==im.modulo.idenModuMod}">									
+                                        <ul class="sub-menu">
+                                            <c:forEach var="im2" items="#{im.menuItems}">
+                                                <li class="#{param.nivel2 == im2.menuItem.idenMenuMnu ? 'active' : ''}">                                                																					
+                                                    <h:link outcome="#{im2.menuItem.pagiMenuMnu}">
+                                                        <i class="fa"/>
+                                                        <span class="title">
+                                                            #{im2.menuItem.nombMenuMnu}
+                                                        </span>							
+                                                        <span class="arrow"/>
+                                                        <f:param name="nivel1" value="#{im.modulo.idenModuMod}" />
+                                                        <f:param name="nivel2" value="#{im2.menuItem.idenMenuMnu}" />
+                                                    </h:link>  
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>	
                                 </li>
-                                <c:if test="#{mainPage2.mostrar}">
-                                    <li>
-                                        <c:if test="#{mainPage2.tituloSegundo==''}">
-                                            #{mainPage2.tituloPrimero}
-                                        </c:if>
-                                        <c:if test="#{mainPage2.tituloSegundo!=''}">
-                                            <h:link outcome="/main.xhtml">
-                                                #{mainPage2.tituloPrimero}
-                                                <f:param name="nivel1" value="#{param.nivel1}" />
-                                            </h:link>
-                                            <i class="fa fa-angle-right"></i>
-                                        </c:if>
-                                    </li>
-                                    <c:if test="#{mainPage2.tituloSegundo!=''}">
-                                        <li>
-                                            #{mainPage2.tituloSegundo}                                            
-                                        </li>
-                                    </c:if> 
-                                </c:if>			
-                            </ul>
-                        </div>
+                            </c:forEach>
+                        </ul>
+                        <!-- END SIDEBAR MENU -->
                     </div>
-                    <div class="row">                        
-                        <p:growl id="growl" life="8000" transient="true" autoUpdate="true"/>
-                        <ui:insert name="body" />
-                    </div>			
                 </div>
-                <!-- END PAGE CONTENT-->
-            </div>
-        </div>
-        <!-- END CONTAINER -->
-        <!-- BEGIN FOOTER -->
-        <div class="footer">
-            <div class="footer-inner">
+                <!-- END SIDEBAR -->
+                <!-- BEGIN PAGE -->
+                <div class="page-content-wrapper">		
+                    <div class="page-content">			
+                        <!-- BEGIN PAGE CONTENT-->
+                        <div class="row">                        		
+                            <div class="col-md-12 espacio-div">					
+                                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
 
+                                <ul class="page-breadcrumb breadcrumb">				
+                                    <li>
+                                        <i class="fa fa-home"></i> 
+                                        <a href="#{request.contextPath}/index.xhtml"> <h:outputText value="Inicio"/> </a>
+                                        <i class="fa fa-angle-right"></i>
+                                    </li>
+                                    <c:if test="#{mainPage2.mostrar}">
+                                        <li>
+                                            <c:if test="#{mainPage2.tituloSegundo==''}">
+                                                #{mainPage2.tituloPrimero}
+                                            </c:if>
+                                            <c:if test="#{mainPage2.tituloSegundo!=''}">
+                                                <h:link outcome="/main.xhtml">
+                                                    #{mainPage2.tituloPrimero}
+                                                    <f:param name="nivel1" value="#{param.nivel1}" />
+                                                </h:link>
+                                                <i class="fa fa-angle-right"></i>
+                                            </c:if>
+                                        </li>
+                                        <c:if test="#{mainPage2.tituloSegundo!=''}">
+                                            <li>
+                                                #{mainPage2.tituloSegundo}                                            
+                                            </li>
+                                        </c:if> 
+                                    </c:if>			
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">                        
+                            <p:growl id="growl" life="8000" transient="true" autoUpdate="true"/>
+                            <ui:insert name="body" />
+                        </div>			
+                    </div>
+                    <!-- END PAGE CONTENT-->
+                </div>
             </div>
-            <div class="footer-tools">
-                <span class="go-top">
-                    <i class="fa fa-angle-up"></i>
-                </span>
-            </div>
-        </div>
-        <!-- END FOOTER -->
-        <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-        <!-- BEGIN CORE PLUGINS -->	
-        <script src="#{request.contextPath}/resources/metronic/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-        <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-        <script src="#{request.contextPath}/resources/metronic/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
-        <script src="#{request.contextPath}/resources/metronic/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="#{request.contextPath}/resources/metronic/plugins/bootstrap-select/bootstrap-select.js" type="text/javascript"></script>
-        <script src="#{request.contextPath}/resources/metronic/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-        <script src="#{request.contextPath}/resources/metronic/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-        <!-- END CORE PLUGINS -->
-        <!-- BEGIN PAGE LEVEL SCRIPTS -->
-        <script src="#{request.contextPath}/resources/metronic/scripts/core/app.js"></script>
-        <script src="#{request.contextPath}/resources/metronic/scripts/core/index.js"></script>
-        <!-- END PAGE LEVEL SCRIPTS -->		
-        <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.min.js"></script>
-        <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.resize.min.js"></script>
-        <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.pie.min.js"></script>
-        <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.stack.min.js"></script>
-        <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.crosshair.min.js"></script>
-        <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.categories.min.js"
-        type="text/javascript"></script>
-        <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.axislabels.js"></script>	
-        <ui:insert name="js" />
+            <!-- END CONTAINER -->
+            <!-- BEGIN FOOTER -->
+            <div class="footer">
+                <div class="footer-inner">
 
-        <script>
-            jQuery(document).ready(function () {
-                App.init();
-                <ui:insert name="jsFuncion" />
-            });
-        </script>
-    </body>
+                </div>
+                <div class="footer-tools">
+                    <span class="go-top">
+                        <i class="fa fa-angle-up"></i>
+                    </span>
+                </div>
+            </div>
+            <!-- END FOOTER -->
+            <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+            <!-- BEGIN CORE PLUGINS -->	
+            <script src="#{request.contextPath}/resources/metronic/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+            <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+            <script src="#{request.contextPath}/resources/metronic/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+            <script src="#{request.contextPath}/resources/metronic/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+            <script src="#{request.contextPath}/resources/metronic/plugins/bootstrap-select/bootstrap-select.js" type="text/javascript"></script>
+            <script src="#{request.contextPath}/resources/metronic/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+            <script src="#{request.contextPath}/resources/metronic/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+            <!-- END CORE PLUGINS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script src="#{request.contextPath}/resources/metronic/scripts/core/app.js"></script>
+            <script src="#{request.contextPath}/resources/metronic/scripts/core/index.js"></script>
+            <!-- END PAGE LEVEL SCRIPTS -->		
+            <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.min.js"></script>
+            <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.resize.min.js"></script>
+            <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.pie.min.js"></script>
+            <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.stack.min.js"></script>
+            <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.crosshair.min.js"></script>
+            <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.categories.min.js"
+            type="text/javascript"></script>
+            <script src="#{request.contextPath}/resources/metronic/plugins/flot/jquery.flot.axislabels.js"></script>	
+            <ui:insert name="js" />
+
+            <script>
+                jQuery(document).ready(function () {
+                    App.init();
+                });
+            </script>
+        </body>
+    </f:view>
 </html>

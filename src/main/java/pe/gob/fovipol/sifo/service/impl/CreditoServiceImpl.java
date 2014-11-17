@@ -198,6 +198,12 @@ public class CreditoServiceImpl implements CreditoService {
             totalSeguro = totalSeguro.add(c.getDegravamen());
             cuotasSimulacion.add(c);
         }
+        BigDecimal saldoCuota=montoPrestamo.add(totalAmortizacion.negate());
+        Cuota ultimaCuota=cuotasSimulacion.get(cuotasSimulacion.size()-1);
+        ultimaCuota.setAmortizado(ultimaCuota.getAmortizado().add(saldoCuota));
+        ultimaCuota.setCuota(ultimaCuota.getCuota().add(saldoCuota));
+        totalAmortizacion=totalAmortizacion.add(saldoCuota);
+        totalCuota=totalCuota.add(saldoCuota);
         cuotasSimulacion.get(0).setTotalAmortizacion(totalAmortizacion);
         cuotasSimulacion.get(0).setTotalCuota(totalCuota);
         cuotasSimulacion.get(0).setTotalInteres(totalInteres);

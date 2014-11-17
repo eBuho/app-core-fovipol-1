@@ -12,7 +12,7 @@
         <p:dialog id="MaeEmpresaEditDlg" widgetVar="MaeEmpresaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMaeEmpresaTitle}">
             <h:form id="MaeEmpresaEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="6" rendered="#{maeEmpresaController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{maeEmpresaController.selected != null}">
                         <p:outputLabel value="#{bundle.EditMaeEmpresaLabel_razoSociEmp}" for="razoSociEmp" />
                         <p:inputText 
                             id="razoSociEmp" 

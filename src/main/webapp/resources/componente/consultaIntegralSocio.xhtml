@@ -34,7 +34,7 @@
                         <p:messages id="mensajeValorBusqueda" />
                     </div>
                 </div> 
-                <div class="table-scrollable">
+                <div class="table-responsive">
                     <p:dataTable value="#{cc.socios}" id="tablaSocio" var="socio" 
                                  selectionMode="single" selection="#{cc.attrs.socio}"
                                  rowKey="#{socio.codiPersPer}" emptyMessage="#{!cc.primeraCarga ? '' : 'No se encontraron socios con el criterio ingresado.'}">
@@ -68,7 +68,7 @@
                 </div>
             </p:tab>
             <p:tab title="Búsqueda avanzada">
-                <div class="table-scrollable">
+                <div class="table-responsive">
                     <p:dataTable value="#{cc.listaSocios}" id="tablaListaSocio" var="socio" 
                                  selectionMode="single" selection="#{cc.attrs.socio}"
                                  rowKey="#{socio.codiPersPer}" emptyMessage="No se encontraron socios con el criterio ingresado">
