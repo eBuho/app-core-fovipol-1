@@ -21,23 +21,30 @@
                             <f:facet name="header">
                                 Productos
                             </f:facet>
-                            <p:galleria 
+                            <p:galleria    
                                 value="#{visorProductos.listaProductos}" 
-                                var="image" panelWidth="500" panelHeight="313" showCaption="true">
+                                var="image" panelWidth="700" panelHeight="350" showCaption="true">
                                 <p:graphicImage 
                                     name="images/pages/#{image.imagen}" 
-                                    alt="#{image.descripcion}" 
-                                    title="#{image.nombre}" />
+                                    alt="#{image.nombre}" 
+                                    title=" ">
+                                    <!--p:panelGrid columns="2">
+
+                                        <p:outputLabel id="lblTexto" value="#{image.descripcion}"/>
+                                    </p:panelGrid-->
+  
+                                        <p:inputTextarea 
+                                            value="#{image.descripcion}" 
+                                            cols="45" rows="10" autoResize="true"
+                                            disabled="true"/>
+  
+
+                                </p:graphicImage>
+
+
                             </p:galleria>
                         </p:panelGrid>
-                        
-                        <p:panel header="Generalidades" styleClass="tablaNoBorde">
-                            <p:inputTextarea 
-                                            value="#{visorProductos.generalidades}" rows="19"
-                                            cols="55" autoResize="true"
-                                            disabled="true" 
-                                            style=" font-family: monospace"/>
-                        </p:panel>
+
 
                         <!--p:panelGrid columns="1" >
                             <f:facet name="header">
