@@ -15,7 +15,11 @@
                         <p:outputLabel value="#{bundle.CreateMaeProcesoLabel_codiProcPrc}" for="codiProcPrc" />
                         <p:inputText disabled="true" id="codiProcPrc" value="#{maeProcesoController.selected.codiProcPrc}" title="#{bundle.CreateMaeProcesoTitle_codiProcPrc}" required="true" requiredMessage="#{bundle.CreateMaeProcesoRequiredMessage_codiProcPrc}"/>
                         <p:outputLabel value="#{bundle.CreateMaeProcesoLabel_nombProcPrc}" for="nombProcPrc" />
-                        <p:inputText required="true" id="nombProcPrc" value="#{maeProcesoController.selected.nombProcPrc}" title="#{bundle.CreateMaeProcesoTitle_nombProcPrc}" />
+                        <p:inputText 
+                            required="true" id="nombProcPrc" 
+                            value="#{maeProcesoController.selected.nombProcPrc}" 
+                            title="#{bundle.CreateMaeProcesoTitle_nombProcPrc}" 
+                            size="50"/>
                         <p:outputLabel value="#{bundle.CreateMaeProcesoLabel_tiemDemoPrc}" for="tiemDemoPrc" />
                         <p:inputText id="tiemDemoPrc" value="#{maeProcesoController.selected.tiemDemoPrc}" title="#{bundle.CreateMaeProcesoTitle_tiemDemoPrc}" >
                             <f:validateDoubleRange minimum="0"/>
@@ -32,7 +36,7 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="Página" for="pagiProcPrc" />
                         <p:inputTextarea autoResize="false" styleClass="inputLargo" rows="3" id="pagiProcPrc" value="#{maeProcesoController.selected.pagiProcPrc}" title="Página" />                  
-                        <p:outputLabel value="Estado" for="secuEstaPre" />
+                        <p:outputLabel value="Estado Trámite" for="secuEstaPre" />
                         <p:selectOneMenu id="secuEstaPre" value="#{maeProcesoController.selected.secuEstaPrc}" >
                             <f:selectItems value="#{maeProcesoController.procesoEstados}"
                                            var="estados" itemLabel="#{estados.nombEstaPre}"
