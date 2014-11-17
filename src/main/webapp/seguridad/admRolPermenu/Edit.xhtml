@@ -12,34 +12,20 @@
             <h:form id="AdmRolPermenuEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{admRolPermenuController.selected != null}">
-                        <p:outputLabel value="#{seguridad.EditAdmRolPermenuLabel_idenRoleRpm}" for="idenRoleRpm" />
-                        <p:inputText id="idenRoleRpm" value="#{admRolPermenuController.selected.idenRoleRpm}" title="#{seguridad.EditAdmRolPermenuTitle_idenRoleRpm}" required="true" requiredMessage="#{seguridad.EditAdmRolPermenuRequiredMessage_idenRoleRpm}"/>
-                        <p:outputLabel value="#{seguridad.EditAdmRolPermenuLabel_usuaCreaAud}" for="usuaCreaAud" />
-                        <p:inputText id="usuaCreaAud" value="#{admRolPermenuController.selected.usuaCreaAud}" title="#{seguridad.EditAdmRolPermenuTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmRolPermenuLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admRolPermenuController.selected.fechCreaAud}" title="#{seguridad.EditAdmRolPermenuTitle_fechCreaAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmRolPermenuLabel_usuaModiAud}" for="usuaModiAud" />
-                        <p:inputText id="usuaModiAud" value="#{admRolPermenuController.selected.usuaModiAud}" title="#{seguridad.EditAdmRolPermenuTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmRolPermenuLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admRolPermenuController.selected.fechModiAud}" title="#{seguridad.EditAdmRolPermenuTitle_fechModiAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmRolPermenuLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{admRolPermenuController.selected.nombEquiAud}" title="#{seguridad.EditAdmRolPermenuTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmRolPermenuLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{admRolPermenuController.selected.nombSopeAud}" title="#{seguridad.EditAdmRolPermenuTitle_nombSopeAud}" />
                         <p:outputLabel value="#{seguridad.EditAdmRolPermenuLabel_flagEstaRpm}" for="flagEstaRpm" />
                         <p:inputText id="flagEstaRpm" value="#{admRolPermenuController.selected.flagEstaRpm}" title="#{seguridad.EditAdmRolPermenuTitle_flagEstaRpm}" required="true" requiredMessage="#{seguridad.EditAdmRolPermenuRequiredMessage_flagEstaRpm}"/>
                         <p:outputLabel value="#{seguridad.EditAdmRolPermenuLabel_idenPermPmn}" for="idenPermPmn" />
                         <p:selectOneMenu id="idenPermPmn" value="#{admRolPermenuController.selected.idenPermPmn}" >
-                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
                             <f:selectItems value="#{admPermisoMenuController.itemsAvailableSelectOne}"
                                            var="idenPermPmnItem"
+                                           itemLabel="#{idenPermPmnItem.nombPermPmn}"
                                            itemValue="#{idenPermPmnItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{seguridad.EditAdmRolPermenuLabel_idenRoleRol}" for="idenRoleRol" />
+                        <p:outputLabel value="#{seguridad.CreateAdmRolPermenuLabel_idenRoleRol}" for="idenRoleRol" />
                         <p:selectOneMenu id="idenRoleRol" value="#{admRolPermenuController.selected.idenRoleRol}" >
-                            <f:selectItem itemLabel="#{seguridad.SelectOneMessage}"/>
                             <f:selectItems value="#{admRolController.itemsAvailableSelectOne}"
                                            var="idenRoleRolItem"
+                                           itemLabel="#{idenRoleRolItem.nombRoleRol}"
                                            itemValue="#{idenRoleRolItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>

@@ -12,7 +12,7 @@ import pe.gob.fovipol.sifo.model.seguridad.AdmPermisoMenu;
 
 /**
  *
- * @author ebuho
+ * @author eBuho
  */
 @Stateless
 public class AdmPermisoMenuFacade extends AbstractFacade<AdmPermisoMenu> {

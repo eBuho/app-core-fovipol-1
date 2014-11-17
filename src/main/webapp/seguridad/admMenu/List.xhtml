@@ -5,6 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:jr="http://jasperreportjsf.sf.net/tld/jasperreports-jsf-1_2.tld"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
 
     <ui:composition template="/template.xhtml">
@@ -13,9 +14,8 @@
         <ui:define name="title">
             <h:outputText value="#{seguridad.ListAdmMenuTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="AdmMenuListForm">
+            <h:form id="AdmMenuListForm">                
                 <p:panel header="#{seguridad.ListAdmMenuTitle}">
                     <p:dataTable id="datalist" value="#{admMenuController.items}" var="item"
                                  selectionMode="single" selection="#{admMenuController.selected}"
@@ -52,20 +52,79 @@
                                 <h:outputText value="#{seguridad.ListAdmMenuTitle_descPrmtMnu}"/>
                             </f:facet>
                             <h:outputText value="#{item.descPrmtMnu}"/>
-                        </p:column>                        
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuTitle_usuaCreaAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuaCreaAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuTitle_fechCreaAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechCreaAud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuTitle_usuaModiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuaModiAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuTitle_fechModiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechModiAud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuTitle_nombEquiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombEquiAud}"/>
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="#{seguridad.ListAdmMenuTitle_nombSopeAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombSopeAud}"/>
+                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{seguridad.ListAdmMenuTitle_flagEstaMnu}"/>
                             </f:facet>
-                            <comp:activo value="#{item.flagEstaMnu}" />
+                            <comp:activo value="#{item.flagEstaMnu}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Reportes"/>
+                            </f:facet>
+                            <jr:reportLink id="reportLink" format="pdf" target="blank" source="#{admMenuController.areas2}" value="classpath:jasper/demo.jasper">
+                                <h:outputText value="Ver Reporte" />
+                            </jr:reportLink>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{seguridad.Create}" actionListener="#{admMenuController.prepareCreate}" update=":AdmMenuCreateForm" oncomplete="PF('AdmMenuCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{seguridad.View}" update=":AdmMenuViewForm" oncomplete="PF('AdmMenuViewDialog').show()" disabled="#{empty admMenuController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{seguridad.Edit}" update=":AdmMenuEditForm" oncomplete="PF('AdmMenuEditDialog').show()" disabled="#{empty admMenuController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{seguridad.Delete}" actionListener="#{admMenuController.destroy}" update=":growl,datalist" disabled="#{empty admMenuController.selected}"/>
+                            <jr:reportLink id="reportLink2" format="pdf" target="blank" source="#{admMenuController.areas2}" value="classpath:jasper/demo.jasper">
+                                <h:outputText value="Ver Reporte" />
+                            </jr:reportLink>
                         </f:facet>
                     </p:dataTable>
+                    <div class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+                        <h:form>
+
+                            <jr:reportLink id="reportLink2" format="pdf" target="blank2" source="#{admMenuController.areas2}" value="classpath:jasper/demo.jasper">
+                                <p:commandButton value="View Report"/>
+                            </jr:reportLink>
+                        </h:form>
+                    </div>
                 </p:panel>
             </h:form>
 

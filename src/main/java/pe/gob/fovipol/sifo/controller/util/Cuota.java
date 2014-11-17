@@ -7,6 +7,9 @@ package pe.gob.fovipol.sifo.controller.util;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+import pe.gob.fovipol.sifo.model.credito.CrdCuotaSeguro;
+import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 
 /**
  *
@@ -26,6 +29,8 @@ public class Cuota {
     private BigDecimal totalInteres;
     private BigDecimal totalSeguro;
     private BigDecimal totalCuota;
+    private List<CrdCuotaSeguro> cuotasSeguro;
+    private CrdSimulacion simulacion;
     /**
      * @return the numero
      */
@@ -206,5 +211,33 @@ public class Cuota {
      */
     public void setTotalCuota(BigDecimal totalCuota) {
         this.totalCuota = totalCuota;
+    }
+
+    /**
+     * @return the cuotasSeguro
+     */
+    public List<CrdCuotaSeguro> getCuotasSeguro() {
+        return cuotasSeguro;
+    }
+
+    /**
+     * @param cuotasSeguro the cuotasSeguro to set
+     */
+    public void setCuotasSeguro(List<CrdCuotaSeguro> cuotasSeguro) {
+        this.cuotasSeguro = cuotasSeguro;
+    }
+
+    /**
+     * @return the simulacion
+     */
+    public CrdSimulacion getSimulacion() {
+        return simulacion;
+    }
+
+    /**
+     * @param simulacion the simulacion to set
+     */
+    public void setSimulacion(CrdSimulacion simulacion) {
+        this.simulacion = simulacion;
     }
 }

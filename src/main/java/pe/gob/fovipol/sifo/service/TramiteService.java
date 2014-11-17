@@ -6,6 +6,8 @@
 package pe.gob.fovipol.sifo.service;
 
 import java.util.List;
+import pe.gob.fovipol.sifo.model.credito.CrdCanalcobra;
+import pe.gob.fovipol.sifo.model.credito.CrdCredito;
 import pe.gob.fovipol.sifo.model.tramite.TrmDocumento;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
@@ -18,4 +20,6 @@ public interface TramiteService {
     public boolean generarMovimiento(TrmTramite tramite);
     public boolean cambiarEstadoExpediente(TrmTramite tramite,String nombreEstado);
     public boolean registrarExpediente(TrmTramite tramite,List<TrmDocumento> documentos);
+    public boolean registrarExpedienteCredito(TrmTramite tramite,List<TrmDocumento> documentos,CrdCredito credito,
+            List<CrdCanalcobra> canales);
 }

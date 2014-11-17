@@ -45,7 +45,7 @@
                                 <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_fechCreaAud}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechCreaAud}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
                         <p:column>
@@ -59,7 +59,7 @@
                                 <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_fechModiAud}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechModiAud}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
                         <p:column>
@@ -84,13 +84,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_idenMenuMnu}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idenMenuMnu}"/>
+                            <h:outputText value="#{item.idenMenuMnu.nombMenuMnu}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{seguridad.ListAdmMenuModuloTitle_idenModuMod}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idenModuMod}"/>
+                            <h:outputText value="#{item.idenModuMod.nombModuMod}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{seguridad.Create}" actionListener="#{admMenuModuloController.prepareCreate}" update=":AdmMenuModuloCreateForm" oncomplete="PF('AdmMenuModuloCreateDialog').show()"/>

@@ -12,22 +12,8 @@
             <h:form id="AdmRolEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{admRolController.selected != null}">
-                        <p:outputLabel value="#{seguridad.EditAdmRolLabel_idenRoleRol}" for="idenRoleRol" />
-                        <p:inputText id="idenRoleRol" value="#{admRolController.selected.idenRoleRol}" title="#{seguridad.EditAdmRolTitle_idenRoleRol}" required="true" requiredMessage="#{seguridad.EditAdmRolRequiredMessage_idenRoleRol}"/>
                         <p:outputLabel value="#{seguridad.EditAdmRolLabel_nombRoleRol}" for="nombRoleRol" />
                         <p:inputText id="nombRoleRol" value="#{admRolController.selected.nombRoleRol}" title="#{seguridad.EditAdmRolTitle_nombRoleRol}" />
-                        <p:outputLabel value="#{seguridad.EditAdmRolLabel_usuaCreaAud}" for="usuaCreaAud" />
-                        <p:inputText id="usuaCreaAud" value="#{admRolController.selected.usuaCreaAud}" title="#{seguridad.EditAdmRolTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmRolLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admRolController.selected.fechCreaAud}" title="#{seguridad.EditAdmRolTitle_fechCreaAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmRolLabel_usuaModiAud}" for="usuaModiAud" />
-                        <p:inputText id="usuaModiAud" value="#{admRolController.selected.usuaModiAud}" title="#{seguridad.EditAdmRolTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmRolLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admRolController.selected.fechModiAud}" title="#{seguridad.EditAdmRolTitle_fechModiAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmRolLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{admRolController.selected.nombEquiAud}" title="#{seguridad.EditAdmRolTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmRolLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{admRolController.selected.nombSopeAud}" title="#{seguridad.EditAdmRolTitle_nombSopeAud}" />
                         <p:outputLabel value="#{seguridad.EditAdmRolLabel_flagEstaRol}" for="flagEstaRol" />
                         <p:inputText id="flagEstaRol" value="#{admRolController.selected.flagEstaRol}" title="#{seguridad.EditAdmRolTitle_flagEstaRol}" required="true" requiredMessage="#{seguridad.EditAdmRolRequiredMessage_flagEstaRol}"/>
                     </p:panelGrid>

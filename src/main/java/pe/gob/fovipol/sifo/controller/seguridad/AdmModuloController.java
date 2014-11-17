@@ -19,12 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("admModuloController")
 @SessionScoped
 public class AdmModuloController implements Serializable {
 
-    @EJB
-    private pe.gob.fovipol.sifo.dao.seguridad.AdmModuloFacade ejbFacade;
+
+    @EJB private pe.gob.fovipol.sifo.dao.seguridad.AdmModuloFacade ejbFacade;
     private List<AdmModulo> items = null;
     private AdmModulo selected;
 
@@ -121,7 +122,7 @@ public class AdmModuloController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = AdmModulo.class)
+    @FacesConverter(forClass=AdmModulo.class)
     public static class AdmModuloControllerConverter implements Converter {
 
         @Override
@@ -129,7 +130,7 @@ public class AdmModuloController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AdmModuloController controller = (AdmModuloController) facesContext.getApplication().getELResolver().
+            AdmModuloController controller = (AdmModuloController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "admModuloController");
             return controller.getAdmModulo(getKey(value));
         }

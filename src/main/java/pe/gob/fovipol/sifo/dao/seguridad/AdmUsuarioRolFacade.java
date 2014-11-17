@@ -12,7 +12,7 @@ import pe.gob.fovipol.sifo.model.seguridad.AdmUsuarioRol;
 
 /**
  *
- * @author ebuho
+ * @author eBuho
  */
 @Stateless
 public class AdmUsuarioRolFacade extends AbstractFacade<AdmUsuarioRol> {

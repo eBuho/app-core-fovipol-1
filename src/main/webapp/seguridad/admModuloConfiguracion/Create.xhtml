@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmModuloCreateDlg" widgetVar="AdmModuloCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{seguridad.CreateAdmModuloTitle}">
+            <h:form id="AdmModuloCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admModuloConfiguracionController.selected != null}">
+                        <p:outputLabel value="#{seguridad.CreateAdmModuloLabel_nombModuMod}" for="nombModuMod" />
+                        <p:inputText id="nombModuMod" value="#{admModuloConfiguracionController.selected.nombModuMod}" title="#{seguridad.CreateAdmModuloTitle_nombModuMod}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmModuloLabel_rutaImagMod}" for="rutaImagMod" />
+                        <p:inputText id="rutaImagMod" value="#{admModuloConfiguracionController.selected.rutaImagMod}" title="#{seguridad.CreateAdmModuloTitle_rutaImagMod}" />
+                        <p:outputLabel value="#{seguridad.CreateAdmModuloLabel_flagEstaMod}" for="flagEstaMod" />
+                        <p:inputText id="flagEstaMod" value="#{admModuloConfiguracionController.selected.flagEstaMod}" title="#{seguridad.CreateAdmModuloTitle_flagEstaMod}" required="true" requiredMessage="#{seguridad.CreateAdmModuloRequiredMessage_flagEstaMod}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{admModuloConfiguracionController.create}" value="#{seguridad.Save}" update="display,:AdmModuloListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdmModuloCreateDialog');"/>
+                    <p:commandButton value="#{seguridad.Cancel}" onclick="AdmModuloCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

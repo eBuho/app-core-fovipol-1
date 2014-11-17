@@ -15,257 +15,28 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="MaeProcesoListForm">
-                <p:panel >
-                    <p:dataTable id="datalist" value="#{maeProcesoController.items}" var="item"
-                                 selectionMode="single" selection="#{maeProcesoController.selectedProceso}"
-                                 paginator="true"
-                                 rowKey="#{item.codiProcPrc}"
-                                 paginatorPosition="top"
-                                 filteredValue="#{maeProcesoController.itemsFiltro}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 emptyMessage="No se encontraron registros"
-                                 >
-                        <p:ajax event="rowSelect"   update="createButton, viewButton, editButton, deleteButton, :MaeProcesoListForm:pestanaProceso:datalistSubProceso ,:MaeProcesoListForm:pestanaProceso:datalistRequisito" listener="#{maeProcesoController.cargarSubProcesos}"/>
-                        <p:ajax event="filter"   update="createButton viewButton editButton deleteButton :MaeProcesoListForm:pestanaProceso:datalistSubProceso :MaeProcesoListForm:pestanaProceso:datalistActividad :MaeProcesoListForm:pestanaProceso:datalistRequisito" listener="#{maeProcesoController.cargarSubProcesos}"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-                        <p:column filterBy="#{item.codiProcPrc}"
-                                  filterMatchMode="contains" 
-                                  sortBy="#{item.codiProcPrc}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_codiProcPrc}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.codiProcPrc}"/>
-                        </p:column>
-                        <p:column filterBy="#{item.nombProcPrc}"
-                                  filterMatchMode="contains" 
-                                  sortBy="#{item.nombProcPrc}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_nombProcPrc}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombProcPrc}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.tiemDemoPrc}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_tiemDemoPrc}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tiemDemoPrc}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.niveProcPrc}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_niveProcPrc}"/>
-                            </f:facet>
-                            <comp:proceso value="#{item.niveProcPrc}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.ordeSecuPrc}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_ordeSecuPrc}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ordeSecuPrc}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_usuaCreaAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuaCreaAud}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_fechCreaAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechCreaAud}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_usuaModiAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuaModiAud}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_fechModiAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechModiAud}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_nombEquiAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombEquiAud}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_nombSopeAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombSopeAud}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_flagEstaPrc}"/>
-                            </f:facet>
-                            <comp:activo value="#{item.flagEstaPrc}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_codiAreaAre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.codiAreaAre.descAreaAre}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProcesoTitle_codiPropPrc}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.codiPropPrc.nombProcPrc}"/>
-                        </p:column>
-                        <f:facet name="header">
+            <div class="col-md-12">
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>
                             <h:outputText value="PROCESOS"/>
-                            <p:spacer width="25"/>
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maeProcesoController.prepareCreate}" update=":MaeProcesoCreateForm" oncomplete="PF('MaeProcesoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{maeProcesoController.modificarProceso()}" update=":MaeProcesoViewForm" oncomplete="PF('MaeProcesoViewDialog').show()" disabled="#{empty maeProcesoController.selectedProceso}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{maeProcesoController.modificarProceso()}" update=":MaeProcesoEditForm" oncomplete="PF('MaeProcesoEditDialog').show()" disabled="#{empty maeProcesoController.selectedProceso}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maeProcesoController.destroy}" update=":growl,datalist" disabled="#{empty maeProcesoController.selectedProceso}">
-                                <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
-                            </p:commandButton>
-                        </f:facet>
-                    </p:dataTable>
-                    <div style="height: 20px;"></div>
-                    <p:tabView id="pestanaProceso">
-                        <p:tab title="SubProcesos/Actividades">     
-                            <div style="height: 20px;"></div>
-                            <p:dataTable id="datalistSubProceso" value="#{maeProcesoController.itemsSubProceso}" var="item"
-                                         selectionMode="single" selection="#{maeProcesoController.selectedSubProceso}"
+                        </div>
+                    </div>
+                    <div class="portlet-body" >
+                        <h:form id="MaeProcesoListForm">
+                            <p:dataTable id="datalist" value="#{maeProcesoController.items}" var="item"
+                                         selectionMode="single" selection="#{maeProcesoController.selectedProceso}"
                                          paginator="true"
                                          rowKey="#{item.codiProcPrc}"
-                                         filteredValue="#{maeProcesoController.itemsFiltroSubProceso}"
-                                         rows="10"
                                          paginatorPosition="top"
+                                         filteredValue="#{maeProcesoController.itemsFiltro}"
+                                         rows="10"
                                          rowsPerPageTemplate="10,20,30,40,50"
                                          emptyMessage="No se encontraron registros"
                                          >
-                                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton :MaeProcesoListForm:pestanaProceso:datalistActividad" listener="#{maeProcesoController.cargarActividad}"/>
-                                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-                                <p:ajax event="filter"   update="createButton viewButton editButton deleteButton :MaeProcesoListForm:pestanaProceso:datalistSubProceso :MaeProcesoListForm:pestanaProceso:datalistActividad" listener="#{maeProcesoController.cargarActividad}"/>
-                                <p:column filterBy="#{item.codiProcPrc}"
-                                          filterMatchMode="contains" 
-                                          sortBy="#{item.codiProcPrc}">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_codiProcPrc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.codiProcPrc}"/>
-                                </p:column>
-                                <p:column filterBy="#{item.nombProcPrc}"
-                                          filterMatchMode="contains" 
-                                          sortBy="#{item.nombProcPrc}">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_nombProcPrc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.nombProcPrc}"/>
-                                </p:column>
-                                <p:column sortBy="#{item.tiemDemoPrc}">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_tiemDemoPrc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.tiemDemoPrc}"/>
-                                </p:column>
-                                <p:column sortBy="#{item.niveProcPrc}">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_niveProcPrc}"/>
-                                    </f:facet>
-                                    <comp:proceso value="#{item.niveProcPrc}"/>
-                                </p:column>
-                                <p:column sortBy="#{item.ordeSecuPrc}">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_ordeSecuPrc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.ordeSecuPrc}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_usuaCreaAud}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.usuaCreaAud}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_fechCreaAud}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechCreaAud}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_usuaModiAud}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.usuaModiAud}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_fechModiAud}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechModiAud}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_nombEquiAud}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.nombEquiAud}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_nombSopeAud}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.nombSopeAud}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_flagEstaPrc}"/>
-                                    </f:facet>
-                                    <comp:activo value="#{item.flagEstaPrc}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_codiAreaAre}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.codiAreaAre.descAreaAre}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeProcesoTitle_codiPropPrc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.codiPropPrc.nombProcPrc}"/>
-                                </p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="SUBPROCESOS"/>
-                                    <p:spacer width="25"/>
-                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" 
-                                                     actionListener="#{maeProcesoController.prepareCreateSubProceso}" update=":MaeProcesoCreateForm" oncomplete="PF('MaeProcesoCreateDialog').show()" disabled="#{empty maeProcesoController.selectedProceso}"/>
-                                    <p:commandButton id="viewButton" actionListener="#{maeProcesoController.modificarSubProceso()}"  icon="ui-icon-search" value="#{bundle.View}" update=":MaeProcesoViewForm" oncomplete="PF('MaeProcesoViewDialog').show()" disabled="#{empty maeProcesoController.selectedSubProceso}"/>
-                                    <p:commandButton id="editButton"  actionListener="#{maeProcesoController.modificarSubProceso()}" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaeProcesoEditForm" oncomplete="PF('MaeProcesoEditDialog').show()" disabled="#{empty maeProcesoController.selectedSubProceso}"/>
-                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maeProcesoController.destroySubProceso()}" update=":growl,datalistSubProceso" disabled="#{empty maeProcesoController.selectedSubProceso}">
-                                        <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
-                                    </p:commandButton>
-                                </f:facet>
-                            </p:dataTable>
-                            <div style="height: 20px;"></div>
-                            <p:dataTable id="datalistActividad" value="#{maeProcesoController.itemsActividad}" var="item"
-                                         selectionMode="single" selection="#{maeProcesoController.selectedActividad}"
-                                         paginator="true"
-                                         rowKey="#{item.codiProcPrc}"
-                                         filteredValue="#{maeProcesoController.itemsFiltroActividad}"
-                                         rows="10"
-                                         paginatorPosition="top"
-                                         rowsPerPageTemplate="10,20,30,40,50"
-                                         emptyMessage="No se encontraron registros"
-                                         >
-                                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                <p:ajax event="rowSelect"   update="createButton, viewButton, editButton, deleteButton, :MaeProcesoListForm:pestanaProceso:datalistSubProceso ,:MaeProcesoListForm:pestanaProceso:datalistRequisito" listener="#{maeProcesoController.cargarSubProcesos}"/>
+                                <p:ajax event="filter"   update="createButton viewButton editButton deleteButton :MaeProcesoListForm:pestanaProceso:datalistSubProceso :MaeProcesoListForm:pestanaProceso:datalistActividad :MaeProcesoListForm:pestanaProceso:datalistRequisito" listener="#{maeProcesoController.cargarSubProcesos}"/>
                                 <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
                                 <p:column filterBy="#{item.codiProcPrc}"
                                           filterMatchMode="contains" 
@@ -360,94 +131,331 @@
                                     <h:outputText value="#{item.codiPropPrc.nombProcPrc}"/>
                                 </p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="ACTIVIDADES"/>
-                                    <p:spacer width="25"/>
-                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" 
-                                                     actionListener="#{maeProcesoController.prepareCreateActividad}" update=":MaeProcesoCreateForm" oncomplete="PF('MaeProcesoCreateDialog').show()" disabled="#{empty maeProcesoController.selectedSubProceso}"/>
-                                    <p:commandButton id="viewButton" actionListener="#{maeProcesoController.modificarActividad()}"  icon="ui-icon-search" value="#{bundle.View}" update=":MaeProcesoViewForm" oncomplete="PF('MaeProcesoViewDialog').show()" disabled="#{empty maeProcesoController.selectedActividad}"/>
-                                    <p:commandButton id="editButton"  actionListener="#{maeProcesoController.modificarActividad()}" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaeProcesoEditForm" oncomplete="PF('MaeProcesoEditDialog').show()" disabled="#{empty maeProcesoController.selectedActividad}"/>
-                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maeProcesoController.destroyActividad()}" update=":growl,datalistActividad" disabled="#{empty maeProcesoController.selectedActividad}">
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maeProcesoController.prepareCreate}" update=":MaeProcesoCreateForm" oncomplete="PF('MaeProcesoCreateDialog').show()"/>
+                                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{maeProcesoController.modificarProceso()}" update=":MaeProcesoViewForm" oncomplete="PF('MaeProcesoViewDialog').show()" disabled="#{empty maeProcesoController.selectedProceso}"/>
+                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{maeProcesoController.modificarProceso()}" update=":MaeProcesoEditForm" oncomplete="PF('MaeProcesoEditDialog').show()" disabled="#{empty maeProcesoController.selectedProceso}"/>
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maeProcesoController.destroy}" update=":growl,datalist" disabled="#{empty maeProcesoController.selectedProceso}">
                                         <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
                                     </p:commandButton>
                                 </f:facet>
                             </p:dataTable>
-                        </p:tab>
-                        <p:tab title="Requisitos" id="pestanaRequisito">
                             <div style="height: 20px;"></div>
-                            <p:dataTable id="datalistRequisito" value="#{maeProcesoController.requisitos}" var="item"                                         
-                                         paginator="true"
-                                         selectionMode="single" selection="#{maeProcesoController.selectedRequisito}"
-                                         rowKey="#{item.maeRequisitoPK}"
-                                         rows="10"
-                                         emptyMessage="No se encontraron registros"
-                                         rowsPerPageTemplate="10,20,30,40,50"
-                                         >
-                                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <p:tabView id="pestanaProceso">
+                                <p:tab title="SubProcesos/Actividades">     
+                                    <div style="height: 20px;"></div>
+                                    <p:dataTable id="datalistSubProceso" value="#{maeProcesoController.itemsSubProceso}" var="item"
+                                                 selectionMode="single" selection="#{maeProcesoController.selectedSubProceso}"
+                                                 paginator="true"
+                                                 rowKey="#{item.codiProcPrc}"
+                                                 filteredValue="#{maeProcesoController.itemsFiltroSubProceso}"
+                                                 rows="10"
+                                                 paginatorPosition="top"
+                                                 rowsPerPageTemplate="10,20,30,40,50"
+                                                 emptyMessage="No se encontraron registros"
+                                                 >
+                                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton :MaeProcesoListForm:pestanaProceso:datalistActividad" listener="#{maeProcesoController.cargarActividad}"/>
+                                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                                        <p:ajax event="filter"   update="createButton viewButton editButton deleteButton :MaeProcesoListForm:pestanaProceso:datalistSubProceso :MaeProcesoListForm:pestanaProceso:datalistActividad" listener="#{maeProcesoController.cargarActividad}"/>
+                                        <p:column filterBy="#{item.codiProcPrc}"
+                                                  filterMatchMode="contains" 
+                                                  sortBy="#{item.codiProcPrc}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_codiProcPrc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiProcPrc}"/>
+                                        </p:column>
+                                        <p:column filterBy="#{item.nombProcPrc}"
+                                                  filterMatchMode="contains" 
+                                                  sortBy="#{item.nombProcPrc}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_nombProcPrc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nombProcPrc}"/>
+                                        </p:column>
+                                        <p:column sortBy="#{item.tiemDemoPrc}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_tiemDemoPrc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.tiemDemoPrc}"/>
+                                        </p:column>
+                                        <p:column sortBy="#{item.niveProcPrc}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_niveProcPrc}"/>
+                                            </f:facet>
+                                            <comp:proceso value="#{item.niveProcPrc}"/>
+                                        </p:column>
+                                        <p:column sortBy="#{item.ordeSecuPrc}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_ordeSecuPrc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.ordeSecuPrc}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_usuaCreaAud}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.usuaCreaAud}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_fechCreaAud}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechCreaAud}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_usuaModiAud}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.usuaModiAud}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_fechModiAud}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechModiAud}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_nombEquiAud}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nombEquiAud}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_nombSopeAud}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nombSopeAud}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_flagEstaPrc}"/>
+                                            </f:facet>
+                                            <comp:activo value="#{item.flagEstaPrc}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_codiAreaAre}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiAreaAre.descAreaAre}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_codiPropPrc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiPropPrc.nombProcPrc}"/>
+                                        </p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="SUBPROCESOS"/>
+                                            <p:spacer width="25"/>
+                                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" 
+                                                             actionListener="#{maeProcesoController.prepareCreateSubProceso}" update=":MaeProcesoCreateForm" oncomplete="PF('MaeProcesoCreateDialog').show()" disabled="#{empty maeProcesoController.selectedProceso}"/>
+                                            <p:commandButton id="viewButton" actionListener="#{maeProcesoController.modificarSubProceso()}"  icon="ui-icon-search" value="#{bundle.View}" update=":MaeProcesoViewForm" oncomplete="PF('MaeProcesoViewDialog').show()" disabled="#{empty maeProcesoController.selectedSubProceso}"/>
+                                            <p:commandButton id="editButton"  actionListener="#{maeProcesoController.modificarSubProceso()}" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaeProcesoEditForm" oncomplete="PF('MaeProcesoEditDialog').show()" disabled="#{empty maeProcesoController.selectedSubProceso}"/>
+                                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maeProcesoController.destroySubProceso()}" update=":growl,datalistSubProceso" disabled="#{empty maeProcesoController.selectedSubProceso}">
+                                                <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
+                                            </p:commandButton>
+                                        </f:facet>
+                                    </p:dataTable>
+                                    <div style="height: 20px;"></div>
+                                    <p:dataTable id="datalistActividad" value="#{maeProcesoController.itemsActividad}" var="item"
+                                                 selectionMode="single" selection="#{maeProcesoController.selectedActividad}"
+                                                 paginator="true"
+                                                 rowKey="#{item.codiProcPrc}"
+                                                 filteredValue="#{maeProcesoController.itemsFiltroActividad}"
+                                                 rows="10"
+                                                 paginatorPosition="top"
+                                                 rowsPerPageTemplate="10,20,30,40,50"
+                                                 emptyMessage="No se encontraron registros"
+                                                 >
+                                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                                        <p:column filterBy="#{item.codiProcPrc}"
+                                                  filterMatchMode="contains" 
+                                                  sortBy="#{item.codiProcPrc}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_codiProcPrc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiProcPrc}"/>
+                                        </p:column>
+                                        <p:column filterBy="#{item.nombProcPrc}"
+                                                  filterMatchMode="contains" 
+                                                  sortBy="#{item.nombProcPrc}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_nombProcPrc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nombProcPrc}"/>
+                                        </p:column>
+                                        <p:column sortBy="#{item.tiemDemoPrc}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_tiemDemoPrc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.tiemDemoPrc}"/>
+                                        </p:column>
+                                        <p:column sortBy="#{item.niveProcPrc}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_niveProcPrc}"/>
+                                            </f:facet>
+                                            <comp:proceso value="#{item.niveProcPrc}"/>
+                                        </p:column>
+                                        <p:column sortBy="#{item.ordeSecuPrc}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_ordeSecuPrc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.ordeSecuPrc}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_usuaCreaAud}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.usuaCreaAud}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_fechCreaAud}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechCreaAud}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_usuaModiAud}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.usuaModiAud}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_fechModiAud}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechModiAud}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_nombEquiAud}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nombEquiAud}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_nombSopeAud}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nombSopeAud}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_flagEstaPrc}"/>
+                                            </f:facet>
+                                            <comp:activo value="#{item.flagEstaPrc}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_codiAreaAre}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiAreaAre.descAreaAre}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeProcesoTitle_codiPropPrc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiPropPrc.nombProcPrc}"/>
+                                        </p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="ACTIVIDADES"/>
+                                            <p:spacer width="25"/>
+                                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" 
+                                                             actionListener="#{maeProcesoController.prepareCreateActividad}" update=":MaeProcesoCreateForm" oncomplete="PF('MaeProcesoCreateDialog').show()" disabled="#{empty maeProcesoController.selectedSubProceso}"/>
+                                            <p:commandButton id="viewButton" actionListener="#{maeProcesoController.modificarActividad()}"  icon="ui-icon-search" value="#{bundle.View}" update=":MaeProcesoViewForm" oncomplete="PF('MaeProcesoViewDialog').show()" disabled="#{empty maeProcesoController.selectedActividad}"/>
+                                            <p:commandButton id="editButton"  actionListener="#{maeProcesoController.modificarActividad()}" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaeProcesoEditForm" oncomplete="PF('MaeProcesoEditDialog').show()" disabled="#{empty maeProcesoController.selectedActividad}"/>
+                                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maeProcesoController.destroyActividad()}" update=":growl,datalistActividad" disabled="#{empty maeProcesoController.selectedActividad}">
+                                                <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
+                                            </p:commandButton>
+                                        </f:facet>
+                                    </p:dataTable>
+                                </p:tab>
+                                <p:tab title="Requisitos" id="pestanaRequisito">
+                                    <div style="height: 20px;"></div>
+                                    <p:dataTable id="datalistRequisito" value="#{maeProcesoController.requisitos}" var="item"                                         
+                                                 paginator="true"
+                                                 selectionMode="single" selection="#{maeProcesoController.selectedRequisito}"
+                                                 rowKey="#{item.maeRequisitoPK}"
+                                                 rows="10"
+                                                 emptyMessage="No se encontraron registros"
+                                                 rowsPerPageTemplate="10,20,30,40,50"
+                                                 >
+                                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeRequisitoTitle_maeRequisitoPK_secuMaeReq}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.maeRequisitoPK.secuMaeReq}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeRequisitoTitle_nombRequReq}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.nombRequReq}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeRequisitoTitle_codiTipoReq}"/>
-                                    </f:facet>
-                                    <comp:entidadDetalle value="#{item.codiTipoReq}" entidad="CODITIPOREQ"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeRequisitoTitle_descObseReq}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.descObseReq}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeRequisitoTitle_secuOrdeReq}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.secuOrdeReq}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeRequisitoTitle_flagEstaReq}"/>
-                                    </f:facet>
-                                    <comp:activo value="#{item.flagEstaReq}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeRequisitoTitle_maeProceso}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.maeProceso.nombProcPrc}"/>
-                                </p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Requisitos"/>
-                                    <p:spacer width="20"/>
-                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" 
-                                         disabled="#{empty maeProcesoController.selectedProceso}"            actionListener="#{maeProcesoController.prepareCreateRequisito()}" update=":MaeRequisitoCreateForm" oncomplete="PF('MaeRequisitoCreateDialog').show()"/>
-                                    <p:commandButton update=":MaeRequisitoViewForm" oncomplete="PF('MaeRequisitoViewDialog').show()" disabled="#{empty maeProcesoController.selectedRequisito}" id="viewButton"   icon="ui-icon-search" value="#{bundle.View}"/>
-                                    <p:commandButton update=":MaeRequisitoEditForm" oncomplete="PF('MaeRequisitoEditDialog').show()" disabled="#{empty maeProcesoController.selectedRequisito}" id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}"/>                                    
-                                    <p:commandButton actionListener="#{maeProcesoController.destroyRequisito()}" disabled="#{empty maeProcesoController.selectedRequisito}" id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}"  update=":growl,datalistRequisito">
-                                        <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
-                                    </p:commandButton>
-                                </f:facet>
-                            </p:dataTable>
-                        </p:tab>
-                    </p:tabView>                    
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                    </p:confirmDialog>
-                </p:panel>
-            </h:form>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeRequisitoTitle_maeRequisitoPK_secuMaeReq}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.maeRequisitoPK.secuMaeReq}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeRequisitoTitle_nombRequReq}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nombRequReq}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeRequisitoTitle_codiTipoReq}"/>
+                                            </f:facet>
+                                            <comp:entidadDetalle value="#{item.codiTipoReq}" entidad="CODITIPOREQ"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeRequisitoTitle_descObseReq}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.descObseReq}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeRequisitoTitle_secuOrdeReq}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.secuOrdeReq}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeRequisitoTitle_flagEstaReq}"/>
+                                            </f:facet>
+                                            <comp:activo value="#{item.flagEstaReq}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeRequisitoTitle_maeProceso}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.maeProceso.nombProcPrc}"/>
+                                        </p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Requisitos"/>
+                                            <p:spacer width="20"/>
+                                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" 
+                                                             disabled="#{empty maeProcesoController.selectedProceso}"            actionListener="#{maeProcesoController.prepareCreateRequisito()}" update=":MaeRequisitoCreateForm" oncomplete="PF('MaeRequisitoCreateDialog').show()"/>
+                                            <p:commandButton update=":MaeRequisitoViewForm" oncomplete="PF('MaeRequisitoViewDialog').show()" disabled="#{empty maeProcesoController.selectedRequisito}" id="viewButton"   icon="ui-icon-search" value="#{bundle.View}"/>
+                                            <p:commandButton update=":MaeRequisitoEditForm" oncomplete="PF('MaeRequisitoEditDialog').show()" disabled="#{empty maeProcesoController.selectedRequisito}" id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}"/>                                    
+                                            <p:commandButton actionListener="#{maeProcesoController.destroyRequisito()}" disabled="#{empty maeProcesoController.selectedRequisito}" id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}"  update=":growl,datalistRequisito">
+                                                <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
+                                            </p:commandButton>
+                                        </f:facet>
+                                    </p:dataTable>
+                                </p:tab>
+                            </p:tabView>                    
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
 
+                        </h:form>
+                    </div>
+                </div>
+            </div>
             <ui:include src="Create.xhtml"/>
             <ui:include src="CreateRequisito.xhtml"/>
             <ui:include src="Edit.xhtml"/>

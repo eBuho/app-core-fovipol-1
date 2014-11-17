@@ -5,14 +5,19 @@
  */
 package pe.gob.fovipol.sifo.dao.seguridad;
 
+import java.math.BigDecimal;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import pe.gob.fovipol.sifo.model.seguridad.AdmMenu;
 import pe.gob.fovipol.sifo.model.seguridad.AdmMenuModulo;
+import pe.gob.fovipol.sifo.model.seguridad.AdmModulo;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 /**
  *
- * @author ebuho
+ * @author eBuho
  */
 @Stateless
 public class AdmMenuModuloFacade extends AbstractFacade<AdmMenuModulo> {
@@ -28,4 +33,12 @@ public class AdmMenuModuloFacade extends AbstractFacade<AdmMenuModulo> {
         super(AdmMenuModulo.class);
     }
     
+    public void updateByModuloMenu(AdmModulo modulo,BigDecimal menu) {
+        String sql = "UPDATE AdmMenuModulo d SET d.flagEstaMmd="+ Constantes.VALOR_ESTADO_INACTIVO 
+                + " where d.idenMenuMnu.idenMenuMnu =:menu and d.idenModuMod=:modulo";
+        Query q = em.createQuery(sql);
+        q.setParameter("modulo", modulo);
+        q.setParameter("menu", menu);
+        q.executeUpdate();
+    }
 }

@@ -11,8 +11,8 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation> 
-        <h:outputText value="Proceso" rendered="#{cc.attrs.value==1}"/>
-        <h:outputText value="Subproceso" rendered="#{cc.attrs.value==2}"/> 
-        <h:outputText value="Actividad" rendered="#{cc.attrs.value==3}"/>  
+        <h:outputText value="#{constantes.PROCESO_PROCESO}" rendered="#{cc.attrs.value==constantes.VALOR_PROCESO_PROCESO}"/>
+        <h:outputText value="#{constantes.PROCESO_SUBPROCESO}" rendered="#{cc.attrs.value==constantes.VALOR_PROCESO_SUBPROCESO}"/> 
+        <h:outputText value="#{constantes.PROCESO_ACTIVIDAD}" rendered="#{cc.attrs.value==constantes.VALOR_PROCESO_ACTIVIDAD}"/>  
     </cc:implementation>
 </html>

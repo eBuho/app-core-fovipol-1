@@ -14,13 +14,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,6 +28,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import pe.gob.fovipol.sifo.listener.AuditListener;
+import pe.gob.fovipol.sifo.model.credito.CrdCredito;
 import pe.gob.fovipol.sifo.model.maestros.MaePersona;
 import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
 import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
@@ -39,6 +42,7 @@ import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
 @Entity
 @Table(name = "TRM_TRAMITE")
 @XmlRootElement
+@EntityListeners(value = AuditListener.class)
 @NamedQueries({
     @NamedQuery(name = "TrmTramite.findAll", query = "SELECT t FROM TrmTramite t"),
     @NamedQuery(name = "TrmTramite.findByIdenExpeTrm", query = "SELECT t FROM TrmTramite t WHERE t.idenExpeTrm = :idenExpeTrm"),
@@ -64,23 +68,14 @@ import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
     @NamedQuery(name = "TrmTramite.findByNombSopeAud", query = "SELECT t FROM TrmTramite t WHERE t.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "TrmTramite.findByFlagEstaTrm", query = "SELECT t FROM TrmTramite t WHERE t.flagEstaTrm = :flagEstaTrm")})
 public class TrmTramite implements Serializable {
-
-    public MaeProceso getIdenProcPrc() {
-        return idenProcPrc;
-    }
-
-    public void setIdenProcPrc(MaeProceso idenProcPrc) {
-        this.idenProcPrc = idenProcPrc;
-    }
-    @PrimaryKeyJoinColumn(name = "IDEN_SIMU_SIM", referencedColumnName = "IDEN_SIMU_SIM")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idenExpeTrm")
+    private List<CrdCredito> crdCreditoList;
+    @JoinColumn(name = "IDEN_SIMU_SIM", referencedColumnName = "IDEN_SIMU_SIM")
     @ManyToOne
     private CrdSimulacion idenSimuSim;
-    @PrimaryKeyJoinColumn(name = "CODI_PERS_TRM", referencedColumnName = "IDEN_PERS_PER")
+    @JoinColumn(name = "CODI_PERS_TRM", referencedColumnName = "IDEN_PERS_PER")
     @ManyToOne
-    private MaePersona codiPersTrm;
-    @PrimaryKeyJoinColumn(name = "IDEN_PROC_PRC", referencedColumnName = "IDEN_PROC_PRC")
-    @ManyToOne
-    private MaeProceso idenProcPrc;
+    private MaePersona codiPersTrm;    
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -439,5 +434,15 @@ public class TrmTramite implements Serializable {
     public void setIdenSimuSim(CrdSimulacion idenSimuSim) {
         this.idenSimuSim = idenSimuSim;
     }
-    
+
+    @XmlTransient
+    @JsonIgnore
+    public List<CrdCredito> getCrdCreditoList() {
+        return crdCreditoList;
+    }
+
+    public void setCrdCreditoList(List<CrdCredito> crdCreditoList) {
+        this.crdCreditoList = crdCreditoList;
+    }
+
 }

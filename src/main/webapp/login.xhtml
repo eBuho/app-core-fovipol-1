@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:composition template="/plantillas/plantilla-login.xhtml">
+        <ui:define name="cabecera">
+            <title>Login</title>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+            <link
+                href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700Andsubset=all"
+                rel="stylesheet" type="text/css" /> 
+            <script src="/fovipol/resources/metronic/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+            <link href="#{request.contextPath}/resources/metronic/plugins/bootstrap/css/bootstrap.min.css"
+                  rel="stylesheet" type="text/css" />
+        </ui:define>
+        <ui:define name="contenido">
+            <div id="login-box">
+                <form name='loginForm'
+                      action="j_spring_security_check" method='POST'>
+                    <div class="col-md-12 margen-bajo">
+                        <c:if test="${param.error!=null}">
+                            <font color="red" style="font-weight: bold ">
+                                Usuario o Contraseña incorrecto
+                            </font>
+                        </c:if>
+                    </div>
+                    <div class="col-md-12 margen-bajo">
+                        <h:outputText value="Usuario:" style="font-weight: bold;"/>
+                    </div>
+                    <div class="col-md-12 margen-bajo">
+                        <input class="form-control" type='text' name='username' value=''/>
+                    </div>
+                    <div class="col-md-12 margen-bajo">
+                        <h:outputText value="Password:" style="font-weight: bold;"/>
+                    </div>
+                    <div class="col-md-12 margen-bajo">
+                        <input class="form-control" type='password' name='password' />
+                    </div>
+                    <div class="col-md-12 margen-bajo">
+                        <input class="btn-ingresar" name="submit" type="submit"
+                               value=" " />
+                    </div>                    
+                </form>
+            </div>
+        </ui:define>	
+    </ui:composition>
+</html>

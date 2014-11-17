@@ -2,12 +2,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="Inicio"></h:outputText>
+    <ui:composition template="plantillas/plantilla.xhtml">
+        <ui:define name="title">Inicio</ui:define>
+        <ui:define name="body">
+            <div class="col-md-12">
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-reorder"></i>Inicio
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <c:forEach var="sis" items="#{sesionUsuario.modulos}">
+                            <h:link	outcome="/main.xhtml"
+                                    styleClass="icon-btn" style="height: 90px !important;">
+                                <i class="fa">
+                                    <img alt="" src="#{request.contextPath}/resources/images/plantilla/iconos_grande/#{sis.rutaImagMod}" />
+                                </i>
+                                <div>#{sis.nombModuMod}</div>
+                                <f:param name="nivel1" value="#{sis.idenModuMod}" />	
+                            </h:link>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
-   
+
 </html>

@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 /**
  *
@@ -34,19 +35,28 @@ public class MaeEntidaddetFacade extends AbstractFacade<MaeEntidaddet> {
     
     public List<MaeEntidaddet> findDetalle(MaeEntidad padre) {
         List<MaeEntidaddet> lista = null;
-        String sql = "select d from MaeEntidaddet d where d.codiEntiEnt = :codiEntiEnt order by d.secuEntiDet";
-
+        String sql = "select d from MaeEntidaddet d where d.codiEntiEnt.codiEntiEnt = :codiEntiEnt order by d.secuEntiDet";
         Query q = em.createQuery(sql);
-        q.setParameter("codiEntiEnt", padre);
+        q.setParameter("codiEntiEnt", padre.getCodiEntiEnt());
         lista = q.getResultList();
         return lista;
     }
     public List<MaeEntidaddet> findDetalleActivo(MaeEntidad padre) {
         List<MaeEntidaddet> lista = null;
-        String sql = "select d from MaeEntidaddet d where d.codiEntiEnt = :codiEntiEnt and d.flagEstaDet=1 order by d.secuEntiDet";
-
+        String sql = "select d from MaeEntidaddet d where d.codiEntiEnt.codiEntiEnt = :codiEntiEnt and d.flagEstaDet<>"+
+                Constantes.VALOR_ESTADO_INACTIVO+" order by d.secuEntiDet";
         Query q = em.createQuery(sql);
-        q.setParameter("codiEntiEnt", padre);
+        q.setParameter("codiEntiEnt", padre.getCodiEntiEnt());
+        lista = q.getResultList();
+        return lista;
+    }
+    public List<MaeEntidaddet> findDetalleActivoCaja(MaeEntidad padre,BigDecimal caja) {
+        List<MaeEntidaddet> lista = null;
+        String sql = "select d from MaeEntidaddet d where d.codiEntiEnt.codiEntiEnt = :codiEntiEnt and d.flagEstaDet<>"+
+                Constantes.VALOR_ESTADO_INACTIVO+" and d.valoNumuDet=:caja order by d.secuEntiDet";
+        Query q = em.createQuery(sql);
+        q.setParameter("codiEntiEnt", padre.getCodiEntiEnt());
+        q.setParameter("caja", caja);
         lista = q.getResultList();
         return lista;
     }

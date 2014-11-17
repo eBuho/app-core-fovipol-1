@@ -12,24 +12,10 @@
             <h:form id="AdmModuloEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{admModuloController.selected != null}">
-                        <p:outputLabel value="#{seguridad.EditAdmModuloLabel_idenModuMod}" for="idenModuMod" />
-                        <p:inputText id="idenModuMod" value="#{admModuloController.selected.idenModuMod}" title="#{seguridad.EditAdmModuloTitle_idenModuMod}" required="true" requiredMessage="#{seguridad.EditAdmModuloRequiredMessage_idenModuMod}"/>
                         <p:outputLabel value="#{seguridad.EditAdmModuloLabel_nombModuMod}" for="nombModuMod" />
                         <p:inputText id="nombModuMod" value="#{admModuloController.selected.nombModuMod}" title="#{seguridad.EditAdmModuloTitle_nombModuMod}" />
                         <p:outputLabel value="#{seguridad.EditAdmModuloLabel_rutaImagMod}" for="rutaImagMod" />
                         <p:inputText id="rutaImagMod" value="#{admModuloController.selected.rutaImagMod}" title="#{seguridad.EditAdmModuloTitle_rutaImagMod}" />
-                        <p:outputLabel value="#{seguridad.EditAdmModuloLabel_usuaCreaAud}" for="usuaCreaAud" />
-                        <p:inputText id="usuaCreaAud" value="#{admModuloController.selected.usuaCreaAud}" title="#{seguridad.EditAdmModuloTitle_usuaCreaAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmModuloLabel_fechCreaAud}" for="fechCreaAud" />
-                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admModuloController.selected.fechCreaAud}" title="#{seguridad.EditAdmModuloTitle_fechCreaAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmModuloLabel_usuaModiAud}" for="usuaModiAud" />
-                        <p:inputText id="usuaModiAud" value="#{admModuloController.selected.usuaModiAud}" title="#{seguridad.EditAdmModuloTitle_usuaModiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmModuloLabel_fechModiAud}" for="fechModiAud" />
-                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{admModuloController.selected.fechModiAud}" title="#{seguridad.EditAdmModuloTitle_fechModiAud}"  showOn="button"/>
-                        <p:outputLabel value="#{seguridad.EditAdmModuloLabel_nombEquiAud}" for="nombEquiAud" />
-                        <p:inputText id="nombEquiAud" value="#{admModuloController.selected.nombEquiAud}" title="#{seguridad.EditAdmModuloTitle_nombEquiAud}" />
-                        <p:outputLabel value="#{seguridad.EditAdmModuloLabel_nombSopeAud}" for="nombSopeAud" />
-                        <p:inputText id="nombSopeAud" value="#{admModuloController.selected.nombSopeAud}" title="#{seguridad.EditAdmModuloTitle_nombSopeAud}" />
                         <p:outputLabel value="#{seguridad.EditAdmModuloLabel_flagEstaMod}" for="flagEstaMod" />
                         <p:inputText id="flagEstaMod" value="#{admModuloController.selected.flagEstaMod}" title="#{seguridad.EditAdmModuloTitle_flagEstaMod}" required="true" requiredMessage="#{seguridad.EditAdmModuloRequiredMessage_flagEstaMod}"/>
                     </p:panelGrid>

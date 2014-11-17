@@ -18,21 +18,13 @@
                         <p:inputText id="nombUbigUbi" value="#{maeUbigeoController.selected.nombUbigUbi}" title="#{bundle.EditMaeUbigeoTitle_nombUbigUbi}" />
                         <p:outputLabel value="#{bundle.EditMaeUbigeoLabel_niveUbigUbi}" for="niveUbigUbi" />
                         <p:inputText id="niveUbigUbi" value="#{maeUbigeoController.selected.niveUbigUbi}" title="#{bundle.EditMaeUbigeoTitle_niveUbigUbi}" />
-                        <p:outputLabel value="#{bundle.EditMaeUbigeoLabel_usuaCreaUbi}" for="usuaCreaUbi" />
-                        <p:inputText id="usuaCreaUbi" value="#{maeUbigeoController.selected.usuaCreaUbi}" title="#{bundle.EditMaeUbigeoTitle_usuaCreaUbi}" />
-                        <p:outputLabel value="#{bundle.EditMaeUbigeoLabel_fechCreaUbi}" for="fechCreaUbi" />
-                        <p:calendar id="fechCreaUbi" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeUbigeoController.selected.fechCreaUbi}" title="#{bundle.EditMaeUbigeoTitle_fechCreaUbi}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditMaeUbigeoLabel_usuaModiUbi}" for="usuaModiUbi" />
-                        <p:inputText id="usuaModiUbi" value="#{maeUbigeoController.selected.usuaModiUbi}" title="#{bundle.EditMaeUbigeoTitle_usuaModiUbi}" />
-                        <p:outputLabel value="#{bundle.EditMaeUbigeoLabel_fechModiUbi}" for="fechModiUbi" />
-                        <p:calendar id="fechModiUbi" pattern="MM/dd/yyyy HH:mm:ss" value="#{maeUbigeoController.selected.fechModiUbi}" title="#{bundle.EditMaeUbigeoTitle_fechModiUbi}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditMaeUbigeoLabel_flagEstaUbi}" for="flagEstaUbi" />
                         <p:inputText id="flagEstaUbi" value="#{maeUbigeoController.selected.flagEstaUbi}" title="#{bundle.EditMaeUbigeoTitle_flagEstaUbi}" />
                         <p:outputLabel value="#{bundle.EditMaeUbigeoLabel_idenUbipUbi}" for="idenUbipUbi" />
                         <p:selectOneMenu id="idenUbipUbi" value="#{maeUbigeoController.selected.idenUbipUbi}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{maeUbigeoController.itemsAvailableSelectOne}"
-                                           var="idenUbipUbiItem"
+                                           var="idenUbipUbiItem" itemLabel="#{idenUbipUbiItem.nombUbigUbi}"
                                            itemValue="#{idenUbipUbiItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>

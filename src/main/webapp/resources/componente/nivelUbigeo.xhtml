@@ -11,8 +11,8 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation> 
-        <h:outputText value="Departamento" rendered="#{cc.attrs.value==1}"/>
-        <h:outputText value="Provincia" rendered="#{cc.attrs.value==2}"/> 
-        <h:outputText value="Distrito" rendered="#{cc.attrs.value==3}"/>
+        <h:outputText value="#{constantes.NIVEL_UBIGEO_DEPARTAMENTO}" rendered="#{cc.attrs.value==constantes.VALOR_NIVEL_UBIGEO_DEPARTAMENTO}"/>
+        <h:outputText value="#{constantes.NIVEL_UBIGEO_PROVINCIA}" rendered="#{cc.attrs.value==constantes.VALOR_NIVEL_UBIGEO_PROVINCIA}"/> 
+        <h:outputText value="#{constantes.NIVEL_UBIGEO_DISTRITO}" rendered="#{cc.attrs.value==constantes.VALOR_NIVEL_UBIGEO_DISTRITO}"/> 
     </cc:implementation>
 </html>

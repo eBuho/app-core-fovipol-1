@@ -60,7 +60,7 @@ public class MaeAreaController implements Serializable {
 
     public MaeArea prepareCreate() {
         selected = new MaeArea();
-        selected.setFlagEstaAre(Constantes.ESTADO_ACTIVO_SHORT);
+        selected.setFlagEstaAre(Constantes.VALOR_ESTADO_ACTIVO);
         initializeEmbeddableKey();
         return selected;
     }

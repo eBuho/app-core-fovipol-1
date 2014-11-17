@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle3.ListMaeProcesoestadoTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <div class="col-md-12">
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>
+                            <h:outputText value="#{bundle3.ListMaeProcesoestadoTitle}"/>
+                        </div>
+                    </div>
+                    <div class="portlet-body" >
+                        <h:form id="MaeProcesoestadoListForm">
+                                <p:dataTable id="datalist" value="#{maeProcesoestadoController.items}" var="item"
+                                             selectionMode="single" selection="#{maeProcesoestadoController.selected}"
+                                             paginator="true" paginatorPosition="top"
+                                             rowKey="#{item.maeProcesoestadoPK}"
+                                             rows="10"
+                                             emptyMessage="No se encontraron resultados"
+                                             rowsPerPageTemplate="10,20,30,40,50"
+                                             >
+
+                                    <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle3.ListMaeProcesoestadoTitle_maeProceso}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.maeProceso.nombProcPrc}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle3.ListMaeProcesoestadoTitle_maeProcesoestadoPK_secuEstaPre}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.maeProcesoestadoPK.secuEstaPre}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle3.ListMaeProcesoestadoTitle_nombEstaPre}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nombEstaPre}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle3.ListMaeProcesoestadoTitle_rutaIconPre}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.rutaIconPre}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle3.ListMaeProcesoestadoTitle_flagEstaPrc}"/>
+                                        </f:facet>
+                                        <comp:activo value="#{item.flagEstaPrc}"/>
+                                    </p:column>                                    
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle3.ListMaeProcesoestadoTitle}"/>
+                                        <p:spacer width="20"/>
+                                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle3.Create}" actionListener="#{maeProcesoestadoController.prepareCreate}" update=":MaeProcesoestadoCreateForm" oncomplete="PF('MaeProcesoestadoCreateDialog').show()"/>
+                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle3.View}" update=":MaeProcesoestadoViewForm" oncomplete="PF('MaeProcesoestadoViewDialog').show()" disabled="#{empty maeProcesoestadoController.selected}"/>
+                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle3.Edit}" update=":MaeProcesoestadoEditForm" oncomplete="PF('MaeProcesoestadoEditDialog').show()" disabled="#{empty maeProcesoestadoController.selected}"/>
+                                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle3.Delete}" actionListener="#{maeProcesoestadoController.destroy}" update=":growl,datalist" disabled="#{empty maeProcesoestadoController.selected}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

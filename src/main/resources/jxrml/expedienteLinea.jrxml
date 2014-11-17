@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="expedienteProducto" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c8ea9ef0-bb5d-42fa-a10f-01c0ec02af32">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_FechaInicial" class="java.util.Date"/>
+	<parameter name="P_FechaFinal" class="java.util.Date"/>
+	<parameter name="P_Moneda" class="java.lang.String"/>
+	<parameter name="P_Linea" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="codiExpeTrm" class="java.lang.String">
+		<fieldDescription><![CDATA[idenExpeTrm.codiExpeTrm]]></fieldDescription>
+	</field>
+	<field name="fechAproCrd" class="java.util.Date">
+		<fieldDescription><![CDATA[fechAproCrd]]></fieldDescription>
+	</field>
+	<field name="codiPersTrm" class="pe.gob.fovipol.sifo.model.maestros.MaePersona">
+		<fieldDescription><![CDATA[idenExpeTrm.codiPersTrm]]></fieldDescription>
+	</field>
+	<field name="moneda" class="pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet">
+		<fieldDescription><![CDATA[moneda]]></fieldDescription>
+	</field>
+	<field name="impoInteCrd" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[impoInteCrd]]></fieldDescription>
+	</field>
+	<field name="numeCuotPrd" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[numeCuotPrd]]></fieldDescription>
+	</field>
+	<field name="tasaInteCrd" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[tasaInteCrd]]></fieldDescription>
+	</field>
+	<field name="usuaCreaAud" class="java.lang.String">
+		<fieldDescription><![CDATA[usuaCreaAud]]></fieldDescription>
+	</field>
+	<field name="idenExpeTrm" class="pe.gob.fovipol.sifo.model.tramite.TrmTramite">
+		<fieldDescription><![CDATA[idenExpeTrm]]></fieldDescription>
+	</field>
+	<field name="linea" class="pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet">
+		<fieldDescription><![CDATA[linea]]></fieldDescription>
+	</field>
+	<field name="impoSoliCrd" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[impoSoliCrd]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="86">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="85" forecolor="#006600" backcolor="#FFFFFF" uuid="8bd6e8ba-e98c-4fac-9e42-3938afbc33c5"/>
+				<staticText>
+					<reportElement mode="Transparent" x="203" y="17" width="189" height="23" forecolor="#006600" uuid="7117ef36-d290-4dc7-9491-5e173d6e15db"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Expedientes - Líneas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="59" width="554" height="15" forecolor="#006600" uuid="9c9d1426-7a28-497b-b178-2077b5d950e1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Filtros:  Fecha Inicial                                            Fecha Final                                             Línea                                                      Moneda                                        ]]></text>
+				</staticText>
+				<textField pattern="d MMM yyyy HH:mm:ss Z">
+					<reportElement mode="Transparent" x="451" y="40" width="99" height="13" forecolor="#006600" uuid="b7eef670-f699-4f5e-9e65-57b64e8075a0"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement mode="Transparent" x="535" y="20" width="15" height="13" forecolor="#006600" backcolor="#E6E6E6" uuid="e404472f-b01d-4753-b59a-7a4e6f96b597"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Transparent" x="449" y="20" width="81" height="13" forecolor="#006600" backcolor="#E6E6E6" uuid="64b2d320-59d9-4fbc-9e1b-fcd3f04ea99a"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Pág. "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="20" y="23" width="92" height="30" uuid="d393937a-e762-4732-bea4-6dc5291fc5ce"/>
+					<imageExpression><![CDATA["C:\\Proyectos\\eBuho\\app-core-fovipol\\src\\main\\webapp\\resources\\images\\logo-fovipol-transparente.png"]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement x="78" y="59" width="72" height="15" uuid="df511f2a-0f72-4d2b-98a0-93e5fab15d08"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{P_FechaInicial}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="214" y="59" width="72" height="15" uuid="f12caa9b-3fe1-463f-b141-7627beb633d6"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{P_FechaFinal}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="497" y="59" width="53" height="15" uuid="75c0ed68-a300-4280-a547-ee68d8253392"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($P{P_Moneda}==null)?"(Todas)":$P{P_Moneda}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="392" y="40" width="53" height="13" uuid="105b51b7-1d64-4853-a011-424b4cd5da4b"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" size="8"/>
+					</textElement>
+					<text><![CDATA[Fec. Imp.]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="347" y="59" width="76" height="15" uuid="831d0cc3-6399-46dc-be2d-3baf238f0cc0"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($P{P_Linea}==null)?"(Todos)":$P{P_Linea}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="46" height="20" forecolor="#006600" backcolor="#E6E6E6" uuid="5bba0992-7bbe-48eb-b359-c35315778310"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expediente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="46" y="0" width="42" height="20" forecolor="#006600" backcolor="#E6E6E6" uuid="4bfe9633-573f-4c2b-b3a0-2bd52627de4a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="88" y="0" width="42" height="20" forecolor="#006600" backcolor="#E6E6E6" uuid="32bbfccf-bbef-45ee-8067-1ff7a3b9d05e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CIP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="130" y="0" width="42" height="20" forecolor="#006600" backcolor="#E6E6E6" uuid="fccf22c4-3fa6-4cfc-9234-23798c53ec10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A.Patermo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="172" y="0" width="42" height="20" forecolor="#006600" backcolor="#E6E6E6" uuid="5e2d687c-0453-497d-b661-e049d419d3ab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A.Matermo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="214" y="0" width="42" height="20" forecolor="#006600" backcolor="#E6E6E6" uuid="0726f685-6eeb-468b-bcc0-61d35efcab03"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="256" y="0" width="42" height="20" forecolor="#006600" backcolor="#E6E6E6" uuid="c8b624db-a6fe-4c04-9f73-d4fa966ed5a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Moneda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="298" y="0" width="83" height="20" forecolor="#006600" backcolor="#E6E6E6" uuid="9f384ada-340d-4c0b-af90-23cbca2ccf1f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Línea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="381" y="0" width="42" height="20" forecolor="#006600" backcolor="#E6E6E6" uuid="1b63d84b-8389-41b5-b5f7-9338b3047f3a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="423" y="0" width="42" height="20" forecolor="#006600" backcolor="#E6E6E6" uuid="4682eceb-10b1-4deb-a913-32971fd2626b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TEA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="465" y="0" width="42" height="20" forecolor="#006600" backcolor="#E6E6E6" uuid="125a32ae-8f6b-4c90-9a3f-0a6617153840"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Plazo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="508" y="0" width="42" height="20" forecolor="#006600" backcolor="#E6E6E6" uuid="8f3b4834-b29c-4273-bb5e-eac70b5d6773"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sectorista]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="46" height="20" forecolor="#006600" uuid="d0b134c7-e1e8-4736-bb5c-9c4031cce293"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codiExpeTrm}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="88" y="0" width="42" height="20" forecolor="#006600" uuid="aa0eabfc-3775-408e-bf87-060abda2a8ab"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codiPersTrm}.getMaeSocio().getCodiCcipSoc()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="130" y="0" width="42" height="20" forecolor="#006600" uuid="560f9042-efa4-4ff2-8f6b-e40c1161e9a7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codiPersTrm}.getApelPatePer()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="172" y="0" width="42" height="20" forecolor="#006600" uuid="736589d8-a099-4d42-a8f1-d709c23de08e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codiPersTrm}.getApelMatePer()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="214" y="0" width="42" height="20" forecolor="#006600" uuid="1601eeba-bc2c-4fb3-b87b-9b5673291b83"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codiPersTrm}.getNombPersPer()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="256" y="0" width="42" height="20" forecolor="#006600" uuid="e75367dc-fb17-41a8-b13f-1ffd524b48d1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{moneda}.getValoCaduDet()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="298" y="0" width="83" height="20" forecolor="#006600" uuid="f1858edf-d8eb-4c25-8088-8bc2609df7eb"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{linea}.getValoCaduDet()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="381" y="0" width="42" height="20" forecolor="#006600" uuid="cff4a134-80f8-4b20-9c76-78adfff38b11"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{impoSoliCrd}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="423" y="0" width="42" height="20" forecolor="#006600" uuid="8bb620b0-7570-49d3-91a2-cb901c59dd9e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tasaInteCrd}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="465" y="0" width="42" height="20" forecolor="#006600" uuid="4b4ced1d-6746-41c5-b06e-15c67e5f4434"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeCuotPrd}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="508" y="0" width="42" height="20" forecolor="#006600" uuid="1cfb50df-78e5-477d-be21-6048d0aeb387"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuaCreaAud}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement x="46" y="0" width="42" height="20" forecolor="#006600" uuid="090b73d5-5245-48e0-8f85-9c2270c3d637"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechAproCrd}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17"/>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

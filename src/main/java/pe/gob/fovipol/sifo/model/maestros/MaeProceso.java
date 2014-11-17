@@ -7,7 +7,6 @@ package pe.gob.fovipol.sifo.model.maestros;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -57,14 +56,27 @@ public class MaeProceso implements Serializable {
     @Column(name = "NIVE_PROC_PRC")
     private Short niveProcPrc;
     @Column(name = "ORDE_SECU_PRC")
-    private Integer ordeSecuPrc;
+    private Integer ordeSecuPrc;    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "maeProceso")
+    private List<MaeProcesoestado> maeProcesoestadoList;
+    @Column(name = "SECU_ESTA_PRC")
+    private Integer secuEstaPrc;
+    @Column(name = "FLAG_ALER_PRC")
+    private Character flagAlerPrc;
+    @Size(max = 120)
+    @Column(name = "ASUN_EMAI_PRC")
+    private String asunEmaiPrc;
+    @Size(max = 500)
+    @Column(name = "CABE_EMAI_PRC")
+    private String cabeEmaiPrc;
+    @Size(max = 500)
+    @Column(name = "PIEP_EMAI_PRC")
+    private String piepEmaiPrc;    
     @Size(max = 100)
     @Column(name = "PAGI_PROC_PRC")
     private String pagiProcPrc;
     @OneToMany(mappedBy = "idenProcPrc")
-    private List<TrmMovimiento> trmMovimientoList;
-    @OneToMany(mappedBy = "idenProcPrc")
-    private List<TrmTramite> trmTramiteList;
+    private List<TrmMovimiento> trmMovimientoList;    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "maeProceso")
     private List<MaeRequisito> maeRequisitoList;
     @Column(name = "TIPO_PROC_PRC")
@@ -316,15 +328,54 @@ public class MaeProceso implements Serializable {
         this.trmMovimientoList = trmMovimientoList;
     }
 
+    public Integer getSecuEstaPrc() {
+        return secuEstaPrc;
+    }
+
+    public void setSecuEstaPrc(Integer secuEstaPrc) {
+        this.secuEstaPrc = secuEstaPrc;
+    }
+
+    public Character getFlagAlerPrc() {
+        return flagAlerPrc;
+    }
+
+    public void setFlagAlerPrc(Character flagAlerPrc) {
+        this.flagAlerPrc = flagAlerPrc;
+    }
+
+    public String getAsunEmaiPrc() {
+        return asunEmaiPrc;
+    }
+
+    public void setAsunEmaiPrc(String asunEmaiPrc) {
+        this.asunEmaiPrc = asunEmaiPrc;
+    }
+
+    public String getCabeEmaiPrc() {
+        return cabeEmaiPrc;
+    }
+
+    public void setCabeEmaiPrc(String cabeEmaiPrc) {
+        this.cabeEmaiPrc = cabeEmaiPrc;
+    }
+
+    public String getPiepEmaiPrc() {
+        return piepEmaiPrc;
+    }
+
+    public void setPiepEmaiPrc(String piepEmaiPrc) {
+        this.piepEmaiPrc = piepEmaiPrc;
+    }
+
     @XmlTransient
     @JsonIgnore
-    public List<TrmTramite> getTrmTramiteList() {
-        return trmTramiteList;
+    public List<MaeProcesoestado> getMaeProcesoestadoList() {
+        return maeProcesoestadoList;
     }
 
-    public void setTrmTramiteList(List<TrmTramite> trmTramiteList) {
-        this.trmTramiteList = trmTramiteList;
+    public void setMaeProcesoestadoList(List<MaeProcesoestado> maeProcesoestadoList) {
+        this.maeProcesoestadoList = maeProcesoestadoList;
     }
 
-    
 }

@@ -6,6 +6,7 @@ import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.TrmMovimientoFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -82,14 +83,14 @@ public class TrmMovimHisController implements Serializable {
 
     public List<TrmMovimiento> getItems() {
         if (items == null) {
-            items = getFacade().findItemsActivos(); //findAll();
+            items = getFacade().findItemsActivos(BigDecimal.ONE); //findAll();
         }
         return items;
     }
     
     public List<TrmMovimiento> getItemsActivos() {
         if (getItems() == null) {
-            setItems(getFacade().findItemsActivos());
+            setItems(getFacade().findItemsActivos(BigDecimal.ONE));
         }
         return getItems();
     }

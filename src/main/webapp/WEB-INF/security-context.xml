@@ -1,23 +1,66 @@
-<beans:beans xmlns="http://www.springframework.org/schema/security"
-             xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       
-             xsi:schemaLocation="http://www.springframework.org/schema/beans 
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"       
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
        http://www.springframework.org/schema/security
-       http://www.springframework.org/schema/security/spring-security-3.2.xsd">       
-    <http use-expressions="true" auto-config="true">		
-        <intercept-url pattern="/**" access="isAuthenticated()"/>
-        <logout logout-url="/logout" logout-success-url="/index.xhtml"/>		
-    </http>
-    <authentication-manager alias="authenticationManager">
+       http://www.springframework.org/schema/security/spring-security-3.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       http://www.springframework.org/schema/data/jpa 
+       http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">       
+    <context:annotation-config/>
+    <context:component-scan base-package="pe.gob.fovipol.sifo.dao.seguridad"/>
+    <!-- Necessary to get the entity manager injected into the factory bean -->
+    
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />   
+        
+    <!-- Define EclipseLink JPA Vendor Adapter -->
+    
+    <bean id="jpaVendorAdapter"
+      class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+        <property name="databasePlatform"
+              value="org.eclipse.persistence.platform.database.MySQLPlatform" />
+        <property name="generateDdl" value="false" />
+        <property name="showSql" value="true" />
+    </bean>
+    
+    <!-- Entity Manager Factory -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="SIFOPU"></property>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+    </bean>
+    <!--    
+    <jpa:repositories base-package="pe.gob.fovipol.sifo.model.seguridad"/>
+    -->
+    <sec:http use-expressions="true" auto-config="true">		
+        <sec:intercept-url pattern="/login.xhtml" access="permitAll"/>
+        <sec:intercept-url pattern="/login" access="permitAll"/>
+        <sec:intercept-url pattern="/resources/**" access="permitAll"/>
+        <sec:intercept-url pattern="/**" access="isAuthenticated()"/>
+        <sec:logout logout-url="/logout" logout-success-url="/index.xhtml"/>        
+        <sec:form-login login-page="/login.xhtml" 
+                    default-target-url="/index.xhtml"
+                    always-use-default-target="true"
+                    authentication-failure-url="/login.xhtml?error"
+                    username-parameter="username" 
+                    password-parameter="password"/>		
+    </sec:http>
+    
+    <sec:authentication-manager alias="authenticationManager">
+        <!--    
         <authentication-provider>
             <user-service>
                 <user name="admin" password="admin"   authorities="ADMIN"/>
                 <user name="usuario" password="usuario" authorities="USUARIO"/>
             </user-service>
         </authentication-provider>
-        <authentication-provider user-service-ref='admUsuarioService'/>
-    </authentication-manager>
+        -->
+        <sec:authentication-provider user-service-ref="admUsuarioService"/>
+    </sec:authentication-manager>
     
-    <beans:bean id="admUsuarioService" class="pe.gob.fovipol.sifo.service.usuario.AdmUsuarioService"/>
-</beans:beans>
+    <bean id="admUsuarioService" class="pe.gob.fovipol.sifo.service.usuario.AdmUsuarioService"/>
+</beans>

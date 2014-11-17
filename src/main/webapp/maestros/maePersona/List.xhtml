@@ -15,452 +15,18 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="MaePersonaListForm">
-                <p:panel >
-                    <p:dataTable id="datalist" value="#{maePersonaController.items}" var="item"
-                                 selectionMode="single" selection="#{maePersonaController.selectedPersona}"
-                                 paginator="true"
-                                 paginatorPosition="top"
-                                 rowKey="#{item.codiPersPer}"
-                                 rows="5"
-                                 rowsPerPageTemplate="5,10,20,30,40,50"
-                                 emptyMessage="No se encontraron registros"
-                                 >
-
-                        <p:ajax event="rowSelect" listener="#{maePersonaController.cargarSocio}"  
-                                update="createButton viewButton editButton deleteButton 
-                                :MaeSocioListForm:pestanaProceso:datalist:createButton :MaeSocioListForm:pestanaProceso:datalist:editButton 
-                                :MaeSocioListForm:pestanaProceso:datalist:viewButton :MaeSocioListForm:pestanaProceso:datalist:deleteButton
-                                :MaeSocioListForm:pestanaProceso:datalist,:MaeSocioListForm:pestanaProceso:datalistFamiliar"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_codiPersPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.codiPersPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_apelPatePer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apelPatePer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_apelMatePer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apelMatePer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_nombPersPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombPersPer}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_nombCompPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombCompPer}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_tipoIdenPer}"/>
-                            </f:facet>
-                            <comp:entidadDetalle value="#{item.tipoIdenPer}" entidad="TIPOIDENPER"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_numeIdenPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.numeIdenPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_direPersPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.direPersPer}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_estaCiviPer}"/>
-                            </f:facet>
-                            <comp:entidadDetalle value="#{item.estaCiviPer}" entidad="ESTACIVIPER"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_sexoPersPer}"/>
-                            </f:facet>
-                            <comp:entidadDetalle value="#{item.sexoPersPer}" entidad="SEXOPERSPER"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_fechNaciPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechNaciPer}">
-                                <f:convertDateTime locale="es" pattern="dd/MM/YYYY" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_numeTelcPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.numeTelcPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_numeTeltPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.numeTeltPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_corrElecPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.corrElecPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_numeCeluPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.numeCeluPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_numeCel2Per}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.numeCel2Per}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_fechFallPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechFallPer}">
-                                <f:convertDateTime locale="es" type="date" pattern="dd/MM/YYYY" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_tipoProfPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tipoProfPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_refeUbigPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.refeUbigPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_mediTallPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.mediTallPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_rutaFotoPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.rutaFotoPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_flagBloqPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.flagBloqPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_motiBloqPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.motiBloqPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_flagHomoPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.flagHomoPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_docuHomoPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.docuHomoPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_grpoSangPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.grpoSangPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_gradParePer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.gradParePer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_usuaCreaAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuaCreaAud}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_fechCreaAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechCreaAud}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_usuaModiAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuaModiAud}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_fechModiAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechModiAud}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_nombEquiAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombEquiAud}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_nombSopeAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombSopeAud}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_flagEstaPer}"/>
-                            </f:facet>
-                            <comp:activo value="#{item.flagEstaPer}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_codiPerpPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.codiPerpPer}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_ubigNaciPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ubigNaciPer.nombUbigUbi}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_ubigResiPer}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ubigResiPer.nombUbigUbi}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaePersonaTitle_maeSocio}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.maeSocio}"/>
-                        </p:column>
-                        <f:facet name="header">
+            <div class="col-md-12">
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>
                             <h:outputText value="#{bundle.ListMaePersonaTitle}"/>
-                            <p:spacer width="25"/>
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maePersonaController.prepareCreate}" update=":MaePersonaCreateForm" oncomplete="PF('MaePersonaCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{maePersonaController.prepararVer()}" update=":MaePersonaViewForm" oncomplete="PF('MaePersonaViewDialog').show()" disabled="#{empty maePersonaController.selectedPersona}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{maePersonaController.prepararActualizar}" update=":MaePersonaEditForm" oncomplete="PF('MaePersonaEditDialog').show()" disabled="#{empty maePersonaController.selectedPersona}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maePersonaController.destroy}" update=":growl,datalist" disabled="#{empty maePersonaController.selectedPersona}">
-                                <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
-                            </p:commandButton>
-                        </f:facet>
-                    </p:dataTable>
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                    </p:confirmDialog>
-                </p:panel>
-            </h:form>
-            <h:form id="MaeSocioListForm">
-                <div style="height: 20px;"></div>
-                <p:tabView id="pestanaProceso">
-                    <p:tab title="Socio">     
-                        <div style="height: 20px;"></div>
-                        <p:panel >
-                            <p:dataTable id="datalist" value="#{maePersonaController.socios}" var="item"
-                                         selectionMode="single" selection="#{maePersonaController.selectedSocio}"
-                                         paginator="true"
-                                         rowKey="#{item.codiPersPer}"
-                                         rows="5"
-                                         rowsPerPageTemplate="5,10,20,30,40,50"
-                                         emptyMessage="No se encontraron registros"
-                                         >
-
-                                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListMaeSocioTitle}"></h:outputText>
-                                    <p:spacer width="25px"/>
-                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" disabled="#{maePersonaController.socios.size()>0 || maePersonaController.selected==null}"
-                                                     actionListener="#{maePersonaController.prepareCreateSocio}" update=":MaeSocioCreateForm" oncomplete="PF('MaeSocioCreateDialog').show()"/>
-                                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaeSocioViewForm" oncomplete="PF('MaeSocioViewDialog').show()" disabled="#{empty maePersonaController.selectedSocio}"/>
-                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" 
-                                                     update=":MaeSocioEditForm" oncomplete="PF('MaeSocioEditDialog').show()"
-                                                     value="#{bundle.Edit}" disabled="#{empty maePersonaController.selectedSocio}"/>
-                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maePersonaController.destroySocio}" update=":growl,datalist"
-                                                     disabled="#{empty maePersonaController.selectedSocio}">
-                                        <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
-                                    </p:commandButton>    
-                                </f:facet>
-
-
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_codiPersPer}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.codiPersPer}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_codiMigrSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.codiMigrSoc}"/>
-                                </p:column>
-                                <p:column  rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_tipoPoliSoc}"/>
-                                    </f:facet>
-                                    <comp:entidadDetalle value="#{item.tipoPoliSoc}" entidad="TIPOPOLISOC"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_codiCcipSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.codiCcipSoc}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_codiCdfiSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.codiCdfiSoc}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_codiCajaSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.codiCajaSoc}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_codiMpolSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.codiMpolSoc}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_fechAfilSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechAfilSoc}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_fechDesaSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechDesaSoc}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_codiGradSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.codiGradSoc}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_codiEspeSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.codiEspeSoc}"/>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_fechIescSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechIescSoc}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_fechEescSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechEescSoc}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_fechBajaSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechBajaSoc}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_unidTrabSoc}"/>
-                                    </f:facet>
-                                    <comp:entidadDetalle value="#{item.unidTrabSoc}" entidad="UNIDTRABSOC"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_entiPagoSoc}"/>
-                                    </f:facet>
-                                    <comp:entidadDetalle value="#{item.entiPagoSoc}" entidad="ENTIPAGOSOC"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_fechReinSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechReinSoc}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column rendered="false">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_flagRenuSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.flagRenuSoc}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_fechRenuSoc}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fechRenuSoc}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListMaeSocioTitle_flagEstaSoc}"/>
-                                    </f:facet>
-                                    <comp:activo value="#{item.flagEstaSoc}"/>
-                                </p:column>                    
-                            </p:dataTable>
-                        </p:panel>
-                    </p:tab>
-                    <p:tab title="Familiares">
-                        <p:panel >
-                            <p:dataTable id="datalistFamiliar" value="#{maePersonaController.itemsFamilia}" var="item"
-                                         selectionMode="single" selection="#{maePersonaController.selectedFamilia}"
+                        </div>
+                    </div>
+                    <div class="portlet-body" >
+                        <h:form id="MaePersonaListForm">
+                            <p:dataTable id="datalist" value="#{maePersonaController.items}" var="item"
+                                         selectionMode="single" selection="#{maePersonaController.selectedPersona}"
                                          paginator="true"
                                          paginatorPosition="top"
                                          rowKey="#{item.codiPersPer}"
@@ -468,10 +34,13 @@
                                          rowsPerPageTemplate="5,10,20,30,40,50"
                                          emptyMessage="No se encontraron registros"
                                          >
-                                <p:ajax event="rowSelect"  
-                                        update="createButton viewButton editButton deleteButton datalistFamiliar" 
-                                        />
-                                <p:ajax event="rowUnselect" update="datalistFamiliar createButton viewButton editButton deleteButton"/>
+
+                                <p:ajax event="rowSelect" listener="#{maePersonaController.cargarSocio}"  
+                                        update="createButton viewButton editButton deleteButton 
+                                        :MaeSocioListForm:pestanaProceso:datalist:createButton :MaeSocioListForm:pestanaProceso:datalist:editButton 
+                                        :MaeSocioListForm:pestanaProceso:datalist:viewButton :MaeSocioListForm:pestanaProceso:datalist:deleteButton
+                                        :MaeSocioListForm:pestanaProceso:datalist,:MaeSocioListForm:pestanaProceso:datalistFamiliar"/>
+                                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                                 <p:column>
                                     <f:facet name="header">
@@ -514,7 +83,13 @@
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_numeIdenPer}"/>
                                     </f:facet>
                                     <h:outputText value="#{item.numeIdenPer}"/>
-                                </p:column>                                
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_direPersPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.direPersPer}"/>
+                                </p:column>
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_estaCiviPer}"/>
@@ -537,39 +112,471 @@
                                 </p:column>
                                 <p:column rendered="false">
                                     <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_numeTelcPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.numeTelcPer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_numeTeltPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.numeTeltPer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_corrElecPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.corrElecPer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_numeCeluPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.numeCeluPer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_numeCel2Per}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.numeCel2Per}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_fechFallPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.fechFallPer}">
+                                        <f:convertDateTime locale="es" type="date" pattern="dd/MM/YYYY" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_tipoProfPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.tipoProfPer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_refeUbigPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.refeUbigPer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_mediTallPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.mediTallPer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_rutaFotoPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.rutaFotoPer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_flagBloqPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.flagBloqPer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_motiBloqPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.motiBloqPer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_flagHomoPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.flagHomoPer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_docuHomoPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.docuHomoPer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_grpoSangPer}"/>
                                     </f:facet>
                                     <h:outputText value="#{item.grpoSangPer}"/>
                                 </p:column>
-                                <p:column>
+                                <p:column rendered="false">
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_gradParePer}"/>
                                     </f:facet>
-                                    <comp:entidadDetalle entidad="GRADPAREPER" value="#{item.gradParePer}"/>
+                                    <h:outputText value="#{item.gradParePer}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_usuaCreaAud}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.usuaCreaAud}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_fechCreaAud}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.fechCreaAud}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_usuaModiAud}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.usuaModiAud}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_fechModiAud}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.fechModiAud}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_nombEquiAud}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nombEquiAud}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_nombSopeAud}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nombSopeAud}"/>
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_flagEstaPer}"/>
                                     </f:facet>
                                     <comp:activo value="#{item.flagEstaPer}"/>
-                                </p:column> 
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_codiPerpPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.codiPerpPer}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_ubigNaciPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.ubigNaciPer.nombUbigUbi}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_ubigResiPer}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.ubigResiPer.nombUbigUbi}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaePersonaTitle_maeSocio}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.maeSocio}"/>
+                                </p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListMaePersonaTitle}"/>
-                                    <p:spacer width="25"/>
-                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maePersonaController.prepareCreateFamilia()}" update=":MaePersonaCreateForm" oncomplete="PF('MaePersonaCreateDialog').show()"/>
-                                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{maePersonaController.prepararVerFamilia()}" update=":MaePersonaViewForm" oncomplete="PF('MaePersonaViewDialog').show()" disabled="#{empty maePersonaController.selectedFamilia}"/>
-                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{maePersonaController.prepararActualizarFamilia()}" update=":MaePersonaEditForm" oncomplete="PF('MaePersonaEditDialog').show()" disabled="#{empty maePersonaController.selectedFamilia}"/>
-                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maePersonaController.destroyFamilia()}" update=":growl,datalistFamiliar" disabled="#{empty maePersonaController.selectedFamilia}">
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maePersonaController.prepareCreate}" update=":MaePersonaCreateForm" oncomplete="PF('MaePersonaCreateDialog').show()"/>
+                                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{maePersonaController.prepararVer()}" update=":MaePersonaViewForm" oncomplete="PF('MaePersonaViewDialog').show()" disabled="#{empty maePersonaController.selectedPersona}"/>
+                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{maePersonaController.prepararActualizar}" update=":MaePersonaEditForm" oncomplete="PF('MaePersonaEditDialog').show()" disabled="#{empty maePersonaController.selectedPersona}"/>
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maePersonaController.destroy}" update=":growl,datalist" disabled="#{empty maePersonaController.selectedPersona}">
                                         <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
                                     </p:commandButton>
                                 </f:facet>
-                            </p:dataTable>                            
-                        </p:panel>
-                    </p:tab>
-                </p:tabView>
+                            </p:dataTable>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>                            
+                        </h:form>
+                        <h:form id="MaeSocioListForm">
+                            <div style="height: 20px;"></div>
+                            <p:tabView id="pestanaProceso">
+                                <p:tab title="Socio">     
+                                    <div style="height: 20px;"></div>
 
-            </h:form>
+                                    <p:dataTable id="datalist" value="#{maePersonaController.socios}" var="item"
+                                                 selectionMode="single" selection="#{maePersonaController.selectedSocio}"
+                                                 paginator="true"
+                                                 rowKey="#{item.codiPersPer}"
+                                                 rows="5"
+                                                 rowsPerPageTemplate="5,10,20,30,40,50"
+                                                 emptyMessage="No se encontraron registros"
+                                                 >
 
+                                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListMaeSocioTitle}"></h:outputText>
+                                            <p:spacer width="25px"/>
+                                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" disabled="#{maePersonaController.socios.size()>0 || maePersonaController.selected==null}"
+                                                             actionListener="#{maePersonaController.prepareCreateSocio}" update=":MaeSocioCreateForm" oncomplete="PF('MaeSocioCreateDialog').show()"/>
+                                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaeSocioViewForm" oncomplete="PF('MaeSocioViewDialog').show()" disabled="#{empty maePersonaController.selectedSocio}"/>
+                                            <p:commandButton id="editButton"   icon="ui-icon-pencil" 
+                                                             update=":MaeSocioEditForm" oncomplete="PF('MaeSocioEditDialog').show()"
+                                                             value="#{bundle.Edit}" disabled="#{empty maePersonaController.selectedSocio}"/>
+                                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maePersonaController.destroySocio}" update=":growl,datalist"
+                                                             disabled="#{empty maePersonaController.selectedSocio}">
+                                                <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
+                                            </p:commandButton>    
+                                        </f:facet>
+
+
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_codiPersPer}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiPersPer}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_codiMigrSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiMigrSoc}"/>
+                                        </p:column>
+                                        <p:column  rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_tipoPoliSoc}"/>
+                                            </f:facet>
+                                            <comp:entidadDetalle value="#{item.tipoPoliSoc}" entidad="TIPOPOLISOC"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_codiCcipSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiCcipSoc}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_codiCdfiSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiCdfiSoc}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_codiCajaSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiCajaSoc}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_codiMpolSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiMpolSoc}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_fechAfilSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechAfilSoc}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_fechDesaSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechDesaSoc}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_codiGradSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiGradSoc}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_codiEspeSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiEspeSoc}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_fechIescSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechIescSoc}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_fechEescSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechEescSoc}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_fechBajaSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechBajaSoc}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_unidTrabSoc}"/>
+                                            </f:facet>
+                                            <comp:entidadDetalle value="#{item.unidTrabSoc}" entidad="UNIDTRABSOC"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_entiPagoSoc}"/>
+                                            </f:facet>
+                                            <comp:entidadDetalle value="#{item.entiPagoSoc}" entidad="ENTIPAGOSOC"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_fechReinSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechReinSoc}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_flagRenuSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.flagRenuSoc}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_fechRenuSoc}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechRenuSoc}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaeSocioTitle_flagEstaSoc}"/>
+                                            </f:facet>
+                                            <comp:activo value="#{item.flagEstaSoc}"/>
+                                        </p:column>                    
+                                    </p:dataTable>
+
+                                </p:tab>
+                                <p:tab title="Familiares">
+
+                                    <p:dataTable id="datalistFamiliar" value="#{maePersonaController.itemsFamilia}" var="item"
+                                                 selectionMode="single" selection="#{maePersonaController.selectedFamilia}"
+                                                 paginator="true"
+                                                 paginatorPosition="top"
+                                                 rowKey="#{item.codiPersPer}"
+                                                 rows="5"
+                                                 rowsPerPageTemplate="5,10,20,30,40,50"
+                                                 emptyMessage="No se encontraron registros"
+                                                 >
+                                        <p:ajax event="rowSelect"  
+                                                update="createButton viewButton editButton deleteButton datalistFamiliar" 
+                                                />
+                                        <p:ajax event="rowUnselect" update="datalistFamiliar createButton viewButton editButton deleteButton"/>
+
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_codiPersPer}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.codiPersPer}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_apelPatePer}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.apelPatePer}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_apelMatePer}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.apelMatePer}"/>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_nombPersPer}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nombPersPer}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_nombCompPer}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.nombCompPer}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_tipoIdenPer}"/>
+                                            </f:facet>
+                                            <comp:entidadDetalle value="#{item.tipoIdenPer}" entidad="TIPOIDENPER"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_numeIdenPer}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.numeIdenPer}"/>
+                                        </p:column>                                
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_estaCiviPer}"/>
+                                            </f:facet>
+                                            <comp:entidadDetalle value="#{item.estaCiviPer}" entidad="ESTACIVIPER"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_sexoPersPer}"/>
+                                            </f:facet>
+                                            <comp:entidadDetalle value="#{item.sexoPersPer}" entidad="SEXOPERSPER"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_fechNaciPer}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechNaciPer}">
+                                                <f:convertDateTime locale="es" pattern="dd/MM/YYYY" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column rendered="false">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_grpoSangPer}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.grpoSangPer}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_gradParePer}"/>
+                                            </f:facet>
+                                            <comp:entidadDetalle entidad="GRADPAREPER" value="#{item.gradParePer}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListMaePersonaTitle_flagEstaPer}"/>
+                                            </f:facet>
+                                            <comp:activo value="#{item.flagEstaPer}"/>
+                                        </p:column> 
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListMaePersonaTitle}"/>
+                                            <p:spacer width="25"/>
+                                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maePersonaController.prepareCreateFamilia()}" update=":MaePersonaCreateForm" oncomplete="PF('MaePersonaCreateDialog').show()"/>
+                                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{maePersonaController.prepararVerFamilia()}" update=":MaePersonaViewForm" oncomplete="PF('MaePersonaViewDialog').show()" disabled="#{empty maePersonaController.selectedFamilia}"/>
+                                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" actionListener="#{maePersonaController.prepararActualizarFamilia()}" update=":MaePersonaEditForm" oncomplete="PF('MaePersonaEditDialog').show()" disabled="#{empty maePersonaController.selectedFamilia}"/>
+                                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maePersonaController.destroyFamilia()}" update=":growl,datalistFamiliar" disabled="#{empty maePersonaController.selectedFamilia}">
+                                                <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
+                                            </p:commandButton>
+                                        </f:facet>
+                                    </p:dataTable>                            
+
+                                </p:tab>
+                            </p:tabView>
+
+                        </h:form>
+                    </div>
+                </div>
+            </div>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>

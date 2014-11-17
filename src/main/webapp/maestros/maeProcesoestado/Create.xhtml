@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <ui:composition>
+
+        <p:dialog id="MaeProcesoestadoCreateDlg" widgetVar="MaeProcesoestadoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle3.CreateMaeProcesoestadoTitle}">
+            <h:form id="MaeProcesoestadoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{maeProcesoestadoController.selected != null}">
+                        <p:outputLabel value="#{bundle3.CreateMaeProcesoestadoLabel_maeProcesoestadoPK_secuEstaPre}" for="maeProcesoestadoPK_secuEstaPre" />
+                        <p:inputText id="maeProcesoestadoPK_secuEstaPre" value="#{maeProcesoestadoController.selected.maeProcesoestadoPK.secuEstaPre}" title="#{bundle3.CreateMaeProcesoestadoTitle_maeProcesoestadoPK_secuEstaPre}" required="true" requiredMessage="#{bundle3.CreateMaeProcesoestadoRequiredMessage_maeProcesoestadoPK_secuEstaPre}"/>
+                        <p:outputLabel value="#{bundle3.CreateMaeProcesoestadoLabel_nombEstaPre}" for="nombEstaPre" />
+                        <p:inputText id="nombEstaPre" value="#{maeProcesoestadoController.selected.nombEstaPre}" title="#{bundle3.CreateMaeProcesoestadoTitle_nombEstaPre}" />
+                        <p:outputLabel value="#{bundle3.CreateMaeProcesoestadoLabel_rutaIconPre}" for="rutaIconPre" />
+                        <p:inputText id="rutaIconPre" value="#{maeProcesoestadoController.selected.rutaIconPre}" title="#{bundle3.CreateMaeProcesoestadoTitle_rutaIconPre}" />
+                        <p:outputLabel value="#{bundle3.CreateMaeProcesoestadoLabel_flagEstaPrc}" for="flagEstaPrc" />
+                        <p:selectOneMenu id="flagEstaPrc" value="#{maeProcesoestadoController.selected.flagEstaPrc}" disabled="true">
+                            <f:selectItem itemLabel="Activo" itemValue="1"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle3.CreateMaeProcesoestadoLabel_maeProceso}" for="maeProceso" />
+                        <p:selectOneMenu id="maeProceso" value="#{maeProcesoestadoController.selected.maeProceso}" required="true" requiredMessage="#{bundle3.EditMaeProcesoestadoRequiredMessage_maeProceso}">
+                            <f:selectItems value="#{maeProcesoestadoController.procesos}"
+                                           var="maeProcesoItem"
+                                           itemValue="#{maeProcesoItem}" itemLabel="#{maeProcesoItem.nombProcPrc}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maeProcesoestadoController.create}" value="#{bundle3.Save}" update="display,:MaeProcesoestadoListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeProcesoestadoCreateDialog');"/>
+                    <p:commandButton value="#{bundle3.Cancel}" onclick="MaeProcesoestadoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

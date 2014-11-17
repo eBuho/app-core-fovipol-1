@@ -15,177 +15,190 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="MaeProductoListForm">
-                <p:panel>
-                    <p:dataTable id="datalist" value="#{maeProductoController.items}" var="item"
-                                 selectionMode="single" selection="#{maeProductoController.selected}"
-                                 paginator="true"
-                                 paginatorPosition="top"
-                                 filteredValue="#{maeProductoController.itemsFiltro}"
-                                 rowKey="#{item.idenProdPrd}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column filterBy="#{item.idenProdPrd}"
-                                  filterMatchMode="contains"
-                                  sortBy="#{item.idenProdPrd}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_idenProdPrd}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idenProdPrd}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_codiLinePrd}"/>
-                            </f:facet>
-                            <comp:entidadDetalle value="#{item.codiLinePrd}" entidad="CODILINEPRD"/>
-                        </p:column>
-                        <p:column filterBy="#{item.nombProdPrd}"
-                                  filterMatchMode="contains"
-                                  sortBy="#{item.nombProdPrd}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_nombProdPrd}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombProdPrd}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_cantVecePrd}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.cantVecePrd}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_maxiPeriPrd}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.maxiPeriPrd}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_fechIvigPrd}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechIvigPrd}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column  rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_fechFvigPrd}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechFvigPrd}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_tasaIntePrd}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tasaIntePrd}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_tasaGadmPrd}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tasaGadmPrd}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_montDeudPrd}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.montDeudPrd}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_autoCdobPrd}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.autoCdobPrd}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_descRequPrd}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.descRequPrd}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_formCalcPrd}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.formCalcPrd}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_usuaCreaAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuaCreaAud}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_fechCreaAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechCreaAud}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_usuaModiAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuaModiAud}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_fechModAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechModAud}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_nombEquiAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombEquiAud}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_nombSopeAud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombSopeAud}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_flagEstaPrd}"/>
-                            </f:facet>
-                            <comp:activo value="#{item.flagEstaPrd}"/>
-                        </p:column>
-                        <p:column rendered="false">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMaeProductoTitle_idenProcPrc}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idenProcPrc.nombProcPrc}"/>
-                        </p:column>
-                        <f:facet name="header">
+            <div class="col-md-12">
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>
                             <h:outputText  value="#{bundle.ListMaeProductoTitle}"/>
-                            <p:spacer width="20"/>
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maeProductoController.prepareCreate}" update=":MaeProductoCreateForm" oncomplete="PF('MaeProductoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaeProductoViewForm" oncomplete="PF('MaeProductoViewDialog').show()" disabled="#{empty maeProductoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaeProductoEditForm" oncomplete="PF('MaeProductoEditDialog').show()" disabled="#{empty maeProductoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maeProductoController.destroy}" update=":growl,datalist" disabled="#{empty maeProductoController.selected}">
-                                <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
-                            </p:commandButton>
-                        </f:facet>
-                    </p:dataTable>
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                    </p:confirmDialog>                         
-                </p:panel>
-            </h:form>
+                        </div>
+                    </div>
+                    <div class="portlet-body" >
+                        <h:form id="MaeProductoListForm">
 
+                            <p:dataTable id="datalist" value="#{maeProductoController.items}" var="item"
+                                         selectionMode="single" selection="#{maeProductoController.selected}"
+                                         paginator="true"
+                                         paginatorPosition="top"
+                                         filteredValue="#{maeProductoController.itemsFiltro}"
+                                         rowKey="#{item.idenProdPrd}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         >
+
+                                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                                <p:column filterBy="#{item.idenProdPrd}"
+                                          filterMatchMode="contains"
+                                          sortBy="#{item.idenProdPrd}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_idenProdPrd}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idenProdPrd}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_codiLinePrd}"/>
+                                    </f:facet>
+                                    <comp:entidadDetalle value="#{item.codiLinePrd}" entidad="CODILINEPRD"/>
+                                </p:column>
+                                <p:column filterBy="#{item.nombProdPrd}"
+                                          filterMatchMode="contains"
+                                          sortBy="#{item.nombProdPrd}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_nombProdPrd}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nombProdPrd}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_cantVecePrd}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.cantVecePrd}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_maxiPeriPrd}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.maxiPeriPrd}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_fechIvigPrd}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.fechIvigPrd}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column  rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_fechFvigPrd}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.fechFvigPrd}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_tasaIntePrd}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.tasaIntePrd}">
+                                        <f:convertNumber minFractionDigits="2"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_tasaGadmPrd}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.tasaGadmPrd}">
+                                        <f:convertNumber minFractionDigits="2"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_montDeudPrd}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.montDeudPrd}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_autoCdobPrd}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.autoCdobPrd}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_descRequPrd}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.descRequPrd}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_formCalcPrd}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.formCalcPrd}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_usuaCreaAud}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.usuaCreaAud}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_fechCreaAud}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.fechCreaAud}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_usuaModiAud}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.usuaModiAud}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_fechModAud}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.fechModAud}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_nombEquiAud}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nombEquiAud}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_nombSopeAud}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nombSopeAud}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_flagEstaPrd}"/>
+                                    </f:facet>
+                                    <comp:activo value="#{item.flagEstaPrd}"/>
+                                </p:column>
+                                <p:column rendered="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMaeProductoTitle_idenProcPrc}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idenProcPrc.nombProcPrc}"/>
+                                </p:column>
+                                <f:facet name="header">
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maeProductoController.prepareCreate}" update=":MaeProductoCreateForm" oncomplete="PF('MaeProductoCreateDialog').show()"/>
+                                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaeProductoViewForm" oncomplete="PF('MaeProductoViewDialog').show()" disabled="#{empty maeProductoController.selected}"/>
+                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaeProductoEditForm" oncomplete="PF('MaeProductoEditDialog').show()" disabled="#{empty maeProductoController.selected}"/>
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{maeProductoController.destroy}" update=":growl,datalist" disabled="#{empty maeProductoController.selected}">
+                                        <p:confirm header="Confirmación" message="¿Esta seguro?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:dataTable>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>                         
+                            
+                        </h:form>
+                    </div>
+                </div>
+            </div>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>

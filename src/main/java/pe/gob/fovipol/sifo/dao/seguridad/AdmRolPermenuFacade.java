@@ -12,7 +12,7 @@ import pe.gob.fovipol.sifo.model.seguridad.AdmRolPermenu;
 
 /**
  *
- * @author ebuho
+ * @author eBuho
  */
 @Stateless
 public class AdmRolPermenuFacade extends AbstractFacade<AdmRolPermenu> {

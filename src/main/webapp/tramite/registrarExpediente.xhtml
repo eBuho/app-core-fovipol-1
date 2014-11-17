@@ -2,21 +2,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/plantillas/plantilla.xhtml">
         <ui:define name="title">
             <h:outputText value="Registrar Expediente"/>
-        </ui:define>
-        <ui:define name="css">
-            <link href="#{request.contextPath}/resources/sbadmin/css/bootstrap.min.css" rel="stylesheet"/>
-            <link href="#{request.contextPath}/resources/sbadmin/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet"/>
-            <link href="#{request.contextPath}/resources/sbadmin/css/sb-admin-2.css" rel="stylesheet"/>
-            <link href="#{request.contextPath}/resources/sbadmin/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-        </ui:define>
+        </ui:define>        
         <ui:define name="body">
             <ui:include src="../procesos/tramite/registrarExpediente.xhtml">
             </ui:include>

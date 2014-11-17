@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
 
     <ui:composition template="/template.xhtml">
 
@@ -90,7 +91,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{seguridad.ListAdmModuloTitle_flagEstaMod}"/>
                             </f:facet>
-                            <h:outputText value="#{item.flagEstaMod}"/>
+                            <comp:activo value="#{item.flagEstaMod}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{seguridad.Create}" actionListener="#{admModuloController.prepareCreate}" update=":AdmModuloCreateForm" oncomplete="PF('AdmModuloCreateDialog').show()"/>
