@@ -7,7 +7,6 @@
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jr="http://jasperreportjsf.sf.net/tld/jasperreports-jsf-1_2.tld">
-
     <ui:composition>
         <script type="text/javascript">
             function manejarPeticionSimular(xhr, status, args) {
@@ -45,7 +44,7 @@
                     <h:form id="formBusqueda" > 
                         <div class="col-md-12" style="margin-bottom: 10px;">
                             <p:commandButton icon="ui-icon-plus" update=":formSimulacion:comboProducto, :formSimulacion:ingresosF,
-                                :formSimulacion:condiciones,:formSimulacion:endeudamientoF,:formSimulacion:panelInicio,:formSimulacion:capacidadCredito" value="Nuevo" actionListener="#{simulacionController.nuevaSimulacion}">
+                                             :formSimulacion:condiciones,:formSimulacion:endeudamientoF,:formSimulacion:panelInicio,:formSimulacion:capacidadCredito" value="Nuevo" actionListener="#{simulacionController.nuevaSimulacion}">
                                 <p:confirm header="Confirmación" message="¿Esta seguro perderá los cambios que no guardo?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
@@ -240,139 +239,129 @@
                                     <div class="col-md-12 espacio-div">
                                         <p:panel styleClass="panel" id="condiciones">
                                             <div class="col-md-12 espacio-div">
-                                                <div class="col-md-6 espacio-div">
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:outputText value="Moneda"/>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:selectOneMenu styleClass="form-control"   value="#{simulacionController.simulacion.codiMoneCrd}">
-                                                            <f:selectItems value="#{simulacionController.monedas}"
-                                                                           itemValue="#{moneda.secuEntiDet}" var="moneda" itemLabel="#{moneda.valoCaduDet}"/>
-                                                        </h:selectOneMenu>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:outputText value="Monto"/>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <p:inputText label="Monto" value="#{simulacionController.simulacion.impoSoliSim}">
-                                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />                                                    
-                                                            <p:ajax update="gastoAdministrativo,montoCheque" listener="#{simulacionController.calcularGastosAdministrativos()}" event="keyup" />
-                                                        </p:inputText>
-                                                    </div>
+                                                <div class="col-md-2">
+                                                    <h:outputText value="Moneda"/>
                                                 </div>
-                                                <div class="col-md-6 espacio-div">
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:outputText value="Monto a Entregar"/>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <p:inputText disabled="true" id="montoCheque" label="Monto a Entregar" value="#{simulacionController.montoCheque}"> 
-                                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
-                                                        </p:inputText>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:outputText value="Cíclica" style="margin-left: 5px;"/>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:selectOneMenu styleClass="form-control" value="#{simulacionController.simulacion.periCiclSim}">
-                                                            <f:selectItem itemLabel="5" itemValue="5"/>
-                                                            <f:selectItem itemLabel="15" itemValue="15"/>
-                                                            <f:selectItem itemLabel="25" itemValue="25"/>
-                                                        </h:selectOneMenu>
-                                                    </div>
+                                                <div class="col-md-2 espacio-div">
+                                                    <h:selectOneMenu styleClass="form-control"   value="#{simulacionController.simulacion.codiMoneCrd}">
+                                                        <f:selectItems value="#{simulacionController.monedas}"
+                                                                       itemValue="#{moneda.secuEntiDet}" var="moneda" itemLabel="#{moneda.valoCaduDet}"/>
+                                                    </h:selectOneMenu>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <h:outputText value="Monto"/>
+                                                </div>
+                                                <div class="col-md-2 espacio-div">
+                                                    <p:inputText label="Monto" value="#{simulacionController.simulacion.impoSoliSim}">
+                                                        <f:convertNumber groupingUsed="true" minFractionDigits="2" />                                                    
+                                                        <p:ajax update="gastoAdministrativo,montoCheque" listener="#{simulacionController.calcularGastosAdministrativos()}" event="keyup" />
+                                                    </p:inputText>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <h:outputText value="Monto a Entregar"/>
+                                                </div>
+                                                <div class="col-md-2 espacio-div">
+                                                    <p:inputText disabled="true" id="montoCheque" label="Monto a Entregar" value="#{simulacionController.montoCheque}"> 
+                                                        <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                                    </p:inputText>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-12 espacio-div">
+                                                <div class="col-md-2">
+                                                    <h:outputText value="Cíclica"/>
+                                                </div>
+                                                <div class="col-md-2 espacio-div">
+                                                    <h:selectOneMenu styleClass="form-control" value="#{simulacionController.simulacion.periCiclSim}">
+                                                        <f:selectItem itemLabel="5" itemValue="5"/>
+                                                        <f:selectItem itemLabel="15" itemValue="15"/>
+                                                        <f:selectItem itemLabel="25" itemValue="25"/>
+                                                    </h:selectOneMenu>
+                                                </div>  
+                                                <div class="col-md-2">
+                                                    <h:outputText value="Cronograma"/>
+                                                </div>
+                                                <div class="col-md-2 espacio-div">
+                                                    <h:selectOneMenu styleClass="form-control" value="#{simulacionController.simulacion.autoCdobSim}"> 
+                                                        <f:selectItem itemLabel="Cuota Fija" itemValue="N"/>
+                                                        <f:selectItem itemLabel="Cuota Doble" itemValue="S"/>
+                                                    </h:selectOneMenu>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <h:outputText value="Plazo en Meses"/>
+                                                </div>
+                                                <div class="col-md-2 espacio-div">
+                                                    <p:inputText label="Plazo" value="#{simulacionController.simulacion.plazPresSim}">
+                                                        <f:convertNumber integerOnly="true" />
+                                                    </p:inputText>
                                                 </div>
                                             </div>
                                             <div class="col-md-12 espacio-div">
-                                                <div class="col-md-6 espacio-div">
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:outputText value="Cronograma"/>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:selectOneMenu styleClass="form-control" value="#{simulacionController.simulacion.autoCdobSim}"> 
-                                                            <f:selectItem itemLabel="Cuota Fija" itemValue="N"/>
-                                                            <f:selectItem itemLabel="Cuota Doble" itemValue="S"/>
-                                                        </h:selectOneMenu>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:outputText value="Plazo en Meses"/>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <p:inputText label="Plazo" value="#{simulacionController.simulacion.plazPresSim}">
-                                                            <f:convertNumber integerOnly="true" />
-                                                        </p:inputText>
-                                                    </div>
+                                                <div class="col-md-2 ">
+                                                    <h:outputText value="Cuota"/>
                                                 </div>
-                                                <div class="col-md-6 espacio-div">
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:outputText value="Cuota"/>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <p:inputText label="Cuota" value="#{simulacionController.simulacion.impoCuotSim}">
-                                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />                                                    
-                                                        </p:inputText>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:outputText value="TEA %" style="margin-left: 5px;"/>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <p:inputText disabled="true" label="TEA" value="#{simulacionController.producto.tasaIntePrd}">
-                                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
-                                                        </p:inputText>
-                                                    </div>
+                                                <div class="col-md-2 espacio-div">
+                                                    <p:inputText label="Cuota" value="#{simulacionController.simulacion.impoCuotSim}">
+                                                        <f:convertNumber groupingUsed="true" minFractionDigits="2" />                                                    
+                                                    </p:inputText>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12 espacio-div">
-                                                <div class="col-md-6 espacio-div">
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:outputText value="Nacimiento " />
-                                                        </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <p:inputText disabled="true" value="#{simulacionController.edad}" id="edad" size="2" style="width: 30px;"/>
-                                                        <p:calendar disabled="true" size="10" value="#{simulacionController.socio.maePersona.fechNaciPer}" locale="es" lang="es" > 
-                                                            <p:ajax update="edad" event="dateSelect" listener="#{simulacionController.calcularEdad}"/>
-                                                            <p:ajax update="edad" event="change" listener="#{simulacionController.calcularEdad}"/>
-                                                        </p:calendar>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:outputText value="Gastos Administrativos"/>
-                                                    </div>
-                                                    <div class="col-md-3 espacio-div">
-                                                        <p:inputText disabled="true" label="Gastos Administrativos" id="gastoAdministrativo" value="#{simulacionController.gastosAdministrativos}">
-                                                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
-                                                        </p:inputText>
-                                                    </div>
+                                                <div class="col-md-2">
+                                                    <h:outputText value="TEA %"/>
                                                 </div>
-                                                <div class="col-md-6 espacio-div">
-                                                    <div class="col-md-3 espacio-div">
-                                                        <h:outputText value="Póliza"/>
-                                                    </div>
-                                                    <div class="col-md-9 espacio-div">
-                                                        <p:inputText value="#{simulacionController.polizaNombre}" id="polizaNombre"/>
-                                                        <p:commandButton id="polizaBtn" value="Póliza" type="button" disabled="#{simulacionController.producto.idenProdPrd==null}"/>
-                                                        <p:overlayPanel dismissable="false" widgetVar="polizaPanel" id="polizaPanel" showCloseIcon="true" for="polizaBtn" hideEffect="fade" style="width:200px">
-                                                            <h:panelGroup id="display">
-                                                                <h:outputText value="Póliza" />
-                                                                <h:selectOneMenu styleClass="form-control" value="#{simulacionController.seguro}">
-                                                                    <f:selectItem itemValue="" itemLabel="Seleccione Póliza"/>
-                                                                    <f:selectItems value="#{simulacionController.seguros}" var="poliza"
-                                                                                   itemValue="#{poliza}" itemLabel="#{poliza.descNombSeg}"/>
-                                                                </h:selectOneMenu>
-                                                                <p:commandButton value="Agregar" oncomplete="detalleActualiza()"/>
-                                                            </h:panelGroup>
-                                                        </p:overlayPanel>
-                                                    </div>                                          
+                                                <div class="col-md-2 espacio-div">
+                                                    <p:inputText disabled="true" label="TEA" value="#{simulacionController.producto.tasaIntePrd}">
+                                                        <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                                    </p:inputText>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <h:outputText value="Nacimiento " />
+                                                </div>
+                                                <div class="col-md-2 espacio-div">
+                                                    <p:inputText disabled="true" value="#{simulacionController.edad}" id="edad" size="2" style="width: 30px;"/>
+                                                    <p:calendar disabled="true" size="10" value="#{simulacionController.socio.maePersona.fechNaciPer}" locale="es" lang="es" > 
+                                                        <p:ajax update="edad" event="dateSelect" listener="#{simulacionController.calcularEdad}"/>
+                                                        <p:ajax update="edad" event="change" listener="#{simulacionController.calcularEdad}"/>
+                                                    </p:calendar>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <h:outputText value="Gastos Administrativos"/>
+                                                </div>
+                                                <div class="col-md-2 espacio-div">
+                                                    <p:inputText disabled="true" label="Gastos Administrativos" id="gastoAdministrativo" value="#{simulacionController.gastosAdministrativos}">
+                                                        <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                                    </p:inputText>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <h:outputText value="Póliza"/>
+                                                </div>
+                                                <div class="col-md-4 espacio-div">
+                                                    <p:inputText value="#{simulacionController.polizaNombre}" id="polizaNombre"/>
+                                                    <p:commandButton id="polizaBtn" value="Póliza" type="button" disabled="#{simulacionController.producto.idenProdPrd==null}"/>
+                                                    <p:overlayPanel dismissable="false" widgetVar="polizaPanel" id="polizaPanel" showCloseIcon="true" for="polizaBtn" hideEffect="fade" style="width:200px">
+                                                        <h:panelGroup id="display">
+                                                            <h:outputText value="Póliza" />
+                                                            <h:selectOneMenu styleClass="form-control" value="#{simulacionController.seguro}">
+                                                                <f:selectItem itemValue="" itemLabel="Seleccione Póliza"/>
+                                                                <f:selectItems value="#{simulacionController.seguros}" var="poliza"
+                                                                               itemValue="#{poliza}" itemLabel="#{poliza.descNombSeg}"/>
+                                                            </h:selectOneMenu>
+                                                            <p:commandButton value="Agregar" oncomplete="detalleActualiza()"/>
+                                                        </h:panelGroup>
+                                                    </p:overlayPanel>
                                                 </div>
                                             </div>
                                         </p:panel>
                                     </div>
                                     <div class="col-md-12">
                                         <p:commandButton id="simular" update="resultado,condiciones"  oncomplete="manejarPeticionSimular(xhr, status, args)"
-                                            iconPos="left" icon="fa fa-save fa-prime"             styleClass="btn red btn-sm btnRojo"         value="Simular" actionListener="#{simulacionController.simular()}" disabled="#{simulacionController.socio==null or simulacionController.producto.idenProdPrd==null}"/>
+                                                         iconPos="left" icon="fa fa-save fa-prime"             styleClass="btn red btn-sm btnRojo"         value="Simular" actionListener="#{simulacionController.simular()}" disabled="#{simulacionController.socio==null or simulacionController.producto.idenProdPrd==null}"/>
                                     </div>
                                 </p:fieldset>
                             </div>
                             <p:remoteCommand actionListener="#{simulacionController.agregarPoliza}" name="detalleActualiza" 
                                              oncomplete="PF('polizaPanel').hide()"        update="polizaNombre"/>
-
                             <div id="verSimulacion" class="modal fade bs-modal-lg" tabindex="-1">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">                                
@@ -389,8 +378,7 @@
                                                 <i class="fa fa-print"/>
                                                 <h:outputText value=" Imprimir" />
                                             </jr:reportLink> 
-                                            <div class="col-md-12 espacio-div">
-                                                
+                                            <div class="col-md-12 espacio-div">                                                
                                             </div>
                                             <p:panel id="resultado" styleClass="panel">                                                                                       
                                                 <div class="col-md-12" style="font-weight: bold;">
@@ -459,8 +447,7 @@
                                                         </h:outputText>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 espacio-div">
-                                                
+                                                <div class="col-md-12 espacio-div">                                                
                                                 </div>
                                                 <div class="table-scrollable">                                                    
                                                     <p:dataTable emptyMessage="No hay resultados" paginator="true" rows="10"

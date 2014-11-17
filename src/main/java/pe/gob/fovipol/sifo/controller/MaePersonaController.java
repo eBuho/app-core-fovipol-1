@@ -6,7 +6,6 @@ import pe.gob.fovipol.sifo.controller.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.MaePersonaFacade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,6 +24,7 @@ import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
 import pe.gob.fovipol.sifo.model.maestros.MaeUbigeo;
+import pe.gob.fovipol.sifo.util.Constantes;
 
 @ManagedBean(name = "maePersonaController")
 @ViewScoped
@@ -155,7 +155,7 @@ public class MaePersonaController implements Serializable {
     }
     public MaeSocio prepareCreateSocio() {
         selectedSocio = new MaeSocio();
-        selectedSocio.setFlagEstaSoc(new Short("1"));
+        selectedSocio.setFlagEstaSoc(Constantes.VALOR_ESTADO_ACTIVO);
         selectedSocio.setCodiPersPer(selected.getCodiPersPer());  
         selectedSocio.setMaePersona(selected);
         return selectedSocio;
@@ -169,7 +169,7 @@ public class MaePersonaController implements Serializable {
     }
     public void create() {
         selected.setFechCreaAud(new Date());
-        selected.setFlagEstaPer(new Short("1"));
+        selected.setFlagEstaPer(Constantes.VALOR_ESTADO_ACTIVO);
         selected.setNombCompPer(nombreCompleto());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -201,7 +201,7 @@ public class MaePersonaController implements Serializable {
 
     public void destroy() {
         selected=selectedPersona;
-        selected.setFlagEstaPer(new Short("0"));
+        selected.setFlagEstaPer(Constantes.VALOR_ESTADO_INACTIVO);
         selected.setFechModiAud(new Date());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaUpdated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -211,7 +211,7 @@ public class MaePersonaController implements Serializable {
     }
     public void destroyFamilia() {
         selected=selectedFamilia;
-        selected.setFlagEstaPer(new Short("0"));
+        selected.setFlagEstaPer(Constantes.VALOR_ESTADO_INACTIVO);
         selected.setFechModiAud(new Date());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaUpdated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -220,7 +220,7 @@ public class MaePersonaController implements Serializable {
         }
     }
     public void destroySocio() {
-        selectedSocio.setFlagEstaSoc(new Short("0"));
+        selectedSocio.setFlagEstaSoc(Constantes.VALOR_ESTADO_INACTIVO);
         selectedSocio.setFechModiAud(new Date());
         persistSocio(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaeSocioUpdated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -391,7 +391,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getDocumentos() {
         if(documentos==null){
-            documentos=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("TIPOIDENPER"));
+            documentos=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_TIPO_DOCUMENTO_IDENTIDAD));
         }
         return documentos;
     }
@@ -408,7 +408,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getEstadosCiviles() {
         if(estadosCiviles==null){
-            estadosCiviles=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("ESTACIVIPER"));
+            estadosCiviles=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_ESTADO_CIVIL));
         }
         return estadosCiviles;
     }
@@ -425,7 +425,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getGeneros() {
         if(generos==null){
-            generos=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("SEXOPERSPER"));
+            generos=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_SEXO_PERSONA));
         }
         return generos;
     }
@@ -442,7 +442,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getProfesiones() {
         if(profesiones==null){
-            profesiones=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("TIPOPROFPER"));
+            profesiones=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_TIPO_PROFESION));
         }
         return profesiones;
     }
@@ -459,7 +459,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getBloqueos() {
         if(bloqueos==null){
-            bloqueos=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("MOTIBLOQPER"));
+            bloqueos=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_MOTIVO_BLOQUEO));
         }
         return bloqueos;
     }
@@ -477,7 +477,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getEntidadesPago() {
         if(entidadesPago==null){
-            entidadesPago=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("ENTIPAGOSOC"));
+            entidadesPago=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_PAGOS_SOCIO));
         }
         return entidadesPago;
     }
@@ -522,7 +522,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getTiposPolicia() {
         if(tiposPolicia==null){
-            tiposPolicia=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("TIPOPOLISOC"));
+            tiposPolicia=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_TIPO_POLICIA));
         }
         return tiposPolicia;
     }
@@ -539,7 +539,7 @@ public class MaePersonaController implements Serializable {
      */
     public List<MaeEntidaddet> getUnidadesTrabajo() {
         if(unidadesTrabajo==null){
-            unidadesTrabajo=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad("UNIDTRABSOC"));
+            unidadesTrabajo=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_UNIDAD_TRABAJO));
         }
         return unidadesTrabajo;
     }
