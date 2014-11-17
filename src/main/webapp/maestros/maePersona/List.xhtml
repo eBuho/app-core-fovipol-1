@@ -84,7 +84,7 @@
                                     </f:facet>
                                     <h:outputText value="#{item.direPersPer}"/>
                                 </p:column>
-                                <p:column>
+                                <p:column rendered="false">
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_estaCiviPer}"/>
                                     </f:facet>
@@ -96,7 +96,7 @@
                                     </f:facet>
                                     <comp:entidadDetalle value="#{item.sexoPersPer}" entidad="SEXOPERSPER"/>
                                 </p:column>
-                                <p:column>
+                                <p:column rendered="false">
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_fechNaciPer}"/>
                                     </f:facet>
@@ -104,7 +104,7 @@
                                         <f:convertDateTime locale="es" pattern="dd/MM/YYYY" />
                                     </h:outputText>
                                 </p:column>
-                                <p:column rendered="false">
+                                <p:column rendered="true">
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_numeTelcPer}"/>
                                     </f:facet>
@@ -116,7 +116,7 @@
                                     </f:facet>
                                     <h:outputText value="#{item.numeTeltPer}"/>
                                 </p:column>
-                                <p:column rendered="false">
+                                <p:column rendered="true">
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaePersonaTitle_corrElecPer}"/>
                                     </f:facet>
