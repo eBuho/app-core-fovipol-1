@@ -37,7 +37,7 @@
                 <div class="table-scrollable">
                     <p:dataTable value="#{cc.socios}" id="tablaSocio" var="socio" 
                                  selectionMode="single" selection="#{cc.attrs.socio}"
-                                 rowKey="#{socio.codiPersPer}" emptyMessage="No se encontraron socios con el criterio ingresado">
+                                 rowKey="#{socio.codiPersPer}" emptyMessage="#{!cc.primeraCarga ? '' : 'No se encontraron socios con el criterio ingresado.'}">
                         <p:ajax event="rowSelect" update="#{cc.attrs.actualizar}"/>
                         <p:ajax event="rowUnselect" update="#{cc.attrs.actualizar}"/>
                         <p:column>

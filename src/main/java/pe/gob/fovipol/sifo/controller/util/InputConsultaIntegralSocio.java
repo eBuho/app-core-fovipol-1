@@ -8,7 +8,6 @@ package pe.gob.fovipol.sifo.controller.util;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import javax.ejb.EJB;
 
 import javax.faces.component.FacesComponent;
@@ -16,7 +15,6 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.TabChangeEvent;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
 
 @FacesComponent("inputConsultaIntegralSocio")
@@ -26,6 +24,7 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
     private UIInput criterioBusqueda;
     private UIInput valorBusqueda;
     private UIInput tablaSocio;
+    public boolean primeraCarga;
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeSocioFacade ejbSocioFacade;
     // Actions ------------------------------------------------------------------------------------
@@ -45,6 +44,7 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
      */
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
+        primeraCarga=false;
         setListaSocios(ejbSocioFacade.findAll());
         super.encodeBegin(context);
     }
@@ -86,27 +86,7 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
             if (criterioBuscar.equals("0")) {
                 setSocios(ejbSocioFacade.findByName(valorBuscar));
             }
-        }
-    }
-
-    //filtroPorNombre
-    public boolean filtroPorNombre(Object value, Object filter, Locale locale) {
-        String filterText = (filter == null) ? null : filter.toString().trim();
-        if (filterText == null || filterText.equals("")) {
-            return true;
-        }
-
-        if (value == null) {
-            return false;
-        }
-
-        String nombre = value.toString().toUpperCase();
-        filterText = filterText.toUpperCase();
-
-        if (nombre.contains(filterText)) {
-            return true;
-        } else {
-            return false;
+            primeraCarga=true;
         }
     }
 
@@ -178,5 +158,19 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
      */
     public void setTablaSocio(UIInput tablaSocio) {
         this.tablaSocio = tablaSocio;
+    }
+
+    /**
+     * @return the primeraCarga
+     */
+    public boolean isPrimeraCarga() {
+        return primeraCarga;
+    }
+
+    /**
+     * @param primeraCarga the primeraCarga to set
+     */
+    public void setPrimeraCarga(boolean primeraCarga) {
+        this.primeraCarga = primeraCarga;
     }
 }
