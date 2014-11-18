@@ -286,7 +286,7 @@ public class EvaluarCreditoController implements Serializable {
     public void darViabilidad() {
         enOtraArea = tramiteService.darViabilidadExpediente(tramite, documentos);
         if (enOtraArea) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con éxito", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con Ã©xito", ""));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No tiene todos los requisitos", ""));
         }

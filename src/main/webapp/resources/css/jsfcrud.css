@@ -70,7 +70,7 @@
     font-weight: normal !important;
 }
 #cambiarSimulacion .modal-dialog  {
-    width:1200px;
+    width:100%;
 }
 .ui-growl{
     top: 100px !important;
