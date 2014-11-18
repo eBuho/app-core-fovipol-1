@@ -1,6 +1,6 @@
 package pe.gob.fovipol.sifo.controller.credito;
 
-import pe.gob.fovipol.sifo.model.tramite.RecAporte;
+import pe.gob.fovipol.sifo.model.recuperaciones.RecAporte;
 import pe.gob.fovipol.sifo.controller.credito.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.credito.util.JsfUtil.PersistAction;
 import pe.gob.fovipol.sifo.dao.credito.RecAporteFacade;
