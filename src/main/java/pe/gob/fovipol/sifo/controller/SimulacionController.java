@@ -184,6 +184,7 @@ public class SimulacionController implements Serializable {
                 montoAnteriorPrestamo = BigDecimal.ZERO;
                 saldoPagarAnteriorPrestamo = BigDecimal.ZERO;
             }
+            simulacion.setPlazPresSim(producto.getMaxiPeriPrd());
             simulacion.setCapaMcuoSim(creditoService.calcularMaximaCuota(simulacion.getIngrBrtoSim(), porcDescuento,
                     simulacion.getDsctOficSim(), simulacion.getDsctPersSim(), simulacion.getIngrCombSim()));
             simulacion.setImpoMaxpSim(creditoService.calcularMaximoPrestamo(totalAporte,

@@ -7,7 +7,6 @@
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jr="http://jasperreportjsf.sf.net/tld/jasperreports-jsf-1_2.tld">
-
     <ui:composition> 
         <script type="text/javascript">
             function manejarPeticionRegistro(xhr, status, args) {
@@ -563,7 +562,7 @@
                                                         <h:outputText value="Cuota :"/>
                                                     </div>
                                                     <div class="col-md-6 sin-margen">
-                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.impoCuotSim}">
+                                                        <h:outputText value="#{evaluarCreditoController.tramite.idenSimuSim.impoCuotSim}">
                                                             <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
                                                         </h:outputText>
                                                     </div>
