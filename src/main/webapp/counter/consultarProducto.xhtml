@@ -15,34 +15,27 @@
         <ui:define name="body" >
             <h:form id="form" styleClass="tablaNoBorde">
 
-                <p:panel styleClass="tablaNoBorde" header="Consulta de productos">
+                <p:panel styleClass="tablaNoBorde" >
                     <p:panelGrid columns="2" styleClass="tablaNoBorde">
                         <p:panelGrid columns="1" styleClass="tablaNoBorde">
-                            <f:facet name="header">
+                           <!-- <f:facet name="header">
                                 Productos
-                            </f:facet>
-                            <p:galleria    
-                                value="#{visorProductos.listaProductos}" 
-                                var="image" panelWidth="700" panelHeight="350" showCaption="true">
-                                <p:graphicImage 
-                                    name="images/pages/#{image.imagen}" 
-                                    alt="#{image.nombre}" 
-                                    title=" ">
-                                    <!--p:panelGrid columns="2">
+                            </f:facet>-->
+                            <div>
+                                <p:galleria    
+                                    value="#{visorProductos.listaProductos}" 
+                                    var="image" panelWidth="800" panelHeight="600" showCaption="true">
 
-                                        <p:outputLabel id="lblTexto" value="#{image.descripcion}"/>
-                                    </p:panelGrid-->
-  
-                                        <p:inputTextarea 
-                                            value="#{image.descripcion}" 
-                                            cols="45" rows="10" autoResize="true"
-                                            disabled="true"/>
-  
+                                    <p:graphicImage 
+                                        name="images/pages/#{image.imagen}" 
+                                        alt="#{image.nombre}" 
+                                        title=" "> 
+                                    </p:graphicImage>
 
-                                </p:graphicImage>
+                                    <div> <p:inputTextarea id="lblTexto" cols="111" rows="15" value="#{image.descripcion}"/></div>
+                                </p:galleria>
+                            </div>
 
-
-                            </p:galleria>
                         </p:panelGrid>
 
 
