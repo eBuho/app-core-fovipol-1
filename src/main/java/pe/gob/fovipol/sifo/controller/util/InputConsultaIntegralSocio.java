@@ -25,6 +25,7 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
     private UIInput valorBusqueda;
     private UIInput tablaSocio;
     public boolean primeraCarga;
+    private List<MaeSocio> listaBusqueda;
     @EJB
     private pe.gob.fovipol.sifo.dao.MaeSocioFacade ejbSocioFacade;
     // Actions ------------------------------------------------------------------------------------
@@ -172,5 +173,19 @@ public class InputConsultaIntegralSocio extends UIInput implements NamingContain
      */
     public void setPrimeraCarga(boolean primeraCarga) {
         this.primeraCarga = primeraCarga;
+    }
+
+    /**
+     * @return the listaBusqueda
+     */
+    public List<MaeSocio> getListaBusqueda() {
+        return listaBusqueda;
+    }
+
+    /**
+     * @param listaBusqueda the listaBusqueda to set
+     */
+    public void setListaBusqueda(List<MaeSocio> listaBusqueda) {
+        this.listaBusqueda = listaBusqueda;
     }
 }

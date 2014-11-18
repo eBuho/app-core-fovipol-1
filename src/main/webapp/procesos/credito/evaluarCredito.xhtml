@@ -6,7 +6,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:jr="http://jasperreportjsf.sf.net/tld/jasperreports-jsf-1_2.tld">
+      xmlns:jr="http://jasperreportjsf.sf.net/tld/jasperreports-jsf-1_2.tld"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition> 
         <script type="text/javascript">
             function manejarPeticionRegistro(xhr, status, args) {
@@ -37,7 +38,7 @@
                 </div>
                 <div class="portlet-body" >                 
                     <h:form id="formRegistroExpediente" rendered="#{evaluarCreditoController.tramite!=null}">
-                        <p:remoteCommand  name="actualiza" update="simulacion" actionListener="#{evaluarCreditoController.actualizarSimulaciones()}"/>                        
+                        <p:remoteCommand  name="actualiza" update="simulacion,verSimulacion,datosSimulacion" actionListener="#{evaluarCreditoController.actualizarSimulaciones()}"/>                        
                         <div class="col-md-12">                             
                             <p:fieldset legend="Información Persona" styleClass="fieldSet" id="informacion" >
                                 <p:panel id="panelSocio" styleClass="panel" rendered="#{!evaluarCreditoController.beneficiaria}">
@@ -459,7 +460,7 @@
                                         </div>
                                     </div>                                    
                                     <div class="col-md-2">
-                                        <p:commandButton oncomplete="mostrarModalCambiar()"  value="Editar Simulación"/>
+                                        <p:commandButton actionListener="#{evaluarCreditoController.darParametroSimulacion}" update=":panelEditarSimulacion" oncomplete="mostrarModalCambiar()"  value="Editar Simulación"/>
                                     </div>                                    
                                 </div>
                             </p:fieldset>
@@ -913,7 +914,13 @@
                                     </h4>
                                 </div>
                                 <div class="modal-body form-body">
-                                    <ui:include src="../credito/simulacion.xhtml"/>											
+                                    <p:panel id="panelEditarSimulacion">
+                                        <c:if test="#{evaluarCreditoController.mostrarEditarSimulacion}">                                            
+                                            <iframe width="100%" height="450" frameborder="0"
+                                                src="../credito/simulacionProceso.xhtml?idSimulacion=#{evaluarCreditoController.tramite.idenSimuSim.idenSimuSim}"
+                                            marginwidth="0" marginheight="0"/>
+                                        </c:if>
+                                    </p:panel>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" data-dismiss="modal"
