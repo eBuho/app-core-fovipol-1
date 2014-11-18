@@ -46,8 +46,8 @@
                         <div class="col-md-12"> 
                             <div class="col-md-12">
                                 <comp:consultaIntegralSocio rendered="#{registrarExpedienteController.tramite.idenExpeTrm==null}"
-                                    actualizar=":formRegistroExpediente:informacion,:formRegistroExpediente:canalesCobranza,:formRegistroExpediente:comboProducto" 
-                                    socio="#{registrarExpedienteController.socio}"/>                            
+                                                            actualizar=":formRegistroExpediente:informacion,:formRegistroExpediente:canalesCobranza,:formRegistroExpediente:comboProducto" 
+                                                            socio="#{registrarExpedienteController.socio}"/>                            
                             </div>
                             <p:spacer width="10"/>
                             <p:fieldset legend="Información" styleClass="fieldSet" id="informacion" >
@@ -377,6 +377,41 @@
                                                 </f:facet>
                                                 <h:outputText value="#{requisito.descNombDoc}"/>
                                             </p:column>
+
+                                            <p:column headerText="Observacion">
+                                                <p:cellEditor>
+                                                    <f:facet name="output">
+                                                        <h:outputText value="#{requisito.descObseDoc}"/>
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        <p:inputTextarea autoResize="false" rows="2"
+                                                                         value="#{requisito.descObseDoc}"
+                                                                         styleClass="inputLargo">                                                   
+                                                        </p:inputTextarea>
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column headerText="Fecha de Emisión">
+                                                <p:cellEditor>
+                                                    <f:facet name="output">
+                                                        <h:outputText value="#{requisito.fechEmisDoc}">
+                                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                        </h:outputText>
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                        <p:calendar 
+                                                            value="#{requisito.fechEmisDoc}"
+                                                            pattern="dd/MM/yyyy">                                                   
+                                                        </p:calendar>
+                                                    </f:facet>
+                                                </p:cellEditor>                                        
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Estado"/>
+                                                </f:facet>
+                                                <comp:activo value="#{requisito.flagEstaDoc}"/>
+                                            </p:column>
                                             <p:column headerText="Recibido">
                                                 <!--p:cellEditor>
                                                     <f:facet name="output">
@@ -412,40 +447,6 @@
                                                     </f:facet>
                                                 </p:cellEditor-->
                                                 <p:selectBooleanCheckbox value="#{requisito.estadoDigitalizado}" />
-                                            </p:column>
-                                            <p:column headerText="Observacion">
-                                                <p:cellEditor>
-                                                    <f:facet name="output">
-                                                        <h:outputText value="#{requisito.descObseDoc}"/>
-                                                    </f:facet>
-                                                    <f:facet name="input">
-                                                        <p:inputTextarea autoResize="false" rows="2"
-                                                                         value="#{requisito.descObseDoc}"
-                                                                         styleClass="inputLargo">                                                   
-                                                        </p:inputTextarea>
-                                                    </f:facet>
-                                                </p:cellEditor>
-                                            </p:column>
-                                            <p:column headerText="Fecha de Emisión">
-                                                <p:cellEditor>
-                                                    <f:facet name="output">
-                                                        <h:outputText value="#{requisito.fechEmisDoc}">
-                                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                                        </h:outputText>
-                                                    </f:facet>
-                                                    <f:facet name="input">
-                                                        <p:calendar 
-                                                            value="#{requisito.fechEmisDoc}"
-                                                            pattern="dd/MM/yyyy">                                                   
-                                                        </p:calendar>
-                                                    </f:facet>
-                                                </p:cellEditor>                                        
-                                            </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Estado"/>
-                                                </f:facet>
-                                                <comp:activo value="#{requisito.flagEstaDoc}"/>
                                             </p:column>
                                         </p:dataTable>
                                     </div>
