@@ -460,10 +460,9 @@
                                         </div>
                                     </div>                                    
                                     <div class="col-md-2">
-                                        <p:commandButton oncomplete="mostrarModalCambiar();"  value="Cambiar Simulación"/>
-                                    </div>
+                                        <p:commandButton oncomplete="mostrarModalCambiar()"  value="Editar Simulación"/>
+                                    </div>                                    
                                 </div>
-
                             </p:fieldset>
                             <p:spacer width="20"/>
                             <p:fieldset toggleable="true" rendered="#{evaluarCreditoController.esPrestamo}" legend="Información General" styleClass="fieldSet" id="datosSimulacion">
@@ -561,18 +560,6 @@
                                                 </div>
                                                 <div class="col-md-6 sin-margen margen">
                                                     <div class="col-md-6 sin-margen">
-                                                        <h:outputText value="Neto a girar: "/>
-                                                    </div>
-                                                    <div class="col-md-6 sin-margen">
-                                                        <h:outputText value="#{evaluarCreditoController.netoGirar}">
-                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                        </h:outputText>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 margen">
-                                                <div class="col-md-6 sin-margen margen">
-                                                    <div class="col-md-6 sin-margen">
                                                         <h:outputText value="Cuota :"/>
                                                     </div>
                                                     <div class="col-md-6 sin-margen">
@@ -580,7 +567,19 @@
                                                             <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
                                                         </h:outputText>
                                                     </div>
-                                                </div>                                            
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 margen">                                                
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Neto a girar: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{evaluarCreditoController.netoGirar}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>                                                
                                             </div>  
                                         </p:fieldset>                            
                                     </div>                    
@@ -904,9 +903,6 @@
                                 </div>
                             </p:fieldset>
                         </div>
-
-
-
                     </h:form>
                     <div id="cambiarSimulacion" class="modal fade bs-modal-lg" tabindex="-1">
                         <div class="modal-dialog modal-lg">
@@ -923,6 +919,8 @@
                                 <div class="modal-footer">
                                     <button type="button" data-dismiss="modal"
                                             class="btn default" onclick="actualiza()">Aceptar</button>
+                                    <button type="button" data-dismiss="modal"
+                                            class="btn default">Cancelar</button>        
                                 </div>                                
                             </div>
                         </div>
@@ -931,5 +929,4 @@
             </div>
         </div>
     </ui:composition>
-
 </html>

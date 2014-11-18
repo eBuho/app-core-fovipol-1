@@ -62,8 +62,6 @@ public class ReporteCreditoController implements Serializable {
     private List<CrdCredito> listaCreditos;
 
     public ReporteCreditoController() {
-        fechaInicial = Funciones.fechaInicioMes(new Date());
-        fechaFinal = new Date();
     }
 
     @PostConstruct
@@ -82,6 +80,8 @@ public class ReporteCreditoController implements Serializable {
         getLinea().setCodiEntiEnt(new MaeEntidad(Constantes.CODI_LINE_PRD));
         getLinea().setValoCaduDet("(Todas)");
         getLineas().add(0, getLinea());
+        //fechaInicial = Funciones.fechaInicioMes(new Date());
+        fechaFinal = new Date();
     }
          
     public void filtrarExpedientes(){

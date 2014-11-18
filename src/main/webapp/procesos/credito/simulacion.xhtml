@@ -13,6 +13,7 @@
                 if (!args.error) {
                     mostrarModalSimular();
                 }
+                mostrarSelectPolizaSeguro();
             }
             function mostrarModalSimular() {
                 $('#verSimulacion').modal({
@@ -23,6 +24,9 @@
                 $('#polizaSeguro').modal({
                     backdrop: 'static'
                 });
+            }
+            function mostrarSelectPolizaSeguro() {
+                 $('.selectpicker').selectpicker();
             }
             $(document).ready(function () {
                 $(window).keydown(function (event) {
@@ -41,10 +45,12 @@
                     </div>
                 </div>
                 <div class="portlet-body" > 
-                    <h:form id="formBusqueda" styleClass="form-horizontal" > 
+                    <h:form id="formBusqueda" styleClass="form-horizontal" rendered="#{simulacionController.mostrarCabecera}"> 
                         <div class="col-md-12" style="margin-bottom: 10px;">
                             <p:commandButton icon="ui-icon-plus" update=":formSimulacion:comboProducto, :formSimulacion:ingresosF,
-                                             :formSimulacion:condiciones,:formSimulacion:endeudamientoF,:formSimulacion:panelInicio,:formSimulacion:capacidadCredito" value="Nuevo" actionListener="#{simulacionController.nuevaSimulacion}">
+                                             :formSimulacion:condiciones,:formSimulacion:endeudamientoF,:formSimulacion:panelInicio,:formSimulacion:capacidadCredito" 
+                                             value="Nuevo" oncomplete="mostrarSelectPolizaSeguro()"
+                                             actionListener="#{simulacionController.nuevaSimulacion}">
                                 <p:confirm header="Confirmación" message="¿Esta seguro perderá los cambios que no guardo?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
@@ -71,11 +77,13 @@
                                     <h:outputText value="Productos: "/>
                                 </div>
                                 <div class="col-md-12">
-                                    <h:selectOneMenu id="comboProducto" styleClass="form-control"  style="width: 250px;" value="#{simulacionController.producto}">
+                                    <h:selectOneMenu disabled="#{!simulacionController.mostrarCabecera}"  id="comboProducto" styleClass="form-control"  style="width: 250px;" value="#{simulacionController.producto}">
                                         <f:selectItem itemValue="" itemLabel="Seleccione un Producto"/>
                                         <f:selectItems value="#{simulacionController.productos}" var="producto"
                                                        itemLabel="#{producto.nombProdPrd}" itemValue="#{producto}"/>
-                                        <p:ajax listener="#{simulacionController.calcular()}" update="cantVeces,condiciones,ingresos,endeudamiento,resultado,simular,capacidadCredito"/>
+                                        <p:ajax listener="#{simulacionController.calcular()}" 
+                                                oncomplete="mostrarSelectPolizaSeguro()"
+                                                update="cantVeces,condiciones,ingresos,endeudamiento,resultado,simular,capacidadCredito"/>
                                     </h:selectOneMenu>
                                 </div>
                             </p:panel>
@@ -336,20 +344,11 @@
                                                 <div class="col-md-2">
                                                     <h:outputText value="Póliza"/>
                                                 </div>
-                                                <div class="col-md-4 espacio-div">
-                                                    <p:inputText value="#{simulacionController.polizaNombre}" id="polizaNombre"/>
-                                                    <p:commandButton id="polizaBtn" value="Póliza" type="button" disabled="#{simulacionController.producto.idenProdPrd==null}"/>
-                                                    <p:overlayPanel dismissable="false" widgetVar="polizaPanel" id="polizaPanel" showCloseIcon="true" for="polizaBtn" hideEffect="fade" style="width:200px">
-                                                        <h:panelGroup id="display">
-                                                            <h:outputText value="Póliza" />
-                                                            <h:selectOneMenu styleClass="form-control" value="#{simulacionController.seguro}">
-                                                                <f:selectItem itemValue="" itemLabel="Seleccione Póliza"/>
-                                                                <f:selectItems value="#{simulacionController.seguros}" var="poliza"
-                                                                               itemValue="#{poliza}" itemLabel="#{poliza.descNombSeg}"/>
-                                                            </h:selectOneMenu>
-                                                            <p:commandButton value="Agregar" oncomplete="detalleActualiza()"/>
-                                                        </h:panelGroup>
-                                                    </p:overlayPanel>
+                                                <div class="col-md-6 espacio-div">                                                    
+                                                    <h:selectManyMenu title="Seleccione una póliza" id="polizaNombre" value="#{simulacionController.polizasElegidas}" styleClass="selectpicker">
+                                                        <f:selectItems value="#{simulacionController.seguros}" var="poliza"
+                                                                       itemValue="#{poliza.idenSeguSeg}" itemLabel="#{poliza.descNombSeg}"/>
+                                                    </h:selectManyMenu>
                                                 </div>
                                             </div>
                                         </p:panel>

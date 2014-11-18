@@ -64,6 +64,8 @@ public class SimulacionController implements Serializable {
     private BigDecimal totalSeguro;
     private BigDecimal totalCuota;
     private BigDecimal gastosAdministrativos;
+    private List<String> polizasElegidas;
+    public boolean mostrarCabecera;
     @EJB
     private MaeProductoFacade ejbProductoFacade;
     @EJB
@@ -79,31 +81,60 @@ public class SimulacionController implements Serializable {
 
     @PostConstruct
     public void init() {
-        simulacion = new CrdSimulacion();
+        mostrarCabecera = true;
+        String idSimulacion = (String) FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap()
+                .get("idSimulacion");
+        simulacion = null;
+        totalAporteAnterior = BigDecimal.ZERO;
+        montoAnteriorPrestamo = BigDecimal.ZERO;
+        totalAporte = BigDecimal.ZERO;
+        saldoPagarAnteriorPrestamo = BigDecimal.ZERO;
+        if (idSimulacion != null && !idSimulacion.trim().equals("")) {
+            simulacion = ejbSimulacionFacade.find(new BigDecimal(idSimulacion));
+        }
+        if (simulacion != null) {
+            mostrarCabecera = false;
+            setSocio(simulacion.getIdenPersPer());
+            calcularEdad();
+            producto = simulacion.getIdenProdPrd();
+            calcularGastosAdministrativos();
+            cargarSeguros(simulacion.getIdenSimuSim());
+            simulacion.setIdenSimuSim(null);
+        } else {
+            simulacion = new CrdSimulacion();
+            tipoSocio = 1;
+            segurosSimulacion = new ArrayList<>();
+            producto = new MaeProducto();
+        }
+        simulacion.setCapaMcuoSim(BigDecimal.ZERO);
+        simulacion.setImpoMaxpSim(BigDecimal.ZERO);
         simulacion.setIngrBrtoSim(BigDecimal.ZERO);
         simulacion.setDsctOficSim(BigDecimal.ZERO);
         simulacion.setDsctPersSim(BigDecimal.ZERO);
         simulacion.setIngrCombSim(BigDecimal.ZERO);
         simulacion.setDeudOtraSim(BigDecimal.ZERO);
         simulacion.setOtroIngrSim(BigDecimal.ZERO);
-        totalAporteAnterior = BigDecimal.ZERO;
-        montoAnteriorPrestamo = BigDecimal.ZERO;
-        totalAporte = BigDecimal.ZERO;
-        saldoPagarAnteriorPrestamo = BigDecimal.ZERO;
-        tipoSocio = 1;
-        segurosSimulacion = new ArrayList<>();
-        producto = new MaeProducto();
+    }
+
+    public void cargarSeguros(BigDecimal idSimulacion) {
+        List<CrdSimulaSeguro> simulaSeguro = ejbSimulaSeguroFacade.findBySimulacion(simulacion);
+        polizasElegidas = new ArrayList<>();
+        for (CrdSimulaSeguro aux : simulaSeguro) {
+            polizasElegidas.add(aux.getIdenSeguSeg().getIdenSeguSeg().toString());
+        }
     }
 
     public void calcularGastosAdministrativos() {
+
         if (simulacion.getImpoSoliSim() != null && producto != null && producto.getTasaGadmPrd() != null) {
             gastosAdministrativos = simulacion.getImpoSoliSim().multiply(producto.getTasaGadmPrd()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
             montoCheque = simulacion.getImpoSoliSim().add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
         }
     }
-    
-    public void nuevaSimulacion(){
-        socio=null;
+
+    public void nuevaSimulacion() {
+        socio = null;
         simulacion = new CrdSimulacion();
         simulacion.setIngrBrtoSim(BigDecimal.ZERO);
         simulacion.setDsctOficSim(BigDecimal.ZERO);
@@ -111,7 +142,7 @@ public class SimulacionController implements Serializable {
         simulacion.setIngrCombSim(BigDecimal.ZERO);
         simulacion.setDeudOtraSim(BigDecimal.ZERO);
         simulacion.setOtroIngrSim(BigDecimal.ZERO);
-        porcDescuento=BigDecimal.ZERO;
+        porcDescuento = BigDecimal.ZERO;
         totalAporteAnterior = BigDecimal.ZERO;
         montoAnteriorPrestamo = BigDecimal.ZERO;
         totalAporte = BigDecimal.ZERO;
@@ -119,11 +150,12 @@ public class SimulacionController implements Serializable {
         tipoSocio = 1;
         segurosSimulacion = new ArrayList<>();
         producto = new MaeProducto();
-        edad=0;
-        gastosAdministrativos=BigDecimal.ZERO;
-        montoCheque=BigDecimal.ZERO;
-        polizaNombre="";
+        edad = 0;
+        gastosAdministrativos = BigDecimal.ZERO;
+        montoCheque = BigDecimal.ZERO;
+        polizaNombre = "";
     }
+
     public SimulacionController() {
     }
 
@@ -158,34 +190,45 @@ public class SimulacionController implements Serializable {
                     producto.getCantVecePrd(), simulacion.getDeudOtraSim(), producto.getMontDeudPrd(), simulacion.getOtroIngrSim(), montoAnteriorPrestamo));
         }
     }
-    public boolean validarIndividual(BigDecimal valorSimulacion){
-        return !(valorSimulacion==null || valorSimulacion.compareTo(BigDecimal.ZERO)==-1);
+
+    public boolean validarIndividual(BigDecimal valorSimulacion) {
+        return !(valorSimulacion == null || valorSimulacion.compareTo(BigDecimal.ZERO) == -1);
     }
-    
-    public boolean validarMontos(){
-        if(!validarIndividual(simulacion.getIngrBrtoSim()))
+
+    public boolean validarMontos() {
+        if (!validarIndividual(simulacion.getIngrBrtoSim())) {
             return false;
-        if(!validarIndividual(simulacion.getDsctOficSim()))
+        }
+        if (!validarIndividual(simulacion.getDsctOficSim())) {
             return false;
-        if(!validarIndividual(simulacion.getDsctPersSim()))
+        }
+        if (!validarIndividual(simulacion.getDsctPersSim())) {
             return false;
-        if(!validarIndividual(simulacion.getIngrCombSim()))
+        }
+        if (!validarIndividual(simulacion.getIngrCombSim())) {
             return false;
-        if(!validarIndividual(simulacion.getOtroIngrSim()))
+        }
+        if (!validarIndividual(simulacion.getOtroIngrSim())) {
             return false;
-        if(!validarIndividual(totalAporte))
+        }
+        if (!validarIndividual(totalAporte)) {
             return false;
-        if(!validarIndividual(totalAporteAnterior))
+        }
+        if (!validarIndividual(totalAporteAnterior)) {
             return false;
-        if(!validarIndividual(simulacion.getDeudOtraSim()))
+        }
+        if (!validarIndividual(simulacion.getDeudOtraSim())) {
             return false;
-        if(!validarIndividual(montoAnteriorPrestamo))
+        }
+        if (!validarIndividual(montoAnteriorPrestamo)) {
             return false;
+        }
         return validarIndividual(saldoPagarAnteriorPrestamo);
     }
+
     public void simular() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if(!validarMontos()){
+        if (!validarMontos()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Los Montos ingresados deben ser positivos", ""));
             context.addCallbackParam("error", true);
             return;
@@ -200,7 +243,7 @@ public class SimulacionController implements Serializable {
             context.addCallbackParam("error", true);
             return;
         }
-        if (segurosSimulacion == null || segurosSimulacion.isEmpty()) {
+        if (polizasElegidas == null || polizasElegidas.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese Póliza de seguro", ""));
             context.addCallbackParam("error", true);
             return;
@@ -248,6 +291,11 @@ public class SimulacionController implements Serializable {
             }
         }
         gastosAdministrativos = simulacion.getImpoSoliSim().multiply(producto.getTasaGadmPrd()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+        segurosSimulacion = new ArrayList<>();
+        for (String seg : polizasElegidas) {
+            MaeSeguro segu = ejbSeguroFacade.find(new BigDecimal(seg));
+            segurosSimulacion.add(segu);
+        }
         if (creditoService.comprobarEdadFinPago(socio.getMaePersona().getFechNaciPer(), simulacion.getPeriCiclSim().intValue(), simulacion.getPlazPresSim().intValue(), segurosSimulacion)) {
             simulacion.setIdenPersPer(socio);
             simulacion.setIdenProdPrd(producto);
@@ -304,7 +352,7 @@ public class SimulacionController implements Serializable {
      * @param socio the socio to set
      */
     public void setSocio(MaeSocio socio) {
-        
+
         if (socio != null) {
             this.socio = socio;
             calcularEdad();
@@ -709,5 +757,33 @@ public class SimulacionController implements Serializable {
 
     public JRBeanCollectionDataSource getCuotasReporte() {
         return new JRBeanCollectionDataSource(getCuotasSimulacion());
+    }
+
+    /**
+     * @return the polizasElegidas
+     */
+    public List<String> getPolizasElegidas() {
+        return polizasElegidas;
+    }
+
+    /**
+     * @param polizasElegidas the polizasElegidas to set
+     */
+    public void setPolizasElegidas(List<String> polizasElegidas) {
+        this.polizasElegidas = polizasElegidas;
+    }
+
+    /**
+     * @return the mostrarCabecera
+     */
+    public boolean isMostrarCabecera() {
+        return mostrarCabecera;
+    }
+
+    /**
+     * @param mostrarCabecera the mostrarCabecera to set
+     */
+    public void setMostrarCabecera(boolean mostrarCabecera) {
+        this.mostrarCabecera = mostrarCabecera;
     }
 }
