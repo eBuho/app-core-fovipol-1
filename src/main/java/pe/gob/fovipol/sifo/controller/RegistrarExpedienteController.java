@@ -402,6 +402,8 @@ public class RegistrarExpedienteController implements Serializable {
         if (crea) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Trámite grabado con Éxito", ""));
             context.addCallbackParam("error", false);
         } else {
             FacesContext.getCurrentInstance().addMessage(null,

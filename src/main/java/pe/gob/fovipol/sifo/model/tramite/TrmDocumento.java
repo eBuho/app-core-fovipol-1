@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import pe.gob.fovipol.sifo.model.maestros.MaeEmpresa;
@@ -106,7 +107,13 @@ public class TrmDocumento implements Serializable {
     @JoinColumn(name = "IDEN_EXPE_TRM", referencedColumnName = "IDEN_EXPE_TRM", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private TrmTramite trmTramite;
+    
+    @Transient
+    private boolean estadoRecibido;
 
+    @Transient
+    private boolean estadoDigitalizado;
+    
     public TrmDocumento() {
     }
 
@@ -293,6 +300,44 @@ public class TrmDocumento implements Serializable {
 
     public void setEmprExpiDoc(MaeEmpresa emprExpiDoc) {
         this.emprExpiDoc = emprExpiDoc;
+    }
+
+    /**
+     * @return the estadoRecibido
+     */
+    public boolean getEstadoRecibido() {
+        String dato = "" + flagPertDoc;
+        dato = dato.toUpperCase();
+        if (flagPertDoc==null) dato = "N";
+        this.estadoRecibido = "S".equals(dato);
+        return this.estadoRecibido;
+    }
+
+    /**
+     * @param estadoRecibido the estadoRecibido to set
+     */
+    public void setEstadoRecibido(boolean estadoRecibido) {
+        this.flagPertDoc = estadoRecibido?'S':'N';
+        this.estadoRecibido = estadoRecibido;
+    }
+
+    /**
+     * @return the estadoDigitalizado
+     */
+    public boolean getEstadoDigitalizado() {
+        String dato = "" + flagFisiDoc;
+        dato = dato.toUpperCase();
+        if (flagFisiDoc==null) dato = "N";
+        this.estadoDigitalizado = "S".equals(dato);
+        return estadoDigitalizado;
+    }
+
+    /**
+     * @param estadoDigitalizado the estadoDigitalizado to set
+     */
+    public void setEstadoDigitalizado(boolean estadoDigitalizado) {
+        this.flagFisiDoc = estadoDigitalizado?'S':'N';
+        this.estadoDigitalizado = estadoDigitalizado;
     }
     
 }
