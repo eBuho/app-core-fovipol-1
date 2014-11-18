@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RecAporteCreateDlg" widgetVar="RecAporteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{consulta2.CreateRecAporteTitle}">
+            <h:form id="RecAporteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{recAporteController.selected != null}">
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_idenAporApo}" for="idenAporApo" />
+                        <p:inputText id="idenAporApo" value="#{recAporteController.selected.idenAporApo}" title="#{consulta2.CreateRecAporteTitle_idenAporApo}" required="true" requiredMessage="#{consulta2.CreateRecAporteRequiredMessage_idenAporApo}"/>
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_nanoCobrApo}" for="nanoCobrApo" />
+                        <p:inputText id="nanoCobrApo" value="#{recAporteController.selected.nanoCobrApo}" title="#{consulta2.CreateRecAporteTitle_nanoCobrApo}" />
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_nmesCobrApo}" for="nmesCobrApo" />
+                        <p:inputText id="nmesCobrApo" value="#{recAporteController.selected.nmesCobrApo}" title="#{consulta2.CreateRecAporteTitle_nmesCobrApo}" />
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_impoCobrApo}" for="impoCobrApo" />
+                        <p:inputText id="impoCobrApo" value="#{recAporteController.selected.impoCobrApo}" title="#{consulta2.CreateRecAporteTitle_impoCobrApo}" />
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_numeAporApo}" for="numeAporApo" />
+                        <p:inputText id="numeAporApo" value="#{recAporteController.selected.numeAporApo}" title="#{consulta2.CreateRecAporteTitle_numeAporApo}" />
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_codiSituSoc}" for="codiSituSoc" />
+                        <p:inputText id="codiSituSoc" value="#{recAporteController.selected.codiSituSoc}" title="#{consulta2.CreateRecAporteTitle_codiSituSoc}" />
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{recAporteController.selected.usuaCreaAud}" title="#{consulta2.CreateRecAporteTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{recAporteController.selected.fechCreaAud}" title="#{consulta2.EditRecAporteTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{recAporteController.selected.usuaModiAud}" title="#{consulta2.CreateRecAporteTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{recAporteController.selected.fechModiAud}" title="#{consulta2.EditRecAporteTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{recAporteController.selected.nombEquiAud}" title="#{consulta2.CreateRecAporteTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{recAporteController.selected.nombSopeAud}" title="#{consulta2.CreateRecAporteTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{consulta2.CreateRecAporteLabel_flagEstaApo}" for="flagEstaApo" />
+                        <p:inputText id="flagEstaApo" value="#{recAporteController.selected.flagEstaApo}" title="#{consulta2.CreateRecAporteTitle_flagEstaApo}" required="true" requiredMessage="#{consulta2.CreateRecAporteRequiredMessage_flagEstaApo}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{recAporteController.create}" value="#{consulta2.Save}" update="display,:RecAporteListForm:datalist,:growl" oncomplete="handleSubmit(args,'RecAporteCreateDialog');"/>
+                    <p:commandButton value="#{consulta2.Cancel}" onclick="RecAporteCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

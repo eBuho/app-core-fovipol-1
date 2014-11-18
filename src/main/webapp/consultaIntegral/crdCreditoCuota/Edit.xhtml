@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CrdCreditoCuotaEditDlg" widgetVar="CrdCreditoCuotaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{consulta.EditCrdCreditoCuotaTitle}">
+            <h:form id="CrdCreditoCuotaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{crdCreditoCuotaController.selected != null}">
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_crdCreditoCuotaPK_secuCuotCuo}" for="crdCreditoCuotaPK_secuCuotCuo" />
+                        <p:inputText id="crdCreditoCuotaPK_secuCuotCuo" value="#{crdCreditoCuotaController.selected.crdCreditoCuotaPK.secuCuotCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_crdCreditoCuotaPK_secuCuotCuo}" required="true" requiredMessage="#{consulta.EditCrdCreditoCuotaRequiredMessage_crdCreditoCuotaPK_secuCuotCuo}"/>
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_numeCuotCuo}" for="numeCuotCuo" />
+                        <p:inputText id="numeCuotCuo" value="#{crdCreditoCuotaController.selected.numeCuotCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_numeCuotCuo}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_saldInicCuo}" for="saldInicCuo" />
+                        <p:inputText id="saldInicCuo" value="#{crdCreditoCuotaController.selected.saldInicCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_saldInicCuo}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_capiMontCuo}" for="capiMontCuo" />
+                        <p:inputText id="capiMontCuo" value="#{crdCreditoCuotaController.selected.capiMontCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_capiMontCuo}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_impoSeguCuo}" for="impoSeguCuo" />
+                        <p:inputText id="impoSeguCuo" value="#{crdCreditoCuotaController.selected.impoSeguCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_impoSeguCuo}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_inteMontCuo}" for="inteMontCuo" />
+                        <p:inputText id="inteMontCuo" value="#{crdCreditoCuotaController.selected.inteMontCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_inteMontCuo}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_tasaPteaCuo}" for="tasaPteaCuo" />
+                        <p:inputText id="tasaPteaCuo" value="#{crdCreditoCuotaController.selected.tasaPteaCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_tasaPteaCuo}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_impoCuotCuo}" for="impoCuotCuo" />
+                        <p:inputText id="impoCuotCuo" value="#{crdCreditoCuotaController.selected.impoCuotCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_impoCuotCuo}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_fechPagoCuo}" for="fechPagoCuo" />
+                        <p:calendar id="fechPagoCuo" pattern="MM/dd/yyyy HH:mm:ss" value="#{crdCreditoCuotaController.selected.fechPagoCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_fechPagoCuo}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_fechUddpCuo}" for="fechUddpCuo" />
+                        <p:calendar id="fechUddpCuo" pattern="MM/dd/yyyy HH:mm:ss" value="#{crdCreditoCuotaController.selected.fechUddpCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_fechUddpCuo}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_codiSituCuo}" for="codiSituCuo" />
+                        <p:inputText id="codiSituCuo" value="#{crdCreditoCuotaController.selected.codiSituCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_codiSituCuo}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{crdCreditoCuotaController.selected.usuaCreaAud}" title="#{consulta.EditCrdCreditoCuotaTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{crdCreditoCuotaController.selected.fechCreaAud}" title="#{consulta.EditCrdCreditoCuotaTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{crdCreditoCuotaController.selected.usuaModiAud}" title="#{consulta.EditCrdCreditoCuotaTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{crdCreditoCuotaController.selected.fechModiAud}" title="#{consulta.EditCrdCreditoCuotaTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{crdCreditoCuotaController.selected.nombEquiAud}" title="#{consulta.EditCrdCreditoCuotaTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{crdCreditoCuotaController.selected.nombSopeAud}" title="#{consulta.EditCrdCreditoCuotaTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_flagEstaCuo}" for="flagEstaCuo" />
+                        <p:inputText id="flagEstaCuo" value="#{crdCreditoCuotaController.selected.flagEstaCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_flagEstaCuo}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_idenTcamTcm}" for="idenTcamTcm" />
+                        <p:selectOneMenu id="idenTcamTcm" value="#{crdCreditoCuotaController.selected.idenTcamTcm}" >
+                            <f:selectItem itemLabel="#{consulta.SelectOneMessage}"/>
+                            <f:selectItems value="#{maeTipoCambioController.itemsAvailableSelectOne}"
+                                           var="idenTcamTcmItem"
+                                           itemValue="#{idenTcamTcmItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{consulta.EditCrdCreditoCuotaLabel_crdCredito}" for="crdCredito" />
+                        <p:selectOneMenu id="crdCredito" value="#{crdCreditoCuotaController.selected.crdCredito}" required="true" requiredMessage="#{consulta.EditCrdCreditoCuotaRequiredMessage_crdCredito}">
+                            <f:selectItem itemLabel="#{consulta.SelectOneMessage}"/>
+                            <f:selectItems value="#{crdCreditoController.itemsAvailableSelectOne}"
+                                           var="crdCreditoItem"
+                                           itemValue="#{crdCreditoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{crdCreditoCuotaController.update}" value="#{consulta.Save}" update="display,:CrdCreditoCuotaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CrdCreditoCuotaEditDialog');"/>
+                    <p:commandButton value="#{consulta.Cancel}" onclick="CrdCreditoCuotaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

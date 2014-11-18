@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CrdCreditoCuotaCreateDlg" widgetVar="CrdCreditoCuotaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{consulta.CreateCrdCreditoCuotaTitle}">
+            <h:form id="CrdCreditoCuotaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{crdCreditoCuotaController.selected != null}">
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_crdCreditoCuotaPK_secuCuotCuo}" for="crdCreditoCuotaPK_secuCuotCuo" />
+                        <p:inputText id="crdCreditoCuotaPK_secuCuotCuo" value="#{crdCreditoCuotaController.selected.crdCreditoCuotaPK.secuCuotCuo}" title="#{consulta.CreateCrdCreditoCuotaTitle_crdCreditoCuotaPK_secuCuotCuo}" required="true" requiredMessage="#{consulta.CreateCrdCreditoCuotaRequiredMessage_crdCreditoCuotaPK_secuCuotCuo}"/>
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_numeCuotCuo}" for="numeCuotCuo" />
+                        <p:inputText id="numeCuotCuo" value="#{crdCreditoCuotaController.selected.numeCuotCuo}" title="#{consulta.CreateCrdCreditoCuotaTitle_numeCuotCuo}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_saldInicCuo}" for="saldInicCuo" />
+                        <p:inputText id="saldInicCuo" value="#{crdCreditoCuotaController.selected.saldInicCuo}" title="#{consulta.CreateCrdCreditoCuotaTitle_saldInicCuo}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_capiMontCuo}" for="capiMontCuo" />
+                        <p:inputText id="capiMontCuo" value="#{crdCreditoCuotaController.selected.capiMontCuo}" title="#{consulta.CreateCrdCreditoCuotaTitle_capiMontCuo}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_impoSeguCuo}" for="impoSeguCuo" />
+                        <p:inputText id="impoSeguCuo" value="#{crdCreditoCuotaController.selected.impoSeguCuo}" title="#{consulta.CreateCrdCreditoCuotaTitle_impoSeguCuo}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_inteMontCuo}" for="inteMontCuo" />
+                        <p:inputText id="inteMontCuo" value="#{crdCreditoCuotaController.selected.inteMontCuo}" title="#{consulta.CreateCrdCreditoCuotaTitle_inteMontCuo}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_tasaPteaCuo}" for="tasaPteaCuo" />
+                        <p:inputText id="tasaPteaCuo" value="#{crdCreditoCuotaController.selected.tasaPteaCuo}" title="#{consulta.CreateCrdCreditoCuotaTitle_tasaPteaCuo}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_impoCuotCuo}" for="impoCuotCuo" />
+                        <p:inputText id="impoCuotCuo" value="#{crdCreditoCuotaController.selected.impoCuotCuo}" title="#{consulta.CreateCrdCreditoCuotaTitle_impoCuotCuo}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_fechPagoCuo}" for="fechPagoCuo" />
+                        <p:calendar id="fechPagoCuo" pattern="MM/dd/yyyy HH:mm:ss" value="#{crdCreditoCuotaController.selected.fechPagoCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_fechPagoCuo}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_fechUddpCuo}" for="fechUddpCuo" />
+                        <p:calendar id="fechUddpCuo" pattern="MM/dd/yyyy HH:mm:ss" value="#{crdCreditoCuotaController.selected.fechUddpCuo}" title="#{consulta.EditCrdCreditoCuotaTitle_fechUddpCuo}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_codiSituCuo}" for="codiSituCuo" />
+                        <p:inputText id="codiSituCuo" value="#{crdCreditoCuotaController.selected.codiSituCuo}" title="#{consulta.CreateCrdCreditoCuotaTitle_codiSituCuo}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{crdCreditoCuotaController.selected.usuaCreaAud}" title="#{consulta.CreateCrdCreditoCuotaTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{crdCreditoCuotaController.selected.fechCreaAud}" title="#{consulta.EditCrdCreditoCuotaTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{crdCreditoCuotaController.selected.usuaModiAud}" title="#{consulta.CreateCrdCreditoCuotaTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{crdCreditoCuotaController.selected.fechModiAud}" title="#{consulta.EditCrdCreditoCuotaTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{crdCreditoCuotaController.selected.nombEquiAud}" title="#{consulta.CreateCrdCreditoCuotaTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{crdCreditoCuotaController.selected.nombSopeAud}" title="#{consulta.CreateCrdCreditoCuotaTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_flagEstaCuo}" for="flagEstaCuo" />
+                        <p:inputText id="flagEstaCuo" value="#{crdCreditoCuotaController.selected.flagEstaCuo}" title="#{consulta.CreateCrdCreditoCuotaTitle_flagEstaCuo}" />
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_idenTcamTcm}" for="idenTcamTcm" />
+                        <p:selectOneMenu id="idenTcamTcm" value="#{crdCreditoCuotaController.selected.idenTcamTcm}" >
+                            <f:selectItems value="#{maeTipoCambioController.itemsAvailableSelectOne}"
+                                           var="idenTcamTcmItem"
+                                           itemValue="#{idenTcamTcmItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{consulta.CreateCrdCreditoCuotaLabel_crdCredito}" for="crdCredito" />
+                        <p:selectOneMenu id="crdCredito" value="#{crdCreditoCuotaController.selected.crdCredito}" required="true" requiredMessage="#{consulta.EditCrdCreditoCuotaRequiredMessage_crdCredito}">
+                            <f:selectItems value="#{crdCreditoController.itemsAvailableSelectOne}"
+                                           var="crdCreditoItem"
+                                           itemValue="#{crdCreditoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{crdCreditoCuotaController.create}" value="#{consulta.Save}" update="display,:CrdCreditoCuotaListForm:datalist,:growl" oncomplete="handleSubmit(args,'CrdCreditoCuotaCreateDialog');"/>
+                    <p:commandButton value="#{consulta.Cancel}" onclick="CrdCreditoCuotaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -49,5 +49,13 @@
             <base-name>/Bundle3</base-name>
             <var>bundle3</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/Consulta</base-name>
+            <var>consulta</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Consulta2</base-name>
+            <var>consulta2</var>
+        </resource-bundle>
     </application>
 </faces-config>

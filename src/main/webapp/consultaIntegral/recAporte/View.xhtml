@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RecAporteViewDlg" widgetVar="RecAporteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{consulta2.ViewRecAporteTitle}">
+            <h:form id="RecAporteViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{recAporteController.selected != null}">
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_idenAporApo}"/>
+                        <h:outputText value="#{recAporteController.selected.idenAporApo}" title="#{consulta2.ViewRecAporteTitle_idenAporApo}"/>
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_nanoCobrApo}"/>
+                        <h:outputText value="#{recAporteController.selected.nanoCobrApo}" title="#{consulta2.ViewRecAporteTitle_nanoCobrApo}"/>
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_nmesCobrApo}"/>
+                        <h:outputText value="#{recAporteController.selected.nmesCobrApo}" title="#{consulta2.ViewRecAporteTitle_nmesCobrApo}"/>
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_impoCobrApo}"/>
+                        <h:outputText value="#{recAporteController.selected.impoCobrApo}" title="#{consulta2.ViewRecAporteTitle_impoCobrApo}"/>
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_numeAporApo}"/>
+                        <h:outputText value="#{recAporteController.selected.numeAporApo}" title="#{consulta2.ViewRecAporteTitle_numeAporApo}"/>
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_codiSituSoc}"/>
+                        <h:outputText value="#{recAporteController.selected.codiSituSoc}" title="#{consulta2.ViewRecAporteTitle_codiSituSoc}"/>
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{recAporteController.selected.usuaCreaAud}" title="#{consulta2.ViewRecAporteTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_fechCreaAud}"/>
+                        <h:outputText value="#{recAporteController.selected.fechCreaAud}" title="#{consulta2.ViewRecAporteTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_usuaModiAud}"/>
+                        <h:outputText value="#{recAporteController.selected.usuaModiAud}" title="#{consulta2.ViewRecAporteTitle_usuaModiAud}"/>
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_fechModiAud}"/>
+                        <h:outputText value="#{recAporteController.selected.fechModiAud}" title="#{consulta2.ViewRecAporteTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_nombEquiAud}"/>
+                        <h:outputText value="#{recAporteController.selected.nombEquiAud}" title="#{consulta2.ViewRecAporteTitle_nombEquiAud}"/>
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_nombSopeAud}"/>
+                        <h:outputText value="#{recAporteController.selected.nombSopeAud}" title="#{consulta2.ViewRecAporteTitle_nombSopeAud}"/>
+                        <h:outputText value="#{consulta2.ViewRecAporteLabel_flagEstaApo}"/>
+                        <h:outputText value="#{recAporteController.selected.flagEstaApo}" title="#{consulta2.ViewRecAporteTitle_flagEstaApo}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{consulta2.Close}" onclick="RecAporteViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
