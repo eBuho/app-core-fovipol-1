@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CrdCreditoViewDlg" widgetVar="CrdCreditoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{consulta.ViewCrdCreditoTitle}">
+            <h:form id="CrdCreditoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{crdCreditoController.selected != null}">
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_idenCredCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.idenCredCrd}" title="#{consulta.ViewCrdCreditoTitle_idenCredCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_codiCredCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.codiCredCrd}" title="#{consulta.ViewCrdCreditoTitle_codiCredCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_codiFinaCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.codiFinaCrd}" title="#{consulta.ViewCrdCreditoTitle_codiFinaCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_percSociCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.percSociCrd}" title="#{consulta.ViewCrdCreditoTitle_percSociCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_impoSoliCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.impoSoliCrd}" title="#{consulta.ViewCrdCreditoTitle_impoSoliCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_numeCuotPrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.numeCuotPrd}" title="#{consulta.ViewCrdCreditoTitle_numeCuotPrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_tasaInteCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.tasaInteCrd}" title="#{consulta.ViewCrdCreditoTitle_tasaInteCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_impoInteCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.impoInteCrd}" title="#{consulta.ViewCrdCreditoTitle_impoInteCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_tasaGadmCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.tasaGadmCrd}" title="#{consulta.ViewCrdCreditoTitle_tasaGadmCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_impoGadmCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.impoGadmCrd}" title="#{consulta.ViewCrdCreditoTitle_impoGadmCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_fechAproCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.fechAproCrd}" title="#{consulta.ViewCrdCreditoTitle_fechAproCrd}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_impoGiraCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.impoGiraCrd}" title="#{consulta.ViewCrdCreditoTitle_impoGiraCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_codiMoneCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.codiMoneCrd}" title="#{consulta.ViewCrdCreditoTitle_codiMoneCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_autoCdobCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.autoCdobCrd}" title="#{consulta.ViewCrdCreditoTitle_autoCdobCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_periGracCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.periGracCrd}" title="#{consulta.ViewCrdCreditoTitle_periGracCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_fechCreaAud}"/>
+                        <h:outputText value="#{crdCreditoController.selected.fechCreaAud}" title="#{consulta.ViewCrdCreditoTitle_fechCreaAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_usuaCreaAud}"/>
+                        <h:outputText value="#{crdCreditoController.selected.usuaCreaAud}" title="#{consulta.ViewCrdCreditoTitle_usuaCreaAud}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_fechModiAud}"/>
+                        <h:outputText value="#{crdCreditoController.selected.fechModiAud}" title="#{consulta.ViewCrdCreditoTitle_fechModiAud}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_usuaModiAud}"/>
+                        <h:outputText value="#{crdCreditoController.selected.usuaModiAud}" title="#{consulta.ViewCrdCreditoTitle_usuaModiAud}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_nombEquiAud}"/>
+                        <h:outputText value="#{crdCreditoController.selected.nombEquiAud}" title="#{consulta.ViewCrdCreditoTitle_nombEquiAud}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_nombSopeAud}"/>
+                        <h:outputText value="#{crdCreditoController.selected.nombSopeAud}" title="#{consulta.ViewCrdCreditoTitle_nombSopeAud}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_flagEstaCrd}"/>
+                        <h:outputText value="#{crdCreditoController.selected.flagEstaCrd}" title="#{consulta.ViewCrdCreditoTitle_flagEstaCrd}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_idenExpeTrm}"/>
+                        <h:outputText value="#{crdCreditoController.selected.idenExpeTrm}" title="#{consulta.ViewCrdCreditoTitle_idenExpeTrm}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_idenInmuImb}"/>
+                        <h:outputText value="#{crdCreditoController.selected.idenInmuImb}" title="#{consulta.ViewCrdCreditoTitle_idenInmuImb}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_moneda}"/>
+                        <h:outputText value="#{crdCreditoController.selected.moneda}" title="#{consulta.ViewCrdCreditoTitle_moneda}"/>
+                        <h:outputText value="#{consulta.ViewCrdCreditoLabel_linea}"/>
+                        <h:outputText value="#{crdCreditoController.selected.linea}" title="#{consulta.ViewCrdCreditoTitle_linea}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{consulta.Close}" onclick="CrdCreditoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

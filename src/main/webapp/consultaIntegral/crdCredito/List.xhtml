@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{consulta.ListCrdCreditoTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="CrdCreditoListForm">
+                <p:panel header="#{consulta.ListCrdCreditoTitle}">
+                    <p:dataTable id="datalist" value="#{crdCreditoController.items}" var="item"
+                                 selectionMode="single" selection="#{crdCreditoController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idenCredCrd}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron registros"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_idenCredCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idenCredCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_codiCredCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codiCredCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_codiFinaCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codiFinaCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_percSociCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.percSociCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_impoSoliCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.impoSoliCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_numeCuotPrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeCuotPrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_tasaInteCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tasaInteCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_impoInteCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.impoInteCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_tasaGadmCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tasaGadmCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_impoGadmCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.impoGadmCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_fechAproCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechAproCrd}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_impoGiraCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.impoGiraCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_codiMoneCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codiMoneCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_autoCdobCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.autoCdobCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_periGracCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.periGracCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_fechCreaAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechCreaAud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_usuaCreaAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuaCreaAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_fechModiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechModiAud}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_usuaModiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuaModiAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_nombEquiAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombEquiAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_nombSopeAud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombSopeAud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_flagEstaCrd}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flagEstaCrd}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_idenExpeTrm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idenExpeTrm}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_idenInmuImb}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idenInmuImb}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_moneda}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.moneda}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{consulta.ListCrdCreditoTitle_linea}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.linea}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{consulta.Create}" actionListener="#{crdCreditoController.prepareCreate}" update=":CrdCreditoCreateForm" oncomplete="PF('CrdCreditoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{consulta.View}" update=":CrdCreditoViewForm" oncomplete="PF('CrdCreditoViewDialog').show()" disabled="#{empty crdCreditoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{consulta.Edit}" update=":CrdCreditoEditForm" oncomplete="PF('CrdCreditoEditDialog').show()" disabled="#{empty crdCreditoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{consulta.Delete}" actionListener="#{crdCreditoController.destroy}" update=":growl,datalist" disabled="#{empty crdCreditoController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

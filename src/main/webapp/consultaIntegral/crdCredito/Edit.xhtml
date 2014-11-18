@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CrdCreditoEditDlg" widgetVar="CrdCreditoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{consulta.EditCrdCreditoTitle}">
+            <h:form id="CrdCreditoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{crdCreditoController.selected != null}">
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_idenCredCrd}" for="idenCredCrd" />
+                        <p:inputText id="idenCredCrd" value="#{crdCreditoController.selected.idenCredCrd}" title="#{consulta.EditCrdCreditoTitle_idenCredCrd}" required="true" requiredMessage="#{consulta.EditCrdCreditoRequiredMessage_idenCredCrd}"/>
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_codiCredCrd}" for="codiCredCrd" />
+                        <p:inputText id="codiCredCrd" value="#{crdCreditoController.selected.codiCredCrd}" title="#{consulta.EditCrdCreditoTitle_codiCredCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_codiFinaCrd}" for="codiFinaCrd" />
+                        <p:inputText id="codiFinaCrd" value="#{crdCreditoController.selected.codiFinaCrd}" title="#{consulta.EditCrdCreditoTitle_codiFinaCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_percSociCrd}" for="percSociCrd" />
+                        <p:inputText id="percSociCrd" value="#{crdCreditoController.selected.percSociCrd}" title="#{consulta.EditCrdCreditoTitle_percSociCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_impoSoliCrd}" for="impoSoliCrd" />
+                        <p:inputText id="impoSoliCrd" value="#{crdCreditoController.selected.impoSoliCrd}" title="#{consulta.EditCrdCreditoTitle_impoSoliCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_numeCuotPrd}" for="numeCuotPrd" />
+                        <p:inputText id="numeCuotPrd" value="#{crdCreditoController.selected.numeCuotPrd}" title="#{consulta.EditCrdCreditoTitle_numeCuotPrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_tasaInteCrd}" for="tasaInteCrd" />
+                        <p:inputText id="tasaInteCrd" value="#{crdCreditoController.selected.tasaInteCrd}" title="#{consulta.EditCrdCreditoTitle_tasaInteCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_impoInteCrd}" for="impoInteCrd" />
+                        <p:inputText id="impoInteCrd" value="#{crdCreditoController.selected.impoInteCrd}" title="#{consulta.EditCrdCreditoTitle_impoInteCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_tasaGadmCrd}" for="tasaGadmCrd" />
+                        <p:inputText id="tasaGadmCrd" value="#{crdCreditoController.selected.tasaGadmCrd}" title="#{consulta.EditCrdCreditoTitle_tasaGadmCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_impoGadmCrd}" for="impoGadmCrd" />
+                        <p:inputText id="impoGadmCrd" value="#{crdCreditoController.selected.impoGadmCrd}" title="#{consulta.EditCrdCreditoTitle_impoGadmCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_fechAproCrd}" for="fechAproCrd" />
+                        <p:calendar id="fechAproCrd" pattern="MM/dd/yyyy HH:mm:ss" value="#{crdCreditoController.selected.fechAproCrd}" title="#{consulta.EditCrdCreditoTitle_fechAproCrd}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_impoGiraCrd}" for="impoGiraCrd" />
+                        <p:inputText id="impoGiraCrd" value="#{crdCreditoController.selected.impoGiraCrd}" title="#{consulta.EditCrdCreditoTitle_impoGiraCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_codiMoneCrd}" for="codiMoneCrd" />
+                        <p:inputText id="codiMoneCrd" value="#{crdCreditoController.selected.codiMoneCrd}" title="#{consulta.EditCrdCreditoTitle_codiMoneCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_autoCdobCrd}" for="autoCdobCrd" />
+                        <p:inputText id="autoCdobCrd" value="#{crdCreditoController.selected.autoCdobCrd}" title="#{consulta.EditCrdCreditoTitle_autoCdobCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_periGracCrd}" for="periGracCrd" />
+                        <p:inputText id="periGracCrd" value="#{crdCreditoController.selected.periGracCrd}" title="#{consulta.EditCrdCreditoTitle_periGracCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_fechCreaAud}" for="fechCreaAud" />
+                        <p:calendar id="fechCreaAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{crdCreditoController.selected.fechCreaAud}" title="#{consulta.EditCrdCreditoTitle_fechCreaAud}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_usuaCreaAud}" for="usuaCreaAud" />
+                        <p:inputText id="usuaCreaAud" value="#{crdCreditoController.selected.usuaCreaAud}" title="#{consulta.EditCrdCreditoTitle_usuaCreaAud}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_fechModiAud}" for="fechModiAud" />
+                        <p:calendar id="fechModiAud" pattern="MM/dd/yyyy HH:mm:ss" value="#{crdCreditoController.selected.fechModiAud}" title="#{consulta.EditCrdCreditoTitle_fechModiAud}"  showOn="button"/>
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_usuaModiAud}" for="usuaModiAud" />
+                        <p:inputText id="usuaModiAud" value="#{crdCreditoController.selected.usuaModiAud}" title="#{consulta.EditCrdCreditoTitle_usuaModiAud}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_nombEquiAud}" for="nombEquiAud" />
+                        <p:inputText id="nombEquiAud" value="#{crdCreditoController.selected.nombEquiAud}" title="#{consulta.EditCrdCreditoTitle_nombEquiAud}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_nombSopeAud}" for="nombSopeAud" />
+                        <p:inputText id="nombSopeAud" value="#{crdCreditoController.selected.nombSopeAud}" title="#{consulta.EditCrdCreditoTitle_nombSopeAud}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_flagEstaCrd}" for="flagEstaCrd" />
+                        <p:inputText id="flagEstaCrd" value="#{crdCreditoController.selected.flagEstaCrd}" title="#{consulta.EditCrdCreditoTitle_flagEstaCrd}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_idenExpeTrm}" for="idenExpeTrm" />
+                        <p:selectOneMenu id="idenExpeTrm" value="#{crdCreditoController.selected.idenExpeTrm}" required="true" requiredMessage="#{consulta.EditCrdCreditoRequiredMessage_idenExpeTrm}">
+                            <f:selectItem itemLabel="#{consulta.SelectOneMessage}"/>
+                            <f:selectItems value="#{trmTramiteController.itemsAvailableSelectOne}"
+                                           var="idenExpeTrmItem"
+                                           itemValue="#{idenExpeTrmItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_idenInmuImb}" for="idenInmuImb" />
+                        <p:selectOneMenu id="idenInmuImb" value="#{crdCreditoController.selected.idenInmuImb}" >
+                            <f:selectItem itemLabel="#{consulta.SelectOneMessage}"/>
+                            <f:selectItems value="#{maeInmuebleController.itemsAvailableSelectOne}"
+                                           var="idenInmuImbItem"
+                                           itemValue="#{idenInmuImbItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_moneda}" for="moneda" />
+                        <p:inputText id="moneda" value="#{crdCreditoController.selected.moneda}" title="#{consulta.EditCrdCreditoTitle_moneda}" />
+                        <p:outputLabel value="#{consulta.EditCrdCreditoLabel_linea}" for="linea" />
+                        <p:inputText id="linea" value="#{crdCreditoController.selected.linea}" title="#{consulta.EditCrdCreditoTitle_linea}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{crdCreditoController.update}" value="#{consulta.Save}" update="display,:CrdCreditoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CrdCreditoEditDialog');"/>
+                    <p:commandButton value="#{consulta.Cancel}" onclick="CrdCreditoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
