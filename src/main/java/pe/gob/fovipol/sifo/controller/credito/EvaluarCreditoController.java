@@ -110,10 +110,12 @@ public class EvaluarCreditoController implements Serializable {
     private boolean enOtraArea;
     private List<MaeSeguro> listaSeguro;
     private boolean tieneCuotas;
+    private boolean mostrarEditarSimulacion;
     @PostConstruct
     public void init() {
         esPrestamo = false;
         enOtraArea=false;
+        mostrarEditarSimulacion=false;
         tieneCuotas=false;
         String idTramite = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap()
@@ -235,9 +237,18 @@ public class EvaluarCreditoController implements Serializable {
         CrdSimulacion simu = tramite.getIdenSimuSim();
         netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
     }
-
+    
+    public void darParametroSimulacion(){
+        mostrarEditarSimulacion=true;
+        //FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("idSimulacion",tramite.getIdenSimuSim().getIdenSimuSim().toString());
+    }
+    
     public void actualizarSimulaciones() {
         simulaciones = ejbSimulacionFacade.findBySocioProducto(socio.getCodiPersPer(), producto.getIdenProdPrd());
+        if(simulaciones!=null && !simulaciones.isEmpty()){
+            simulacion=simulaciones.get(0).getIdenSimuSim();
+            mostrarSimulacion();
+        }
     }
 
     public void cargarRequisitos() {
@@ -286,7 +297,7 @@ public class EvaluarCreditoController implements Serializable {
     public void darViabilidad() {
         enOtraArea = tramiteService.darViabilidadExpediente(tramite, documentos);
         if (enOtraArea) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con Ã©xito", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con Éxito", ""));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No tiene todos los requisitos", ""));
         }
@@ -844,6 +855,20 @@ public class EvaluarCreditoController implements Serializable {
      */
     public void setTieneCuotas(boolean tieneCuotas) {
         this.tieneCuotas = tieneCuotas;
+    }
+
+    /**
+     * @return the mostrarEditarSimulacion
+     */
+    public boolean isMostrarEditarSimulacion() {
+        return mostrarEditarSimulacion;
+    }
+
+    /**
+     * @param mostrarEditarSimulacion the mostrarEditarSimulacion to set
+     */
+    public void setMostrarEditarSimulacion(boolean mostrarEditarSimulacion) {
+        this.mostrarEditarSimulacion = mostrarEditarSimulacion;
     }
 
 }

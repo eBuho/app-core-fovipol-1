@@ -80,7 +80,7 @@ public class SimulacionController implements Serializable {
     private CrdSimulaSeguroFacade ejbSimulaSeguroFacade;
 
     @PostConstruct
-    public void init() {
+    public void init() {        
         mostrarCabecera = true;
         String idSimulacion = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap()
@@ -93,7 +93,7 @@ public class SimulacionController implements Serializable {
         if (idSimulacion != null && !idSimulacion.trim().equals("")) {
             simulacion = ejbSimulacionFacade.find(new BigDecimal(idSimulacion));
         }
-        if (simulacion != null) {
+        if (simulacion != null) {            
             mostrarCabecera = false;
             setSocio(simulacion.getIdenPersPer());
             calcularEdad();
@@ -126,7 +126,6 @@ public class SimulacionController implements Serializable {
     }
 
     public void calcularGastosAdministrativos() {
-
         if (simulacion.getImpoSoliSim() != null && producto != null && producto.getTasaGadmPrd() != null) {
             gastosAdministrativos = simulacion.getImpoSoliSim().multiply(producto.getTasaGadmPrd()).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
             montoCheque = simulacion.getImpoSoliSim().add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
@@ -154,9 +153,6 @@ public class SimulacionController implements Serializable {
         gastosAdministrativos = BigDecimal.ZERO;
         montoCheque = BigDecimal.ZERO;
         polizaNombre = "";
-    }
-
-    public SimulacionController() {
     }
 
     public void calcularEdad() {
@@ -235,7 +231,7 @@ public class SimulacionController implements Serializable {
             return;
         }
         if (simulacion.getImpoSoliSim() == null || simulacion.getImpoSoliSim().compareTo(BigDecimal.ZERO) == -1) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese un monto a simular", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ingrese un monto de préstamo a simular", ""));
             context.addCallbackParam("error", true);
             return;
         }
@@ -250,7 +246,7 @@ public class SimulacionController implements Serializable {
             return;
         }
         if (simulacion.getImpoSoliSim().compareTo(simulacion.getImpoMaxpSim()) == 1) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El Monto es superior al Máximo Préstamo", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El Monto de préstamo es superior al Máximo Préstamo posible", ""));
             context.addCallbackParam("error", true);
             totalAmortizacion = BigDecimal.ZERO;
             totalAporte = BigDecimal.ZERO;
@@ -276,7 +272,7 @@ public class SimulacionController implements Serializable {
                 cuotaPagar = simulacion.getImpoCuotSim();
                 simulacion.setImpoSoliSim(creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim()));
                 if (simulacion.getImpoSoliSim().compareTo(simulacion.getImpoMaxpSim()) == 1) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La monto de préstamo es superior al Máximo préstamo posible", ""));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El monto de préstamo es superior al Máximo préstamo posible", ""));
                     simulacion.setImpoSoliSim(simulacion.getImpoMaxpSim());
                     cuotaPagar = creditoService.calcularCuotaMontoMensual(simulacion.getImpoSoliSim(), simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
                 }
@@ -285,7 +281,7 @@ public class SimulacionController implements Serializable {
             if (simulacion.getImpoSoliSim() != null) {
                 cuotaPagar = creditoService.calcularCuotaMontoMensual(simulacion.getImpoSoliSim(), simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
                 if (cuotaPagar.compareTo(simulacion.getCapaMcuoSim()) == 1) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La Cuota es superior a la Máxima cuota posible", ""));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La Cuota a pagar es superior a la Máxima cuota posible", ""));
                     cuotaPagar = simulacion.getCapaMcuoSim();
                     simulacion.setImpoSoliSim(creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim()));
                 }
@@ -331,7 +327,7 @@ public class SimulacionController implements Serializable {
             montoCheque = simulacion.getImpoSoliSim().add(gastosAdministrativos.add(saldoPagarAnteriorPrestamo).negate());
             context.addCallbackParam("error", false);
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "En ese periodo de tiempo no se puede generar pues no alcanzan los seguros", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "En ese periodo de tiempo no se puede generar pues los seguros no lo cubren", ""));
             context.addCallbackParam("error", true);
         }
 
