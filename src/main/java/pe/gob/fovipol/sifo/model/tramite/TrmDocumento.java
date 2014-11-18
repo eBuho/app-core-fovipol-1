@@ -306,9 +306,9 @@ public class TrmDocumento implements Serializable {
      * @return the estadoRecibido
      */
     public boolean getEstadoRecibido() {
-        String dato = "" + flagPertDoc;
+        String dato = "" + flagFisiDoc;
         dato = dato.toUpperCase();
-        if (flagPertDoc==null) dato = "N";
+        if (flagFisiDoc==null) dato = "N";
         this.estadoRecibido = "S".equals(dato);
         return this.estadoRecibido;
     }
@@ -317,7 +317,7 @@ public class TrmDocumento implements Serializable {
      * @param estadoRecibido the estadoRecibido to set
      */
     public void setEstadoRecibido(boolean estadoRecibido) {
-        this.flagPertDoc = estadoRecibido?'S':'N';
+        this.flagFisiDoc = estadoRecibido?'S':'N';
         this.estadoRecibido = estadoRecibido;
     }
 
@@ -325,9 +325,9 @@ public class TrmDocumento implements Serializable {
      * @return the estadoDigitalizado
      */
     public boolean getEstadoDigitalizado() {
-        String dato = "" + flagFisiDoc;
+        String dato = "" + flagPertDoc;
         dato = dato.toUpperCase();
-        if (flagFisiDoc==null) dato = "N";
+        if (flagPertDoc==null) dato = "N";
         this.estadoDigitalizado = "S".equals(dato);
         return estadoDigitalizado;
     }
@@ -336,7 +336,7 @@ public class TrmDocumento implements Serializable {
      * @param estadoDigitalizado the estadoDigitalizado to set
      */
     public void setEstadoDigitalizado(boolean estadoDigitalizado) {
-        this.flagFisiDoc = estadoDigitalizado?'S':'N';
+        this.flagPertDoc = estadoDigitalizado?'S':'N';
         this.estadoDigitalizado = estadoDigitalizado;
     }
     

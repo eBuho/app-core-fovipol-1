@@ -74,6 +74,18 @@
                                     <h:outputText style="font-weight: bold" id="nombreSocio" rendered="#{simulacionController.socio!=null}" value="#{simulacionController.socio.maePersona.nombCompPer}"/><br/><br/>
                                 </div>
                                 <div class="col-md-12">
+                                    <h:outputText value="Línea de Productos: "/>
+                                </div>
+                                <div class="col-md-12">
+                                    <h:selectOneMenu disabled="#{!simulacionController.mostrarCabecera}"  styleClass="form-control"  style="width: 250px;" value="#{simulacionController.lineaProducto}">
+                                        <f:selectItem itemValue="" itemLabel="Seleccione una Línea de Producto"/>
+                                        <f:selectItems value="#{simulacionController.lineasProducto}" var="producto"
+                                                       itemLabel="#{producto.valoCaduDet}" itemValue="#{producto}"/>
+                                        <p:ajax listener="#{simulacionController.cargarProductos()}" 
+                                                update="comboProducto"/>
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-12">
                                     <h:outputText value="Productos: "/>
                                 </div>
                                 <div class="col-md-12">

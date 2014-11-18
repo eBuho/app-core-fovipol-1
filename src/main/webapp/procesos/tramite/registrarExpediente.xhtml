@@ -425,285 +425,289 @@
                             </p:fieldset>
                             <p:spacer width="20"/>
                             <p:fieldset toggleable="true" legend="Información General" styleClass="fieldSet" id="datosSimulacion">
-                                <div class="col-md-6 margen">
-                                    <p:fieldset legend="Datos de Crédito" styleClass="fieldSet" 
-                                                rendered="#{registrarExpedienteController.esPrestamo}">
-                                        <div class="col-md-12 margen">
+                                <div class="col-md-12 margen">
+                                    <div class="col-md-6 margen">
+                                        <p:fieldset legend="Datos de Crédito" styleClass="fieldSet" 
+                                                    rendered="#{registrarExpedienteController.esPrestamo}">
+                                            <div class="col-md-12 margen">
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Producto: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.idenProdPrd.nombProdPrd}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Centro de Costo: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="1546"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 margen">
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Plazo: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.plazPresSim} meses"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Moneda: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <comp:entidadDetalle entidad="CODIMONECRD" value="#{registrarExpedienteController.tramite.idenSimuSim.codiMoneCrd}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 margen">                                    
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Tipo de Cuota: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="CUOTA DOBLE" rendered="#{registrarExpedienteController.tramite.idenSimuSim.autoCdobSim=='S'}"/>
+                                                        <h:outputText value="CUOTA SIMPLE" rendered="#{registrarExpedienteController.tramite.idenSimuSim.autoCdobSim=='N'}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Seguro(s): "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{registrarExpedienteController.listaSeguros}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 margen">
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="TEA: (%)"/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.tasaTeaSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Monto Solicitado: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.impoSoliSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 margen">
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Gastos Administrativos: (%)"/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.tasaGadmSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Neto a girar: "/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{registrarExpedienteController.netoGirar}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 margen">
+                                                <div class="col-md-6 sin-margen margen">
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="Cuota :"/>
+                                                    </div>
+                                                    <div class="col-md-6 sin-margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.impoCuotSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>                                            
+                                            </div>    
+                                        </p:fieldset>                            
+                                    </div>                    
+                                    <div class="col-md-6 margen">
+                                        <p:fieldset legend="Capacidad de Endeudamiento" styleClass="fieldSet" 
+                                                    rendered="#{registrarExpedienteController.esPrestamo}">
                                             <div class="col-md-6 sin-margen margen">
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="Producto: "/>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <h:outputText value="Ingresos" style="font-weight: bold" />
                                                 </div>
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.idenProdPrd.nombProdPrd}"/>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Ingreso Bruto:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.ingrBrtoSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 sin-margen margen">
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="Centro de Costo: "/>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Desc. Máximo (%):"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{registrarExpedienteController.maximoDescuento}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="1546"/>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Desc. Oficiales:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.dsctOficSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 margen">
-                                            <div class="col-md-6 sin-margen margen">
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="Plazo: "/>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Desc. personales:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.dsctPersSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.plazPresSim} meses"/>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Combustible:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.ingrCombSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 sin-margen margen">
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="Moneda: "/>
-                                                </div>
-                                                <div class="col-md-6 sin-margen">
-                                                    <comp:entidadDetalle entidad="CODIMONECRD" value="#{registrarExpedienteController.tramite.idenSimuSim.codiMoneCrd}"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 margen">                                    
-                                            <div class="col-md-6 sin-margen margen">
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="Tipo de Cuota: "/>
-                                                </div>
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="CUOTA DOBLE" rendered="#{registrarExpedienteController.tramite.idenSimuSim.autoCdobSim=='S'}"/>
-                                                    <h:outputText value="CUOTA SIMPLE" rendered="#{registrarExpedienteController.tramite.idenSimuSim.autoCdobSim=='N'}"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 sin-margen margen">
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="Seguro(s): "/>
-                                                </div>
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="#{registrarExpedienteController.listaSeguros}"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 margen">
-                                            <div class="col-md-6 sin-margen margen">
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="TEA: (%)"/>
-                                                </div>
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.tasaTeaSim}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 sin-margen margen">
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="Monto Solicitado: "/>
-                                                </div>
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.impoSoliSim}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 margen">
-                                            <div class="col-md-6 sin-margen margen">
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="Gastos Administrativos: (%)"/>
-                                                </div>
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.tasaGadmSim}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Capacidad Máxima Cuota:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.capaMcuoSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 sin-margen margen">
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="Neto a girar: "/>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <h:outputText value="Nivel de Endeudamiento" style="font-weight: bold"/>
                                                 </div>
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="#{registrarExpedienteController.netoGirar}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 margen">
-                                            <div class="col-md-6 sin-margen margen">
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="Cuota :"/>
-                                                </div>
-                                                <div class="col-md-6 sin-margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.impoCuotSim}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
-                                                </div>
-                                            </div>                                            
-                                        </div>    
-                                    </p:fieldset>                            
-                                </div>                    
-                                <div class="col-md-6 margen">
-                                    <p:fieldset legend="Capacidad de Endeudamiento" styleClass="fieldSet" 
-                                                rendered="#{registrarExpedienteController.esPrestamo}">
-                                        <div class="col-md-6 sin-margen margen">
-                                            <div class="col-md-12 sin-margen margen">
-                                                <h:outputText value="Ingresos" style="font-weight: bold" />
-                                            </div>
-                                            <div class="col-md-12 sin-margen margen">
-                                                <div class="col-md-8 sin-margen margen">
-                                                    <h:outputText value="Ingreso Bruto:"/>
-                                                </div>
-                                                <div class="col-md-4 sin-margen margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.ingrBrtoSim}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
+                                                <div class="col-md-12 sin-margen margen">
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Total Aportes:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.ingrBrtoSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="# Veces total Aporte:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.ingrBrtoSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                    <div class="col-md-8 sin-margen margen">
+                                                        <h:outputText value="Monto Máximo:"/>
+                                                    </div>
+                                                    <div class="col-md-4 sin-margen margen">
+                                                        <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.impoMaxpSim}">
+                                                            <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
+                                                        </h:outputText>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12 sin-margen margen">
-                                                <div class="col-md-8 sin-margen margen">
-                                                    <h:outputText value="Desc. Máximo (%):"/>
-                                                </div>
-                                                <div class="col-md-4 sin-margen margen">
-                                                    <h:outputText value="#{registrarExpedienteController.maximoDescuento}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 sin-margen margen">
-                                                <div class="col-md-8 sin-margen margen">
-                                                    <h:outputText value="Desc. Oficiales:"/>
-                                                </div>
-                                                <div class="col-md-4 sin-margen margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.dsctOficSim}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 sin-margen margen">
-                                                <div class="col-md-8 sin-margen margen">
-                                                    <h:outputText value="Desc. personales:"/>
-                                                </div>
-                                                <div class="col-md-4 sin-margen margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.dsctPersSim}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 sin-margen margen">
-                                                <div class="col-md-8 sin-margen margen">
-                                                    <h:outputText value="Combustible:"/>
-                                                </div>
-                                                <div class="col-md-4 sin-margen margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.ingrCombSim}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 sin-margen margen">
-                                                <div class="col-md-8 sin-margen margen">
-                                                    <h:outputText value="Capacidad Máxima Cuota:"/>
-                                                </div>
-                                                <div class="col-md-4 sin-margen margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.capaMcuoSim}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 sin-margen margen">
-                                            <div class="col-md-12 sin-margen margen">
-                                                <h:outputText value="Nivel de Endeudamiento" style="font-weight: bold"/>
-                                            </div>
-                                            <div class="col-md-12 sin-margen margen">
-                                                <div class="col-md-8 sin-margen margen">
-                                                    <h:outputText value="Total Aportes:"/>
-                                                </div>
-                                                <div class="col-md-4 sin-margen margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.ingrBrtoSim}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
-                                                </div>
-                                                <div class="col-md-8 sin-margen margen">
-                                                    <h:outputText value="# Veces total Aporte:"/>
-                                                </div>
-                                                <div class="col-md-4 sin-margen margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.ingrBrtoSim}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
-                                                </div>
-                                                <div class="col-md-8 sin-margen margen">
-                                                    <h:outputText value="Monto Máximo:"/>
-                                                </div>
-                                                <div class="col-md-4 sin-margen margen">
-                                                    <h:outputText value="#{registrarExpedienteController.tramite.idenSimuSim.impoMaxpSim}">
-                                                        <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                    </h:outputText>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </p:fieldset>
+                                        </p:fieldset>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 margen">
-                                    <p:fieldset legend="Canales de Cobranza" styleClass="fieldSet" 
-                                                rendered="#{registrarExpedienteController.esPrestamo}">
-                                        <div class="col-md-12 margen">
-                                            <p:dataTable id="canalesCobranza" editable="true" editMode="cell" var="canal" value="#{registrarExpedienteController.canales}" 
-                                                         emptyMessage="No hay canales de cobranza" >
-                                                <p:column headerText="Canal">
-                                                    <comp:entidadDetalle value="#{canal.codiCanaCob}" entidad="#{constantes.ENTIDAD_CANAL_COBRANZA}"/>
-                                                </p:column>                                    
-                                                <p:column headerText="Monto">
-                                                    <p:cellEditor>
-                                                        <f:facet name="output">
-                                                            <h:outputText
-                                                                value="#{canal.impoCobrCdc}" >
-                                                                <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                            </h:outputText>
-                                                        </f:facet>
-                                                        <f:facet name="input">
-                                                            <p:inputText
-                                                                value="#{canal.impoCobrCdc}"
-                                                                styleClass="inputLargo"> 
-                                                                <f:convertNumber minFractionDigits="2" groupingUsed="true"/> 
-                                                                <p:ajax update="canalesCobranza" listener="#{registrarExpedienteController.contarCanalCobranza}" />
-                                                            </p:inputText>
-                                                        </f:facet>
-                                                    </p:cellEditor>
-                                                </p:column>  
-                                                <p:columnGroup type="footer">
-                                                    <p:row>
-                                                        <p:column style="text-align:right" footerText="Total:" />
-                                                        <p:column style="text-align:left">
-                                                            <f:facet name="footer">
-                                                                <h:outputText value="#{registrarExpedienteController.totalPago}" style="text-align:left">
-                                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                <div class="col-md-12 margen">
+                                    <div class="col-md-6 margen">
+                                        <p:fieldset legend="Canales de Cobranza" styleClass="fieldSet" 
+                                                    rendered="#{registrarExpedienteController.esPrestamo}">
+                                            <div class="col-md-12 margen">
+                                                <p:dataTable id="canalesCobranza" editable="true" editMode="cell" var="canal" value="#{registrarExpedienteController.canales}" 
+                                                             emptyMessage="No hay canales de cobranza" >
+                                                    <p:column headerText="Canal">
+                                                        <comp:entidadDetalle value="#{canal.codiCanaCob}" entidad="#{constantes.ENTIDAD_CANAL_COBRANZA}"/>
+                                                    </p:column>                                    
+                                                    <p:column headerText="Monto">
+                                                        <p:cellEditor>
+                                                            <f:facet name="output">
+                                                                <h:outputText
+                                                                    value="#{canal.impoCobrCdc}" >
+                                                                    <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
                                                                 </h:outputText>
-                                                            </f:facet>                                                        
-                                                        </p:column>                                            
-                                                    </p:row>
-                                                </p:columnGroup>
-                                            </p:dataTable>
-                                        </div>
-                                    </p:fieldset>                            
-                                </div>
-                                <div class="col-md-6 margen">
-                                    <p:fieldset legend="Anexos" styleClass="fieldSet" 
-                                                rendered="#{registrarExpedienteController.esPrestamo}">
-                                        <p:fieldset legend="Unidad Inmobiliaria" styleClass="fieldSet">
-                                            <div class="col-md-12 margen sin-margen">
-                                                <comp:ubigeo value="#{registrarExpedienteController.inmueble.idenUbigUbi}"/>
+                                                            </f:facet>
+                                                            <f:facet name="input">
+                                                                <p:inputText
+                                                                    value="#{canal.impoCobrCdc}"
+                                                                    styleClass="inputLargo"> 
+                                                                    <f:convertNumber minFractionDigits="2" groupingUsed="true"/> 
+                                                                    <p:ajax update="canalesCobranza" listener="#{registrarExpedienteController.contarCanalCobranza}" />
+                                                                </p:inputText>
+                                                            </f:facet>
+                                                        </p:cellEditor>
+                                                    </p:column>  
+                                                    <p:columnGroup type="footer">
+                                                        <p:row>
+                                                            <p:column style="text-align:right" footerText="Total:" />
+                                                            <p:column style="text-align:left">
+                                                                <f:facet name="footer">
+                                                                    <h:outputText value="#{registrarExpedienteController.totalPago}" style="text-align:left">
+                                                                        <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                                                    </h:outputText>
+                                                                </f:facet>                                                        
+                                                            </p:column>                                            
+                                                        </p:row>
+                                                    </p:columnGroup>
+                                                </p:dataTable>
                                             </div>
-                                            <div class="col-md-12 margen sin-margen">
-                                                <div class="col-md-2 margen sin-margen">
-                                                    <h:outputText value="Dirección"/>
+                                        </p:fieldset>                            
+                                    </div>
+                                    <div class="col-md-6 margen">
+                                        <p:fieldset legend="Anexos" styleClass="fieldSet" 
+                                                    rendered="#{registrarExpedienteController.esPrestamo}">
+                                            <p:fieldset legend="Unidad Inmobiliaria" styleClass="fieldSet">
+                                                <div class="col-md-12 margen sin-margen">
+                                                    <comp:ubigeo value="#{registrarExpedienteController.inmueble.idenUbigUbi}"/>
                                                 </div>
-                                                <div class="col-md-10 margen sin-margen">
-                                                    <p:inputTextarea autoResize="false" styleClass="inputLargo"
-                                                                     rows="3"            value="#{registrarExpedienteController.inmueble.descDireImb}"/>
-                                                </div>
-                                            </div> 
-                                        </p:fieldset>                                        
-                                    </p:fieldset>                                    
-                                </div>                    
+                                                <div class="col-md-12 margen sin-margen">
+                                                    <div class="col-md-2 margen sin-margen">
+                                                        <h:outputText value="Dirección"/>
+                                                    </div>
+                                                    <div class="col-md-10 margen sin-margen">
+                                                        <p:inputTextarea autoResize="false" styleClass="inputLargo"
+                                                                         rows="3"            value="#{registrarExpedienteController.inmueble.descDireImb}"/>
+                                                    </div>
+                                                </div> 
+                                            </p:fieldset>                                        
+                                        </p:fieldset>                                    
+                                    </div>  
+                                </div>
                             </p:fieldset>
                             <p:spacer width="20"/>
                             <p:fieldset id="acciones" legend="Acciones" styleClass="fieldSet">
