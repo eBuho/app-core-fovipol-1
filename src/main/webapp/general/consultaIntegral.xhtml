@@ -41,7 +41,7 @@
                                         emptyMessage="No se encontraron registros"
                                         >
                                         <p:ajax event="rowSelect"   
-                                                listener="#{crdCreditoCuotaController.getItemsByTramite(item)}"
+                                                listener="#{crdCreditoCuotaController.getItemsByTramite(trmTramiteController.selected)}"
                                                 update=":formSocio"/>
 
                                         <p:column>
