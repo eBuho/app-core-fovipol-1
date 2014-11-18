@@ -374,66 +374,14 @@
                                                     <h:outputText value="Documento"/>
                                                 </f:facet>
                                                 <h:outputText value="#{requisito.descNombDoc}"/>
-                                            </p:column>
-                                            <p:column headerText="Recibido">
-                                                <p:cellEditor>
-                                                    <f:facet name="output">
-                                                        <h:outputText
-                                                            value="#{requisito.flagPertDoc=='S' ? 'SÍ' : 'NO'}" />
-                                                    </f:facet>
-                                                    <f:facet name="input">
-                                                        <p:selectOneMenu
-                                                            value="#{requisito.flagPertDoc}"
-                                                            styleClass="inputLargo">
-                                                            <f:selectItem itemValue="N" itemLabel="NO" />
-                                                            <f:selectItem itemValue="S" itemLabel="SÍ" />                                                    
-                                                        </p:selectOneMenu>
-                                                    </f:facet>
-                                                </p:cellEditor>
-                                            </p:column>
-                                            <p:column headerText="Digitalizado">
-                                                <p:cellEditor>
-                                                    <f:facet name="output">
-                                                        <h:outputText
-                                                            value="#{requisito.flagFisiDoc=='S' ? 'SÍ' : 'NO'}" />
-                                                    </f:facet>
-                                                    <f:facet name="input">
-                                                        <p:selectOneMenu
-                                                            value="#{requisito.flagFisiDoc}"
-                                                            styleClass="inputLargo">
-                                                            <f:selectItem itemValue="N" itemLabel="NO" />
-                                                            <f:selectItem itemValue="S" itemLabel="SÍ" />                                                    
-                                                        </p:selectOneMenu>
-                                                    </f:facet>
-                                                </p:cellEditor>
-                                            </p:column>
+                                            </p:column>                                                                                  
                                             <p:column headerText="Observacion">
-                                                <p:cellEditor>
-                                                    <f:facet name="output">
-                                                        <h:outputText value="#{requisito.descObseDoc}"/>
-                                                    </f:facet>
-                                                    <f:facet name="input">
-                                                        <p:inputTextarea autoResize="false" rows="2"
-                                                                         value="#{requisito.descObseDoc}"
-                                                                         styleClass="inputLargo">                                                   
-                                                        </p:inputTextarea>
-                                                    </f:facet>
-                                                </p:cellEditor>
+                                                <h:outputText value="#{requisito.descObseDoc}"/>                                                    
                                             </p:column>
                                             <p:column headerText="Fecha de Emisión">
-                                                <p:cellEditor>
-                                                    <f:facet name="output">
-                                                        <h:outputText value="#{requisito.fechEmisDoc}">
-                                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                                        </h:outputText>
-                                                    </f:facet>
-                                                    <f:facet name="input">
-                                                        <p:calendar 
-                                                            value="#{requisito.fechEmisDoc}"
-                                                            pattern="dd/MM/yyyy">                                                   
-                                                        </p:calendar>
-                                                    </f:facet>
-                                                </p:cellEditor>                                        
+                                                <h:outputText value="#{requisito.fechEmisDoc}"> 
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                </h:outputText>
                                             </p:column>
                                             <p:column>
                                                 <f:facet name="header">
@@ -441,9 +389,14 @@
                                                 </f:facet>
                                                 <comp:activo value="#{requisito.flagEstaDoc}"/>
                                             </p:column>
+                                            <p:column headerText="Digitalizado">                                                
+                                                <p:selectBooleanCheckbox disabled="true" value="#{requisito.estadoDigitalizado}" />
+                                            </p:column>
+                                            <p:column headerText="Recibido">                                                
+                                                <p:selectBooleanCheckbox value="#{requisito.estadoRecibido}" />
+                                            </p:column>      
                                         </p:dataTable>
                                     </div>
-
                                 </div>
                                 <div class="col-md-12 margen">
                                     <div class="col-md-4">
@@ -685,76 +638,78 @@
                                         </p:fieldset>
                                     </div>
                                 </div>
-                                <div class="col-md-6 margen">
-                                    <p:fieldset legend="Canales de Cobranza" styleClass="fieldSet" 
-                                                rendered="#{evaluarCreditoController.tramite.idenSimuSim!=null}">
-                                        <div class="col-md-12 margen">
-                                            <p:dataTable id="canalesCobranza" editable="true" editMode="cell" var="canal" value="#{evaluarCreditoController.canales}" 
-                                                         emptyMessage="No hay canales de cobranza" >
-                                                <p:column headerText="Canal">
-                                                    <comp:entidadDetalle value="#{canal.codiCanaCob}" entidad="#{constantes.ENTIDAD_CANAL_COBRANZA}"/>
-                                                </p:column>                                    
-                                                <p:column headerText="Monto">
-                                                    <p:cellEditor>
-                                                        <f:facet name="output">
-                                                            <h:outputText
-                                                                value="#{canal.impoCobrCdc}" >
-                                                                <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
-                                                            </h:outputText>
-                                                        </f:facet>
-                                                        <f:facet name="input">
-                                                            <p:inputText
-                                                                value="#{canal.impoCobrCdc}"
-                                                                styleClass="inputLargo"> 
-                                                                <f:convertNumber minFractionDigits="2" groupingUsed="true"/> 
-                                                                <p:ajax update="canalesCobranza" listener="#{evaluarCreditoController.contarCanalCobranza}" />
-                                                            </p:inputText>
-                                                        </f:facet>
-                                                    </p:cellEditor>
-                                                </p:column>
-                                                <p:columnGroup type="footer">
-                                                    <p:row>
-                                                        <p:column style="text-align:right" footerText="Total:" />
-                                                        <p:column style="text-align:left">
-                                                            <f:facet name="footer">
-                                                                <h:outputText value="#{evaluarCreditoController.totalPago}" style="text-align:left">
-                                                                    <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                <div class="col-md-12 margen">
+                                    <div class="col-md-6 margen">
+                                        <p:fieldset legend="Canales de Cobranza" styleClass="fieldSet" 
+                                                    rendered="#{evaluarCreditoController.tramite.idenSimuSim!=null}">
+                                            <div class="col-md-12 margen">
+                                                <p:dataTable id="canalesCobranza" editable="true" editMode="cell" var="canal" value="#{evaluarCreditoController.canales}" 
+                                                             emptyMessage="No hay canales de cobranza" >
+                                                    <p:column headerText="Canal">
+                                                        <comp:entidadDetalle value="#{canal.codiCanaCob}" entidad="#{constantes.ENTIDAD_CANAL_COBRANZA}"/>
+                                                    </p:column>                                    
+                                                    <p:column headerText="Monto">
+                                                        <p:cellEditor>
+                                                            <f:facet name="output">
+                                                                <h:outputText
+                                                                    value="#{canal.impoCobrCdc}" >
+                                                                    <f:convertNumber minFractionDigits="2" groupingUsed="true"/>
                                                                 </h:outputText>
-                                                            </f:facet>                                                        
-                                                        </p:column>                                            
-                                                    </p:row>
-                                                </p:columnGroup>
-                                            </p:dataTable>
-                                        </div>
-                                    </p:fieldset>                            
+                                                            </f:facet>
+                                                            <f:facet name="input">
+                                                                <p:inputText
+                                                                    value="#{canal.impoCobrCdc}"
+                                                                    styleClass="inputLargo"> 
+                                                                    <f:convertNumber minFractionDigits="2" groupingUsed="true"/> 
+                                                                    <p:ajax update="canalesCobranza" listener="#{evaluarCreditoController.contarCanalCobranza}" />
+                                                                </p:inputText>
+                                                            </f:facet>
+                                                        </p:cellEditor>
+                                                    </p:column>
+                                                    <p:columnGroup type="footer">
+                                                        <p:row>
+                                                            <p:column style="text-align:right" footerText="Total:" />
+                                                            <p:column style="text-align:left">
+                                                                <f:facet name="footer">
+                                                                    <h:outputText value="#{evaluarCreditoController.totalPago}" style="text-align:left">
+                                                                        <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                                                    </h:outputText>
+                                                                </f:facet>                                                        
+                                                            </p:column>                                            
+                                                        </p:row>
+                                                    </p:columnGroup>
+                                                </p:dataTable>
+                                            </div>
+                                        </p:fieldset>                            
+                                    </div>
+                                    <div class="col-md-6 margen">
+                                        <p:fieldset legend="Anexos" styleClass="fieldSet" 
+                                                    rendered="#{evaluarCreditoController.tramite.idenSimuSim!=null}">
+                                            <p:fieldset legend="Unidad Inmobiliaria" styleClass="fieldSet">
+                                                <div class="col-md-12 margen sin-margen">
+                                                    <comp:ubigeo value="#{evaluarCreditoController.inmueble.idenUbigUbi}"/>
+                                                </div>
+                                                <div class="col-md-12 margen sin-margen">
+                                                    <div class="col-md-2 margen sin-margen">
+                                                        <h:outputText value="Dirección"/>
+                                                    </div>
+                                                    <div class="col-md-10 margen sin-margen">
+                                                        <p:inputTextarea autoResize="false" styleClass="inputLargo"
+                                                                         rows="3"            value="#{evaluarCreditoController.inmueble.descDireImb}"/>
+                                                    </div>
+                                                </div> 
+                                            </p:fieldset>
+                                            <p:fieldset legend="Póliza" styleClass="fieldSet">
+                                                <div class="col-md-3">
+                                                    <h:outputText value="Código"/>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <h:inputText value="#{evaluarCreditoController.codigoPoliza}"/>
+                                                </div>                                            
+                                            </p:fieldset>
+                                        </p:fieldset>
+                                    </div> 
                                 </div>
-                                <div class="col-md-6 margen">
-                                    <p:fieldset legend="Anexos" styleClass="fieldSet" 
-                                                rendered="#{evaluarCreditoController.tramite.idenSimuSim!=null}">
-                                        <p:fieldset legend="Unidad Inmobiliaria" styleClass="fieldSet">
-                                            <div class="col-md-12 margen sin-margen">
-                                                <comp:ubigeo value="#{evaluarCreditoController.inmueble.idenUbigUbi}"/>
-                                            </div>
-                                            <div class="col-md-12 margen sin-margen">
-                                                <div class="col-md-2 margen sin-margen">
-                                                    <h:outputText value="Dirección"/>
-                                                </div>
-                                                <div class="col-md-10 margen sin-margen">
-                                                    <p:inputTextarea autoResize="false" styleClass="inputLargo"
-                                                                     rows="3"            value="#{evaluarCreditoController.inmueble.descDireImb}"/>
-                                                </div>
-                                            </div> 
-                                        </p:fieldset>
-                                        <p:fieldset legend="Póliza" styleClass="fieldSet">
-                                            <div class="col-md-3">
-                                                <h:outputText value="Código"/>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <h:inputText value="#{evaluarCreditoController.codigoPoliza}"/>
-                                            </div>                                            
-                                        </p:fieldset>
-                                    </p:fieldset>
-                                </div>                    
                             </p:fieldset>
                             <p:spacer width="20"/>
                             <p:fieldset legend="Cronograma" styleClass="fieldSet">
@@ -917,8 +872,8 @@
                                     <p:panel id="panelEditarSimulacion">
                                         <c:if test="#{evaluarCreditoController.mostrarEditarSimulacion}">                                            
                                             <iframe width="100%" height="450" frameborder="0"
-                                                src="../credito/simulacionProceso.xhtml?idSimulacion=#{evaluarCreditoController.tramite.idenSimuSim.idenSimuSim}"
-                                            marginwidth="0" marginheight="0"/>
+                                                    src="../credito/simulacionProceso.xhtml?idSimulacion=#{evaluarCreditoController.tramite.idenSimuSim.idenSimuSim}"
+                                                    marginwidth="0" marginheight="0"/>
                                         </c:if>
                                     </p:panel>
                                 </div>

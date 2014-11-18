@@ -377,34 +377,13 @@
                                                 </f:facet>
                                                 <h:outputText value="#{requisito.descNombDoc}"/>
                                             </p:column>
-
                                             <p:column headerText="Observacion">
-                                                <p:cellEditor>
-                                                    <f:facet name="output">
-                                                        <h:outputText value="#{requisito.descObseDoc}"/>
-                                                    </f:facet>
-                                                    <f:facet name="input">
-                                                        <p:inputTextarea autoResize="false" rows="2"
-                                                                         value="#{requisito.descObseDoc}"
-                                                                         styleClass="inputLargo">                                                   
-                                                        </p:inputTextarea>
-                                                    </f:facet>
-                                                </p:cellEditor>
+                                                <h:outputText value="#{requisito.descObseDoc}"/>                                                    
                                             </p:column>
                                             <p:column headerText="Fecha de Emisión">
-                                                <p:cellEditor>
-                                                    <f:facet name="output">
-                                                        <h:outputText value="#{requisito.fechEmisDoc}">
-                                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                                        </h:outputText>
-                                                    </f:facet>
-                                                    <f:facet name="input">
-                                                        <p:calendar 
-                                                            value="#{requisito.fechEmisDoc}"
-                                                            pattern="dd/MM/yyyy">                                                   
-                                                        </p:calendar>
-                                                    </f:facet>
-                                                </p:cellEditor>                                        
+                                                <h:outputText value="#{requisito.fechEmisDoc}"> 
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                </h:outputText>
                                             </p:column>
                                             <p:column>
                                                 <f:facet name="header">
@@ -412,45 +391,14 @@
                                                 </f:facet>
                                                 <comp:activo value="#{requisito.flagEstaDoc}"/>
                                             </p:column>
-                                            <p:column headerText="Recibido">
-                                                <!--p:cellEditor>
-                                                    <f:facet name="output">
-                                                        <h:outputText
-                                                            value="#{requisito.estadoRecibido ? 'SÍ' : 'NO'}" />
-                                                    </f:facet>
-                                                    <f:facet name="input">
-                                                        
-                                                        <p:selectOneMenu
-                                                            value="#{requisito.flagPertDoc}"
-                                                            styleClass="inputLargo">
-                                                            <f:selectItem itemValue="N" itemLabel="NO" />
-                                                            <f:selectItem itemValue="S" itemLabel="SÍ" />                                                    
-                                                        </p:selectOneMenu>
-                                                    </f:facet>
-                                                    
-                                                </p:cellEditor-->
+                                            <p:column headerText="Digitalizado">                                                
+                                                <p:selectBooleanCheckbox disabled="true" value="#{requisito.estadoDigitalizado}" />
+                                            </p:column>
+                                            <p:column headerText="Recibido">                                                
                                                 <p:selectBooleanCheckbox value="#{requisito.estadoRecibido}" />
-                                            </p:column>
-                                            <p:column headerText="Digitalizado">
-                                                <!--p:cellEditor>
-                                                    <f:facet name="output">
-                                                        <h:outputText
-                                                            value="#{requisito.flagFisiDoc=='S' ? 'SÍ' : 'NO'}" />
-                                                    </f:facet>
-                                                    <f:facet name="input">
-                                                        <p:selectOneMenu
-                                                            value="#{requisito.flagFisiDoc}"
-                                                            styleClass="inputLargo">
-                                                            <f:selectItem itemValue="N" itemLabel="NO" />
-                                                            <f:selectItem itemValue="S" itemLabel="SÍ" />                                                    
-                                                        </p:selectOneMenu>
-                                                    </f:facet>
-                                                </p:cellEditor-->
-                                                <p:selectBooleanCheckbox value="#{requisito.estadoDigitalizado}" />
-                                            </p:column>
+                                            </p:column> 
                                         </p:dataTable>
                                     </div>
-
                                 </div>
                                 <div class="col-md-12 margen">
                                     <p:panel id="panelSimulacion" styleClass="panel">

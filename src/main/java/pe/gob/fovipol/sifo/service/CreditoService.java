@@ -28,7 +28,8 @@ public interface CreditoService {
             BigDecimal descuentoPersonal,BigDecimal combustible);
     //Calcula el máximo préstamo en una simulación
     public BigDecimal calcularMaximoPrestamo(BigDecimal totalAporte,BigInteger maximoPorProducto,
-            BigDecimal otrasDeudas,BigDecimal minimaDeuda,BigDecimal otrosIngresos,BigDecimal prestamoAnterior);
+            BigDecimal otrasDeudas,BigDecimal minimaDeuda,BigDecimal otrosIngresos,
+            BigDecimal prestamoAnterior,BigDecimal nivelacion);
     //Calcula la edad de una persona
     public int calcularEdad(Date nacimiento,Date fin);
     //Calcula el monto mensual a pagar para un préstamo (monto) a n(numeroCuotas) con un interes
