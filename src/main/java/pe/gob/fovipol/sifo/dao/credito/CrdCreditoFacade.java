@@ -84,7 +84,7 @@ public class CrdCreditoFacade extends AbstractFacade<CrdCredito> {
                 + "where c.flagEstaCrd<>0 "
                 + "and c.fechAproCrd BETWEEN :fechaInicio AND :fechaFinal ";
         if (filtroProducto){
-                sql = sql + "and c.idenExpeTrm.idenSimuSim.idenProdPrd = :productoId ";        
+                sql = sql + "and c.idenExpeTrm.idenSimuSim.idenProdPrd.idenProdPrd = :productoId ";        
         }
         if (filtroMoneda){
                 sql = sql + "and c.codiMoneCrd = :monedaId ";        

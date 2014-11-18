@@ -6,13 +6,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
-
     <ui:composition template="/template.xhtml">
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListMaeEmpresaTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
             <div class="col-md-12">
                 <div class="portlet box green">
@@ -33,10 +30,8 @@
                                          rowsPerPageTemplate="10,20,30,40,50"
                                          emptyMessage="No se encontraron registros"
                                          >
-
                                 <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                                 <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
                                 <p:column filterBy="#{item.codiEmprEmp}"
                                           filterMatchMode="contains"
                                           sortBy="#{item.codiEmprEmp}">
@@ -176,7 +171,6 @@
                                 <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                             </p:confirmDialog>
-
                         </h:form>
                     </div>
                 </div>
@@ -186,5 +180,4 @@
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
-
 </html>

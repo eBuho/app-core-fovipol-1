@@ -272,6 +272,7 @@ public class RegistrarExpedienteController implements Serializable {
                     doc.setMaeRequisito(aux);
                     i++;
                     doc.setDescNombDoc(aux.getNombRequReq());
+                    doc.setFlagPertDoc('N');
                     doc.setFlagEstaDoc(Constantes.VALOR_ESTADO_ACTIVO);
                     documentos.add(doc);
                 }
