@@ -48,15 +48,15 @@ public class CreditoServiceImpl implements CreditoService {
     @Override
     public BigDecimal calcularMaximaCuota(BigDecimal remuneracionConsolidada, BigDecimal descuentoMaximo, BigDecimal descuentoOficial, BigDecimal descuentoPersonal, BigDecimal combustible) {
         BigDecimal maximaCuota = BigDecimal.ZERO;
-        if(remuneracionConsolidada==null)
+        if(remuneracionConsolidada==null || remuneracionConsolidada.compareTo(BigDecimal.ZERO)==-1)
             remuneracionConsolidada= BigDecimal.ZERO;
-        if(descuentoMaximo==null)
+        if(descuentoMaximo==null || descuentoMaximo.compareTo(BigDecimal.ZERO)==-1)
             descuentoMaximo= BigDecimal.ZERO;
-        if(descuentoOficial==null)
+        if(descuentoOficial==null || descuentoOficial.compareTo(BigDecimal.ZERO)==-1)
             descuentoOficial= BigDecimal.ZERO;
-        if(descuentoPersonal==null)
+        if(descuentoPersonal==null || descuentoPersonal.compareTo(BigDecimal.ZERO)==-1)
             descuentoPersonal= BigDecimal.ZERO;
-        if(combustible==null)
+        if(combustible==null || combustible.compareTo(BigDecimal.ZERO)==-1)
             combustible= BigDecimal.ZERO;
         maximaCuota = remuneracionConsolidada.multiply(descuentoMaximo).divide(new BigDecimal(100));
         maximaCuota = maximaCuota.add(descuentoOficial.negate());
@@ -66,21 +66,24 @@ public class CreditoServiceImpl implements CreditoService {
 
     @Override
     public BigDecimal calcularMaximoPrestamo(BigDecimal totalAporte, BigInteger maximoPorProducto,
-            BigDecimal otrasDeudas, BigDecimal minimaDeuda,BigDecimal otrosIngresos,BigDecimal prestamoAnterior) {
+            BigDecimal otrasDeudas, BigDecimal minimaDeuda,BigDecimal otrosIngresos,
+            BigDecimal prestamoAnterior,BigDecimal nivelacion) {
         BigDecimal maximaPrestamo = BigDecimal.ZERO;
-        if(totalAporte==null)
+        if(totalAporte==null || totalAporte.compareTo(BigDecimal.ZERO)==-1)
             totalAporte= BigDecimal.ZERO;
-        if(maximoPorProducto==null)
+        if(maximoPorProducto==null || maximoPorProducto.compareTo(BigInteger.ZERO)==-1)
             maximoPorProducto= BigInteger.ONE;
-        if(otrasDeudas==null)
+        if(otrasDeudas==null || otrasDeudas.compareTo(BigDecimal.ZERO)==-1)
             otrasDeudas= BigDecimal.ZERO;
-        if(minimaDeuda==null)
+        if(minimaDeuda==null || minimaDeuda.compareTo(BigDecimal.ZERO)==-1)
             minimaDeuda= BigDecimal.ZERO;
-        if(otrosIngresos==null)
+        if(otrosIngresos==null || otrosIngresos.compareTo(BigDecimal.ZERO)==-1)
             otrosIngresos= BigDecimal.ZERO;
-        if(prestamoAnterior==null)
+        if(prestamoAnterior==null || prestamoAnterior.compareTo(BigDecimal.ZERO)==-1)
             prestamoAnterior= BigDecimal.ZERO;
-        maximaPrestamo = totalAporte.multiply(new BigDecimal(maximoPorProducto));
+        if(nivelacion==null || nivelacion.compareTo(BigDecimal.ZERO)==-1)
+            nivelacion= BigDecimal.ZERO;
+        maximaPrestamo = totalAporte.add(nivelacion).multiply(new BigDecimal(maximoPorProducto));
         maximaPrestamo=maximaPrestamo.add(prestamoAnterior.negate());
         if(otrosIngresos==null || otrosIngresos.compareTo(BigDecimal.ZERO)==0){
             if (minimaDeuda != null && minimaDeuda != BigDecimal.ZERO && otrasDeudas.compareTo(minimaDeuda) == 1)

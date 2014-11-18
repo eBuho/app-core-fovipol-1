@@ -64,6 +64,7 @@ public class SimulacionController implements Serializable {
     private BigDecimal totalSeguro;
     private BigDecimal totalCuota;
     private BigDecimal gastosAdministrativos;
+    private BigDecimal nivelacion;
     private List<String> polizasElegidas;
     public boolean mostrarCabecera;
     @EJB
@@ -89,6 +90,7 @@ public class SimulacionController implements Serializable {
         totalAporteAnterior = BigDecimal.ZERO;
         montoAnteriorPrestamo = BigDecimal.ZERO;
         totalAporte = BigDecimal.ZERO;
+        nivelacion = BigDecimal.ZERO;
         saldoPagarAnteriorPrestamo = BigDecimal.ZERO;
         if (idSimulacion != null && !idSimulacion.trim().equals("")) {
             simulacion = ejbSimulacionFacade.find(new BigDecimal(idSimulacion));
@@ -184,7 +186,8 @@ public class SimulacionController implements Serializable {
             simulacion.setCapaMcuoSim(creditoService.calcularMaximaCuota(simulacion.getIngrBrtoSim(), porcDescuento,
                     simulacion.getDsctOficSim(), simulacion.getDsctPersSim(), simulacion.getIngrCombSim()));
             simulacion.setImpoMaxpSim(creditoService.calcularMaximoPrestamo(totalAporte,
-                    producto.getCantVecePrd(), simulacion.getDeudOtraSim(), producto.getMontDeudPrd(), simulacion.getOtroIngrSim(), montoAnteriorPrestamo));
+                    producto.getCantVecePrd(), simulacion.getDeudOtraSim(), producto.getMontDeudPrd(), 
+                    simulacion.getOtroIngrSim(), montoAnteriorPrestamo,nivelacion));
         }
     }
 
@@ -209,6 +212,9 @@ public class SimulacionController implements Serializable {
             return false;
         }
         if (!validarIndividual(totalAporte)) {
+            return false;
+        }
+        if (!validarIndividual(nivelacion)) {
             return false;
         }
         if (!validarIndividual(totalAporteAnterior)) {
@@ -782,5 +788,19 @@ public class SimulacionController implements Serializable {
      */
     public void setMostrarCabecera(boolean mostrarCabecera) {
         this.mostrarCabecera = mostrarCabecera;
+    }
+
+    /**
+     * @return the nivelacion
+     */
+    public BigDecimal getNivelacion() {
+        return nivelacion;
+    }
+
+    /**
+     * @param nivelacion the nivelacion to set
+     */
+    public void setNivelacion(BigDecimal nivelacion) {
+        this.nivelacion = nivelacion;
     }
 }
