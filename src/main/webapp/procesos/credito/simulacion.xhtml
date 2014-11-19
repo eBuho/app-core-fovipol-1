@@ -175,7 +175,7 @@
                                                 <h:outputText value="Total Aporte (S/.)"/>
                                             </div>
                                             <div class="col-md-6 espacio-div">
-                                                <p:inputText label="Total Aporte" disabled="#{simulacionController.producto.idenProdPrd==null}" value="#{simulacionController.totalAporte}">
+                                                <p:inputText label="Total Aporte" disabled="true" value="#{simulacionController.totalAporte}">
                                                     <p:ajax event="keyup" listener="#{simulacionController.calcular()}" update="capacidadCredito"/>
                                                     <f:convertNumber groupingUsed="true" minFractionDigits="2" />
                                                 </p:inputText>

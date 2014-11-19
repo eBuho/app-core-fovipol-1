@@ -54,4 +54,14 @@ public class MaePersonaFacade extends AbstractFacade<MaePersona> {
         lista = q.getResultList();
         return lista;
     }
+    
+    public List<MaePersona> findPaginado(int tamanio,int inicio) {
+        List<MaePersona> lista = null;
+        String sql = "select d from MaePersona d";
+        Query q = em.createQuery(sql);
+        q.setFirstResult(inicio);
+        q.setMaxResults(tamanio);
+        lista = q.getResultList();
+        return lista;
+    }
 }

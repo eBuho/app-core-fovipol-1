@@ -93,6 +93,8 @@ public class EvaluarCreditoController implements Serializable {
     private boolean beneficiaria;
     private List<CrdCanalcobra> canales;
     private List<CrdCanalcobra> canalesSeleccionados;
+    private MaeEntidaddet lineaProducto;
+    private List<MaeEntidaddet> lineasProducto;
     private CrdCredito credito;
     private BigDecimal netoGirar;
     private String listaSeguros;
@@ -117,6 +119,7 @@ public class EvaluarCreditoController implements Serializable {
         enOtraArea=false;
         mostrarEditarSimulacion=false;
         tieneCuotas=false;
+        lineasProducto=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.CODI_LINE_PRD));
         String idTramite = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap()
                 .get("idTramite");
@@ -137,6 +140,8 @@ public class EvaluarCreditoController implements Serializable {
                     if (tramite.getIdenSimuSim() != null) {
                         simulacion = tramite.getIdenSimuSim().getIdenSimuSim();
                         producto = tramite.getIdenSimuSim().getIdenProdPrd();
+                        lineaProducto=ejbEntidadDetalleFacade.findIdenEntiDet(producto.getCodiLinePrd(),Constantes.CODI_LINE_PRD);
+                        cargarProductos();
                         CrdSimulacion simu = tramite.getIdenSimuSim();
                         cargarSeguros();
                         netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
@@ -152,11 +157,13 @@ public class EvaluarCreditoController implements Serializable {
         } else {
             tramite = null;
         }
-        productos = ejbProductoFacade.findAll();
         gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_GRADO_PARENTESCO));
         cargarCanalesCobranza();
-        //beneficiaria = false;
         verCronograma=false;
+    }
+    
+    public void cargarProductos(){
+        productos=ejbProductoFacade.findByLinea(lineaProducto.getSecuEntiDet());
     }
     
     public void tieneCuotas(){
@@ -869,6 +876,34 @@ public class EvaluarCreditoController implements Serializable {
      */
     public void setMostrarEditarSimulacion(boolean mostrarEditarSimulacion) {
         this.mostrarEditarSimulacion = mostrarEditarSimulacion;
+    }
+
+    /**
+     * @return the lineaProducto
+     */
+    public MaeEntidaddet getLineaProducto() {
+        return lineaProducto;
+    }
+
+    /**
+     * @param lineaProducto the lineaProducto to set
+     */
+    public void setLineaProducto(MaeEntidaddet lineaProducto) {
+        this.lineaProducto = lineaProducto;
+    }
+
+    /**
+     * @return the lineasProducto
+     */
+    public List<MaeEntidaddet> getLineasProducto() {
+        return lineasProducto;
+    }
+
+    /**
+     * @param lineasProducto the lineasProducto to set
+     */
+    public void setLineasProducto(List<MaeEntidaddet> lineasProducto) {
+        this.lineasProducto = lineasProducto;
     }
 
 }

@@ -8,12 +8,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition> 
-        <script type="text/javascript">
-            function manejarPeticionRegistro(xhr, status, args) {
-                if (!args.error) {
-                    actualiza();
-                }
-            }
+        <script type="text/javascript">            
             $(document).ready(function () {
                 $(window).keydown(function (event) {
                     if (event.keyCode === 13) {
@@ -22,6 +17,11 @@
                     }
                 });
             });
+            function handleComplete(xhr, status, args){
+                if(args.foco){
+                    
+                }
+            }
         </script>
         <h:form id="formRegistroExpediente"> 
             <div class="col-md-12">
@@ -31,9 +31,7 @@
                             <i class="fa fa-cogs"></i>Registrar Expediente <h:outputText id="numeroExpediente" value="#{registrarExpedienteController.tramite.idenExpeTrm}" rendered="#{registrarExpedienteController.tramite.idenExpeTrm!=null}"/> 
                         </div>
                     </div>
-                    <div class="portlet-body" > 
-
-                        <p:remoteCommand  name="actualiza" update=":formRegistroExpediente:acciones"/>
+                    <div class="portlet-body" >                         
                         <div class="col-md-12" style="margin-bottom: 10px;">
                             <p:commandButton icon="ui-icon-plus" update="formRegistroExpediente" value="Nuevo" actionListener="#{registrarExpedienteController.nuevoTramite}">
                                 <p:confirm header="Confirmación" message="¿Esta seguro perderá los cambios que no guardo?" icon="ui-icon-alert" />
@@ -46,7 +44,9 @@
                         <div class="col-md-12"> 
                             <div class="col-md-12">
                                 <comp:consultaIntegralSocio rendered="#{registrarExpedienteController.tramite.idenExpeTrm==null}"
-                                                            actualizar=":formRegistroExpediente:informacion,:formRegistroExpediente:canalesCobranza,:formRegistroExpediente:comboProducto" 
+                                                            actualizar=":formRegistroExpediente:informacion,:formRegistroExpediente:canalesCobranza,
+                                                            :formRegistroExpediente:comboProducto,:formRegistroExpediente:comboLineaProducto,
+                                                            :formRegistroExpediente:documento" 
                                                             socio="#{registrarExpedienteController.socio}"/>                            
                             </div>
                             <p:spacer width="10"/>
@@ -125,6 +125,26 @@
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.edad}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
                                         </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Teléfono"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{registrarExpedienteController.socio.maePersona.numeTelcPer}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 margen">
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Correo Electrónico"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{registrarExpedienteController.socio.maePersona.corrElecPer}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Dirección"/>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <h:outputText value="#{registrarExpedienteController.socio.maePersona.direPersPer}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
+                                        </div>
                                     </div>
                                 </p:panel>
                                 <p:panel id="panelSocioBeneficiario" styleClass="panel" rendered="#{registrarExpedienteController.beneficiaria}">
@@ -201,6 +221,26 @@
                                         <div class="col-md-2">
                                             <h:outputText value="#{registrarExpedienteController.edad}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
                                         </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Teléfono"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{registrarExpedienteController.pareja.numeTelcPer}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 margen">
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Correo Electrónico"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{registrarExpedienteController.pareja.corrElecPer}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Dirección"/>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <h:outputText value="#{registrarExpedienteController.pareja.direPersPer}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
+                                        </div>
                                     </div>
                                     <p:separator />
                                     <div class="col-md-12 margen">
@@ -232,10 +272,30 @@
                                             <h:outputText value="#{registrarExpedienteController.socio.codiCcipSoc}" rendered="#{registrarExpedienteController.socio!=null}"/>
                                         </div>
                                     </div>
+                                    <div class="col-md-12 margen">
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Teléfono"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{registrarExpedienteController.socio.maePersona.numeTelcPer}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Correo Electrónico"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h:outputText value="#{registrarExpedienteController.socio.maePersona.corrElecPer}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h:outputText styleClass="texto-negrita" value="Dirección"/>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <h:outputText value="#{registrarExpedienteController.socio.maePersona.direPersPer}" rendered="#{registrarExpedienteController.socio!=null}"/>                                    
+                                        </div>
+                                    </div>
                                 </p:panel>
                             </p:fieldset>
                             <p:spacer width="20"/>
-                            <p:fieldset legend="Documento"  styleClass="fieldSet" id="documento">
+                            <p:fieldset legend="Documento"  styleClass="fieldSet" id="documento">                                
                                 <div class="col-md-12 margen">
                                     <div class="col-md-4">
                                         <div class="col-md-4">
@@ -262,7 +322,7 @@
                                             <h:outputText value="N° Guía:"/>                                
                                         </div>
                                         <div class="col-md-8">
-                                            <p:inputText  value="#{registrarExpedienteController.tramite.numeGuiaTrm}" styleClass="inputLargo"/>
+                                            <p:inputText label="N° Guía" value="#{registrarExpedienteController.tramite.numeGuiaTrm}" styleClass="inputLargo"/>
                                         </div>
                                     </div>
                                 </div>
@@ -341,7 +401,22 @@
                                     </div>
                                 </div>                    
                                 <div class="col-md-12 margen">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <h:outputText value="Línea de Productos: "/>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:selectOneMenu id="comboLineaProducto" disabled="#{registrarExpedienteController.socio==null or registrarExpedienteController.tramite.idenExpeTrm!=null}"  
+                                                             styleClass="inputLargo"         value="#{registrarExpedienteController.lineaProducto}">
+                                                <f:selectItem itemValue="" itemLabel="Seleccione una Línea de Producto"/>
+                                                <f:selectItems value="#{registrarExpedienteController.lineasProducto}" var="producto"
+                                                               itemLabel="#{producto.valoCaduDet}" itemValue="#{producto}"/>
+                                                <p:ajax listener="#{registrarExpedienteController.cargarProductos()}" 
+                                                        update="comboProducto"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="col-md-4">
                                             <h:outputText value="Producto:"/>                                
                                         </div>
@@ -353,7 +428,7 @@
                                                 <p:ajax update="tablaRequisito,simulacion" listener="#{registrarExpedienteController.cargarRequisitos()}"/>
                                             </p:selectOneMenu>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                 </div>
                                 <div class="col-md-12 margen">
                                     <div class="col-md-4">
@@ -365,37 +440,25 @@
                                         <p:dataTable id="tablaRequisito" value="#{registrarExpedienteController.documentos}"
                                                      editMode="cell" editable="#{!registrarExpedienteController.enOtraArea}"      var="requisito" emptyMessage="No hay requisitos">
                                             <p:ajax event="cellEdit" update="tablaRequisito" />
-                                            <p:column>
+                                            <p:column styleClass="#{requisito.estadoRecibido? '':'faltaRequisito'}" >
                                                 <f:facet name="header">
                                                     <h:outputText value="Item"/>
                                                 </f:facet>
                                                 <h:outputText value="#{requisito.trmDocumentoPK.secuDocuDoc}"/>
                                             </p:column>
-                                            <p:column>
+                                            <p:column styleClass="#{requisito.estadoRecibido? '':'faltaRequisito'}">
                                                 <f:facet name="header">
                                                     <h:outputText value="Documento"/>
                                                 </f:facet>
                                                 <h:outputText value="#{requisito.descNombDoc}"/>
-                                            </p:column>
-                                            <p:column headerText="Observacion">
-                                                <h:outputText value="#{requisito.descObseDoc}"/>                                                    
-                                            </p:column>
-                                            <p:column headerText="Fecha de Emisión">
-                                                <h:outputText value="#{requisito.fechEmisDoc}"> 
-                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                                </h:outputText>
-                                            </p:column>
-                                            <p:column>
-                                                <f:facet name="header">
-                                                    <h:outputText value="Estado"/>
-                                                </f:facet>
-                                                <comp:activo value="#{requisito.flagEstaDoc}"/>
-                                            </p:column>
-                                            <p:column headerText="Digitalizado">                                                
+                                            </p:column>                                            
+                                            <p:column headerText="Digitalizado" styleClass="#{requisito.estadoRecibido? '':'faltaRequisito'}">                                                
                                                 <p:selectBooleanCheckbox disabled="true" value="#{requisito.estadoDigitalizado}" />
                                             </p:column>
-                                            <p:column headerText="Recibido">                                                
-                                                <p:selectBooleanCheckbox value="#{requisito.estadoRecibido}" />
+                                            <p:column headerText="Recibido" styleClass="#{requisito.estadoRecibido? '':'faltaRequisito'}">                                                
+                                                <p:selectBooleanCheckbox value="#{requisito.estadoRecibido}" >
+                                                    <p:ajax update="tablaRequisito"/>
+                                                </p:selectBooleanCheckbox>
                                             </p:column> 
                                         </p:dataTable>
                                     </div>
@@ -713,21 +776,19 @@
                             <p:fieldset id="acciones" legend="Acciones" styleClass="fieldSet">
                                 <div class="col-md-12">
                                     <div class="col-md-1">
-                                        <p:commandButton oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" disabled="#{registrarExpedienteController.enOtraArea}" actionListener="#{registrarExpedienteController.registrar()}" />
+                                        <p:commandButton value="Guardar" disabled="#{registrarExpedienteController.enOtraArea}" actionListener="#{registrarExpedienteController.registrar()}" update="acciones"/>
                                     </div>
                                     <div class="col-md-2">
-                                        <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null or registrarExpedienteController.enOtraArea}" update="formRegistroExpediente" value="Dar Viabilidad" actionListener="#{registrarExpedienteController.darViabilidad()}"/>
+                                        <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null or registrarExpedienteController.enOtraArea}" 
+                                            update="acciones" value="Dar Viabilidad" oncomplete="handleComplete(xhr, status, args)"
+                                            actionListener="#{registrarExpedienteController.darViabilidad()}"/>
                                     </div>
                                     <div class="col-md-1">
-                                        <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null or registrarExpedienteController.enOtraArea}" update="formRegistroExpediente" value="Rechazar" actionListener="#{registrarExpedienteController.rechazar()}"/>
+                                        <p:commandButton disabled="#{registrarExpedienteController.tramite.idenExpeTrm==null or registrarExpedienteController.enOtraArea}" update="acciones" value="Rechazar" actionListener="#{registrarExpedienteController.rechazar()}"/>
                                     </div>
                                 </div>
                             </p:fieldset>
                         </div>
-
-
-
-
                         <p:dialog appendTo="@(body)" widgetVar="dialogSimulacion" dynamic="true" modal="true" resizable="false"
                                   header="Resultado" width="1200">
                             <p:scrollPanel mode="native" style="width:100%;height:400px">                                

@@ -10,11 +10,6 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition> 
         <script type="text/javascript">
-            function manejarPeticionRegistro(xhr, status, args) {
-                if (!args.error) {
-                    actualiza();
-                }
-            }
             $(document).ready(function () {
                 $(window).keydown(function (event) {
                     if (event.keyCode === 13) {
@@ -38,7 +33,6 @@
                 </div>
                 <div class="portlet-body" >                 
                     <h:form id="formRegistroExpediente" rendered="#{evaluarCreditoController.tramite!=null}">
-                        <p:remoteCommand  name="actualiza" update="simulacion,verSimulacion,datosSimulacion" actionListener="#{evaluarCreditoController.actualizarSimulaciones()}"/>                        
                         <div class="col-md-12">                             
                             <p:fieldset legend="Información Persona" styleClass="fieldSet" id="informacion" >
                                 <p:panel id="panelSocio" styleClass="panel" rendered="#{!evaluarCreditoController.beneficiaria}">
@@ -339,12 +333,27 @@
                                     </div>
                                 </div>                    
                                 <div class="col-md-12 margen">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <h:outputText value="Línea de Productos: "/>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:selectOneMenu id="comboLineaProducto" disabled="#{evaluarCreditoController.socio==null or evaluarCreditoController.tramite.idenExpeTrm!=null}"  
+                                                             styleClass="inputLargo"         value="#{evaluarCreditoController.lineaProducto}">
+                                                <f:selectItem itemValue="" itemLabel="Seleccione una Línea de Producto"/>
+                                                <f:selectItems value="#{evaluarCreditoController.lineasProducto}" var="producto"
+                                                               itemLabel="#{producto.valoCaduDet}" itemValue="#{producto}"/>
+                                                <p:ajax listener="#{evaluarCreditoController.cargarProductos()}" 
+                                                        update="comboProducto"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="col-md-4">
                                             <h:outputText value="Producto:"/>                                
                                         </div>
                                         <div class="col-md-8">
-                                            <p:selectOneMenu  disabled="true" value="#{evaluarCreditoController.producto}" styleClass="inputLargo">
+                                            <p:selectOneMenu id="comboProducto" disabled="true" value="#{evaluarCreditoController.producto}" styleClass="inputLargo">
                                                 <f:selectItem itemValue="" itemLabel="Seleccione un Producto"/>
                                                 <f:selectItems value="#{evaluarCreditoController.productos}"
                                                                itemValue="#{tipo}" var="tipo" itemLabel="#{tipo.nombProdPrd}"/>
@@ -722,6 +731,8 @@
                                         <jr:reportLink styleClass="btn btn-sm green btnVerde"  format="pdf" target="blank" source="#{evaluarCreditoController.cuotasReporte}" value="classpath:jasper/simulacion.jasper">
                                             <i class="fa fa-print"/>
                                             <h:outputText value="Imprimir" />
+                                            <f:param value="SIMULACIÓN DE CRONOGRAMA" name="titulo"/>
+                                            <f:param value="#{sesionUsuario.usuario.codiUsuaUsr}" name="usuario_impresion"/>
                                         </jr:reportLink>                                                           
                                         <h:panelGroup id="resultadoSimulacionCambiar" > 
                                             <p:panelGrid rendered="#{evaluarCreditoController.verCronograma}" columns="2" styleClass="tablaNoBorde" style="font-weight: bold;">
@@ -845,17 +856,19 @@
                                     </div>    
                                 </div>
                                 <p:spacer width="30"/>
-                                <div class="col-md-12">
-                                    <div class="col-md-1">
-                                        <p:commandButton disabled="#{evaluarCreditoController.enOtraArea or evaluarCreditoController.tieneCuotas}" oncomplete="manejarPeticionRegistro(xhr, status, args)" value="Guardar" actionListener="#{evaluarCreditoController.registrar()}" />
+                                <p:panel id="acciones" styleClass="panel">
+                                    <div class="col-md-12">
+                                        <div class="col-md-1">
+                                            <p:commandButton update="acciones" disabled="#{evaluarCreditoController.enOtraArea or evaluarCreditoController.tieneCuotas}" value="Guardar" actionListener="#{evaluarCreditoController.registrar()}" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p:commandButton update="acciones" disabled="#{evaluarCreditoController.tramite.idenExpeTrm==null || evaluarCreditoController.enOtraArea}"  value="Dar Viabilidad" actionListener="#{evaluarCreditoController.darViabilidad()}"/>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <p:commandButton update="acciones" disabled="#{evaluarCreditoController.tramite.idenExpeTrm==null || evaluarCreditoController.enOtraArea}"  value="Rechazar" actionListener="#{evaluarCreditoController.rechazar()}"/>
+                                        </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <p:commandButton disabled="#{evaluarCreditoController.tramite.idenExpeTrm==null || evaluarCreditoController.enOtraArea}"  value="Dar Viabilidad" actionListener="#{evaluarCreditoController.darViabilidad()}"/>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <p:commandButton disabled="#{evaluarCreditoController.tramite.idenExpeTrm==null || evaluarCreditoController.enOtraArea}"  value="Rechazar" actionListener="#{evaluarCreditoController.rechazar()}"/>
-                                    </div>
-                                </div>
+                                </p:panel>
                             </p:fieldset>
                         </div>
                     </h:form>

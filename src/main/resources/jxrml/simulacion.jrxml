@@ -13,6 +13,11 @@
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="usuario_impresion" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\probook\\Documents\\NetBeansProjects\\app-core-fovipol\\src\\main\\resources\\jasper\\"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -67,6 +72,9 @@
 	<field name="nombProdPrd" class="java.lang.String">
 		<fieldDescription><![CDATA[simulacion.idenProdPrd.nombProdPrd]]></fieldDescription>
 	</field>
+	<field name="usuaCreaAud" class="java.lang.String">
+		<fieldDescription><![CDATA[simulacion.usuaCreaAud]]></fieldDescription>
+	</field>
 	<variable name="cuota_1" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{cuota}]]></variableExpression>
 	</variable>
@@ -83,103 +91,149 @@
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="224">
+		<band height="196">
 			<staticText>
-				<reportElement x="10" y="98" width="114" height="18" uuid="7bd5274f-307d-482c-964a-c4cb6cbf50c3"/>
+				<reportElement x="10" y="78" width="114" height="18" uuid="7bd5274f-307d-482c-964a-c4cb6cbf50c3"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Simulación:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="116" width="114" height="18" uuid="b76f0f47-c94f-4627-8529-a5fa6effc2c0"/>
+				<reportElement x="10" y="96" width="114" height="18" uuid="b76f0f47-c94f-4627-8529-a5fa6effc2c0"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Producto:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="134" width="114" height="18" uuid="0967d2ff-4bd1-424b-a6e2-67ea936d8547"/>
+				<reportElement x="10" y="114" width="114" height="18" uuid="0967d2ff-4bd1-424b-a6e2-67ea936d8547"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Moneda:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="152" width="114" height="18" uuid="f612aee7-220c-478c-bd8f-f164f4911e3c"/>
+				<reportElement x="10" y="132" width="114" height="18" uuid="f612aee7-220c-478c-bd8f-f164f4911e3c"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Monto a financiar:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="170" width="114" height="18" uuid="148a7973-a5a1-4bca-b30d-3c2059fe80ed"/>
+				<reportElement x="10" y="150" width="114" height="18" uuid="148a7973-a5a1-4bca-b30d-3c2059fe80ed"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[TEA (%):]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="188" width="114" height="18" uuid="14529590-77f6-43af-997f-7d566caef28a"/>
+				<reportElement x="10" y="168" width="114" height="18" uuid="14529590-77f6-43af-997f-7d566caef28a"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Plazo Crédito:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="123" y="98" width="120" height="18" uuid="08c2edf2-325e-4f4d-a728-d7eeca371a90"/>
+				<reportElement x="123" y="78" width="120" height="18" uuid="08c2edf2-325e-4f4d-a728-d7eeca371a90"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{idenSimuSim}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="123" y="116" width="362" height="18" uuid="bc4d52d2-b673-4465-8c05-2d8d6c857f5e"/>
+				<reportElement x="123" y="96" width="362" height="18" uuid="bc4d52d2-b673-4465-8c05-2d8d6c857f5e"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nombProdPrd}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="123" y="134" width="120" height="18" uuid="df265bcf-5135-419e-a1ac-b1bf566bd20b"/>
+				<reportElement x="123" y="114" width="120" height="18" uuid="df265bcf-5135-419e-a1ac-b1bf566bd20b"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{codiMoneCrd}.equals(1) ? "NUEVOS SOLES" : "DÓLARES AMERICANOS"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{codiMoneCrd}.equals(1) ? "NUEVOS SOLES" : "D�LARES AMERICANOS"]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="123" y="152" width="120" height="18" uuid="43f54027-9a8a-4823-b14f-0b0da51da87f"/>
+				<reportElement x="123" y="132" width="120" height="18" uuid="43f54027-9a8a-4823-b14f-0b0da51da87f"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{impoSoliSim}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="123" y="170" width="120" height="18" uuid="ce35f810-308a-4918-b4c4-aaa10c89619f"/>
+				<reportElement x="123" y="150" width="120" height="18" uuid="ce35f810-308a-4918-b4c4-aaa10c89619f"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{tasaTeaSim}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="123" y="188" width="120" height="18" uuid="74c3af1a-5764-4ecb-8053-5ee7b3efc829"/>
+				<reportElement x="123" y="168" width="120" height="18" uuid="74c3af1a-5764-4ecb-8053-5ee7b3efc829"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{plazPresSim}+" meses"]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement style="Title" x="174" y="50" width="229" height="46" uuid="b544a59d-6b60-4a20-99d0-bff5df5d453a"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="20" pdfFontName="Times-Roman"/>
-				</textElement>
-				<text><![CDATA[Simulación de Crédito]]></text>
-			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="76" width="555" height="112" uuid="cd36d990-c16a-4678-aadb-088538495922"/>
+			</rectangle>
 			<image>
-				<reportElement x="0" y="0" width="188" height="50" uuid="b504753e-5250-48d0-b26b-8f1b4ee84baa"/>
+				<reportElement x="10" y="10" width="138" height="38" uuid="c02b663c-2e29-4e2f-8cb6-c1f95d14513a"/>
 				<imageExpression><![CDATA["../../resources/images/logo-fovipol-transparente.png"]]></imageExpression>
 			</image>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="455" y="0" width="100" height="20" uuid="3699902e-e339-4592-9621-0fa9435e990d"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+			<textField pattern="dd/MM/yyyy h:mm a">
+				<reportElement x="487" y="24" width="68" height="14" uuid="64484102-7269-4a56-b649-3327979fd69d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="20" width="102" height="20" uuid="af1d42d7-5852-4f0e-948c-5338a1baf300"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de "+ $V{PAGE_NUMBER}]]></textFieldExpression>
+				<reportElement x="487" y="38" width="68" height="14" uuid="49225174-fab5-4d8a-9fb3-db764cdf582c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usuario_impresion}]]></textFieldExpression>
 			</textField>
-			<rectangle>
-				<reportElement mode="Transparent" x="0" y="96" width="555" height="112" uuid="cd36d990-c16a-4678-aadb-088538495922"/>
-			</rectangle>
+			<staticText>
+				<reportElement x="419" y="10" width="68" height="14" uuid="89c29418-06fb-4a3b-831f-ae37eaaa5798"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Usuario Creación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="38" width="68" height="14" uuid="742ec96a-3433-4eb5-8197-bbcc2dab910d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Usuario Impresión:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="24" width="68" height="14" uuid="0ac65c13-652a-462f-af93-c4e469e9d08f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha Impresión:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="487" y="10" width="68" height="14" uuid="ab71a66f-c5eb-4fea-ba9c-c20676ab762d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuaCreaAud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="161" y="10" width="246" height="20" uuid="6f2364b1-f023-4666-9955-56da6a048524"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="52" width="60" height="14" uuid="aa25af00-ea4e-424f-9073-ef90143bafa9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="535" y="52" width="20" height="14" uuid="fc527b11-c942-4b6f-ba3d-b11800257fe6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>

@@ -91,3 +91,8 @@
 .label-espacio{
     margin-top: 5px !important;
 }
+
+.faltaRequisito{
+    background: #ffb848;
+    /*color: #ffffff;*/
+}

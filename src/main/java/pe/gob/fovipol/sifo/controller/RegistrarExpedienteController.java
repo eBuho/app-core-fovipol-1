@@ -82,6 +82,8 @@ public class RegistrarExpedienteController implements Serializable {
     private List<MaeEntidaddet> canalesCobranza;
     private List<TrmDocumento> documentos;
     private List<CrdSimulacion> simulaciones;
+    private MaeEntidaddet lineaProducto;
+    private List<MaeEntidaddet> lineasProducto;
     private MaeProducto producto;
     private BigDecimal simulacion;
     private MaeInmueble inmueble;
@@ -110,6 +112,7 @@ public class RegistrarExpedienteController implements Serializable {
         esPrestamo = false;
         beneficiaria = false;
         enOtraArea = false;
+        lineasProducto=ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.CODI_LINE_PRD));
         String idTramite = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap()
                 .get("idTramite");
@@ -134,6 +137,8 @@ public class RegistrarExpedienteController implements Serializable {
                 if (tramite.getIdenSimuSim() != null) {
                     simulacion = tramite.getIdenSimuSim().getIdenSimuSim();
                     producto = tramite.getIdenSimuSim().getIdenProdPrd();
+                    lineaProducto=ejbEntidadDetalleFacade.findIdenEntiDet(producto.getCodiLinePrd(),Constantes.CODI_LINE_PRD);
+                    cargarProductos();
                     CrdSimulacion simu = tramite.getIdenSimuSim();
                     cargarSeguros();
                     netoGirar = simu.getImpoSoliSim().multiply(new BigDecimal(100).add(simu.getTasaGadmSim().negate())).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
@@ -152,12 +157,15 @@ public class RegistrarExpedienteController implements Serializable {
             tramite.setTipoTramTrm(4);
             esPrestamo=true;
         }
-        productos = ejbProductoFacade.findAll();
         gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_GRADO_PARENTESCO));
         //cargarCanalesCobranza();
         //beneficiaria = false;
     }
 
+    public void cargarProductos(){
+        productos=ejbProductoFacade.findByLinea(lineaProducto.getSecuEntiDet());
+    }
+    
     public void verSimulacion() {
         List<MaeSeguro> listaSeguro = new ArrayList<>();
         List<CrdSimulaSeguro> lista = ejbSimulaSeguroFacade.findBySimulacion(tramite.getIdenSimuSim());
@@ -299,12 +307,14 @@ public class RegistrarExpedienteController implements Serializable {
     }
 
     public void darViabilidad() {
+        RequestContext context = RequestContext.getCurrentInstance();
         boolean validarCampos = tramiteService.darViabilidadExpediente(tramite, documentos);
         enOtraArea = validarCampos;
         if (validarCampos) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se hizo el movimiento con éxito", ""));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No tiene todos los requisitos completos", ""));
+            context.addCallbackParam("foco", "tablaRequisito");
         }
     }
 
@@ -429,6 +439,7 @@ public class RegistrarExpedienteController implements Serializable {
     public void setSocio(MaeSocio socio) {
         if (socio != null) {
             this.socio = socio;
+            tramite.setNombTramTrm(socio.getMaePersona().getNombCompPer());
             edad = creditoService.calcularEdad(socio.getMaePersona().getFechNaciPer(), new Date());
             MaeEntidaddet detalle = ejbEntidadDetalleFacade.findIdenEntiDet(socio.getEntiPagoSoc(), Constantes.ENTIDAD_PAGOS_SOCIO);
             if (detalle != null && detalle.getValoDecuDet() != null) {
@@ -884,5 +895,33 @@ public class RegistrarExpedienteController implements Serializable {
     public JRBeanCollectionDataSource getCuotasReporte() {
         verSimulacion();
         return new JRBeanCollectionDataSource(getCuotas());
+    }
+
+    /**
+     * @return the lineaProducto
+     */
+    public MaeEntidaddet getLineaProducto() {
+        return lineaProducto;
+    }
+
+    /**
+     * @param lineaProducto the lineaProducto to set
+     */
+    public void setLineaProducto(MaeEntidaddet lineaProducto) {
+        this.lineaProducto = lineaProducto;
+    }
+
+    /**
+     * @return the lineasProducto
+     */
+    public List<MaeEntidaddet> getLineasProducto() {
+        return lineasProducto;
+    }
+
+    /**
+     * @param lineasProducto the lineasProducto to set
+     */
+    public void setLineasProducto(List<MaeEntidaddet> lineasProducto) {
+        this.lineasProducto = lineasProducto;
     }
 }

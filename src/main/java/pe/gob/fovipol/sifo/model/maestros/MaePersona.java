@@ -8,17 +8,16 @@ package pe.gob.fovipol.sifo.model.maestros;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,10 +26,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import pe.gob.fovipol.sifo.model.seguridad.AdmUsuario;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
  *
@@ -78,12 +74,10 @@ import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 public class MaePersona implements Serializable {
     @Column(name = "TIPO_IDEN_PER")
     private BigDecimal tipoIdenPer;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "maePersona")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "maePersona",fetch = FetchType.LAZY)    
     private MaeEmpleado maeEmpleado;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "maePersona")
-    private AdmUsuario admUsuario;
-    @OneToMany(mappedBy = "codiPersTrm")
-    private List<TrmTramite> trmTramiteList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "maePersona",fetch = FetchType.LAZY)
+    private AdmUsuario admUsuario;    
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -181,19 +175,17 @@ public class MaePersona implements Serializable {
     @Column(name = "NOMB_SOPE_AUD")
     private String nombSopeAud;
     @Column(name = "FLAG_ESTA_PER")
-    private Short flagEstaPer;
-    @OneToMany(mappedBy = "codiPerpPer")
-    private List<MaePersona> maePersonaList;
+    private Short flagEstaPer;    
     @JoinColumn(name = "CODI_PERP_PER", referencedColumnName = "IDEN_PERS_PER")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private MaePersona codiPerpPer;
     @JoinColumn(name = "UBIG_NACI_PER", referencedColumnName = "IDEN_UBIG_UBI")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private MaeUbigeo ubigNaciPer;
     @JoinColumn(name = "UBIG_RESI_PER", referencedColumnName = "IDEN_UBIG_UBI")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private MaeUbigeo ubigResiPer;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "maePersona")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "maePersona",fetch = FetchType.LAZY)
     private MaeSocio maeSocio;
 
     public MaePersona() {
@@ -475,15 +467,6 @@ public class MaePersona implements Serializable {
         this.flagEstaPer = flagEstaPer;
     }
 
-    @XmlTransient
-    public List<MaePersona> getMaePersonaList() {
-        return maePersonaList;
-    }
-
-    public void setMaePersonaList(List<MaePersona> maePersonaList) {
-        this.maePersonaList = maePersonaList;
-    }
-
     public MaePersona getCodiPerpPer() {
         return codiPerpPer;
     }
@@ -547,16 +530,7 @@ public class MaePersona implements Serializable {
 
     public void setAdmUsuario(AdmUsuario admUsuario) {
         this.admUsuario = admUsuario;
-    }
-    @XmlTransient
-    @JsonIgnore
-    public List<TrmTramite> getTrmTramiteList() {
-        return trmTramiteList;
-    }
-
-    public void setTrmTramiteList(List<TrmTramite> trmTramiteList) {
-        this.trmTramiteList = trmTramiteList;
-    }
+    }    
 
     public MaeEmpleado getMaeEmpleado() {
         return maeEmpleado;

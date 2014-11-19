@@ -66,7 +66,7 @@ public class MaePersonaController implements Serializable {
     
     @PostConstruct
     public void init(){
-        
+        items=ejbFacade.findAll();
     }
     public void prepararActualizar(){
         selected=selectedPersona;
@@ -192,7 +192,7 @@ public class MaePersonaController implements Serializable {
         selected.setFechModiAud(new Date());
         selected.setNombCompPer(nombreCompleto());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MaePersonaUpdated"));
-        items=null;
+        //items=null;
     }
     public void updateSocio() {
         selectedSocio.setFechModiAud(new Date());
@@ -229,10 +229,7 @@ public class MaePersonaController implements Serializable {
         }
     }
 
-    public List<MaePersona> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+    public List<MaePersona> getItems() {        
         return items;
     }
 

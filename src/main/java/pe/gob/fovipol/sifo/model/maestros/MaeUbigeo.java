@@ -44,8 +44,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "MaeUbigeo.findByFechModiUbi", query = "SELECT m FROM MaeUbigeo m WHERE m.fechModiUbi = :fechModiUbi"),
     @NamedQuery(name = "MaeUbigeo.findByFlagEstaUbi", query = "SELECT m FROM MaeUbigeo m WHERE m.flagEstaUbi = :flagEstaUbi")})
 public class MaeUbigeo implements Serializable {
-    @OneToMany(mappedBy = "idenUbigUbi")
-    private List<MaeInmueble> maeInmuebleList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -72,10 +70,6 @@ public class MaeUbigeo implements Serializable {
     private Date fechModiUbi;
     @Column(name = "FLAG_ESTA_UBI")
     private Short flagEstaUbi;
-    @OneToMany(mappedBy = "ubigNaciPer")
-    private List<MaePersona> maePersonaList;
-    @OneToMany(mappedBy = "ubigResiPer")
-    private List<MaePersona> maePersonaList1;
     @OneToMany(mappedBy = "idenUbipUbi")
     private List<MaeUbigeo> maeUbigeoList;
     @JoinColumn(name = "IDEN_UBIP_UBI", referencedColumnName = "IDEN_UBIG_UBI")
@@ -154,24 +148,6 @@ public class MaeUbigeo implements Serializable {
     }
 
     @XmlTransient
-    public List<MaePersona> getMaePersonaList() {
-        return maePersonaList;
-    }
-
-    public void setMaePersonaList(List<MaePersona> maePersonaList) {
-        this.maePersonaList = maePersonaList;
-    }
-
-    @XmlTransient
-    public List<MaePersona> getMaePersonaList1() {
-        return maePersonaList1;
-    }
-
-    public void setMaePersonaList1(List<MaePersona> maePersonaList1) {
-        this.maePersonaList1 = maePersonaList1;
-    }
-
-    @XmlTransient
     public List<MaeUbigeo> getMaeUbigeoList() {
         return maeUbigeoList;
     }
@@ -211,16 +187,6 @@ public class MaeUbigeo implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.model.MaeUbigeo[ idenUbigUbi=" + idenUbigUbi + " ]";
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<MaeInmueble> getMaeInmuebleList() {
-        return maeInmuebleList;
-    }
-
-    public void setMaeInmuebleList(List<MaeInmueble> maeInmuebleList) {
-        this.maeInmuebleList = maeInmuebleList;
     }
     
 }

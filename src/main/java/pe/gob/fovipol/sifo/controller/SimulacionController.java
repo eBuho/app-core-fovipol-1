@@ -109,6 +109,8 @@ public class SimulacionController implements Serializable {
             calcularGastosAdministrativos();
             cargarSeguros(simulacion.getIdenSimuSim());
             simulacion.setIdenSimuSim(null);
+            lineaProducto=ejbEntidaddetFacade.findIdenEntiDet(producto.getCodiLinePrd(),Constantes.CODI_LINE_PRD);
+            cargarProductos();
         } else {
             simulacion = new CrdSimulacion();
             tipoSocio = 1;
@@ -288,8 +290,10 @@ public class SimulacionController implements Serializable {
                 simulacion.setImpoSoliSim(creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim()));
                 if (simulacion.getImpoSoliSim().compareTo(simulacion.getImpoMaxpSim()) == 1) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El monto de préstamo es superior al Máximo préstamo posible", ""));
+                    context.addCallbackParam("error", true);
                     simulacion.setImpoSoliSim(simulacion.getImpoMaxpSim());
-                    cuotaPagar = creditoService.calcularCuotaMontoMensual(simulacion.getImpoSoliSim(), simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
+                    return;                    
+                    //cuotaPagar = creditoService.calcularCuotaMontoMensual(simulacion.getImpoSoliSim(), simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
                 }
             }
         } else {
@@ -297,8 +301,10 @@ public class SimulacionController implements Serializable {
                 cuotaPagar = creditoService.calcularCuotaMontoMensual(simulacion.getImpoSoliSim(), simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim());
                 if (cuotaPagar.compareTo(simulacion.getCapaMcuoSim()) == 1) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La Cuota a pagar es superior a la Máxima cuota posible", ""));
+                    context.addCallbackParam("error", true);
                     cuotaPagar = simulacion.getCapaMcuoSim();
-                    simulacion.setImpoSoliSim(creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim()));
+                    return;                    
+                    //simulacion.setImpoSoliSim(creditoService.calcularCuotaMontoTotal(cuotaPagar, simulacion.getPlazPresSim().intValue(), simulacion.getTasaTeaSim()));
                 }
             }
         }
