@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pe.gob.fovipol.sifo.model.maestros.MaePersona;
 import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
+import pe.gob.fovipol.sifo.model.recuperaciones.RecAporte;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
@@ -65,9 +66,20 @@ public class MaeSocioFacade extends AbstractFacade<MaeSocio> {
     }
     public List<TrmTramite> findTramitesSocio(MaeSocio socio) {
         List<TrmTramite> lista = null;
-        String sql = "FROM TrmTramite t WHERE t.codiPersTrm =:persona";        
+        String sql = "FROM TrmTramite t WHERE t.codiPersTrm =:persona "
+                + "order by t.idenExpeTrm desc";        
         Query q = em.createQuery(sql);
         q.setParameter("persona", socio.getMaePersona());
+        lista = q.getResultList();
+        return lista;
+    }
+
+    public List<RecAporte> findAportesSocio(MaeSocio socio) {
+        List<RecAporte> lista = null;
+        String sql = "FROM RecAporte a WHERE a.idenPersPer =:socio "
+                + "order by a.nanoCobrApo desc, a.nmesCobrApo desc";        
+        Query q = em.createQuery(sql);
+        q.setParameter("socio", socio);
         lista = q.getResultList();
         return lista;
     }

@@ -46,8 +46,17 @@ public class CrdCreditoCuotaFacade extends AbstractFacade<CrdCreditoCuota> {
     
     public List<CrdCreditoCuota> getItemsByTramite(TrmTramite tramite){
         List<CrdCreditoCuota> lista = null;
-        String sql = "select d from CrdCreditoCuota d where d.flagEstaCuo<>"+Constantes.VALOR_ESTADO_INACTIVO
-                + " and d.crdCredito.idenExpeTrm =:tramite";        
+        /*
+        List<CrdCreditoCuota> lista2 = null;
+        String sql2 = "select d from CrdCreditoCuota d "
+                + "where d.flagEstaCuo<>"+Constantes.VALOR_ESTADO_INACTIVO;  
+        Query q2 = em.createQuery(sql2);
+        lista2 = q2.getResultList();
+        */
+        String sql = "select d from CrdCreditoCuota d "
+                + "where d.flagEstaCuo<>"+Constantes.VALOR_ESTADO_INACTIVO
+                + " and d.crdCredito.idenExpeTrm =:tramite "
+                + "order by CAST(d.numeCuotCuo NUMERIC(3,0))";        
         Query q = em.createQuery(sql);
         q.setParameter("tramite", tramite);
         lista = q.getResultList();

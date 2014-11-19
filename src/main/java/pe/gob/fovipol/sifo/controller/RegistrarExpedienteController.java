@@ -124,7 +124,7 @@ public class RegistrarExpedienteController implements Serializable {
                 credito = new CrdCredito();
                 inmueble = new MaeInmueble();
                 tramite.setTipoTramTrm(4);
-                esPrestamo=true;
+                esPrestamo = true;
             } else {
                 setSocio(tramite.getCodiPersTrm().getMaeSocio());
                 credito = ejbCreditoService.findByTramite(tramite);
@@ -155,7 +155,7 @@ public class RegistrarExpedienteController implements Serializable {
             credito = new CrdCredito();
             inmueble = new MaeInmueble();
             tramite.setTipoTramTrm(4);
-            esPrestamo=true;
+            esPrestamo = true;
         }
         gradosParentesco = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_GRADO_PARENTESCO));
         //cargarCanalesCobranza();
@@ -198,14 +198,16 @@ public class RegistrarExpedienteController implements Serializable {
     public void cargarCanalesCobranza() {
         if (tramite.getIdenExpeTrm() == null) {
             BigDecimal canalTipo;
-            if(maximoDescuento.compareTo(new BigDecimal(50))==0)
-                canalTipo=new BigDecimal(BigInteger.ONE);
-            else
-                canalTipo=new BigDecimal(new BigInteger("2"));
-            if(socio!=null)
-                canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivoCaja(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA),canalTipo);
-            else
+            if (maximoDescuento.compareTo(new BigDecimal(50)) == 0) {
+                canalTipo = new BigDecimal(BigInteger.ONE);
+            } else {
+                canalTipo = new BigDecimal(new BigInteger("2"));
+            }
+            if (socio != null) {
+                canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivoCaja(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA), canalTipo);
+            } else {
                 canalesCobranza = ejbEntidadDetalleFacade.findDetalleActivo(new MaeEntidad(Constantes.ENTIDAD_CANAL_COBRANZA));
+            }
             canales = new ArrayList<>();
             short i = 1;
             for (MaeEntidaddet aux : canalesCobranza) {
@@ -216,12 +218,13 @@ public class RegistrarExpedienteController implements Serializable {
                 c.setCodiCanaCob(aux.getSecuEntiDet());
                 c.setFlagEstaCdc(Constantes.VALOR_ESTADO_ACTIVO);
                 c.setImpoCobrCdc(BigDecimal.ZERO);
-                if(i==1)
-                   c.setImpoCobrCdc(tramite.getIdenSimuSim().getImpoCuotSim()); 
+                if (i == 1) {
+                    c.setImpoCobrCdc(tramite.getIdenSimuSim().getImpoCuotSim());
+                }
                 i++;
                 canales.add(c);
                 //}                    
-            }            
+            }
             contarCanalCobranza();
         } else {
             canales = ejbCanalFacade.findByCredito(credito);
@@ -247,11 +250,11 @@ public class RegistrarExpedienteController implements Serializable {
         documentos = new ArrayList<>();
         credito = new CrdCredito();
         inmueble = new MaeInmueble();
-        producto=new MaeProducto();
-        simulacion=BigDecimal.ZERO;
-        inmueble=new MaeInmueble();
+        producto = new MaeProducto();
+        simulacion = BigDecimal.ZERO;
+        inmueble = new MaeInmueble();
         cargarCanalesCobranza();
-        simulaciones=new ArrayList<>();
+        simulaciones = new ArrayList<>();
     }
 
     public void mostrarSimulacion() {
@@ -289,18 +292,24 @@ public class RegistrarExpedienteController implements Serializable {
             if (tramite.getIdenExpeTrm() != null) {
                 documentos = ejbDocumentoFacade.findByTramite(tramite);
             } else {
-                List<MaeRequisito> reqs = ejbRequisitoFacade.findByProcesoActivo(producto.getIdenProcPrc().getCodiProcPrc());
-                documentos = new ArrayList<>();
-                int i = 1;
-                for (MaeRequisito aux : reqs) {
-                    TrmDocumento doc = new TrmDocumento();
-                    doc.setTrmDocumentoPK(new TrmDocumentoPK());
-                    doc.getTrmDocumentoPK().setSecuDocuDoc(i);
-                    doc.setMaeRequisito(aux);
-                    i++;
-                    doc.setDescNombDoc(aux.getNombRequReq());
-                    doc.setFlagEstaDoc(Constantes.VALOR_ESTADO_ACTIVO);
-                    documentos.add(doc);
+                if (producto != null) {
+                    List<MaeRequisito> reqs = ejbRequisitoFacade.findByProcesoActivo(producto.getIdenProcPrc().getCodiProcPrc());
+                    
+                    documentos = new ArrayList<>();
+                    int i = 1;
+                    for (MaeRequisito aux : reqs) {
+                        TrmDocumento doc = new TrmDocumento();
+                        doc.setTrmDocumentoPK(new TrmDocumentoPK());
+                        doc.getTrmDocumentoPK().setSecuDocuDoc(i);
+                        doc.setMaeRequisito(aux);
+                        i++;
+                        doc.setDescNombDoc(aux.getNombRequReq());
+                        doc.setFlagEstaDoc(Constantes.VALOR_ESTADO_ACTIVO);
+                        documentos.add(doc);
+                    }
+                    
+                }else{
+                    documentos=null;
                 }
             }
         }
@@ -366,10 +375,10 @@ public class RegistrarExpedienteController implements Serializable {
             return;
         }
         if (esPrestamo) {
-            if(simulacion==null || simulacion.compareTo(BigDecimal.ZERO)==0){
+            if (simulacion == null || simulacion.compareTo(BigDecimal.ZERO) == 0) {
                 FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_WARN, 
-                                "Seleccione Simulación " , ""));
+                        new FacesMessage(FacesMessage.SEVERITY_WARN,
+                                "Seleccione Simulación ", ""));
                 context.addCallbackParam("error", true);
                 return;
             }
@@ -388,7 +397,7 @@ public class RegistrarExpedienteController implements Serializable {
             tramite.setNumeDiasTrm(producto.getIdenProcPrc().getTiemDemoPrc().toBigInteger());
             Calendar nac = Calendar.getInstance();
             nac.setTime(tramite.getFechIngrTrm());
-            nac.set(Calendar.DAY_OF_MONTH, nac.get(Calendar.DAY_OF_MONTH)+tramite.getNumeDiasTrm().intValue());
+            nac.set(Calendar.DAY_OF_MONTH, nac.get(Calendar.DAY_OF_MONTH) + tramite.getNumeDiasTrm().intValue());
             //tramite.setFechVencTrm(tramite.getFechIngrTrm().);
         }
         if (esPrestamo) {
@@ -448,7 +457,7 @@ public class RegistrarExpedienteController implements Serializable {
                 maximoDescuento = BigDecimal.ZERO;
             }
             if (this.socio.getMaePersona().getCodiPerpPer() != null) {
-                simulaciones=new ArrayList<>();
+                simulaciones = new ArrayList<>();
                 MaePersona aux = this.socio.getMaePersona().getCodiPerpPer();
                 if (aux.getFechFallPer() != null) {
                     if (this.socio.getMaePersona().getGradParePer() == 1) {

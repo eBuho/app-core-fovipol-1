@@ -35,7 +35,7 @@
                     </div>
                 </div> 
                 <div class="col-md-12" style="margin-bottom: 10px;">
-                    
+
                 </div>
                 <div class="table-scrollable">
                     <p:dataTable value="#{cc.socios}" id="tablaSocio" var="socio"  
@@ -76,7 +76,10 @@
                                  selectionMode="single" selection="#{cc.attrs.socio}" 
                                  filteredValue="#{cc.listaBusqueda}"
                                  rowKey="#{socio.codiPersPer}" emptyMessage="No se encontraron socios con el criterio ingresado">
-                        <p:ajax event="rowSelect" update="#{cc.attrs.actualizar}"/>
+                        <p:ajax event="rowSelect" update="#{cc.attrs.actualizar}"
+                                onstart="PF('enProcesoDialog').show()" 
+                                onsuccess="PF('enProcesoDialog').hide()"
+                                />
                         <p:ajax event="rowUnselect" update="#{cc.attrs.actualizar}"/>
                         <p:column filterBy="#{socio.maePersona.nombCompPer}"
                                   filterMatchMode="contains"
@@ -134,5 +137,8 @@
                 </div>
             </p:tab>
         </p:tabView>
+        <p:dialog widgetVar="enProcesoDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <p:graphicImage name="/images/ajax/ajaxloadingbar.gif" />
+        </p:dialog>
     </cc:implementation>
 </html>
