@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.gob.fovipol.sifo.model.tramite;
+package pe.gob.fovipol.sifo.model.recuperaciones;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -20,6 +22,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import pe.gob.fovipol.sifo.model.maestros.MaeSocio;
 
 /**
  *
@@ -44,6 +47,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "RecAporte.findByNombSopeAud", query = "SELECT r FROM RecAporte r WHERE r.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "RecAporte.findByFlagEstaApo", query = "SELECT r FROM RecAporte r WHERE r.flagEstaApo = :flagEstaApo")})
 public class RecAporte implements Serializable {
+    @JoinColumn(name = "IDEN_PERS_PER", referencedColumnName = "IDEN_PERS_PER")
+    @ManyToOne
+    private MaeSocio idenPersPer;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -225,6 +231,14 @@ public class RecAporte implements Serializable {
     @Override
     public String toString() {
         return "pe.gob.fovipol.sifo.model.tramite.RecAporte[ idenAporApo=" + idenAporApo + " ]";
+    }
+
+    public MaeSocio getIdenPersPer() {
+        return idenPersPer;
+    }
+
+    public void setIdenPersPer(MaeSocio idenPersPer) {
+        this.idenPersPer = idenPersPer;
     }
     
 }

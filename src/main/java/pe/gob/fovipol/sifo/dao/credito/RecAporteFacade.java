@@ -8,7 +8,7 @@ package pe.gob.fovipol.sifo.dao.credito;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pe.gob.fovipol.sifo.model.tramite.RecAporte;
+import pe.gob.fovipol.sifo.model.recuperaciones.RecAporte;
 
 /**
  *

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +26,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
+import pe.gob.fovipol.sifo.model.recuperaciones.RecAporte;
 
 /**
  *
@@ -63,6 +66,8 @@ import pe.gob.fovipol.sifo.model.credito.CrdSimulacion;
     @NamedQuery(name = "MaeSocio.findByNombSopeAud", query = "SELECT m FROM MaeSocio m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeSocio.findByFlagEstaSoc", query = "SELECT m FROM MaeSocio m WHERE m.flagEstaSoc = :flagEstaSoc")})
 public class MaeSocio implements Serializable {
+    @OneToMany(mappedBy = "idenPersPer")
+    private List<RecAporte> recAporteList;
     @OneToMany(mappedBy = "idenPersPer")
     private Collection<CrdSimulacion> crdSimulacionCollection;
     private static final long serialVersionUID = 1L;
@@ -407,6 +412,16 @@ public class MaeSocio implements Serializable {
 
     public void setCrdSimulacionCollection(Collection<CrdSimulacion> crdSimulacionCollection) {
         this.crdSimulacionCollection = crdSimulacionCollection;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<RecAporte> getRecAporteList() {
+        return recAporteList;
+    }
+
+    public void setRecAporteList(List<RecAporte> recAporteList) {
+        this.recAporteList = recAporteList;
     }
     
 }

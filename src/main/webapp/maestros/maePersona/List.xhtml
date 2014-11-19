@@ -23,7 +23,7 @@
                         <h:form id="MaePersonaListForm">
                             <p:dataTable id="datalist" value="#{maePersonaController.items}" var="item"
                                          selectionMode="single" selection="#{maePersonaController.selectedPersona}"
-                                         paginator="true"
+                                         paginator="true" lazy="true"
                                          paginatorPosition="top"
                                          rowKey="#{item.codiPersPer}"
                                          rows="5" resizableColumns="true"

@@ -21,6 +21,7 @@ import pe.gob.fovipol.sifo.dao.credito.CrdSimulacionFacade;
 import pe.gob.fovipol.sifo.dao.MaeEntidaddetFacade;
 import pe.gob.fovipol.sifo.dao.MaeProductoFacade;
 import pe.gob.fovipol.sifo.dao.credito.CrdSimulaSeguroFacade;
+import pe.gob.fovipol.sifo.dao.recuperaciones.RecAporteFacade;
 import pe.gob.fovipol.sifo.model.credito.CrdSimulaSeguro;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidad;
 import pe.gob.fovipol.sifo.model.maestros.MaeEntidaddet;
@@ -66,6 +67,8 @@ public class SimulacionController implements Serializable {
     private BigDecimal gastosAdministrativos;
     private BigDecimal nivelacion;
     private List<String> polizasElegidas;
+    private MaeEntidaddet lineaProducto;
+    private List<MaeEntidaddet> lineasProducto;
     public boolean mostrarCabecera;
     @EJB
     private MaeProductoFacade ejbProductoFacade;
@@ -79,9 +82,12 @@ public class SimulacionController implements Serializable {
     private CrdSimulacionFacade ejbSimulacionFacade;
     @EJB
     private CrdSimulaSeguroFacade ejbSimulaSeguroFacade;
+    @EJB
+    private RecAporteFacade ejbAporteFacade;
 
     @PostConstruct
-    public void init() {        
+    public void init() {    
+        lineasProducto=ejbEntidaddetFacade.findDetalleActivo(new MaeEntidad(Constantes.CODI_LINE_PRD));
         mostrarCabecera = true;
         String idSimulacion = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap()
@@ -118,7 +124,10 @@ public class SimulacionController implements Serializable {
         simulacion.setDeudOtraSim(BigDecimal.ZERO);
         simulacion.setOtroIngrSim(BigDecimal.ZERO);
     }
-
+    
+    public void cargarProductos(){
+        productos=ejbProductoFacade.findByLinea(lineaProducto.getSecuEntiDet());
+    }
     public void cargarSeguros(BigDecimal idSimulacion) {
         List<CrdSimulaSeguro> simulaSeguro = ejbSimulaSeguroFacade.findBySimulacion(simulacion);
         polizasElegidas = new ArrayList<>();
@@ -360,6 +369,7 @@ public class SimulacionController implements Serializable {
             this.socio = socio;
             calcularEdad();
             detalle = ejbEntidaddetFacade.findIdenEntiDet(socio.getEntiPagoSoc(), Constantes.ENTIDAD_PAGOS_SOCIO);
+            totalAporte=ejbAporteFacade.totalAportesSocio(socio);
             porcDescuento = detalle.getValoDecuDet();
             if (detalle.getValoDecuDet().compareTo(new BigDecimal(30)) == 0) {
                 tipoSocio = 2;
@@ -374,10 +384,7 @@ public class SimulacionController implements Serializable {
     /**
      * @return the productos
      */
-    public List<MaeProducto> getProductos() {
-        if (productos == null) {
-            productos = ejbProductoFacade.findAll();
-        }
+    public List<MaeProducto> getProductos() {        
         return productos;
     }
 
@@ -802,5 +809,33 @@ public class SimulacionController implements Serializable {
      */
     public void setNivelacion(BigDecimal nivelacion) {
         this.nivelacion = nivelacion;
+    }
+
+    /**
+     * @return the lineaProducto
+     */
+    public MaeEntidaddet getLineaProducto() {
+        return lineaProducto;
+    }
+
+    /**
+     * @param lineaProducto the lineaProducto to set
+     */
+    public void setLineaProducto(MaeEntidaddet lineaProducto) {
+        this.lineaProducto = lineaProducto;
+    }
+
+    /**
+     * @return the lineasProducto
+     */
+    public List<MaeEntidaddet> getLineasProducto() {
+        return lineasProducto;
+    }
+
+    /**
+     * @param lineasProducto the lineasProducto to set
+     */
+    public void setLineasProducto(List<MaeEntidaddet> lineasProducto) {
+        this.lineasProducto = lineasProducto;
     }
 }
