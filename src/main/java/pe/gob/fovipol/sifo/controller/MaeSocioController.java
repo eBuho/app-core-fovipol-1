@@ -122,18 +122,15 @@ public class MaeSocioController implements Serializable {
         return getFacade().findAll();
     }
 
-    /**
-     * @return the listaTramites
-     */
     public List<TrmTramite> getListaTramites() {
-        listaTramites = ejbFacade.findTramitesSocio(selected);
-        listaAportes = ejbFacade.findAportesSocio(selected);
+        //System.out.println(selected);
+        if (selected != null) {
+            listaTramites = ejbFacade.findTramitesSocio(selected);
+            listaAportes = ejbFacade.findAportesSocio(selected);
+        }
         return listaTramites;
     }
 
-    /**
-     * @param listaTramites the listaTramites to set
-     */
     public void setListaTramites(List<TrmTramite> listaTramites) {
         this.listaTramites = listaTramites;
     }
