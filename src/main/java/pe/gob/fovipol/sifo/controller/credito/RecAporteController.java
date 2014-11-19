@@ -3,7 +3,7 @@ package pe.gob.fovipol.sifo.controller.credito;
 import pe.gob.fovipol.sifo.model.recuperaciones.RecAporte;
 import pe.gob.fovipol.sifo.controller.credito.util.JsfUtil;
 import pe.gob.fovipol.sifo.controller.credito.util.JsfUtil.PersistAction;
-import pe.gob.fovipol.sifo.dao.credito.RecAporteFacade;
+import pe.gob.fovipol.sifo.dao.recuperaciones.RecAporteFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,7 +24,7 @@ import javax.faces.convert.FacesConverter;
 public class RecAporteController implements Serializable {
 
     @EJB
-    private pe.gob.fovipol.sifo.dao.credito.RecAporteFacade ejbFacade;
+    private pe.gob.fovipol.sifo.dao.recuperaciones.RecAporteFacade ejbFacade;
     private List<RecAporte> items = null;
     private RecAporte selected;
 

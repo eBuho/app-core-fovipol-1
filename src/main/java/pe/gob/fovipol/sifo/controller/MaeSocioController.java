@@ -18,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import pe.gob.fovipol.sifo.model.recuperaciones.RecAporte;
 import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 @ManagedBean(name = "maeSocioController")
@@ -29,6 +30,7 @@ public class MaeSocioController implements Serializable {
     private List<MaeSocio> items = null;
     private MaeSocio selected = new MaeSocio();
     private List<TrmTramite> listaTramites;
+    private List<RecAporte> listaAportes;
 
     public MaeSocioController() {
     }
@@ -125,6 +127,7 @@ public class MaeSocioController implements Serializable {
      */
     public List<TrmTramite> getListaTramites() {
         listaTramites = ejbFacade.findTramitesSocio(selected);
+        listaAportes = ejbFacade.findAportesSocio(selected);
         return listaTramites;
     }
 
@@ -133,6 +136,20 @@ public class MaeSocioController implements Serializable {
      */
     public void setListaTramites(List<TrmTramite> listaTramites) {
         this.listaTramites = listaTramites;
+    }
+
+    /**
+     * @return the listaAportes
+     */
+    public List<RecAporte> getListaAportes() {
+        return listaAportes;
+    }
+
+    /**
+     * @param listaAportes the listaAportes to set
+     */
+    public void setListaAportes(List<RecAporte> listaAportes) {
+        this.listaAportes = listaAportes;
     }
 
     @FacesConverter(forClass = MaeSocio.class)

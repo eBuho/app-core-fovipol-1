@@ -14,7 +14,7 @@
         <ui:define name="body">
 
             <h:form id="formSocio">  
-                <p:accordionPanel>
+                <p:accordionPanel cache="true">
                     <p:tab title="Buscar Socio">
                         <h:form id="formBusqueda">    
                             <comp:consultaIntegralSocio 
@@ -23,181 +23,215 @@
                             </comp:consultaIntegralSocio>
                         </h:form>
                     </p:tab>
-                    <p:tab title="Información del socio">
-
-
-                        <p:tabView>
+                    <p:tab id="tabViewSocio" title="Información del socio">
+                        <p:tabView cache="false">
                             <p:tab title="Expedientes del socio #{maeSocioController.selected.maePersona.nombCompPer}">
-                                <h:form id="formTramite">
-                                    <p:dataTable 
-                                        id="dataTramites"
-                                        value="#{maeSocioController.listaTramites}" 
-                                        var="item"
-                                        rendered="#{maeSocioController.listaTramites!=null}"
-                                        selectionMode="single" selection="#{trmTramiteController.selected}"
-                                        paginator="true" paginatorPosition="top"
-                                        rowKey="#{item.idenExpeTrm}"
-                                        rows="5"
-                                        rowsPerPageTemplate="5, 10,20,30,40,50"
-                                        emptyMessage="No se encontraron registros"
-                                        >
-                                        <p:ajax event="rowSelect"   
-                                                listener="#{crdCreditoCuotaController.getItemsByTramite(trmTramiteController.selected)}"
-                                                update="@parent:dataCrono"
-                                                onstart="PF('procesoDialog').show()" 
-                                                onsuccess="PF('procesoDialog').hide()"
-                                                />
 
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="#{tramite.ListTrmTramiteTitle_idenExpeTrm}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.idenExpeTrm}"/>
-                                        </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="#{tramite.ListTrmTramiteTitle_numeGuiaTrm}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.numeGuiaTrm}"/>
-                                        </p:column>
-                                        <p:column rendered="false">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{tramite.ListTrmTramiteTitle_tipoTramTrm}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.tipoTramTrm}"/>
-                                        </p:column>
+                                <p:dataTable id="dataTramites"
+                                             value="#{maeSocioController.listaTramites}" 
+                                             var="item"
+                                             rendered="#{maeSocioController.listaTramites!=null}"
+                                             selectionMode="single" selection="#{trmTramiteController.selected}"
+                                             paginator="true" paginatorPosition="top"
+                                             rowKey="#{item.idenExpeTrm}"
+                                             rows="5"
+                                             rowsPerPageTemplate="5, 10,20,30,40,50"
+                                             emptyMessage="No se encontraron registros"
+                                             >
+                                    <p:ajax event="rowSelect"   
+                                            listener="#{crdCreditoCuotaController.getItemsByTramite(trmTramiteController.selected)}"
+                                            update="@parent:dataCrono"
+                                            onstart="PF('procesoDialog').show()" 
+                                            onsuccess="PF('procesoDialog').hide()"
+                                            />
 
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="#{tramite.ListTrmTramiteTitle_codiExpeTrm}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.codiExpeTrm}"/>
-                                        </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmTramiteTitle_idenExpeTrm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idenExpeTrm}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmTramiteTitle_numeGuiaTrm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.numeGuiaTrm}"/>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmTramiteTitle_tipoTramTrm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.tipoTramTrm}"/>
+                                    </p:column>
 
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="#{tramite.ListTrmTramiteTitle_nombTramTrm}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.nombTramTrm}"/>
-                                        </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmTramiteTitle_codiExpeTrm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.codiExpeTrm}"/>
+                                    </p:column>
 
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="#{tramite.ListTrmTramiteTitle_descAsunTrm}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.descAsunTrm}"/>
-                                        </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmTramiteTitle_nombTramTrm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nombTramTrm}"/>
+                                    </p:column>
 
-                                        <p:column style="text-align: center">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{tramite.ListTrmTramiteTitle_numeDiasTrm}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.numeDiasTrm}"/>
-                                        </p:column>
-                                        <p:column rendered="false">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{tramite.ListTrmTramiteTitle_fechVencTrm}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.fechVencTrm}">
-                                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                            </h:outputText>
-                                        </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmTramiteTitle_descAsunTrm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.descAsunTrm}"/>
+                                    </p:column>
 
-                                    </p:dataTable>
+                                    <p:column style="text-align: center">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmTramiteTitle_numeDiasTrm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.numeDiasTrm}"/>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{tramite.ListTrmTramiteTitle_fechVencTrm}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechVencTrm}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
 
-                                    <p:outputLabel value="Cronograma de pagos"/>
+                                </p:dataTable>
 
-                                    <p:dataTable id="dataCrono" value="#{crdCreditoCuotaController.itemsByTramite}" var="cuota"
-                                                 selectionMode="single" selection="#{crdCreditoCuotaController.selected}"
-                                                 paginator="true" paginatorPosition="top"
-                                                 rowKey="#{cuota.crdCreditoCuotaPK}"
-                                                 rows="5" 
-                                                 rowsPerPageTemplate="5,10,20,30,40,50"
-                                                 emptyMessage="No se encontraron registros"
-                                                 >
+                                <p:dataTable id="dataCrono" value="#{crdCreditoCuotaController.itemsByTramite}" var="cuota"
+                                             selectionMode="single" selection="#{crdCreditoCuotaController.selected}"
+                                             paginator="true" paginatorPosition="top"
+                                             rowKey="#{cuota.crdCreditoCuotaPK}"
+                                             rows="5" 
+                                             rowsPerPageTemplate="5,10,20,30,40,50"
+                                             emptyMessage="No se encontraron registros"
+                                             >
+                                    <f:facet name="header">
+                                        Cronograma de pagos del expediente
+                                    </f:facet>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_crdCreditoCuotaPK_secuCuotCuo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{cuota.crdCreditoCuotaPK.secuCuotCuo}"/>
+                                    </p:column>
+                                    <p:column style="text-align: center">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_numeCuotCuo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{cuota.numeCuotCuo}"/>
+                                    </p:column>
+                                    <p:column style="text-align: right">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_saldInicCuo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{cuota.saldInicCuo}">
+                                            <f:convertNumber 
+                                                maxFractionDigits="2"
+                                                minFractionDigits="2"
+                                                currencySymbol="S/. " 
+                                                type="currency"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column style="text-align: center">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_tasaPteaCuo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{cuota.tasaPteaCuo}">
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column style="text-align: right">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_impoCuotCuo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{cuota.impoCuotCuo}">
+                                            <f:convertNumber 
+                                                maxFractionDigits="2"
+                                                minFractionDigits="2"
+                                                currencySymbol="S/. " 
+                                                type="currency"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column style="text-align: center">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_fechPagoCuo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{cuota.fechPagoCuo}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column style="text-align: center">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_fechUddpCuo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{cuota.fechUddpCuo}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_codiSituCuo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{cuota.codiSituCuo}"/>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_flagEstaCuo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{cuota.flagEstaCuo}"/>
+                                    </p:column>
+                                    <p:column rendered="false">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_crdCredito}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{cuota.crdCredito}"/>
+                                    </p:column>
 
-                                        <p:column rendered="false">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_crdCreditoCuotaPK_secuCuotCuo}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{cuota.crdCreditoCuotaPK.secuCuotCuo}"/>
-                                        </p:column>
-                                        <p:column style="text-align: center">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_numeCuotCuo}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{cuota.numeCuotCuo}"/>
-                                        </p:column>
-                                        <p:column style="text-align: right">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_saldInicCuo}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{cuota.saldInicCuo}">
-                                                <f:convertNumber 
-                                                    maxFractionDigits="2"
-                                                    minFractionDigits="2"
-                                                    currencySymbol="S/. " 
-                                                    type="currency"/>
-                                            </h:outputText>
-                                        </p:column>
-                                        <p:column style="text-align: center">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_tasaPteaCuo}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{cuota.tasaPteaCuo}">
-                                            </h:outputText>
-                                        </p:column>
-                                        <p:column style="text-align: right">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_impoCuotCuo}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{cuota.impoCuotCuo}">
-                                                <f:convertNumber 
-                                                    maxFractionDigits="2"
-                                                    minFractionDigits="2"
-                                                    currencySymbol="S/. " 
-                                                    type="currency"/>
-                                            </h:outputText>
-                                        </p:column>
-                                        <p:column style="text-align: center">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_fechPagoCuo}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{cuota.fechPagoCuo}">
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </p:column>
-                                        <p:column style="text-align: center">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_fechUddpCuo}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{cuota.fechUddpCuo}">
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </p:column>
-                                        <p:column rendered="false">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_codiSituCuo}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{cuota.codiSituCuo}"/>
-                                        </p:column>
-                                        <p:column rendered="false">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_flagEstaCuo}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{cuota.flagEstaCuo}"/>
-                                        </p:column>
-                                        <p:column rendered="false">
-                                            <f:facet name="header">
-                                                <h:outputText value="#{consulta.ListCrdCreditoCuotaTitle_crdCredito}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{cuota.crdCredito}"/>
-                                        </p:column>
+                                </p:dataTable>
 
-                                    </p:dataTable>
-                                </h:form>
                             </p:tab>
                             <p:tab title="Aportes">
+                                <f:view>
+                                    <h:form>
+                                        <p:dataTable value="#{maeSocioController.listaAportes}" var="item">
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Id."/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.idenAporApo}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Año"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nanoCobrApo}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Mes"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nmesCobrApo}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Importe"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.impoCobrApo}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Numero Aporte"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.numeAporApo}"/>
+                                            </p:column>
+                                            
+                                        </p:dataTable>
+                                    </h:form>
+                                </f:view>
 
                             </p:tab>
                         </p:tabView>
