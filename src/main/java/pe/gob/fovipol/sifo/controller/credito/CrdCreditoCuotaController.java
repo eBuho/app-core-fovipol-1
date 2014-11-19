@@ -87,9 +87,9 @@ public class CrdCreditoCuotaController implements Serializable {
     }
     
     public List<CrdCreditoCuota> getItemsByTramite(TrmTramite tramite) {
-        if (itemsByTramite == null) {
+        //if (itemsByTramite == null) {
             itemsByTramite = getFacade().getItemsByTramite(tramite);
-        }
+        //}
         return itemsByTramite;
     }
 
