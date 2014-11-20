@@ -161,7 +161,17 @@ public class RegistrarExpedienteController implements Serializable {
         //cargarCanalesCobranza();
         //beneficiaria = false;
     }
-
+    
+    public boolean calcularValidezSimulacion(){
+        int diasValido=producto.getDiasValiPrd();
+        Calendar nac = Calendar.getInstance();
+        nac.setTime(tramite.getIdenSimuSim().getFechCreaAud());        
+        nac.set(Calendar.DAY_OF_MONTH, nac.get(Calendar.DAY_OF_MONTH)+diasValido);
+        nac.set(Calendar.HOUR_OF_DAY, 23);
+        nac.set(Calendar.MINUTE, 59);
+        Date fechaLimite=nac.getTime();
+        return fechaLimite.after(new Date());
+    }
     public void cargarProductos(){
         productos=ejbProductoFacade.findByLinea(lineaProducto.getSecuEntiDet());
     }
@@ -379,6 +389,13 @@ public class RegistrarExpedienteController implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_WARN,
                                 "Seleccione Simulación ", ""));
+                context.addCallbackParam("error", true);
+                return;
+            }
+            if(!calcularValidezSimulacion()){
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_WARN,
+                                "La Simulación seleccionada no puede ser usada, porque no tiene validez", ""));
                 context.addCallbackParam("error", true);
                 return;
             }

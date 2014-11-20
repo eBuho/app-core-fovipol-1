@@ -6,9 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
-
     <ui:composition>
-
         <p:dialog id="MaeAreaEditDlg" widgetVar="MaeAreaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMaeAreaTitle}">
             <h:form id="MaeAreaEditForm">
                 <h:panelGroup id="display">
@@ -28,8 +26,8 @@
                         <p:inputText id="numeAnexAre" value="#{maeAreaController.selected.numeAnexAre}" title="#{bundle.EditMaeAreaTitle_numeAnexAre}" />
                         <p:outputLabel value="#{bundle.EditMaeAreaLabel_flagEstaAre}" for="flagEstaAre" />
                         <p:selectOneMenu id="flagEstaAre" value="#{maeAreaController.selected.flagEstaAre}">
-                            <f:selectItem itemLabel="Activo" itemValue="1"/>
-                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                            <f:selectItem itemLabel="#{constantes.ESTADO_ACTIVO}" itemValue="#{constantes.VALOR_ESTADO_ACTIVO}"/>
+                            <f:selectItem itemLabel="#{constantes.ESTADO_INACTIVO}" itemValue="#{constantes.VALOR_ESTADO_INACTIVO}"/>
                         </p:selectOneMenu>                        
                         <p:outputLabel value="#{bundle.EditMaeAreaLabel_codiArepAre}" for="codiArepAre" />
                         <p:selectOneMenu id="codiArepAre" value="#{maeAreaController.selected.codiArepAre}" >
@@ -51,6 +49,5 @@
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
     </ui:composition>
 </html>

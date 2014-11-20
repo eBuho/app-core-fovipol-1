@@ -59,6 +59,12 @@ import pe.gob.fovipol.sifo.model.maestros.MaeProceso;
     @NamedQuery(name = "MaeProducto.findByNombSopeAud", query = "SELECT m FROM MaeProducto m WHERE m.nombSopeAud = :nombSopeAud"),
     @NamedQuery(name = "MaeProducto.findByFlagEstaPrd", query = "SELECT m FROM MaeProducto m WHERE m.flagEstaPrd = :flagEstaPrd")})
 public class MaeProducto implements Serializable {
+    @Column(name = "DIAS_VALI_PRD")
+    private Integer diasValiPrd;
+    @Column(name = "TASA_PREM_PRD")
+    private BigDecimal tasaPremPrd;
+    @Column(name = "TASA_CAST_PRD")
+    private BigDecimal tasaCastPrd;
     @Column(name = "AUTO_CDOB_PRD")
     private Short autoCdobPrd;
     @Column(name = "MONT_COBD_PRD")
@@ -91,7 +97,7 @@ public class MaeProducto implements Serializable {
     private BigDecimal tasaGadmPrd;
     @Column(name = "MONT_DEUD_PRD")
     private BigDecimal montDeudPrd;
-    @Size(max = 300)
+    @Size(max = 2000)
     @Column(name = "DESC_REQU_PRD")
     private String descRequPrd;
     @Size(max = 120)
@@ -359,6 +365,30 @@ public class MaeProducto implements Serializable {
 
     public void setAutoCdobPrd(Short autoCdobPrd) {
         this.autoCdobPrd = autoCdobPrd;
+    }
+
+    public Integer getDiasValiPrd() {
+        return diasValiPrd;
+    }
+
+    public void setDiasValiPrd(Integer diasValiPrd) {
+        this.diasValiPrd = diasValiPrd;
+    }
+
+    public BigDecimal getTasaPremPrd() {
+        return tasaPremPrd;
+    }
+
+    public void setTasaPremPrd(BigDecimal tasaPremPrd) {
+        this.tasaPremPrd = tasaPremPrd;
+    }
+
+    public BigDecimal getTasaCastPrd() {
+        return tasaCastPrd;
+    }
+
+    public void setTasaCastPrd(BigDecimal tasaCastPrd) {
+        this.tasaCastPrd = tasaCastPrd;
     }
     
 }

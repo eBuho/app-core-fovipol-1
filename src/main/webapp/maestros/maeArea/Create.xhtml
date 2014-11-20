@@ -28,8 +28,8 @@
                         <p:inputText id="numeAnexAre" value="#{maeAreaController.selected.numeAnexAre}" title="#{bundle.CreateMaeAreaTitle_numeAnexAre}" />
                         <p:outputLabel value="#{bundle.CreateMaeAreaLabel_flagEstaAre}" for="flagEstaAre" />
                         <p:selectOneMenu id="flagEstaAre" value="#{maeAreaController.selected.flagEstaAre}" disabled="true">
-                            <f:selectItem itemLabel="Activo" itemValue="1"/>
-                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                            <f:selectItem itemLabel="#{constantes.ESTADO_ACTIVO}" itemValue="#{constantes.VALOR_ESTADO_ACTIVO}"/>
+                            <f:selectItem itemLabel="#{constantes.ESTADO_INACTIVO}" itemValue="#{constantes.VALOR_ESTADO_INACTIVO}"/>
                         </p:selectOneMenu>                        
                         <p:outputLabel value="#{bundle.CreateMaeAreaLabel_codiArepAre}" for="codiArepAre" />
                         <p:selectOneMenu id="codiArepAre" value="#{maeAreaController.selected.codiArepAre}" >

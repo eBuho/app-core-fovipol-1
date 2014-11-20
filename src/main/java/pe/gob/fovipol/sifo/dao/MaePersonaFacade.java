@@ -42,15 +42,6 @@ public class MaePersonaFacade extends AbstractFacade<MaePersona> {
             id=id.add(new BigDecimal(1));
         return id;
     }
-
-    @Override
-    public List<MaePersona> findAll() {
-        String sql = "select d from MaePersona d";
-        Query query = em.createQuery(sql);
-        query.setFirstResult(5);
-        query.setMaxResults(5);
-        return query.getResultList();
-    }
     
     public List<MaePersona> findFamilia(MaePersona padre) {
         List<MaePersona> lista = null;

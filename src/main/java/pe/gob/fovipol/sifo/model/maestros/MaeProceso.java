@@ -7,6 +7,7 @@ package pe.gob.fovipol.sifo.model.maestros;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +30,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import pe.gob.fovipol.sifo.model.tramite.TrmMovimiento;
-import pe.gob.fovipol.sifo.model.tramite.TrmTramite;
 
 /**
  *

@@ -6,9 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
-
     <ui:composition>
-
         <p:dialog id="MaeProductoCreateDlg" widgetVar="MaeProductoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMaeProductoTitle}">
             <h:form id="MaeProductoCreateForm">
                 <h:panelGroup id="display">
@@ -57,13 +55,18 @@
                                            var="idenProcPrcItem" itemLabel="#{idenProcPrcItem.nombProcPrc}"
                                            itemValue="#{idenProcPrcItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="# Días vale Simulación" for="diasValiPrd" />
+                        <p:inputText id="diasValiPrd" value="#{maeProductoController.selected.diasValiPrd}" title="# Días vale Simulación" />
+                        <p:outputLabel value="Tasa Premio" for="tasaPremPrd" />
+                        <p:inputText id="tasaPremPrd" value="#{maeProductoController.selected.tasaPremPrd}" title="Tasa Premio" />
+                        <p:outputLabel value="Tasa Castigo" for="tasaCastPrd" />
+                        <p:inputText id="tasaCastPrd" value="#{maeProductoController.selected.tasaCastPrd}" title="Tasa Castigo" />
+                        
                     </p:panelGrid>
-
                     <p:commandButton actionListener="#{maeProductoController.create}" value="#{bundle.Save}" update="display,:MaeProductoListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaeProductoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaeProductoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
     </ui:composition>
 </html>

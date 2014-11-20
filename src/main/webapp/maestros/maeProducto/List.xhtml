@@ -6,14 +6,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
-
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListMaeProductoTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
             <div class="col-md-12">
                 <div class="portlet box green">
@@ -25,7 +21,6 @@
                     </div>
                     <div class="portlet-body" >
                         <h:form id="MaeProductoListForm">
-
                             <p:dataTable id="datalist" value="#{maeProductoController.items}" var="item"
                                          selectionMode="single" selection="#{maeProductoController.selected}"
                                          paginator="true"
@@ -35,10 +30,8 @@
                                          rows="10"
                                          rowsPerPageTemplate="10,20,30,40,50"
                                          >
-
                                 <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                                 <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
                                 <p:column filterBy="#{item.idenProdPrd}"
                                           filterMatchMode="contains"
                                           sortBy="#{item.idenProdPrd}">
@@ -109,7 +102,9 @@
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListMaeProductoTitle_montDeudPrd}"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.montDeudPrd}"/>
+                                    <h:outputText value="#{item.montDeudPrd}">
+                                        <f:convertNumber groupingUsed="true" minFractionDigits="2"/>
+                                    </h:outputText>
                                 </p:column>
                                 <p:column rendered="false">
                                     <f:facet name="header">

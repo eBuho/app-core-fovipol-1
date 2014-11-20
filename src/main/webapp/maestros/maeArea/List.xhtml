@@ -6,14 +6,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
-
     <ui:composition template="/plantillas/plantilla.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListMaeAreaTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
             <h:form id="MaeAreaListForm">
                 <div class="col-md-12">
@@ -34,10 +30,8 @@
                                              rowsPerPageTemplate="10,20,30,40,50"
                                              emptyMessage="No se encontraron registros"
                                              >
-
                                     <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                                     <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
                                     <p:column filterBy="#{item.codiAreaAre}"
                                               filterMatchMode="contains"
                                               sortBy="#{item.codiAreaAre}">
@@ -60,7 +54,7 @@
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListMaeAreaTitle_tipoAreaAre}"/>
                                         </f:facet>
-                                        <h:outputText value="#{item.tipoAreaAre}"/>
+                                        <comp:entidadDetalle value="#{item.tipoAreaAre}" entidad="#{constantes.ENTIDAD_TIPO_AREA}"/>
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
@@ -124,13 +118,13 @@
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListMaeAreaTitle_codiArepAre}"/>
                                         </f:facet>
-                                        <h:outputText value="#{item.codiArepAre}"/>
+                                        <h:outputText value="#{item.codiArepAre.descAreaAre}"/>
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListMaeAreaTitle_codiMaeSede}"/>
                                         </f:facet>
-                                        <h:outputText value="#{item.codiMaeSede}"/>
+                                        <h:outputText value="#{item.codiMaeSede.descSedeSed}"/>
                                     </p:column>
                                     <f:facet name="header">
                                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{maeAreaController.prepareCreate}" update=":MaeAreaCreateForm" oncomplete="PF('MaeAreaCreateDialog').show()"/>
@@ -150,11 +144,9 @@
                     </div>
                 </div>    
             </h:form>
-
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
-
 </html>

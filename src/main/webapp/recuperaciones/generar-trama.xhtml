@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
+    <ui:composition template="/plantillas/plantilla.xhtml">
+        <ui:define name="title">
+            Generar Trama
+        </ui:define>
+        <ui:define name="cabecera">
+            <script type="text/javascript">
+                function mostrarFecha() {
+                    if (jQuery().datepicker) {
+                        $('.date-picker').datepicker({
+                            autoclose: true,
+                            format: "mm-yyyy",
+                            viewMode: "months",
+                            minViewMode: "months",
+                            language: "es"
+                        });
+                    }
+                }
+            </script>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="form-horizontal">
+                <div class="col-md-12">
+                    <div class="portlet box green" style="border: none">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-cogs"></i>Generar Trama
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                        Seleccione Mes </label>
+                                    <div class="col-md-8">
+                                        <div class="input-group date date-picker">
+                                            <h:inputText styleClass="form-control"
+                                                         value="#{generarTramaController.fecha}">
+                                            </h:inputText>
+                                            <span class="input-group-btn">
+                                                <button class="btn default botonNormal" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </h:form>
+        </ui:define>
+        <ui:define name="jsFuncion">
+            mostrarFecha();
+        </ui:define>
+    </ui:composition>
+</html>

@@ -6,9 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/componente">
-
     <ui:composition>
-
         <p:dialog id="MaeProductoEditDlg" widgetVar="MaeProductoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMaeProductoTitle}">
             <h:form id="MaeProductoEditForm">
                 <h:panelGroup id="display">
@@ -39,42 +37,44 @@
                         <p:outputLabel value="#{bundle.EditMaeProductoLabel_montDeudPrd}" for="montDeudPrd" />
                         <p:inputText id="montDeudPrd" value="#{maeProductoController.selected.montDeudPrd}" title="#{bundle.EditMaeProductoTitle_montDeudPrd}" />
                         <p:outputLabel value="#{bundle.EditMaeProductoLabel_autoCdobPrd}" for="autoCdobPrd" />
-                        <p:inputText id="autoCdobPrd" value="#{maeProductoController.selected.autoCdobPrd}" title="#{bundle.EditMaeProductoTitle_autoCdobPrd}" required="true" requiredMessage="#{bundle.EditMaeProductoRequiredMessage_autoCdobPrd}"/>
-                        
+                        <p:inputText id="autoCdobPrd" value="#{maeProductoController.selected.autoCdobPrd}" title="#{bundle.EditMaeProductoTitle_autoCdobPrd}" required="true" requiredMessage="#{bundle.EditMaeProductoRequiredMessage_autoCdobPrd}"/>                        
                         <p:outputLabel value="#{bundle.EditMaeProductoLabel_idenProcPrc}" for="idenProcPrc" />
                         <p:selectOneMenu id="idenProcPrc" value="#{maeProductoController.selected.idenProcPrc}" 
-                                             style=" width: 450px">
-                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                                <f:selectItems value="#{maeProcesoController.itemsAvailableSelectOne}"
-                                               var="idenProcPrcItem" itemLabel="#{idenProcPrcItem.nombProcPrc}"
-                                               itemValue="#{idenProcPrcItem}"/>
-                            </p:selectOneMenu>
-                        
+                                         style=" width: 450px">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{maeProcesoController.itemsAvailableSelectOne}"
+                                           var="idenProcPrcItem" itemLabel="#{idenProcPrcItem.nombProcPrc}"
+                                           itemValue="#{idenProcPrcItem}"/>
+                        </p:selectOneMenu>                        
                         <p:outputLabel value="#{bundle.EditMaeProductoLabel_formCalcPrd}" for="formCalcPrd" />
                         <p:inputText id="formCalcPrd" value="#{maeProductoController.selected.formCalcPrd}" title="#{bundle.EditMaeProductoTitle_formCalcPrd}" />
+                        <p:outputLabel value="Moneda" for="codiMoneCrd" />
+                        <p:selectOneMenu value="#{maeProductoController.selected.codiMoneCrd}" id="codiMoneCrd">
+                            <f:selectItems value="#{maeProductoController.monedas}" var="moneda" 
+                                           itemValue="#{moneda.secuEntiDet}" itemLabel="#{moneda.valoCaduDet}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="# Días vale Simulación" for="diasValiPrd" />
+                        <p:inputText id="diasValiPrd" value="#{maeProductoController.selected.diasValiPrd}" title="# Días vale Simulación" />
+                        <p:outputLabel value="Tasa Premio" for="tasaPremPrd" />
+                        <p:inputText id="tasaPremPrd" value="#{maeProductoController.selected.tasaPremPrd}" title="Tasa Premio" />
+                        <p:outputLabel value="Tasa Castigo" for="tasaCastPrd" />
+                        <p:inputText id="tasaCastPrd" value="#{maeProductoController.selected.tasaCastPrd}" title="Tasa Castigo" />
                         <p:outputLabel value="#{bundle.EditMaeProductoLabel_flagEstaPrd}" for="flagEstaPrd" />
                         <p:selectOneMenu id="flagEstaPrd" value="#{maeProductoController.selected.flagEstaPrd}"
                                          style=" width: 100px">
                             <f:selectItem itemLabel="Activo" itemValue="1"/>
                             <f:selectItem itemLabel="Inactivo" itemValue="0"/>
                         </p:selectOneMenu> 
-                        <p:outputLabel value="Moneda" for="codiMoneCrd" />
-                        <p:selectOneMenu value="#{maeProductoController.selected.codiMoneCrd}" id="codiMoneCrd">
-                            <f:selectItems value="#{maeProductoController.monedas}" var="moneda" 
-                                           itemValue="#{moneda.secuEntiDet}" itemLabel="#{moneda.valoCaduDet}"/>
-                        </p:selectOneMenu> 
-                        
                     </p:panelGrid>
                     <p:panelGrid columns="6" rendered="#{maeProductoController.selected != null}">
                         <p:column>
                             <p:outputLabel value="#{bundle.EditMaeProductoLabel_descRequPrd}" for="descRequPrd"/>
                         </p:column>
                         <p:column colspan="5">
-                            <p:inputTextarea style="resize: none"  autoResize="false" id="descRequPrd" value="#{maeProductoController.selected.descRequPrd}" title="#{bundle.EditMaeProductoTitle_descRequPrd}"
-                                         cols="100"/>
+                            <p:inputTextarea styleClass="inputLargo"  autoResize="false" id="descRequPrd" value="#{maeProductoController.selected.descRequPrd}" title="#{bundle.EditMaeProductoTitle_descRequPrd}"
+                                             cols="100"/>
                         </p:column>
-                    </p:panelGrid>     
-                    
+                    </p:panelGrid>
                     <p:commandButton actionListener="#{maeProductoController.update}" value="#{bundle.Save}" update="display,:MaeProductoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaeProductoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MaeProductoEditDialog.hide()"/>
                 </h:panelGroup>
